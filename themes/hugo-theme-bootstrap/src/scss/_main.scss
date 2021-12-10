@@ -1,0 +1,14 @@
+main {
+  margin-bottom: 2rem;
+}
+
+.list-group-item {
+  .active {
+    background-color: variable('accent');
+    border: variable('accent');
+  }
+}
+
+.white-space-pre-wrap {
+  white-space: pre-wrap;
+}

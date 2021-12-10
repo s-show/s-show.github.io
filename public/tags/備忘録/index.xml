@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>備忘録 on 閑古鳥ブログ</title>
+    <link>https://example.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/</link>
+    <description>Recent content in 備忘録 on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
+    <lastBuildDate>Fri, 20 Dec 2019 14:39:06 +0000</lastBuildDate><atom:link href="https://example.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AnyCubic i3 Mega S に TMC2208 を導入する</title>
+      <link>https://example.com/posts/2019-12-20/</link>
+      <pubDate>Fri, 20 Dec 2019 14:39:06 +0000</pubDate>
+      
+      <guid>https://example.com/posts/2019-12-20/</guid>
+      <description>前置き AnyCubic 製の AnyCubic Mega S という3Dプリンタを使っていますが、動作中にモーター音に加えて結構な大きさの電子音が鳴ってうるさいので、モータードライバを</description>
+    </item>
+    
+    <item>
+      <title>自作キーボードでLEDが点灯しない時のテスト方法と対処方法</title>
+      <link>https://example.com/posts/2019-07-22/</link>
+      <pubDate>Mon, 22 Jul 2019 14:19:11 +0000</pubDate>
+      
+      <guid>https://example.com/posts/2019-07-22/</guid>
+      <description>salicylic-acid3 さんが作成・販売されている自作キーボードのNaked48LED - 自キ温泉街販売所 - BOOTH とSetta21 - 自キ温泉街販売所 - BOOTH を組み立てた際、</description>
+    </item>
+    
+    <item>
+      <title>AutoHotKeyの解説と自分の設定について</title>
+      <link>https://example.com/posts/2019-06-18/</link>
+      <pubDate>Tue, 18 Jun 2019 11:35:06 +0000</pubDate>
+      
+      <guid>https://example.com/posts/2019-06-18/</guid>
+      <description>前置き 自作キーボードキットのErgoDashを組み立てて日々使っているが、以下のページで紹介されている方法を使って、Raise/Lowerキ</description>
+    </item>
+    
+    <item>
+      <title>Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯</title>
+      <link>https://example.com/posts/2018-03-22/</link>
+      <pubDate>Tue, 22 May 2018 14:34:04 +0000</pubDate>
+      
+      <guid>https://example.com/posts/2018-03-22/</guid>
+      <description>前置き メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メ</description>
+    </item>
+    
+  </channel>
+</rss>
