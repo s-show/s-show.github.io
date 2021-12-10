@@ -2,6 +2,8 @@ baseURL = "https://s-show.github.io/"
 title = "閑古鳥ブログ"
 theme = "hugo-theme-bootstrap"
 copyright = "Copyright © 2021-{year} s-show. All Rights Reserved."
+canonifyurls = true
+publishDir = "docs"
 
 # Multilingual mode
 defaultContentLanguage = "jp"

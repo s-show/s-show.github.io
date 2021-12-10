@@ -29,7 +29,7 @@ dateFormat = "2006-01-02"
 googleAdsense = ""
 
 # math = true # Enable math globally.
-# toc = false # Disable TOC globally.
+ toc = false # Disable TOC globally.
 # breadcrumb = false # Disable breadcrumb
 # diagram = true
 # socialShare = false # disable social network sharing
@@ -82,12 +82,12 @@ viewer = true # Image Viewer
 # Site verification
 [siteVerification]
   google = ""
-  bing = ""
-  baidu = ""
-  baiduUnion = "" # Baidu Union
-  so = ""
-  sogou = ""
-  shenma = ""
+#  bing = ""
+#  baidu = ""
+#  baiduUnion = "" # Baidu Union
+#  so = ""
+#  sogou = ""
+#  shenma = ""
 
 [creativeCommons]
   # by = true # Credit must be given to you, the creator.
