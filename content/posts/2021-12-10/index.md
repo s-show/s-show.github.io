@@ -6,7 +6,9 @@ draft: false
 
 ## 前置き
 
-この記事は [3Dプリンター改造記録 Advent Calendar 2021 - Adventar](https://adventar.org/calendars/6453) の2日目の記事です。1日目の記事は tomorrow56@ガジェット分解(モ2済) さんが執筆されます（本記事の執筆時点でまだ執筆されていないようです）。
+~~この記事は [3Dプリンター改造記録 Advent Calendar 2021 - Adventar](https://adventar.org/calendars/6453) の1日目の記事です。
+
+（最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを務められる予定だった tomorrow56@ガジェット分解(モ2済) さんが公開日を12日に変更されたので、期せずしてトップバッターになりました。）
 
 本アドベントカレンダーは「今年実施した/今年までに実施した3Dプリンターへの改造内容をまとめる記事」なので、今使っている Prusa MK3S+ と Ender3Pro の改造履歴をまとめます。
 
@@ -155,4 +157,4 @@ Ender3
 
 何かを作ることも楽しいですが、改造すること自体も楽しいのが3Dプリンタだと思っていますので、来年も色々やってみる予定です。
 
-次のアドベントカレンダーの執筆は @Ikeji さんです。
+次のアドベントカレンダーの記事は @Ikeji さんの [Ender 3改造記録 | my.remarkbox.com](https://my.remarkbox.com/embed?rb_owner_key=744d04d8-8030-11eb-9594-040140774501&thread_title=Ender%203%E6%94%B9%E9%80%A0%E8%A8%98%E9%8C%B2&thread_uri=https%3A%2F%2Fblog.ikejima.org%2F2021%2F12%2F11%2Fender3.html) です。
