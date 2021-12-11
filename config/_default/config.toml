@@ -51,14 +51,14 @@ pygmentsUseClasses = true
 
 [markup]
   [markup.highlight]
-    anchorLineNos = false
+    anchorLineNos = true
     codeFences = true
     guessSyntax = false
     hl_Lines = ''
     lineAnchors = ''
     lineNoStart = 1
     lineNos = true
-    lineNumbersInTable = true
-    noClasses = true
+    lineNumbersInTable = false
+    noClasses = false
     style = 'github'
     tabWidth = 2

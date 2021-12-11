@@ -1,3 +1,12 @@
+/* 本文用の設定 */
+dt {
+  margin-bottom: 0.2em;
+}
+dd {
+  padding-left: 1em;
+}
+
+/* Amazon商品用ショートコードの設定 */
 .amazon-widget {
 	margin: 2rem 0;
 	max-width: 480px;
