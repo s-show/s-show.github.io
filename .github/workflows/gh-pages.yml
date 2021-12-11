@@ -17,6 +17,14 @@ jobs:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
+      # ブログカード生成のためのローカルAPIサーバを建てるための作業
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install NPM packages
+        run: npm ci
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
