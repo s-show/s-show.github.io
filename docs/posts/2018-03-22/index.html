@@ -1,221 +1,185 @@
-<!doctype html><html lang="jp"
-  >
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯 - 閑古鳥ブログ</title><link rel="apple-touch-icon" href="https://s-show.github.io/images/icons/icon-180x180.png" sizes="180x180">
-<link rel="icon" href="https://s-show.github.io/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://s-show.github.io/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
-<link rel="icon" href="https://s-show.github.io/images/icons/favicon.ico">
-<link rel="manifest" href="https://s-show.github.io/manifest.json">
-<meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯">
-<meta itemprop="description" content="前置き メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メ"><meta itemprop="datePublished" content="2018-05-22T14:34:04+00:00" />
-<meta itemprop="dateModified" content="2018-05-22T14:34:04+00:00" />
-<meta itemprop="wordCount" content="2556">
-<meta itemprop="keywords" content="Mac,備忘録," /><meta property="og:title" content="Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯" />
-<meta property="og:description" content="前置き メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メ" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://s-show.github.io/posts/2018-03-22/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2018-05-22T14:34:04+00:00" />
-<meta property="article:modified_time" content="2018-05-22T14:34:04+00:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯"/>
-<meta name="twitter:description" content="前置き メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メ"/>
-<meta name="robots" content="noindex, nofollow" /><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.057160d6a5de2d3da28f8ef2079e2b1696ec2ec9da834eaec5ec3b0dd604f88c.css" integrity="sha256-BXFg1qXeLT2ij47yB54rFpbsLsnag06uxew7DdYE&#43;Iw=" crossorigin="anonymous">
-<noscript><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.057160d6a5de2d3da28f8ef2079e2b1696ec2ec9da834eaec5ec3b0dd604f88c.css" integrity="sha256-BXFg1qXeLT2ij47yB54rFpbsLsnag06uxew7DdYE&#43;Iw=" crossorigin="anonymous"></noscript></head>
-  <body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button><a class="navbar-brand me-3" href="https://s-show.github.io/">閑古鳥ブログ
-    </a>
-    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
-  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
-  <i class="fas fa-share-alt"></i>
+<!doctype html><html lang=jp>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯 - 閑古鳥ブログ</title><link rel=apple-touch-icon href=https://s-show.github.io/images/icons/icon-180x180.png sizes=180x180>
+<link rel=icon href=https://s-show.github.io/images/icons/icon-32x32.png sizes=32x32 type=image/png>
+<link rel=icon href=https://s-show.github.io/images/icons/icon-16x16.png sizes=16x16 type=image/png>
+<link rel=icon href=https://s-show.github.io/images/icons/favicon.ico>
+<link rel=manifest href=https://s-show.github.io/manifest.json>
+<meta name=keywords content>
+<meta name=description content><meta itemprop=name content="Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯">
+<meta itemprop=description content="前置き メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メ"><meta itemprop=datePublished content="2018-05-22T14:34:04+00:00">
+<meta itemprop=dateModified content="2018-05-22T14:34:04+00:00">
+<meta itemprop=wordCount content="2556">
+<meta itemprop=keywords content="Mac,備忘録,"><meta property="og:title" content="Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯">
+<meta property="og:description" content="前置き メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://s-show.github.io/posts/2018-03-22/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2018-05-22T14:34:04+00:00">
+<meta property="article:modified_time" content="2018-05-22T14:34:04+00:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯">
+<meta name=twitter:description content="前置き メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メ">
+<meta name=robots content="noindex, nofollow"><link rel=stylesheet href=https://s-show.github.io/css/bundle.min.057160d6a5de2d3da28f8ef2079e2b1696ec2ec9da834eaec5ec3b0dd604f88c.css integrity="sha256-BXFg1qXeLT2ij47yB54rFpbsLsnag06uxew7DdYE+Iw=" crossorigin=anonymous>
+<noscript><link rel=stylesheet href=https://s-show.github.io/css/bundle.min.057160d6a5de2d3da28f8ef2079e2b1696ec2ec9da834eaec5ec3b0dd604f88c.css integrity="sha256-BXFg1qXeLT2ij47yB54rFpbsLsnag06uxew7DdYE+Iw=" crossorigin=anonymous></noscript></head>
+<body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+<div class=container>
+<button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarSupportedContent aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
+<i class="fas fa-bars"></i>
+</button><a class="navbar-brand me-3" href=https://s-show.github.io/>閑古鳥ブログ
+</a>
+<button class=navbar-social-share type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasSocialShare aria-controls=offcanvasSocialShare aria-label="Toggle social share">
+<i class="fas fa-share-alt"></i>
 </button>
-
-<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
-  <div class="offcanvas-header">
-    <h3 class="offcanvas-title">Share</h3>
-    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-  <div class="offcanvas-body">
-    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
-      target="_blank" href="https://twitter.com/intent/tweet?title=Macbook%20pro%e3%81%a7%e3%83%a1%e3%83%a2%e3%83%aa%e4%ba%a4%e6%8f%9b%e3%81%97%e3%81%a6%e9%9b%bb%e6%ba%90%e3%81%8c%e5%85%a5%e3%82%89%e3%81%aa%e3%81%8f%e3%81%aa%e3%81%a3%e3%81%a6%e3%81%8b%e3%82%89%e5%be%a9%e6%b4%bb%e3%81%99%e3%82%8b%e3%81%be%e3%81%a7%e3%81%ae%e7%b5%8c%e7%b7%af&url=https%3a%2f%2fs-show.github.io%2fposts%2f2018-03-22%2f">
-      <i class="fab fa-fw fa-twitter"></i> Twitter
-    </a>
-    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
-      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2018-03-22%2f">
-      <i class="fab fa-fw fa-facebook-f"></i> Facebook
-    </a>
-  </div>
+<div class="offcanvas offcanvas-bottom surface" tabindex=-1 id=offcanvasSocialShare aria-labelledby=offcanvasSocialShare>
+<div class=offcanvas-header>
+<h3 class=offcanvas-title>Share</h3>
+<button type=button class="btn btn-sm btn-outline-primary" data-bs-dismiss=offcanvas aria-label=Close>
+<i class="fas fa-times"></i>
+</button>
 </div>
-    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
-  aria-controls="offcanvasSettings" aria-label="Toggle settings">
-  <i class="fas fa-ellipsis-v"></i>
+<div class=offcanvas-body>
+<a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Macbook%20pro%e3%81%a7%e3%83%a1%e3%83%a2%e3%83%aa%e4%ba%a4%e6%8f%9b%e3%81%97%e3%81%a6%e9%9b%bb%e6%ba%90%e3%81%8c%e5%85%a5%e3%82%89%e3%81%aa%e3%81%8f%e3%81%aa%e3%81%a3%e3%81%a6%e3%81%8b%e3%82%89%e5%be%a9%e6%b4%bb%e3%81%99%e3%82%8b%e3%81%be%e3%81%a7%e3%81%ae%e7%b5%8c%e7%b7%af&url=https%3a%2f%2fs-show.github.io%2fposts%2f2018-03-22%2f">
+<i class="fab fa-fw fa-twitter"></i> Twitter
+</a>
+<a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2018-03-22%2f">
+<i class="fab fa-fw fa-facebook-f"></i> Facebook
+</a>
+</div>
+</div>
+<button class=navbar-settings type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasSettings aria-controls=offcanvasSettings aria-label="Toggle settings">
+<i class="fas fa-ellipsis-v"></i>
 </button>
-
-<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
-  <div class="offcanvas-header">
-    <h3 class="offcanvas-title"></h3>
-    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-  <div class="offcanvas-body d-flex flex-column">
-
-<section class="setting">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-adjust"></i> </label>
-    </div>
-    <div class="col-auto ms-auto">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="modeSwitcher">
-      </div>
-    </div>
-  </form>
+<div class="offcanvas offcanvas-end surface h-100" tabindex=-1 id=offcanvasSettings aria-labelledby=offcanvasSettings>
+<div class=offcanvas-header>
+<h3 class=offcanvas-title></h3>
+<button type=button class="btn btn-sm btn-outline-primary" data-bs-dismiss=offcanvas aria-label=Close>
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="offcanvas-body d-flex flex-column">
+<section class=setting>
+<form class=row>
+<div class=col-auto>
+<label><i class="fas fa-fw fa-adjust"></i> </label>
+</div>
+<div class="col-auto ms-auto">
+<div class="form-check form-switch">
+<input class=form-check-input type=checkbox id=modeSwitcher>
+</div>
+</div>
+</form>
 </section>
-
-<section class="setting">
-  <form class="font-size-switcher-form row">
-    <div class="col-auto">
-      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> </label>
-    </div>
-    <div class="col-auto ms-auto">
-      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
-    </div>
-  </form>
+<section class=setting>
+<form class="font-size-switcher-form row">
+<div class=col-auto>
+<label for=fontSize class=form-label><i class="fas fa-fw fa-font"></i> </label>
+</div>
+<div class="col-auto ms-auto">
+<input type=range class=form-range min=-2 max=2 id=fontSize>
+</div>
+</form>
 </section>
-
-
 <section class="setting palettes">
-  <form class="row">
-    <div class="col-auto">
-      <label><i class="fas fa-fw fa-palette"></i> </label>
-    </div>
-    <div class="col-auto ms-auto">
-      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
-        <i class="fas fa-eye-dropper"></i>
-      </a>
-    </div>
-  </form>
-  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label=""
-        class="btn btn-sm palette" data-palette="blue">
-      </button><button type="button" id="palette-blue-gray" aria-label=""
-        class="btn btn-sm palette" data-palette="blue-gray">
-      </button><button type="button" id="palette-brown" aria-label=""
-        class="btn btn-sm palette" data-palette="brown">
-      </button><button type="button" id="palette-cyan" aria-label=""
-        class="btn btn-sm palette" data-palette="cyan">
-      </button><button type="button" id="palette-green" aria-label=""
-        class="btn btn-sm palette" data-palette="green">
-      </button><button type="button" id="palette-indigo" aria-label=""
-        class="btn btn-sm palette" data-palette="indigo">
-      </button><button type="button" id="palette-orange" aria-label=""
-        class="btn btn-sm palette" data-palette="orange">
-      </button><button type="button" id="palette-pink" aria-label=""
-        class="btn btn-sm palette" data-palette="pink">
-      </button><button type="button" id="palette-purple" aria-label=""
-        class="btn btn-sm palette" data-palette="purple">
-      </button><button type="button" id="palette-red" aria-label=""
-        class="btn btn-sm palette" data-palette="red">
-      </button><button type="button" id="palette-teal" aria-label=""
-        class="btn btn-sm palette" data-palette="teal">
-      </button><button type="button" id="palette-yellow" aria-label=""
-        class="btn btn-sm palette" data-palette="yellow">
-      </button></div>
+<form class=row>
+<div class=col-auto>
+<label><i class="fas fa-fw fa-palette"></i> </label>
+</div>
+<div class="col-auto ms-auto">
+<a id=btnPalette class="btn btn-sm btn-outline-primary" role=button aria-label=palettePicker>
+<i class="fas fa-eye-dropper"></i>
+</a>
+</div>
+</form>
+<div class="mt-2 d-flex visually-hidden" id=palettePicker><button type=button id=palette-blue aria-label class="btn btn-sm palette" data-palette=blue>
+</button><button type=button id=palette-blue-gray aria-label class="btn btn-sm palette" data-palette=blue-gray>
+</button><button type=button id=palette-brown aria-label class="btn btn-sm palette" data-palette=brown>
+</button><button type=button id=palette-cyan aria-label class="btn btn-sm palette" data-palette=cyan>
+</button><button type=button id=palette-green aria-label class="btn btn-sm palette" data-palette=green>
+</button><button type=button id=palette-indigo aria-label class="btn btn-sm palette" data-palette=indigo>
+</button><button type=button id=palette-orange aria-label class="btn btn-sm palette" data-palette=orange>
+</button><button type=button id=palette-pink aria-label class="btn btn-sm palette" data-palette=pink>
+</button><button type=button id=palette-purple aria-label class="btn btn-sm palette" data-palette=purple>
+</button><button type=button id=palette-red aria-label class="btn btn-sm palette" data-palette=red>
+</button><button type=button id=palette-teal aria-label class="btn btn-sm palette" data-palette=teal>
+</button><button type=button id=palette-yellow aria-label class="btn btn-sm palette" data-palette=yellow>
+</button></div>
 </section>
 <section class="setting actions d-flex justify-content-center mt-auto">
-  <a role="button" class="d-flex flex-column align-items-center" id="pageReloader">
-    <i class="fas fa-2x fa-redo-alt"></i> 
-  </a>
+<a role=button class="d-flex flex-column align-items-center" id=pageReloader>
+<i class="fas fa-2x fa-redo-alt"></i>
+</a>
 </section>
-
 </div>
 </div>
-
-    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
-      <form class="search-bar my-1" action="https://s-show.github.io/search">
-  <div class="input-group input-group-sm">
-    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
-    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
-  </div>
+<div class="collapse navbar-collapse" tabindex=-1 id=navbarSupportedContent aria-labelledby=navbarSupportedContent>
+<form class="search-bar my-1" action=https://s-show.github.io/search>
+<div class="input-group input-group-sm">
+<span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+<input class="form-control rounded-pill" name=q type=search aria-label=Search>
+</div>
 </form>
-      <ul class="navbar-nav ms-auto"></ul>
-    </div>
-  </div>
+<ul class="navbar-nav ms-auto"></ul>
+</div>
+</div>
 </nav>
 </header>
-<main role="main" class="container">
-      <div class="row content">
-<div class="col-lg-8">
-  <div class="container"><nav class="row card component" aria-label="breadcrumb">
-  <div class="card-body">
-    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://s-show.github.io/"></a></li><li class="breadcrumb-item"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">Macbook Proでメモリ交換して電源が入らなくなってから復活するまでの経緯</li></ol>
-  </div>
-</nav><article class="row card component mb-4 post"><div class="post-panel-wrapper">
-  <div class="d-flex flex-column component rounded post-panel">
-    
-    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
-  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
-</a>
-  
-    
-
-    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="">
-  <i class="fas fa-fw fa-coffee"></i>
-</a>
-    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
-  data-bs-trigger="focus" tabindex="0" role="button" aria-label="Copyright" 
-  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
-">
-  <i class="fas fa-fw fa-copyright"></i>
-</a>
-    
-    
-  </div>
+<main role=main class=container>
+<div class="row content">
+<div class=col-lg-8>
+<div class=container><nav class="row card component" aria-label=breadcrumb>
+<div class=card-body>
+<ol class=breadcrumb><li class=breadcrumb-item><a href=https://s-show.github.io/></a></li><li class=breadcrumb-item><a href=https://s-show.github.io/posts/>Posts</a></li><li class="breadcrumb-item active">Macbook Proでメモリ交換して電源が入らなくなってから復活するまでの経緯</li></ol>
 </div>
-<div class="card-header ">
-    <h1 class="card-title post-title">Macbook Proでメモリ交換して電源が入らなくなってから復活するまでの経緯
+</nav><article class="row card component mb-4 post"><div class=post-panel-wrapper>
+<div class="d-flex flex-column component rounded post-panel">
+<a id=sidebarToggler class="action d-none d-lg-block" role=button>
+<i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i>
+</a>
+<a class="action btn-reward" role=button data-bs-toggle=modal data-bs-target=#rewardModal title>
+<i class="fas fa-fw fa-coffee"></i>
+</a>
+<a class=action data-bs-container=body data-bs-toggle=popover data-bs-html=true data-bs-placement=bottom data-bs-trigger=focus tabindex=0 role=button aria-label=Copyright data-bs-content='<a target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a>
+'>
+<i class="fas fa-fw fa-copyright"></i>
+</a>
+</div>
+</div>
+<div class=card-header>
+<h1 class="card-title post-title">Macbook Proでメモリ交換して電源が入らなくなってから復活するまでの経緯
 </h1>
-  </div>
-  <div class="card-body"><div class="post-meta">
-  <span class="post-date" title="">
-    2018-05-22
-  </span><span class="post-reading-time">
-    
-  </span><span class="post-taxonomies"><a href="https://s-show.github.io/tags/mac/" class="badge rounded-pill post-taxonomy">Mac</a><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded-pill post-taxonomy">備忘録</a></span>
 </div>
-<div class="post-content mb-3"><h2 id="前置き">前置き</h2>
+<div class=card-body><div class=post-meta>
+<span class=post-date title>
+2018-05-22
+</span><span class=post-reading-time>
+</span><span class=post-taxonomies><a href=https://s-show.github.io/tags/mac/ class="badge rounded-pill post-taxonomy">Mac</a><a href=https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="badge rounded-pill post-taxonomy">備忘録</a></span>
+</div>
+<div class="post-content mb-3"><h2 id=前置き>前置き</h2>
 <p>メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メモリ交換後に電源ボタンを押しても反応がないというまさかの事態に陥ってしまった。何とか蘇らせることができてこの記事を書けるまでになったので、同じ症状に遭遇した人のために、顛末を書いてみたいと思う。</p>
-<h2 id="経緯購入まで">経緯（購入まで）</h2>
+<h2 id=経緯購入まで>経緯（購入まで）</h2>
 <p>それまで使用していたMacbook pro(2015, 13インチ)は、持ち歩きも考慮して13インチにしたものの、据え置きで使うことが多く、また、据え置きで使うべく外付けディスプレイやキーボードを接続しているので、外に持ち出す都度、ケーブル類や電源の着脱が手間になっていた。</p>
 <p>そこで、もし、安価な15インチのMacbook proがあればそれを据え置き機にして、既存の13インチは持ち歩き専用にしようと思い立ち、メルカリで探したらちょうど良い商品があったので、Amazonで16GBのメモリを購入するのと合わせて、早速購入した。</p>
-<h2 id="経緯商品到着からメモリ交換実施まで">経緯（商品到着からメモリ交換実施まで）</h2>
-<p>メルカリで購入したMacとAmazonで購入したメモリが同時に届いたので、まずはMacの起動確認を行い、ちゃんと起動することを確認したら、出品者を評価してからMacの電源を落とした（後述するが、多分この時に、間違えて電源オフではなくスリープにした可能性がある。） それから、以下のページを参考にしてメモリを交換して、上手くいったか確認するために電源ボタンを押した。 <a href="https://support.apple.com/ja-jp/HT201165" target="_blank" rel="noopener noreferrer">MacBook Pro：メモリの取り外し方法と取り付け方法 - Apple サポート</a>
+<h2 id=経緯商品到着からメモリ交換実施まで>経緯（商品到着からメモリ交換実施まで）</h2>
+<p>メルカリで購入したMacとAmazonで購入したメモリが同時に届いたので、まずはMacの起動確認を行い、ちゃんと起動することを確認したら、出品者を評価してからMacの電源を落とした（後述するが、多分この時に、間違えて電源オフではなくスリープにした可能性がある。） それから、以下のページを参考にしてメモリを交換して、上手くいったか確認するために電源ボタンを押した。 <a href=https://support.apple.com/ja-jp/HT201165 target=_blank rel="noopener noreferrer">MacBook Pro：メモリの取り外し方法と取り付け方法 - Apple サポート</a>
 </p>
 <p>・・・全く反応がない。。。</p>
 <p>一体何が起きたか分からなかったが、交換したメモリに不具合があるかと思い、元から取り付けられていたメモリに戻して電源ボタンを押す。</p>
 <p>・・・さっきと同じように全く反応がない。。。</p>
 <p>ここまで来て事態の深刻さに気付き、対処策を探すことになる。</p>
-<h2 id="経緯試行錯誤の過程">経緯（試行錯誤の過程）</h2>
+<h2 id=経緯試行錯誤の過程>経緯（試行錯誤の過程）</h2>
 <p>まずはネットで同様の症状に遭遇した人がいないか検討するが、電源が入らなくなった時の対処方法は見つかるものの、メモリ交換で電源が入らなくなった事例は見つからなかった。</p>
-<p>仕方なく、<a href="https://support.apple.com/ja-jp/HT204063" target="_blank" rel="noopener noreferrer">NVRAMのリセット</a>
-や<a href="https://support.apple.com/ja-jp/HT201295" target="_blank" rel="noopener noreferrer">SMCのリセット</a>
+<p>仕方なく、<a href=https://support.apple.com/ja-jp/HT204063 target=_blank rel="noopener noreferrer">NVRAMのリセット</a>
+や<a href=https://support.apple.com/ja-jp/HT201295 target=_blank rel="noopener noreferrer">SMCのリセット</a>
 を試すものの、全く事態は改善されない。</p>
 <p>最初のトラブルの時にNVRAMリセットを行っても復旧しなかったが、３時間後にリセットしたら復旧したという記事も見つけたので、２時間ほど経ってからリセットしてみるが、反応が無い状態は全く変わらない。</p>
 <p>対象方法を探す中で地元の修理ショップの存在を発見するが、ロジックボードの修理費が３〜６万円とあるのを見て、これだけ出すなら諦めた方が安上がりかなという考えも浮かんでくる。</p>
 <p>また、この辺りになると、最初の起動確認をした後、いつもの癖で電源オフではなくスリープを選んでしまい、その状態でメモリ交換をしてしまったのではないかという嫌な予感がして来てしまい、さらに気が滅入ることになる。</p>
 <p>とはいえ、あれこれ作業をしていると夜遅くになってしまったので、仕方なくその日はそれ以上の作業を諦めて寝ることにした。</p>
-<h2 id="経緯復旧まで">経緯（復旧まで）</h2>
+<h2 id=経緯復旧まで>経緯（復旧まで）</h2>
 <p>次の日は朝から用事があったため、夕方に帰って来てから作業に取り掛かった。</p>
-<p>昨日、スリープ状態でメモリ交換をしてしまった可能性を考えていたので、一度完全に電源オフにした上で、あらためてNVRAMリセットとかしたら復旧するのはないかと思い、バッテリーを取り外すことにした。 以下のページを見ながらバッテリーを取り外し、その状態で一度電源ボタンを押して内部の電気を完全に放出したうえで、２時間ほど待つことにした。 <a href="https://jp.ifixit.com/Guide/MacBook&#43;Pro&#43;15-Inch&#43;Unibody&#43;Early&#43;2011&#43;Battery&#43;Replacement/5889" target="_blank" rel="noopener noreferrer">MacBook Pro 15&quot; Unibody Early 2011 Battery Replacement</a>
+<p>昨日、スリープ状態でメモリ交換をしてしまった可能性を考えていたので、一度完全に電源オフにした上で、あらためてNVRAMリセットとかしたら復旧するのはないかと思い、バッテリーを取り外すことにした。 以下のページを見ながらバッテリーを取り外し、その状態で一度電源ボタンを押して内部の電気を完全に放出したうえで、２時間ほど待つことにした。 <a href=https://jp.ifixit.com/Guide/MacBook+Pro+15-Inch+Unibody+Early+2011+Battery+Replacement/5889 target=_blank rel="noopener noreferrer">MacBook Pro 15" Unibody Early 2011 Battery Replacement</a>
 </p>
 <p>２時間待ったところで、バッテリーを取り付けて電源ボタンを押したところ、DVDドライブへのアクセス音が聞こえてMacの起動音が鳴り、少ししてからMacが無事に起動した。この時は本当にホッとしたのを覚えている。</p>
 <p>Macが無事に起動するのを確認したが、内部時計がおかしくなっていたのと、一度リセットした方が良いと判断して、あらためて電源オフにしてから、NVRAMリセットを行ったところ、内部時計もちゃんとした日時になった。動作にも問題がないので、</p>
@@ -225,187 +189,166 @@
 <li>外付けHDDにバックアップしたTimeMachineのデータを使用して環境を移行</li>
 </ol>
 <p>の作業を行い、こうしてブログ記事を書けるまでの環境構築に成功した。</p>
-<h2 id="まとめ">まとめ</h2>
+<h2 id=まとめ>まとめ</h2>
 <p>トラブルの原因は、起動確認後に間違えて電源オフではなくスリープを選んでしまっていて、それに気づかないままメモリ交換に着手してしまったことではないかと思う。OSのアップデートでもない限り、電源オフではなくスリープを選んでいるので、その癖でスリープを選んでいたのではないかと思う。</p>
 <p>電源ボタンを押しても反応が無い時はNVRAMのリセットもできないので、こういう時はダメ元でバッテリーを外して完全に電源オフにし、その状態をしばらく続けた後にリセットすると直るかもしれない。 この記事が誰かの役に立てば幸いである。</p>
-<h2 id="蛇足">蛇足</h2>
+<h2 id=蛇足>蛇足</h2>
 <p>元々使っていたMacbook proの環境を移行するため、外付けHDDにTimeMachineでデータをバックアップして移行したが、アプリやデータに加えて各アプリの設定まで自動的に移行されるのには驚いた。新しいMacで行う必要があった作業は、Homebrewを使うためにXcodeをインストールすることだけで、Karabiner-Elementsの設定も1Passwordの設定もそのまま移行されたので、環境移行は拍子抜けするほど簡単だった。</p>
 <p>ただ、買った直後のOSがOS X Lionだったが、このOSには２ファクタ認証の機能がないので、iCloudの設定などでIDとパスワードを入力しても、確認コードを入力する画面が表示されず随分と困った。</p>
-<p>この問題には、パスワードの後に確認コード６桁を入力すれば対処できる。具体的には、まず、IDとパスワードを一度入力し、手持ちのiPhoneなどに確認コードが表示されたら、再度IDとパスワードを入力し、そのパスワードの後ろに確認コード６桁を入力すれば認証される。 <a href="https://music.iiotode.com/?p=9151" target="_blank" rel="noopener noreferrer">Mac OSでApple IDの確認コード画面が表示されない場合の対応方法 | 好きな音楽をいい音で</a>
+<p>この問題には、パスワードの後に確認コード６桁を入力すれば対処できる。具体的には、まず、IDとパスワードを一度入力し、手持ちのiPhoneなどに確認コードが表示されたら、再度IDとパスワードを入力し、そのパスワードの後ろに確認コード６桁を入力すれば認証される。 <a href="https://music.iiotode.com/?p=9151" target=_blank rel="noopener noreferrer">Mac OSでApple IDの確認コード画面が表示されない場合の対応方法 | 好きな音楽をいい音で</a>
 </p>
-</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content surface">
-      <div class="modal-header">
-        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i></h5>
-        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
-      </div>
-      <div class="modal-body">
-        <ul class="nav nav-tabs mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
-            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
-              <i class="fab fa-fw fa-alipay"></i>
-            </a>
-          </li><li class="nav-item text-nowrap" role="presentation">
-            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
-              <i class="fab fa-fw fa-weixin"></i>
-            </a>
-          </li></ul>
-        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
-            <img class="img-fluid post-reward-img" src="https://s-show.github.io/images/reward/alipay.png" loading="lazy" />
-          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
-            <img class="img-fluid post-reward-img" src="https://s-show.github.io/images/reward/wechat.png" loading="lazy" />
-          </div></div>
-      </div>
-    </div>
-  </div>
-</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
-  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
-    <a href="https://s-show.github.io/posts/2018-02-12/">【読書記録】日本軍兵士――アジア・太平洋戦争の現実
+</div><div class="modal fade" id=rewardModal tabindex=-1 aria-labelledby=rewardModalLabel aria-hidden=true>
+<div class=modal-dialog>
+<div class="modal-content surface">
+<div class=modal-header>
+<h5 class=modal-title id=rewardModalLabel><i class="fas fa-fw fa-coffee"></i></h5>
+<a href=# data-bs-dismiss=modal class="btn btn-sm btn-outline-primary" aria-label=Close><i class="fas fa-times"></i></a>
+</div>
+<div class=modal-body>
+<ul class="nav nav-tabs mb-3" role=tablist><li class="nav-item text-nowrap" role=presentation>
+<a class="nav-link active" id=reward-alipay-tab data-bs-toggle=tab href=#reward-alipay role=tab aria-controls=reward-alipay aria-selected=true>
+<i class="fab fa-fw fa-alipay"></i>
 </a>
-  </div><div class="post-nav post-next">
-    <a href="https://s-show.github.io/posts/2019-06-18/">AutoHotKeyの解説と自分の設定について
+</li><li class="nav-item text-nowrap" role=presentation>
+<a class=nav-link id=reward-wechat-tab data-bs-toggle=tab href=#reward-wechat role=tab aria-controls=reward-wechat aria-selected=true>
+<i class="fab fa-fw fa-weixin"></i>
 </a>
-    <i class="fas fa-fw fa-chevron-right"></i>
-  </div></div></div>
+</li></ul>
+<div class=tab-content id=rewardTabContent><div class="tab-pane fade post-reward-content show active" id=reward-alipay role=tabpanel aria-labelledby=reward-alipay-tab>
+<img class="img-fluid post-reward-img" src=https://s-show.github.io/images/reward/alipay.png loading=lazy>
+</div><div class="tab-pane fade post-reward-content show" id=reward-wechat role=tabpanel aria-labelledby=reward-wechat-tab>
+<img class="img-fluid post-reward-img" src=https://s-show.github.io/images/reward/wechat.png loading=lazy>
+</div></div>
+</div>
+</div>
+</div>
+</div><hr><div class="post-navs d-flex mb-3 justify-content-evenly">
+<div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+<a href=https://s-show.github.io/posts/2018-02-12/>【読書記録】日本軍兵士――アジア・太平洋戦争の現実
+</a>
+</div><div class="post-nav post-next">
+<a href=https://s-show.github.io/posts/2019-06-18/>AutoHotKeyの解説と自分の設定について
+</a>
+<i class="fas fa-fw fa-chevron-right"></i>
+</div></div></div>
 </article><section class="related-posts row card component">
-    <div class="card-header">
-      <h2 class="card-title"></h2>
-    </div>
-    <div class="card-body">
-      <ul class="post-list"><li>
-          <a href="https://s-show.github.io/posts/2017-11-25/">Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法
+<div class=card-header>
+<h2 class=card-title></h2>
+</div>
+<div class=card-body>
+<ul class=post-list><li>
+<a href=https://s-show.github.io/posts/2017-11-25/>Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法
 </a>
-          <span class="float-end post-date">2017-11-25
+<span class="float-end post-date">2017-11-25
 </span>
-        </li><li>
-          <a href="https://s-show.github.io/posts/2018-02-12/">【読書記録】日本軍兵士――アジア・太平洋戦争の現実
+</li><li>
+<a href=https://s-show.github.io/posts/2018-02-12/>【読書記録】日本軍兵士――アジア・太平洋戦争の現実
 </a>
-          <span class="float-end post-date">2018-02-12
+<span class="float-end post-date">2018-02-12
 </span>
-        </li><li>
-          <a href="https://s-show.github.io/posts/2017-11-27/">【読書記録】日米開戦と情報戦
+</li><li>
+<a href=https://s-show.github.io/posts/2017-11-27/>【読書記録】日米開戦と情報戦
 </a>
-          <span class="float-end post-date">2017-11-27
+<span class="float-end post-date">2017-11-27
 </span>
-        </li><li>
-          <a href="https://s-show.github.io/posts/2017-11-26/">【読書記録】忘れられた日本の村
+</li><li>
+<a href=https://s-show.github.io/posts/2017-11-26/>【読書記録】忘れられた日本の村
 </a>
-          <span class="float-end post-date">2017-11-26
+<span class="float-end post-date">2017-11-26
 </span>
-        </li></ul>
-    </div>
-  </section><div class="card component row post-comments">
-  <div class="card-header">
-    <h2 class="card-title"></h2>
-  </div>
-  <div class="card-body"><script src="https://utteranc.es/client.js"
-  repo="razonyang/hugo-theme-bootstrap-comments"
-  issue-term="pathname"
-  label="comment"
-  theme="github-light"
-  crossorigin="anonymous"
-  async>
-</script></div>
+</li></ul>
+</div>
+</section><div class="card component row post-comments">
+<div class=card-header>
+<h2 class=card-title></h2>
+</div>
+<div class=card-body><script src=https://utteranc.es/client.js repo=razonyang/hugo-theme-bootstrap-comments issue-term=pathname label=comment theme=github-light crossorigin=anonymous async></script></div>
 </div></div>
 </div><aside class="col-lg-4 sidebar d-flex">
-  <div class="container">
-    
-    <section class="card row text-center profile component">
-  <div class="card-body">
-    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="s-show" src="https://s-show.github.io/img/profileIcon.png" loading="lazy"
-   width="500" height="500"
-   />
+<div class=container>
+<section class="card row text-center profile component">
+<div class=card-body>
+<div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt=s-show src=https://s-show.github.io/img/profileIcon.png loading=lazy width=500 height=500>
 </div>
-    <div class="col-12 profile-meta"><div class="profile-name">s-show</div><div class="profile-bio">プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a href="https://s-show.github.io/about/">About</a></div></div>
-  </div>
+<div class="col-12 profile-meta"><div class=profile-name>s-show</div><div class=profile-bio>プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class=profile-location><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class=profile-about><i class="fas fa-fw fa-user"></i><a href=https://s-show.github.io/about/>About</a></div></div>
+</div>
 </section>
-  <section class="recent-posts row card component">
-  <div class="card-header">
-    <h2 class="card-title"></h2>
-  </div>
-  <div class="card-body">
-    <ul class="post-list"><li>
-        <a href="https://s-show.github.io/posts/2021-12-10/">2021年に実施した3Dプリンターの改造
+<section class="recent-posts row card component">
+<div class=card-header>
+<h2 class=card-title></h2>
+</div>
+<div class=card-body>
+<ul class=post-list><li>
+<a href=https://s-show.github.io/posts/2021-12-10/>2021年に実施した3Dプリンターの改造
 </a>
-        <span class="float-end post-date">2021-12-10
+<span class="float-end post-date">2021-12-10
 </span>
-      </li><li>
-        <a href="https://s-show.github.io/posts/2020-12-03/">自作キーボード活動2年目の振り返り
+</li><li>
+<a href=https://s-show.github.io/posts/2020-12-03/>自作キーボード活動2年目の振り返り
 </a>
-        <span class="float-end post-date">2020-12-03
+<span class="float-end post-date">2020-12-03
 </span>
-      </li><li>
-        <a href="https://s-show.github.io/posts/2020-01-01/">自作キーボードから始まったものづくりへの取り組み
+</li><li>
+<a href=https://s-show.github.io/posts/2020-01-01/>自作キーボードから始まったものづくりへの取り組み
 </a>
-        <span class="float-end post-date">2020-01-01
+<span class="float-end post-date">2020-01-01
 </span>
-      </li><li>
-        <a href="https://s-show.github.io/posts/2019-12-20/">AnyCubic I3 Mega S に TMC2208 を導入する
+</li><li>
+<a href=https://s-show.github.io/posts/2019-12-20/>AnyCubic I3 Mega S に TMC2208 を導入する
 </a>
-        <span class="float-end post-date">2019-12-20
+<span class="float-end post-date">2019-12-20
 </span>
-      </li><li>
-        <a href="https://s-show.github.io/posts/2019-10-13/">ArduinoとPlaidを使ってマイコンを複製する方法
+</li><li>
+<a href=https://s-show.github.io/posts/2019-10-13/>ArduinoとPlaidを使ってマイコンを複製する方法
 </a>
-        <span class="float-end post-date">2019-10-13
+<span class="float-end post-date">2019-10-13
 </span>
-      </li></ul>
-  </div>
+</li></ul>
+</div>
 </section><section class="taxonomies row card component">
-      <div class="card-header">
-        <h2 class="card-title">
-          <a href="https://s-show.github.io/tags"></a>
-        </h2>
-      </div>
-      <div class="card-body">
-        <div class="py-2"><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded post-taxonomy" title="プログラミング">
-            プログラミング
-          </a><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="備忘録">
-            備忘録
-          </a><a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="badge rounded post-taxonomy" title="自作キーボード">
-            自作キーボード
-          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="読書記録">
-            読書記録
-          </a><a href="https://s-show.github.io/tags/mac/" class="badge rounded post-taxonomy" title="Mac">
-            Mac
-          </a><a href="https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/" class="badge rounded post-taxonomy" title="未分類">
-            未分類
-          </a><a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="badge rounded post-taxonomy" title="3Dプリンタ">
-            3Dプリンタ
-          </a><a href="https://s-show.github.io/tags/karabiner-elements/" class="badge rounded post-taxonomy" title="Karabiner-Elements">
-            Karabiner-Elements
-          </a><a href="https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/" class="badge rounded post-taxonomy" title="太平洋戦争">
-            太平洋戦争
-          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/" class="badge rounded post-taxonomy" title="読書">
-            読書
-          </a></div>
-      </div>
-    </section>
-    
-  </div>
+<div class=card-header>
+<h2 class=card-title>
+<a href=https://s-show.github.io/tags></a>
+</h2>
+</div>
+<div class=card-body>
+<div class=py-2><a href=https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="badge rounded post-taxonomy" title=プログラミング>
+プログラミング
+</a><a href=https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="badge rounded post-taxonomy" title=備忘録>
+備忘録
+</a><a href=https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="badge rounded post-taxonomy" title=自作キーボード>
+自作キーボード
+</a><a href=https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="badge rounded post-taxonomy" title=読書記録>
+読書記録
+</a><a href=https://s-show.github.io/tags/mac/ class="badge rounded post-taxonomy" title=Mac>
+Mac
+</a><a href=https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="badge rounded post-taxonomy" title=未分類>
+未分類
+</a><a href=https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="badge rounded post-taxonomy" title=3Dプリンタ>
+3Dプリンタ
+</a><a href=https://s-show.github.io/tags/karabiner-elements/ class="badge rounded post-taxonomy" title=Karabiner-Elements>
+Karabiner-Elements
+</a><a href=https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/ class="badge rounded post-taxonomy" title=太平洋戦争>
+太平洋戦争
+</a><a href=https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/ class="badge rounded post-taxonomy" title=読書>
+読書
+</a></div>
+</div>
+</section>
+</div>
 </aside>
 </div>
-    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
-      <i class="fas fa-fw fa-2x fa-envelope"></i>
-    </a><a class="nav-link social-link" target="_blank" href="https://github.com/s-show" title="GitHub" rel="noopener noreferrer">
-        <i class="fa-fw fa-2x fab fa-github"></i>
-      </a></nav>
+</main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
+<i class="fas fa-fw fa-2x fa-envelope"></i>
+</a><a class="nav-link social-link" target=_blank href=https://github.com/s-show title=GitHub rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-github"></i>
+</a></nav>
 <div class="copyright mb-2">
-  Copyright © 2021-2021 s-show. All Rights Reserved.
+Copyright © 2021-2021 s-show. All Rights Reserved.
 </div>
 <div class="powered-by mb-2">
-  Powered by <a href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+Powered by <a href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">Bootstrap</a> theme.
 </div></footer>
-<script src="https://s-show.github.io/js/bundle.min.29979a9bbcb4a3832af87d9728d070fba68d9abdd0a3f74d56b2b08a5526a2f3.js" integrity="sha256-KZeam7y0o4Mq&#43;H2XKNBw&#43;6aNmr3Qo/dNVrKwilUmovM=" crossorigin="anonymous" defer></script><script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('https:\/\/s-show.github.io\/service-worker.js').then(function(reg) {
-      console.log('Successfully registered service worker', reg);
-    }).catch(function(err) {
-      console.warn('Error whilst registering service worker', err);
-    });
-  });
-}
-</script>
+<script src=https://s-show.github.io/js/bundle.min.29979a9bbcb4a3832af87d9728d070fba68d9abdd0a3f74d56b2b08a5526a2f3.js integrity="sha256-KZeam7y0o4Mq+H2XKNBw+6aNmr3Qo/dNVrKwilUmovM=" crossorigin=anonymous defer></script><script>'serviceWorker'in navigator&&window.addEventListener('load',()=>{navigator.serviceWorker.register('https://s-show.github.io/service-worker.js').then(function(a){console.log('Successfully registered service worker',a)}).catch(function(a){console.warn('Error whilst registering service worker',a)})})</script>
 </body>
 </html>
