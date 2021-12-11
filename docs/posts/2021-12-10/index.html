@@ -1,168 +1,205 @@
-<!doctype html><html lang=jp>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<title>2021年に実施した3Dプリンターの改造 - 閑古鳥ブログ</title><link rel=apple-touch-icon href=https://s-show.github.io/images/icons/icon-180x180.png sizes=180x180>
-<link rel=icon href=https://s-show.github.io/images/icons/icon-32x32.png sizes=32x32 type=image/png>
-<link rel=icon href=https://s-show.github.io/images/icons/icon-16x16.png sizes=16x16 type=image/png>
-<link rel=icon href=https://s-show.github.io/images/icons/favicon.ico>
-<link rel=manifest href=https://s-show.github.io/manifest.json>
-<meta name=keywords content>
-<meta name=description content><meta itemprop=name content="2021年に実施した3Dプリンターの改造">
-<meta itemprop=description content="前置き この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の2日目の記事です。1日目の記事は tomorrow56@ガジェット分解(モ2済) さんが執筆さ"><meta itemprop=datePublished content="2021-12-10T22:42:23+09:00">
-<meta itemprop=dateModified content="2021-12-10T22:42:23+09:00">
-<meta itemprop=wordCount content="3583">
-<meta itemprop=keywords content><meta property="og:title" content="2021年に実施した3Dプリンターの改造">
-<meta property="og:description" content="前置き この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の2日目の記事です。1日目の記事は tomorrow56@ガジェット分解(モ2済) さんが執筆さ">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://s-show.github.io/posts/2021-12-10/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-12-10T22:42:23+09:00">
-<meta property="article:modified_time" content="2021-12-10T22:42:23+09:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="2021年に実施した3Dプリンターの改造">
-<meta name=twitter:description content="前置き この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の2日目の記事です。1日目の記事は tomorrow56@ガジェット分解(モ2済) さんが執筆さ">
-<meta name=robots content="noindex, nofollow"><link rel=stylesheet href=https://s-show.github.io/css/bundle.min.057160d6a5de2d3da28f8ef2079e2b1696ec2ec9da834eaec5ec3b0dd604f88c.css integrity="sha256-BXFg1qXeLT2ij47yB54rFpbsLsnag06uxew7DdYE+Iw=" crossorigin=anonymous>
-<noscript><link rel=stylesheet href=https://s-show.github.io/css/bundle.min.057160d6a5de2d3da28f8ef2079e2b1696ec2ec9da834eaec5ec3b0dd604f88c.css integrity="sha256-BXFg1qXeLT2ij47yB54rFpbsLsnag06uxew7DdYE+Iw=" crossorigin=anonymous></noscript></head>
-<body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
-<div class=container>
-<button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarSupportedContent aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
-<i class="fas fa-bars"></i>
-</button><a class="navbar-brand me-3" href=https://s-show.github.io/>閑古鳥ブログ
-</a>
-<button class=navbar-social-share type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasSocialShare aria-controls=offcanvasSocialShare aria-label="Toggle social share">
-<i class="fas fa-share-alt"></i>
+<!doctype html><html lang="jp"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2021年に実施した3Dプリンターの改造 - 閑古鳥ブログ</title><link rel="apple-touch-icon" href="https://s-show.github.io/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/favicon.ico">
+<link rel="manifest" href="https://s-show.github.io/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="2021年に実施した3Dプリンターの改造">
+<meta itemprop="description" content="前置き ~~この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の1日目の記事です。 （最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを"><meta itemprop="datePublished" content="2021-12-10T22:42:23+09:00" />
+<meta itemprop="dateModified" content="2021-12-10T22:42:23+09:00" />
+<meta itemprop="wordCount" content="3635">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="2021年に実施した3Dプリンターの改造" />
+<meta property="og:description" content="前置き ~~この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の1日目の記事です。 （最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://s-show.github.io/posts/2021-12-10/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-10T22:42:23+09:00" />
+<meta property="article:modified_time" content="2021-12-10T22:42:23+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2021年に実施した3Dプリンターの改造"/>
+<meta name="twitter:description" content="前置き ~~この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の1日目の記事です。 （最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを"/>
+<meta name="robots" content="noindex, nofollow" /><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.7f703f734a110a39ce11622c19bbafc6d9e5d605c1c638d081a1b1a53c1089c5.css" integrity="sha256-f3A/c0oRCjnOEWIsGbuvxtnl1gXBxjjQgaGxpTwQicU=" crossorigin="anonymous">
+<noscript><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.7f703f734a110a39ce11622c19bbafc6d9e5d605c1c638d081a1b1a53c1089c5.css" integrity="sha256-f3A/c0oRCjnOEWIsGbuvxtnl1gXBxjjQgaGxpTwQicU=" crossorigin="anonymous"></noscript></head>
+  <body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://s-show.github.io/">閑古鳥ブログ
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share-alt"></i>
 </button>
-<div class="offcanvas offcanvas-bottom surface" tabindex=-1 id=offcanvasSocialShare aria-labelledby=offcanvasSocialShare>
-<div class=offcanvas-header>
-<h3 class=offcanvas-title>Share</h3>
-<button type=button class="btn btn-sm btn-outline-primary" data-bs-dismiss=offcanvas aria-label=Close>
-<i class="fas fa-times"></i>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=2021%e5%b9%b4%e3%81%ab%e5%ae%9f%e6%96%bd%e3%81%97%e3%81%9f3D%e3%83%97%e3%83%aa%e3%83%b3%e3%82%bf%e3%83%bc%e3%81%ae%e6%94%b9%e9%80%a0&url=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-10%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-10%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
 </button>
-</div>
-<div class=offcanvas-body>
-<a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=2021%e5%b9%b4%e3%81%ab%e5%ae%9f%e6%96%bd%e3%81%97%e3%81%9f3D%e3%83%97%e3%83%aa%e3%83%b3%e3%82%bf%e3%83%bc%e3%81%ae%e6%94%b9%e9%80%a0&url=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-10%2f">
-<i class="fab fa-fw fa-twitter"></i> Twitter
-</a>
-<a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-10%2f">
-<i class="fab fa-fw fa-facebook-f"></i> Facebook
-</a>
-</div>
-</div>
-<button class=navbar-settings type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasSettings aria-controls=offcanvasSettings aria-label="Toggle settings">
-<i class="fas fa-ellipsis-v"></i>
-</button>
-<div class="offcanvas offcanvas-end surface h-100" tabindex=-1 id=offcanvasSettings aria-labelledby=offcanvasSettings>
-<div class=offcanvas-header>
-<h3 class=offcanvas-title></h3>
-<button type=button class="btn btn-sm btn-outline-primary" data-bs-dismiss=offcanvas aria-label=Close>
-<i class="fas fa-times"></i>
-</button>
-</div>
-<div class="offcanvas-body d-flex flex-column">
-<section class=setting>
-<form class=row>
-<div class=col-auto>
-<label><i class="fas fa-fw fa-adjust"></i> </label>
-</div>
-<div class="col-auto ms-auto">
-<div class="form-check form-switch">
-<input class=form-check-input type=checkbox id=modeSwitcher>
-</div>
-</div>
-</form>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title"></h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
 </section>
-<section class=setting>
-<form class="font-size-switcher-form row">
-<div class=col-auto>
-<label for=fontSize class=form-label><i class="fas fa-fw fa-font"></i> </label>
-</div>
-<div class="col-auto ms-auto">
-<input type=range class=form-range min=-2 max=2 id=fontSize>
-</div>
-</form>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
 </section>
+
+
 <section class="setting palettes">
-<form class=row>
-<div class=col-auto>
-<label><i class="fas fa-fw fa-palette"></i> </label>
-</div>
-<div class="col-auto ms-auto">
-<a id=btnPalette class="btn btn-sm btn-outline-primary" role=button aria-label=palettePicker>
-<i class="fas fa-eye-dropper"></i>
-</a>
-</div>
-</form>
-<div class="mt-2 d-flex visually-hidden" id=palettePicker><button type=button id=palette-blue aria-label class="btn btn-sm palette" data-palette=blue>
-</button><button type=button id=palette-blue-gray aria-label class="btn btn-sm palette" data-palette=blue-gray>
-</button><button type=button id=palette-brown aria-label class="btn btn-sm palette" data-palette=brown>
-</button><button type=button id=palette-cyan aria-label class="btn btn-sm palette" data-palette=cyan>
-</button><button type=button id=palette-green aria-label class="btn btn-sm palette" data-palette=green>
-</button><button type=button id=palette-indigo aria-label class="btn btn-sm palette" data-palette=indigo>
-</button><button type=button id=palette-orange aria-label class="btn btn-sm palette" data-palette=orange>
-</button><button type=button id=palette-pink aria-label class="btn btn-sm palette" data-palette=pink>
-</button><button type=button id=palette-purple aria-label class="btn btn-sm palette" data-palette=purple>
-</button><button type=button id=palette-red aria-label class="btn btn-sm palette" data-palette=red>
-</button><button type=button id=palette-teal aria-label class="btn btn-sm palette" data-palette=teal>
-</button><button type=button id=palette-yellow aria-label class="btn btn-sm palette" data-palette=yellow>
-</button></div>
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label=""
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label=""
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label=""
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label=""
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label=""
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label=""
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label=""
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label=""
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label=""
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label=""
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label=""
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label=""
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
 </section>
 <section class="setting actions d-flex justify-content-center mt-auto">
-<a role=button class="d-flex flex-column align-items-center" id=pageReloader>
-<i class="fas fa-2x fa-redo-alt"></i>
-</a>
+  <a role="button" class="d-flex flex-column align-items-center" id="pageReloader">
+    <i class="fas fa-2x fa-redo-alt"></i> 
+  </a>
 </section>
+
 </div>
 </div>
-<div class="collapse navbar-collapse" tabindex=-1 id=navbarSupportedContent aria-labelledby=navbarSupportedContent>
-<form class="search-bar my-1" action=https://s-show.github.io/search>
-<div class="input-group input-group-sm">
-<span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
-<input class="form-control rounded-pill" name=q type=search aria-label=Search>
-</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://s-show.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
 </form>
-<ul class="navbar-nav ms-auto"></ul>
-</div>
-</div>
+      <ul class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
 </nav>
 </header>
-<main role=main class=container>
-<div class="row content">
-<div class=col-lg-8>
-<div class=container><nav class="row card component" aria-label=breadcrumb>
-<div class=card-body>
-<ol class=breadcrumb><li class=breadcrumb-item><a href=https://s-show.github.io/></a></li><li class=breadcrumb-item><a href=https://s-show.github.io/posts/>Posts</a></li><li class="breadcrumb-item active">2021年に実施した3Dプリンターの改造</li></ol>
-</div>
-</nav><article class="row card component mb-4 post"><div class=post-panel-wrapper>
-<div class="d-flex flex-column component rounded post-panel">
-<a id=sidebarToggler class="action d-none d-lg-block" role=button>
-<i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://s-show.github.io/"></a></li><li class="breadcrumb-item"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">2021年に実施した3Dプリンターの改造</li></ol>
+  </div>
+</nav><article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
 </a>
-<a class="action btn-reward" role=button data-bs-toggle=modal data-bs-target=#rewardModal title>
-<i class="fas fa-fw fa-coffee"></i>
+  
+    
+
+    <a class="action btn-reward" role="button" data-bs-toggle="modal" data-bs-target="#rewardModal" title="">
+  <i class="fas fa-fw fa-coffee"></i>
 </a>
-<a class=action data-bs-container=body data-bs-toggle=popover data-bs-html=true data-bs-placement=bottom data-bs-trigger=focus tabindex=0 role=button aria-label=Copyright data-bs-content='<a target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a>
-'>
-<i class="fas fa-fw fa-copyright"></i>
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" role="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
 </a>
+    
+    
+  </div>
 </div>
-</div>
-<div class=card-header>
-<h1 class="card-title post-title">2021年に実施した3Dプリンターの改造
+<div class="card-header ">
+    <h1 class="card-title post-title">2021年に実施した3Dプリンターの改造
 </h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="">
+    2021-12-10
+  </span><span class="post-reading-time">
+    
+  </span><span class="post-taxonomies"></span>
 </div>
-<div class=card-body><div class=post-meta>
-<span class=post-date title>
-2021-12-10
-</span><span class=post-reading-time>
-</span><span class=post-taxonomies></span>
-</div>
-<div class="post-content mb-3"><h2 id=前置き>前置き</h2>
-<p>この記事は <a href=https://adventar.org/calendars/6453 target=_blank rel="noopener noreferrer">3Dプリンター改造記録 Advent Calendar 2021 - Adventar</a>
-の2日目の記事です。1日目の記事は tomorrow56@ガジェット分解(モ2済) さんが執筆されます（本記事の執筆時点でまだ執筆されていないようです）。</p>
+<div class="post-content mb-3"><h2 id="前置き">前置き</h2>
+<p>~~この記事は <a href="https://adventar.org/calendars/6453" target="_blank" rel="noopener noreferrer">3Dプリンター改造記録 Advent Calendar 2021 - Adventar</a>
+ の1日目の記事です。</p>
+<p>（最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを務められる予定だった tomorrow56@ガジェット分解(モ2済) さんが公開日を12日に変更されたので、期せずしてトップバッターになりました。）</p>
 <p>本アドベントカレンダーは「今年実施した/今年までに実施した3Dプリンターへの改造内容をまとめる記事」なので、今使っている Prusa MK3S+ と Ender3Pro の改造履歴をまとめます。</p>
-<h2 id=実際の改造>実際の改造</h2>
+<h2 id="実際の改造">実際の改造</h2>
 <p>私が現在使っている 3Dプリンタは「Prusa i3 MK3S+」と「Ender 3 Pro」の2台で、それぞれの改造は次のとおりです。</p>
-<h3 id=prusa-mk3s>Prusa MK3S+</h3>
+<h3 id="prusa-mk3s">Prusa MK3S+</h3>
 <p>Prusa の改造は次のとおりです。Prusa は元の性能が高いので、Ender 3 Pro に比べると小規模な改造に留まっていると思います。</p>
 <ul>
 <li>Bear Extruder の導入</li>
@@ -171,42 +208,42 @@
 <li>シリコンベッドレベリング</li>
 <li>リニアブッシュの交換</li>
 </ul>
-<h4 id=bear-extruder>Bear Extruder</h4>
-<p>ホットエンド回りのメンテナンス性を上げるため、エクストルーダーを <a href=https://github.com/gregsaun/bear_extruder_and_x_axis target=_blank rel="noopener noreferrer">gregsaun/bear_extruder_and_x_axis: An improved extruder and X axis for Prusa i3 printers</a>
-に切り替えました。プリンター全体を Bear にしなかったのは、そこまでしなくても大丈夫だろうという思いと、アルミフレームを買う出費と改造の手間を惜しんだためです。</p>
+<h4 id="bear-extruder">Bear Extruder</h4>
+<p>ホットエンド回りのメンテナンス性を上げるため、エクストルーダーを <a href="https://github.com/gregsaun/bear_extruder_and_x_axis" target="_blank" rel="noopener noreferrer">gregsaun/bear_extruder_and_x_axis: An improved extruder and X axis for Prusa i3 printers</a>
+ に切り替えました。プリンター全体を Bear にしなかったのは、そこまでしなくても大丈夫だろうという思いと、アルミフレームを買う出費と改造の手間を惜しんだためです。</p>
 <p>ただ、吐き出し量のチューニングに問題があったのか、ナットが手で入らないので止むなくハンダごてを使って力技でナットを入れた個所があり、あらためて印刷してパーツを交換する必要があるかなと考えているところです。</p>
 <p>当初の狙いであったメンテナンス性の向上については、何度か分解を繰り返していますが、分解＆再整備に苦労することがないので、向上が図られていると思います（切り替え前の記憶が乏しいので正確なところが不明になっています）。</p>
-<h4 id=ギヤードモーターの導入>ギヤードモーターの導入</h4>
+<h4 id="ギヤードモーターの導入">ギヤードモーターの導入</h4>
 <p>フィラメントの送り出し量を細かく制御するため、減速ギヤを使ってモーターの回転数を減速させることにしました。</p>
 <p>まず、既存のモーターにギヤを後付けできる次の MOD を使うことを検討しました。</p>
-<p><a href=https://www.thingiverse.com/thing:3714978 target=_blank rel="noopener noreferrer">Nema 17 Gearbox &ldquo;Pulleybox&rdquo; Mod for Extruder by vertigo235 - Thingiverse</a>
+<p><a href="https://www.thingiverse.com/thing:3714978" target="_blank" rel="noopener noreferrer">Nema 17 Gearbox &ldquo;Pulleybox&rdquo; Mod for Extruder by vertigo235 - Thingiverse</a>
 </p>
 <p>しかし、これを使う改造が上手くいかないときに、3Dプリンタパーツを多数販売している TriangleLab からギヤ内蔵のモーターが販売されましたので、こちらを導入することにしました。</p>
-<p><a href="https://ja.aliexpress.com/item/1005001487905889.html?spm=a2g0s.9042311.0.0.59b84c4d6wgVBk" target=_blank rel="noopener noreferrer">Trianglelab nema 17ギヤードステッピングモータ1:3 reductingステッピングモータprusa I3 MK3S押出機変更1:3ギヤ比|3D Printer Parts & Accessories| - AliExpress</a>
+<p><a href="https://ja.aliexpress.com/item/1005001487905889.html?spm=a2g0s.9042311.0.0.59b84c4d6wgVBk" target="_blank" rel="noopener noreferrer">Trianglelab nema 17ギヤードステッピングモータ1:3 reductingステッピングモータprusa I3 MK3S押出機変更1:3ギヤ比|3D Printer Parts &amp; Accessories| - AliExpress</a>
 </p>
 <p>フィラメントの送り出し量が細かく制御できるようになり、プリント品の品質が向上しました。</p>
-<h4 id=klipper-の導入>Klipper の導入</h4>
+<h4 id="klipper-の導入">Klipper の導入</h4>
 <p>既存のファームウェアに大きな不満があったわけではないのですが、印刷品質の向上等を図るためにファームウェアを Klipper にしました。なお、プリンタの制御は FluiddPi で行っています。</p>
-<p><a href=https://www.klipper3d.org/ target=_blank rel="noopener noreferrer">Welcome - Klipper documentation</a>
+<p><a href="https://www.klipper3d.org/" target="_blank" rel="noopener noreferrer">Welcome - Klipper documentation</a>
 </p>
-<p><a href=https://github.com/fluidd-core/fluidd target=_blank rel="noopener noreferrer">fluidd-core/fluidd: Fluidd, the klipper UI.</a>
+<p><a href="https://github.com/fluidd-core/fluidd" target="_blank" rel="noopener noreferrer">fluidd-core/fluidd: Fluidd, the klipper UI.</a>
 </p>
 <p>ファームウェア切り替え後は設定で大分悩みましたが、設定ができてしまうと FluiddPi から何でもできるため非常に便利になりました。</p>
 <p>Ender 3 Pro にも導入する予定ですが、なかなか時間がとれないため作業が進んでいません。</p>
-<h4 id=シリコンベッドレベリング>シリコンベッドレベリング</h4>
-<p>ベッドの水平を出すために <a href="https://www.youtube.com/watch?v=hDv73AdiBqM" target=_blank rel="noopener noreferrer">PRUSA i3 MK3 Nylock Bed Leveling - YouTube</a>
-で紹介されている方法を導入していましたが、調整がとにかく面倒でした。レベリングを繰り返して調整を追い込んでいく必要があるのは仕方ないのですが、調整の際にナイロンナットをペンチで固定しながらネジを回すという作業がとにかく面倒で、一度実施したら可能な限り再調整したくないという状況でした。</p>
-<p>そんなとき、<a href=https://www.schweinert.com/silicone-bed-level-mod-prusa-mk3/ target=_blank rel="noopener noreferrer">Silicone Bed Level Mod Prusa MK3 – SCHWEINERT.COM</a>
-でシリコンチューブを使ってレベリングする方法が紹介されていて、これならベッドの上からネジを回すだけで調整が可能になって調整が楽になると思って導入しました。</p>
+<h4 id="シリコンベッドレベリング">シリコンベッドレベリング</h4>
+<p>ベッドの水平を出すために <a href="https://www.youtube.com/watch?v=hDv73AdiBqM" target="_blank" rel="noopener noreferrer">PRUSA i3 MK3 Nylock Bed Leveling - YouTube</a>
+ で紹介されている方法を導入していましたが、調整がとにかく面倒でした。レベリングを繰り返して調整を追い込んでいく必要があるのは仕方ないのですが、調整の際にナイロンナットをペンチで固定しながらネジを回すという作業がとにかく面倒で、一度実施したら可能な限り再調整したくないという状況でした。</p>
+<p>そんなとき、<a href="https://www.schweinert.com/silicone-bed-level-mod-prusa-mk3/" target="_blank" rel="noopener noreferrer">Silicone Bed Level Mod Prusa MK3 – SCHWEINERT.COM</a>
+ でシリコンチューブを使ってレベリングする方法が紹介されていて、これならベッドの上からネジを回すだけで調整が可能になって調整が楽になると思って導入しました。</p>
 <p>実際に導入してみると、ナイロンナットを使うより簡単に導入できて調整作業も楽なので、非常にコストパフォーマンスの良い改造でした。</p>
 <p>なお、上記のサイトでは「外径 7-8mm、内径 3mm」のシリコンチューブを使うとありますが、国内でこのサイズのシリコンチューブが見つからなかったので、モノタロウで「外径 6mm、内径 3mm」のシリコンチューブを購入しました。</p>
-<p><a href=https://www.monotaro.com/p/3278/8262/ target=_blank rel="noopener noreferrer">SR1554 シリコンチューブ タイガースポリマー 内径 3Φmm、外径 6Φmm、長さ 1m、SR1554、1巻 - 【通販モノタロウ】</a>
+<p><a href="https://www.monotaro.com/p/3278/8262/" target="_blank" rel="noopener noreferrer">SR1554 シリコンチューブ タイガースポリマー 内径 3Φmm、外径 6Φmm、長さ 1m、SR1554、1巻 - 【通販モノタロウ】</a>
 </p>
-<h4 id=リニアブッシュの交換>リニアブッシュの交換</h4>
-<p>Prusa は XY 軸の可動部分が V スロットではなくリニアブッシュですが、移動時に結構な音がするので、これを少しでも静かにするためにプラスチック製のリニアブッシュに交換しました。使ったリニアブッシュは <a href="https://www.igus.co.jp/product/990?artNr=RJ4JP-01-08" target=_blank rel="noopener noreferrer">ドライリンR リニアベアリング RJ4JP-01</a>
-です。</p>
+<h4 id="リニアブッシュの交換">リニアブッシュの交換</h4>
+<p>Prusa は XY 軸の可動部分が V スロットではなくリニアブッシュですが、移動時に結構な音がするので、これを少しでも静かにするためにプラスチック製のリニアブッシュに交換しました。使ったリニアブッシュは <a href="https://www.igus.co.jp/product/990?artNr=RJ4JP-01-08" target="_blank" rel="noopener noreferrer">ドライリンR リニアベアリング RJ4JP-01</a>
+ です。</p>
 <p>体感による比較ですが、交換してからは XY 軸の移動時の音が少し静かになりました。これ以上静かにしようと思ったら、モーターダンパーを導入して、さらにプリンタをコンクリート板の上に載せる必要がありますが、いまのところそこまで行う予定はないです。</p>
-<h3 id=ender-3-pro>Ender 3 Pro</h3>
+<h3 id="ender-3-pro">Ender 3 Pro</h3>
 <p>Ender 3 Pro の改造も色々行っています。MOD も改造パーツも豊富な機種なので、色々いじりがいがあります。</p>
 <ul>
 <li>マザーボードの交換</li>
@@ -216,45 +253,45 @@
 <li>Z 軸をデュアル化</li>
 <li>エクストルーダーファンを Noctua 製に切り替え</li>
 </ul>
-<h4 id=マザーボードの交換>マザーボードの交換</h4>
+<h4 id="マザーボードの交換">マザーボードの交換</h4>
 <p>私が買った Ender 3 Pro のストックのマザーボードのモータードライバーは8ビットだったので、印刷中の騒音がひどかったです。そのため、モータードライバーの32ビット化を図るため、Bigtreetech 製の SKR mini e3 V2.0 に取り換えました。これにより騒音問題が解消し、動きも滑らかになって印刷品質も向上しました。また、後述する BLTouch の導入やセンサーレスホーミングの導入も簡単にできるようになりました。</p>
 <p>あと、ファームウェアを更新するときにマザーボードと PC を接続する必要がないのも便利です。</p>
-<p><a href="https://www.aliexpress.com/item/4001039599237.html?spm=a2g0o.store_pc_groupList.0.0.548b351c5XTHM8&pdp_ext_f=%7B%22sku_id%22:%2212000023964571819%22,%22ship_from%22:%22US%22%7D&gps-id=pcStoreJustForYou&scm=1007.23125.137358.0&scm_id=1007.23125.137358.0&scm-url=1007.23125.137358.0&pvid=81643379-496e-4b83-9d0a-6e0fef25e700" target=_blank rel="noopener noreferrer">BIGTREETECH SKR MINI E3 V2 32Bit Motherboard Integrated TMC2209UART Upgrade For SKR V1.4 Creality Ender 3/5 Pro 3D Printer Parts</a>
+<p><a href="https://www.aliexpress.com/item/4001039599237.html?spm=a2g0o.store_pc_groupList.0.0.548b351c5XTHM8&amp;pdp_ext_f=%7B%22sku_id%22:%2212000023964571819%22,%22ship_from%22:%22US%22%7D&amp;gps-id=pcStoreJustForYou&amp;scm=1007.23125.137358.0&amp;scm_id=1007.23125.137358.0&amp;scm-url=1007.23125.137358.0&amp;pvid=81643379-496e-4b83-9d0a-6e0fef25e700" target="_blank" rel="noopener noreferrer">BIGTREETECH SKR MINI E3 V2 32Bit Motherboard Integrated TMC2209UART Upgrade For SKR V1.4 Creality Ender 3/5 Pro 3D Printer Parts</a>
 </p>
-<h4 id=bltouch>BLTouch</h4>
+<h4 id="bltouch">BLTouch</h4>
 <p>オートベッドレベリング導入のために行いました。これにより、最初にベッド4隅のネジを調整してベッドの水平を出してしまえば、ベッド内の凹凸によるレベリングの差は BLTouch のメッシュベッドレベリングで対応できるようになりました。</p>
-<h4 id=センサーレスホーミング>センサーレスホーミング</h4>
+<h4 id="センサーレスホーミング">センサーレスホーミング</h4>
 <p>SKR mini e3 V2.0 のモータードライバーは TMC2209 で、ジャンパコネクタでマザーボードのヘッダーピンの接続を変えるだけでセンサーレスホーミングが使えます。印刷品質向上には繋がらないですが、リミットスイッチを撤去できて配線が楽になり、また、リミットスイッチが壊れても限界を超えてエクストルーダーやベッドが動くことが無くなりました。あと、なんとなく Prusa っぽい動きにもなったのもうれしい点です。</p>
 <figure class="figure bsimage">
-<img src=image1.png class="figure-img img-fluid rounded">
-<figcaption class="figure-caption fw-light text-center">“ジャンパコネクタの取り付け図”</figcaption>
+  <img src="image1.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">“ジャンパコネクタの取り付け図”</figcaption>
 </figure>
 <p>これに伴い、ついでにリミットスイッチの代わりになる部品を設計して取り付けています。Auto Home 移動時は、この部品にぶつかってプリントヘッドやベッドが停止します。</p>
 <figure class="figure bsimage">
-<img src=image2.png class="figure-img img-fluid rounded">
-<figcaption class="figure-caption fw-light text-center">“リミットスイッチの代替品”</figcaption>
+  <img src="image2.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">“リミットスイッチの代替品”</figcaption>
 </figure>
-<h4 id=ダイレクトエクストルーダー化>ダイレクトエクストルーダー化</h4>
+<h4 id="ダイレクトエクストルーダー化">ダイレクトエクストルーダー化</h4>
 <p>エクストルーダーのダイレクト化は、次の MOD を使って行いました。</p>
-<p><a href=https://www.thingiverse.com/thing:2963434 target=_blank rel="noopener noreferrer">Petsfang Bowden Direct with Bondtech BMG for CR10/S/4, Ender3 and Tevo Tornado by dpetsel - Thingiverse</a>
+<p><a href="https://www.thingiverse.com/thing:2963434" target="_blank" rel="noopener noreferrer">Petsfang Bowden Direct with Bondtech BMG for CR10/S/4, Ender3 and Tevo Tornado by dpetsel - Thingiverse</a>
 </p>
 <p>ダイレクト化により、糸引きを大幅に減らすことができるようになりました。また、この MOD は V6 ホットエンド対応なので、ストックの MK8 ホットエンドから V6 ホットエンドに交換しました。これにより、それまでたまに発生していたホットエンド内でのフィラメント詰まりも発生しにくくなりました。</p>
-<h4 id=z-軸のデュアル化>Z 軸のデュアル化</h4>
+<h4 id="z-軸のデュアル化">Z 軸のデュアル化</h4>
 <p>Z 軸のデュアル化は、左右の Z 軸で動きに差が出ることを避けるために行いました。幸い、SKR mini e3 V2.0 はデュアル Z 軸に対応しているため、パーツを購入して配線すれば簡単に実現できます。これにより、左右の Z 軸の動きにずれが出なくなりました。</p>
 <p>購入したパーツはこちらです。</p>
-<p><a href="https://ja.aliexpress.com/item/4000839268343.html?spm=a2g0s.9042311.0.0.59b84c4d6wgVBk" target=_blank rel="noopener noreferrer">3dプリンター部品Ender 3プロ用アップグレードキット,アルミニウム,デュアルz軸|3D Printer Parts & Accessories| - AliExpress</a>
+<p><a href="https://ja.aliexpress.com/item/4000839268343.html?spm=a2g0s.9042311.0.0.59b84c4d6wgVBk" target="_blank" rel="noopener noreferrer">3dプリンター部品Ender 3プロ用アップグレードキット,アルミニウム,デュアルz軸|3D Printer Parts &amp; Accessories| - AliExpress</a>
 </p>
-<h4 id=エクストルーダーファンの交換>エクストルーダーファンの交換</h4>
+<h4 id="エクストルーダーファンの交換">エクストルーダーファンの交換</h4>
 <p>エクストルーダーファンの交換ですが、ストックのエクストルーダーファンは爆音で耳障りだったため、Noctua ファンに交換しました。</p>
 <p>Ender 3 Pro のエクストルーダーファンは24Vで動く前提となっており、SKR mini e3 V2.0 も24Vの電圧を供給しているため、DCDCコンバーターで電圧を24Vから12Vに変換しています。これによりファンが非常に静かになりました。</p>
 <p>なお、この改造はつい最近行ったため、これで冷却が十分足りるかどうかの検証は不十分な状態です。</p>
-<h2 id=最後に>最後に</h2>
+<h2 id="最後に">最後に</h2>
 <p>以上が2021年に実施した3Dプリンタの改造です。</p>
 <p>色々と改造を行っていますが、どちらのプリンタもまだ改造したい点はあります。現時点で考えている改造は次のとおりです。</p>
 <p>Prusa</p>
 <ul>
-<li><a href=https://mihaidesigns.com/pitstop target=_blank rel="noopener noreferrer">The PitStop Extruder for Prusa printers</a>
-の導入</li>
+<li><a href="https://mihaidesigns.com/pitstop" target="_blank" rel="noopener noreferrer">The PitStop Extruder for Prusa printers</a>
+ の導入</li>
 <li>フレーム全体を Bear に改造</li>
 <li>リニアレールの採用</li>
 <li>Backlash 低減のための改造</li>
@@ -266,160 +303,186 @@
 <li>リニアレールの採用</li>
 </ul>
 <p>何かを作ることも楽しいですが、改造すること自体も楽しいのが3Dプリンタだと思っていますので、来年も色々やってみる予定です。</p>
-<p>次のアドベントカレンダーの執筆は @Ikeji さんです。</p>
-</div><div class="modal fade" id=rewardModal tabindex=-1 aria-labelledby=rewardModalLabel aria-hidden=true>
-<div class=modal-dialog>
-<div class="modal-content surface">
-<div class=modal-header>
-<h5 class=modal-title id=rewardModalLabel><i class="fas fa-fw fa-coffee"></i></h5>
-<a href=# data-bs-dismiss=modal class="btn btn-sm btn-outline-primary" aria-label=Close><i class="fas fa-times"></i></a>
-</div>
-<div class=modal-body>
-<ul class="nav nav-tabs mb-3" role=tablist><li class="nav-item text-nowrap" role=presentation>
-<a class="nav-link active" id=reward-alipay-tab data-bs-toggle=tab href=#reward-alipay role=tab aria-controls=reward-alipay aria-selected=true>
-<i class="fab fa-fw fa-alipay"></i>
+<p>次のアドベントカレンダーの記事は @Ikeji さんの <a href="https://my.remarkbox.com/embed?rb_owner_key=744d04d8-8030-11eb-9594-040140774501&amp;thread_title=Ender%203%E6%94%B9%E9%80%A0%E8%A8%98%E9%8C%B2&amp;thread_uri=https%3A%2F%2Fblog.ikejima.org%2F2021%2F12%2F11%2Fender3.html" target="_blank" rel="noopener noreferrer">Ender 3改造記録 | my.remarkbox.com</a>
+ です。</p>
+</div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content surface">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rewardModalLabel"><i class="fas fa-fw fa-coffee"></i></h5>
+        <a href="#" data-bs-dismiss="modal" class="btn btn-sm btn-outline-primary" aria-label="Close"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs mb-3" role="tablist"><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link active" id="reward-alipay-tab" data-bs-toggle="tab" href="#reward-alipay" role="tab" aria-controls="reward-alipay" aria-selected="true">
+              <i class="fab fa-fw fa-alipay"></i>
+            </a>
+          </li><li class="nav-item text-nowrap" role="presentation">
+            <a class="nav-link" id="reward-wechat-tab" data-bs-toggle="tab" href="#reward-wechat" role="tab" aria-controls="reward-wechat" aria-selected="true">
+              <i class="fab fa-fw fa-weixin"></i>
+            </a>
+          </li></ul>
+        <div class="tab-content" id="rewardTabContent"><div class="tab-pane fade post-reward-content show active" id="reward-alipay" role="tabpanel" aria-labelledby="reward-alipay-tab">
+            <img class="img-fluid post-reward-img" src="https://s-show.github.io/images/reward/alipay.png" loading="lazy" />
+          </div><div class="tab-pane fade post-reward-content show" id="reward-wechat" role="tabpanel" aria-labelledby="reward-wechat-tab">
+            <img class="img-fluid post-reward-img" src="https://s-show.github.io/images/reward/wechat.png" loading="lazy" />
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://s-show.github.io/about/">About
 </a>
-</li><li class="nav-item text-nowrap" role=presentation>
-<a class=nav-link id=reward-wechat-tab data-bs-toggle=tab href=#reward-wechat role=tab aria-controls=reward-wechat aria-selected=true>
-<i class="fab fa-fw fa-weixin"></i>
+  </div><div class="post-nav post-next">
+    <a href="https://s-show.github.io/posts/2021-12-11/">Github Actions で Re:view Starter のファイルをビルドする方法
 </a>
-</li></ul>
-<div class=tab-content id=rewardTabContent><div class="tab-pane fade post-reward-content show active" id=reward-alipay role=tabpanel aria-labelledby=reward-alipay-tab>
-<img class="img-fluid post-reward-img" src=https://s-show.github.io/images/reward/alipay.png loading=lazy>
-</div><div class="tab-pane fade post-reward-content show" id=reward-wechat role=tabpanel aria-labelledby=reward-wechat-tab>
-<img class="img-fluid post-reward-img" src=https://s-show.github.io/images/reward/wechat.png loading=lazy>
-</div></div>
-</div>
-</div>
-</div>
-</div><hr><div class="post-navs d-flex mb-3 justify-content-evenly">
-<div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
-<a href=https://s-show.github.io/about/>About
-</a>
-</div></div></div>
+    <i class="fas fa-fw fa-chevron-right"></i>
+  </div></div></div>
 </article><section class="related-posts row card component">
-<div class=card-header>
-<h2 class=card-title></h2>
-</div>
-<div class=card-body>
-<ul class=post-list><li>
-<a href=https://s-show.github.io/about/>About
+    <div class="card-header">
+      <h2 class="card-title"></h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://s-show.github.io/about/">About
 </a>
-<span class="float-end post-date">2021-12-08
+          <span class="float-end post-date">2021-12-08
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2020-12-03/>自作キーボード活動2年目の振り返り
+        </li><li>
+          <a href="https://s-show.github.io/posts/2020-12-03/">自作キーボード活動2年目の振り返り
 </a>
-<span class="float-end post-date">2020-12-03
+          <span class="float-end post-date">2020-12-03
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2020-01-01/>自作キーボードから始まったものづくりへの取り組み
+        </li><li>
+          <a href="https://s-show.github.io/posts/2020-01-01/">自作キーボードから始まったものづくりへの取り組み
 </a>
-<span class="float-end post-date">2020-01-01
+          <span class="float-end post-date">2020-01-01
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2019-12-20/>AnyCubic I3 Mega S に TMC2208 を導入する
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-12-20/">AnyCubic I3 Mega S に TMC2208 を導入する
 </a>
-<span class="float-end post-date">2019-12-20
+          <span class="float-end post-date">2019-12-20
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2019-10-13/>ArduinoとPlaidを使ってマイコンを複製する方法
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-10-13/">ArduinoとPlaidを使ってマイコンを複製する方法
 </a>
-<span class="float-end post-date">2019-10-13
+          <span class="float-end post-date">2019-10-13
 </span>
-</li></ul>
-</div>
-</section><div class="card component row post-comments">
-<div class=card-header>
-<h2 class=card-title></h2>
-</div>
-<div class=card-body><script src=https://utteranc.es/client.js repo=razonyang/hugo-theme-bootstrap-comments issue-term=pathname label=comment theme=github-light crossorigin=anonymous async></script></div>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="razonyang/hugo-theme-bootstrap-comments"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
 </div></div>
 </div><aside class="col-lg-4 sidebar d-flex">
-<div class=container>
-<section class="card row text-center profile component">
-<div class=card-body>
-<div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt=s-show src=https://s-show.github.io/img/profileIcon.png loading=lazy width=500 height=500>
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="s-show" src="https://s-show.github.io/img/profileIcon.png" loading="lazy"
+   width="500" height="500"
+   />
 </div>
-<div class="col-12 profile-meta"><div class=profile-name>s-show</div><div class=profile-bio>プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class=profile-location><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class=profile-about><i class="fas fa-fw fa-user"></i><a href=https://s-show.github.io/about/>About</a></div></div>
-</div>
+    <div class="col-12 profile-meta"><div class="profile-name">s-show</div><div class="profile-bio">プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a href="https://s-show.github.io/about/">About</a></div></div>
+  </div>
 </section>
-<section class="recent-posts row card component">
-<div class=card-header>
-<h2 class=card-title></h2>
-</div>
-<div class=card-body>
-<ul class=post-list><li>
-<a href=https://s-show.github.io/posts/2021-12-10/>2021年に実施した3Dプリンターの改造
+  <section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list"><li>
+        <a href="https://s-show.github.io/posts/2021-12-11/">Github Actions で Re:view Starter のファイルをビルドする方法
 </a>
-<span class="float-end post-date">2021-12-10
+        <span class="float-end post-date">2021-12-11
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2020-12-03/>自作キーボード活動2年目の振り返り
+      </li><li>
+        <a href="https://s-show.github.io/posts/2021-12-10/">2021年に実施した3Dプリンターの改造
 </a>
-<span class="float-end post-date">2020-12-03
+        <span class="float-end post-date">2021-12-10
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2020-01-01/>自作キーボードから始まったものづくりへの取り組み
+      </li><li>
+        <a href="https://s-show.github.io/posts/2020-12-03/">自作キーボード活動2年目の振り返り
 </a>
-<span class="float-end post-date">2020-01-01
+        <span class="float-end post-date">2020-12-03
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2019-12-20/>AnyCubic I3 Mega S に TMC2208 を導入する
+      </li><li>
+        <a href="https://s-show.github.io/posts/2020-01-01/">自作キーボードから始まったものづくりへの取り組み
 </a>
-<span class="float-end post-date">2019-12-20
+        <span class="float-end post-date">2020-01-01
 </span>
-</li><li>
-<a href=https://s-show.github.io/posts/2019-10-13/>ArduinoとPlaidを使ってマイコンを複製する方法
+      </li><li>
+        <a href="https://s-show.github.io/posts/2019-12-20/">AnyCubic I3 Mega S に TMC2208 を導入する
 </a>
-<span class="float-end post-date">2019-10-13
+        <span class="float-end post-date">2019-12-20
 </span>
-</li></ul>
-</div>
+      </li></ul>
+  </div>
 </section><section class="taxonomies row card component">
-<div class=card-header>
-<h2 class=card-title>
-<a href=https://s-show.github.io/tags></a>
-</h2>
-</div>
-<div class=card-body>
-<div class=py-2><a href=https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="badge rounded post-taxonomy" title=プログラミング>
-プログラミング
-</a><a href=https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="badge rounded post-taxonomy" title=備忘録>
-備忘録
-</a><a href=https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="badge rounded post-taxonomy" title=自作キーボード>
-自作キーボード
-</a><a href=https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="badge rounded post-taxonomy" title=読書記録>
-読書記録
-</a><a href=https://s-show.github.io/tags/mac/ class="badge rounded post-taxonomy" title=Mac>
-Mac
-</a><a href=https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="badge rounded post-taxonomy" title=未分類>
-未分類
-</a><a href=https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="badge rounded post-taxonomy" title=3Dプリンタ>
-3Dプリンタ
-</a><a href=https://s-show.github.io/tags/karabiner-elements/ class="badge rounded post-taxonomy" title=Karabiner-Elements>
-Karabiner-Elements
-</a><a href=https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/ class="badge rounded post-taxonomy" title=太平洋戦争>
-太平洋戦争
-</a><a href=https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/ class="badge rounded post-taxonomy" title=読書>
-読書
-</a></div>
-</div>
-</section>
-</div>
+      <div class="card-header">
+        <h2 class="card-title">
+          <a href="https://s-show.github.io/tags"></a>
+        </h2>
+      </div>
+      <div class="card-body">
+        <div class="py-2"><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded post-taxonomy" title="プログラミング">
+            プログラミング
+          </a><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="備忘録">
+            備忘録
+          </a><a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="badge rounded post-taxonomy" title="自作キーボード">
+            自作キーボード
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="読書記録">
+            読書記録
+          </a><a href="https://s-show.github.io/tags/mac/" class="badge rounded post-taxonomy" title="Mac">
+            Mac
+          </a><a href="https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/" class="badge rounded post-taxonomy" title="未分類">
+            未分類
+          </a><a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="badge rounded post-taxonomy" title="3Dプリンタ">
+            3Dプリンタ
+          </a><a href="https://s-show.github.io/tags/karabiner-elements/" class="badge rounded post-taxonomy" title="Karabiner-Elements">
+            Karabiner-Elements
+          </a><a href="https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/" class="badge rounded post-taxonomy" title="太平洋戦争">
+            太平洋戦争
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/" class="badge rounded post-taxonomy" title="読書">
+            読書
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
 </aside>
 </div>
-</main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
-<i class="fas fa-fw fa-2x fa-envelope"></i>
-</a><a class="nav-link social-link" target=_blank href=https://github.com/s-show title=GitHub rel="noopener noreferrer">
-<i class="fa-fw fa-2x fab fa-github"></i>
-</a></nav>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/s-show" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
 <div class="copyright mb-2">
-Copyright © 2021-2021 s-show. All Rights Reserved.
+  Copyright © 2021-2021 s-show. All Rights Reserved.
 </div>
 <div class="powered-by mb-2">
-Powered by <a href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">Bootstrap</a> theme.
+  Powered by <a href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
 </div></footer>
-<script src=https://s-show.github.io/js/bundle.min.29979a9bbcb4a3832af87d9728d070fba68d9abdd0a3f74d56b2b08a5526a2f3.js integrity="sha256-KZeam7y0o4Mq+H2XKNBw+6aNmr3Qo/dNVrKwilUmovM=" crossorigin=anonymous defer></script><script>'serviceWorker'in navigator&&window.addEventListener('load',()=>{navigator.serviceWorker.register('https://s-show.github.io/service-worker.js').then(function(a){console.log('Successfully registered service worker',a)}).catch(function(a){console.warn('Error whilst registering service worker',a)})})</script>
+<script src="https://s-show.github.io/js/bundle.min.29979a9bbcb4a3832af87d9728d070fba68d9abdd0a3f74d56b2b08a5526a2f3.js" integrity="sha256-KZeam7y0o4Mq&#43;H2XKNBw&#43;6aNmr3Qo/dNVrKwilUmovM=" crossorigin="anonymous" defer></script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('https:\/\/s-show.github.io\/service-worker.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script>
 </body>
 </html>
