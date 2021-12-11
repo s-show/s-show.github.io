@@ -2,11 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://s-show.github.io/about/</loc>
-    <lastmod>2021-12-08T22:55:17+09:00</lastmod>
+    <loc>https://s-show.github.io/posts/2021-12-10/</loc>
+    <lastmod>2021-12-10T22:42:23+09:00</lastmod>
   </url><url>
     <loc>https://s-show.github.io/posts/</loc>
-    <lastmod>2020-12-03T14:21:27+00:00</lastmod>
+    <lastmod>2021-12-10T22:42:23+09:00</lastmod>
+  </url><url>
+    <loc>https://s-show.github.io/</loc>
+    <lastmod>2021-12-10T22:42:23+09:00</lastmod>
+  </url><url>
+    <loc>https://s-show.github.io/about/</loc>
+    <lastmod>2021-12-08T22:55:17+09:00</lastmod>
   </url><url>
     <loc>https://s-show.github.io/tags/</loc>
     <lastmod>2020-12-03T14:21:27+00:00</lastmod>
@@ -18,9 +24,6 @@
     <lastmod>2020-12-03T14:21:27+00:00</lastmod>
   </url><url>
     <loc>https://s-show.github.io/posts/2020-12-03/</loc>
-    <lastmod>2020-12-03T14:21:27+00:00</lastmod>
-  </url><url>
-    <loc>https://s-show.github.io/</loc>
     <lastmod>2020-12-03T14:21:27+00:00</lastmod>
   </url><url>
     <loc>https://s-show.github.io/posts/2020-01-01/</loc>
