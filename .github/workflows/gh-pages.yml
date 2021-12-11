@@ -22,8 +22,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
+
       - name: Install NPM packages
         run: npm ci
+
+      - name: Start Local API Server
+        run: node app.js
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
