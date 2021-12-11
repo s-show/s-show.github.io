@@ -48,6 +48,17 @@
 	vertical-align: text-bottom;
 }
 
+/* 画像読み込みショートコード用の設定 */
 .bsimage img{
 	border: thin #c0c0c0 solid;
+}
+
+/* ブログカード用の設定 */
+.card {
+  box-shadow: 2px 2px 5px -1px rgb(200, 200, 200);
+}
+
+.blog-card-image {
+  width: 150px;
+  height: 150px;
 }

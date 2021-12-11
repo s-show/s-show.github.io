@@ -1,0 +1,28 @@
+{
+  "name": "kankodori-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s-show/s-show.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s-show/s-show.github.io/issues"
+  },
+  "homepage": "https://github.com/s-show/s-show.github.io#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "open-graph-scraper": "^4.11.0"
+  },
+  "type": "module"
+}
