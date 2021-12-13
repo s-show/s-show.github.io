@@ -3,26 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法 - 閑古鳥ブログ</title><link rel="apple-touch-icon" href="https://s-show.github.io/images/icons/icon-180x180.png" sizes="180x180">
+    <title>QMK API を使ってキーボードのリストを取得する方法 - 閑古鳥ブログ</title><link rel="apple-touch-icon" href="https://s-show.github.io/images/icons/icon-180x180.png" sizes="180x180">
 <link rel="icon" href="https://s-show.github.io/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="https://s-show.github.io/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
 <link rel="icon" href="https://s-show.github.io/images/icons/favicon.ico">
 <link rel="manifest" href="https://s-show.github.io/manifest.json">
 <meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法">
-<meta itemprop="description" content="Karabiner-Elementsとは Karabiner-Elementsは、Macのキーボードカスタマイズアプリで、設定ファイルを自分で"><meta itemprop="datePublished" content="2017-11-25T12:35:30+00:00" />
-<meta itemprop="dateModified" content="2017-11-25T12:35:30+00:00" />
-<meta itemprop="wordCount" content="4129">
-<meta itemprop="keywords" content="Karabiner-Elements,Mac,プログラミング," /><meta property="og:title" content="Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法" />
-<meta property="og:description" content="Karabiner-Elementsとは Karabiner-Elementsは、Macのキーボードカスタマイズアプリで、設定ファイルを自分で" />
+<meta name="description" content="" /><meta itemprop="name" content="QMK API を使ってキーボードのリストを取得する方法">
+<meta itemprop="description" content="前置き 自作キーボードのトラブルシューティングのための問診票テンプレート を作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリスト"><meta itemprop="datePublished" content="2021-12-12T09:00:00+09:00" />
+<meta itemprop="dateModified" content="2021-12-12T09:00:00+09:00" />
+<meta itemprop="wordCount" content="393">
+<meta itemprop="keywords" content="プログラミング,自作キーボード," /><meta property="og:title" content="QMK API を使ってキーボードのリストを取得する方法" />
+<meta property="og:description" content="前置き 自作キーボードのトラブルシューティングのための問診票テンプレート を作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリスト" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://s-show.github.io/posts/2017-11-25/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2017-11-25T12:35:30+00:00" />
-<meta property="article:modified_time" content="2017-11-25T12:35:30+00:00" />
+<meta property="og:url" content="https://s-show.github.io/posts/2021-12-12/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-12T09:00:00+09:00" />
+<meta property="article:modified_time" content="2021-12-12T09:00:00+09:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法"/>
-<meta name="twitter:description" content="Karabiner-Elementsとは Karabiner-Elementsは、Macのキーボードカスタマイズアプリで、設定ファイルを自分で"/>
+<meta name="twitter:title" content="QMK API を使ってキーボードのリストを取得する方法"/>
+<meta name="twitter:description" content="前置き 自作キーボードのトラブルシューティングのための問診票テンプレート を作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリスト"/>
 <meta name="robots" content="noindex, nofollow" /><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.7f703f734a110a39ce11622c19bbafc6d9e5d605c1c638d081a1b1a53c1089c5.css" integrity="sha256-f3A/c0oRCjnOEWIsGbuvxtnl1gXBxjjQgaGxpTwQicU=" crossorigin="anonymous">
 <noscript><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.7f703f734a110a39ce11622c19bbafc6d9e5d605c1c638d081a1b1a53c1089c5.css" integrity="sha256-f3A/c0oRCjnOEWIsGbuvxtnl1gXBxjjQgaGxpTwQicU=" crossorigin="anonymous"></noscript></head>
   <body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
@@ -46,11 +46,11 @@
   </div>
   <div class="offcanvas-body">
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
-      target="_blank" href="https://twitter.com/intent/tweet?title=Karabiner-Elements%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6Mac%e3%81%ae%e3%82%ad%e3%83%bc%e3%83%9c%e3%83%bc%e3%83%89%e6%93%8d%e4%bd%9c%e3%82%92%e5%bf%ab%e9%81%a9%e3%81%ab%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2017-11-25%2f">
+      target="_blank" href="https://twitter.com/intent/tweet?title=QMK%20API%20%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%ad%e3%83%bc%e3%83%9c%e3%83%bc%e3%83%89%e3%81%ae%e3%83%aa%e3%82%b9%e3%83%88%e3%82%92%e5%8f%96%e5%be%97%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-12%2f">
       <i class="fab fa-fw fa-twitter"></i> Twitter
     </a>
     <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
-      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2017-11-25%2f">
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-12%2f">
       <i class="fab fa-fw fa-facebook-f"></i> Facebook
     </a>
   </div>
@@ -157,7 +157,7 @@
 <div class="col-lg-8">
   <div class="container"><nav class="row card component" aria-label="breadcrumb">
   <div class="card-body">
-    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://s-show.github.io/"></a></li><li class="breadcrumb-item"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法</li></ol>
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://s-show.github.io/"></a></li><li class="breadcrumb-item"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">QMK API を使ってキーボードのリストを取得する方法</li></ol>
   </div>
 </nav><article class="row card component mb-4 post"><div class="post-panel-wrapper">
   <div class="d-flex flex-column component rounded post-panel">
@@ -182,105 +182,87 @@
   </div>
 </div>
 <div class="card-header ">
-    <h1 class="card-title post-title">Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法
+    <h1 class="card-title post-title">QMK API を使ってキーボードのリストを取得する方法
 </h1>
   </div>
   <div class="card-body"><div class="post-meta">
   <span class="post-date" title="">
-    2017-11-25
+    2021-12-12
   </span><span class="post-reading-time">
     
-  </span><span class="post-taxonomies"><a href="https://s-show.github.io/tags/karabiner-elements/" class="badge rounded-pill post-taxonomy">Karabiner-Elements</a><a href="https://s-show.github.io/tags/mac/" class="badge rounded-pill post-taxonomy">Mac</a><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded-pill post-taxonomy">プログラミング</a></span>
+  </span><span class="post-taxonomies"><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded-pill post-taxonomy">プログラミング</a><a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="badge rounded-pill post-taxonomy">自作キーボード</a></span>
 </div>
-<div class="post-content mb-3"><h1 id="karabiner-elementsとは">Karabiner-Elementsとは</h1>
-<p>Karabiner-Elementsは、Macのキーボードカスタマイズアプリで、設定ファイルを自分で記述することで以下のような機能を実現できます。</p>
-<ul>
-<li>&ldquo;control-H&quot;のようなキー入力を&quot;Command-A&quot;の入力に変換</li>
-<li>&ldquo;Escape&quot;を１回入力したら&quot;Escape, 英数, Escape&quot;のようなキー入力を実現する</li>
-<li>&ldquo;control-2&quot;のようなキー入力に<code>&quot;open -a 'safari'&quot;</code>のようなシェルコマンドの実行を割り当てる</li>
-<li>&ldquo;スペースバー&quot;を押している間だけ、&ldquo;H, J, K, L&quot;をカーソルキーに変換する</li>
-<li>&ldquo;control-x control-c&quot;のようなキー入力を&quot;command-Q&quot;の入力に変換したり、シェルコマンドの実行を割り当てる。</li>
-<li>左右のコマンドキーを押すとIMEをオン・オフできるようにする</li>
-</ul>
-<p>同じキーボードカスタマイズアプリで、同じ開発者が開発していたKarabinerがmacOS Sierraで使用できなくなったため、後継アプリとして開発されています。ちなみに、KarabinerはKeyRemap4MacBookと呼ばれていたアプリです。 アプリの配布場所：<a href="https://karabiner-elements.pqrs.org/" target="_blank" rel="noopener noreferrer">Karabiner-Elements</a>
+<div class="post-content mb-3"><h2 id="前置き">前置き</h2>
+<p>自作キーボードのトラブルシューティングのための<a href="https://s-show.github.io/mon-shin-dialog-sample/">問診票テンプレート</a>
+を作る時に、QMK Firmware リポジトリの <code>keyboards</code> ディレクトリにあるキーボードのリストを取得する方法を発見していました。</p>
+<p>ネットを検索しても紹介されているページが見当たらないので、こちらで紹介します。</p>
+<h2 id="方法">方法</h2>
+<p><code>https://api.qmk.fm/v1/keyboards</code> にアクセスするとキーボードのリストが JSON 形式で返ってきますので、使用目的に合わせてテキスト処理をして使います。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1"> 1</a></span><span class="c1">// コード例
+</span><span class="ln" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2"> 2</a></span><span class="c1"></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://api.qmk.fm/v1/keyboards&#39;</span><span class="p">)</span>
+<span class="ln" id="3"><a style="outline: none; text-decoration:none; color:inherit" href="#3"> 3</a></span>  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="ln" id="4"><a style="outline: none; text-decoration:none; color:inherit" href="#4"> 4</a></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln" id="5"><a style="outline: none; text-decoration:none; color:inherit" href="#5"> 5</a></span>      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Response not success.&#39;</span><span class="p">);</span>
+<span class="ln" id="6"><a style="outline: none; text-decoration:none; color:inherit" href="#6"> 6</a></span>    <span class="p">}</span>
+<span class="ln" id="7"><a style="outline: none; text-decoration:none; color:inherit" href="#7"> 7</a></span>      <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span>
+<span class="ln" id="8"><a style="outline: none; text-decoration:none; color:inherit" href="#8"> 8</a></span>    <span class="p">})</span> 
+<span class="ln" id="9"><a style="outline: none; text-decoration:none; color:inherit" href="#9"> 9</a></span>    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="ln" id="10"><a style="outline: none; text-decoration:none; color:inherit" href="#10">10</a></span>      <span class="c1">// `data` は CSV なので `split(&#39;,&#39;)` で配列に変換。
+</span><span class="ln" id="11"><a style="outline: none; text-decoration:none; color:inherit" href="#11">11</a></span><span class="c1"></span>      <span class="kr">const</span> <span class="nx">keyboardList</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+<span class="ln" id="12"><a style="outline: none; text-decoration:none; color:inherit" href="#12">12</a></span>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">keyboardList</span><span class="p">);</span>
+<span class="ln" id="13"><a style="outline: none; text-decoration:none; color:inherit" href="#13">13</a></span>    <span class="p">})</span>
+<span class="ln" id="14"><a style="outline: none; text-decoration:none; color:inherit" href="#14">14</a></span>    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;There has been a problem with your fetch operation:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+<span class="ln" id="15"><a style="outline: none; text-decoration:none; color:inherit" href="#15">15</a></span>
+<span class="ln" id="16"><a style="outline: none; text-decoration:none; color:inherit" href="#16">16</a></span><span class="o">&gt;</span> <span class="p">[</span><span class="s2">&#34;[&#34;</span><span class="mi">0_</span><span class="nx">sixty</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="mi">10</span><span class="nx">bleoledhub</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="mi">1</span><span class="nx">upkeyboards</span><span class="o">/</span><span class="mi">1</span><span class="nx">up60hse</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="mi">1</span><span class="nx">upkeyboards</span><span class="o">/</span><span class="mi">1</span><span class="nx">up60hte</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="p">...</span>
+</code></pre></div><p>コード例2</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1">1</a></span>curl https://api.qmk.fm/v1/keyboards <span class="p">|</span> jq
+<span class="ln" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2">2</a></span>
+<span class="ln" id="3"><a style="outline: none; text-decoration:none; color:inherit" href="#3">3</a></span><span class="o">[</span>
+<span class="ln" id="4"><a style="outline: none; text-decoration:none; color:inherit" href="#4">4</a></span>  <span class="s2">&#34;0_sixty&#34;</span>,
+<span class="ln" id="5"><a style="outline: none; text-decoration:none; color:inherit" href="#5">5</a></span>  <span class="s2">&#34;0_sixty/underglow&#34;</span>,
+<span class="ln" id="6"><a style="outline: none; text-decoration:none; color:inherit" href="#6">6</a></span>  ...
+<span class="ln" id="7"><a style="outline: none; text-decoration:none; color:inherit" href="#7">7</a></span>  <span class="s2">&#34;zvecr/zv48/f401&#34;</span>,
+<span class="ln" id="8"><a style="outline: none; text-decoration:none; color:inherit" href="#8">8</a></span>  <span class="s2">&#34;zvecr/zv48/f411&#34;</span>
+<span class="ln" id="9"><a style="outline: none; text-decoration:none; color:inherit" href="#9">9</a></span><span class="o">]</span>
+</code></pre></div><hr>
+<p>参考情報
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://opengraph.githubassets.com/c99b2ef68a42d7226a5e93cd0b22942854f21020a4f6674744d51a7ed53ef324/qmk/qmk_api" alt="qmk_api/keyboard_api.md at master · qmk/qmk_api"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://github.com/qmk/qmk_api" class="">qmk_api/keyboard_api.md at master · qmk/qmk_api</a>
+			</h5>
+			<p class="card-text m-1">QMK API, information on keyboards and keymaps, and a compile service. - qmk_api/keyboard_api.md at …</p>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://developer.mozilla.org/mdn-social-share.0ca9dbda.png" alt="Fetch の使用 - Web API | MDN"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch" class="">Fetch の使用 - Web API | MDN</a>
+			</h5>
+			<p class="card-text m-1">
+Fetch API を利用すると、リクエストやレスポンスといった HTTP のパイプラインを構成する要素を操作できるようになります。また fetch() メソッドを利用することで、非同期のネットワー …</p>
+		</div>
+	</div>
+</div>
 </p>
-<h1 id="karabiner-elementsを使って実現した機能主なもの">Karabiner-Elementsを使って実現した機能（主なもの）</h1>
-<p>Karabiner-Elementsを使うと様々な機能を実現することが可能で、コピーなどの各種操作をWindowsと同じにしたり、キーボードの配列をQWERTYからDVORAKに変更するカスタマイズまでしている人もいるようです。そこまでいかなくても、以下のページを見ると、たくさんのユーザーが実に様々な設定を行なっていることが分かります。 <a href="https://pqrs.org/osx/karabiner/complex_modifications/" target="_blank" rel="noopener noreferrer">Karabiner-Elements complex_modifications rules</a>
- 私が行っている設定のうち、主なものは以下のとおりです。</p>
-<ul>
-<li>IMEの切り替え方法の改善
-<ul>
-<li>全角/半角キーでIMEを切り替え</li>
-<li>変換/かなキーでIMEオン</li>
-<li>無変換キーでIMEオフ</li>
-</ul>
-</li>
-<li>ブラウザ（Safari, Chrome, Firefox）やターミナルのタブの移動をctrl-pageup(down)で行えるように設定</li>
-<li>Windowsと同様の動作を実現
-<ul>
-<li>F5キーでブラウザの更新を行う</li>
-<li>Shift-F10やアプリケーションキーに右クリックを割り当て</li>
-<li>PrintScreenで画面全体のスクリーンショット撮影</li>
-<li>Option-PrintScreenで指定したウィンドウのスクリーンショットを撮影</li>
-<li>Finderでファイル(フォルダ)を選択してDeleteを押すとファイルをゴミ箱へ移動</li>
-<li>Command-EでFinderを開く</li>
-<li>Control-EscapeでLaunchPad表示（スタートメニュー表示の代わり）</li>
-</ul>
-</li>
-<li>Windowsのキーボードユーティリティーソフトのenthumbleと同様の操作を実現
-<ul>
-<li>無変換/英数 + I, J, K, L -&gt; 矢印キー（←, ↓, ↑, →）</li>
-<li>無変換/英数 + A, S, W, D -&gt; 矢印キー（←, ↓, ↑, →）</li>
-<li>無変換/英数 + B, N, P, F -&gt; 矢印キー（←, ↓, ↑, →）</li>
-<li>無変換/英数 + H, J, K, L -&gt; 矢印キー（←, ↓, ↑, →）※この組み合わせを使用中</li>
-<li>無変換/英数 + Space/かな -&gt; Enter/Escape</li>
-<li>無変換/英数 + N, M -&gt; BackSpace</li>
-<li>無変換/英数 + &lsquo;,&rsquo; &lsquo;.&rsquo; -&gt; Delete</li>
-<li>無変換/英数 + Y, U -&gt; BackSpace</li>
-<li>無変換/英数 + I, O -&gt; Delete</li>
-<li>無変換/英数 + 矢印キー（←, ↓, ↑, →）で「←, ↓, ↑, →」を入力</li>
-</ul>
-</li>
-<li>Windowsのキーボードユーティリティーソフトの秀Capsの「テンキーのピリオド２連打でコンマ入力」を実現</li>
-</ul>
-<p>上記の他にも設定している項目はあります。設定ファイルは、GitHubで管理していますので、適宜開いて見てください。また、Karabiner-Elementsには、設定ファイルを自分で書かなくても、他の人の設定をインポートして使用可能にする機能があります。上記の設定を紹介しているページからも設定をインポートできますし、私の設定であれば、以下のリンクからインポートできます。 設定ファイル（JSONファイル）：<a href="https://github.com/s-show/KE-complex_modifications/" target="_blank" rel="noopener noreferrer">KE-complex_modifications</a>
- Karabiner-Elementsに読み込ませる設定ファイルは、<code>docs/json/</code>ディレクトリにあります。 設定のインポートページ：<a href="https://s-show.github.io/KE-complex_modifications/">Karabiner-Elements complex_modifications rules by s-show</a>
-</p>
-<h1 id="設定で工夫した点">設定で工夫した点</h1>
-<p>Emacsの２ストロークキーや、一つのキーを押している間だけキーの変換を行いたい場合、Karabiner-Elementsには専用の設定がありません。そのため、キーを押しているか否かをアプリで判断するため、変数を使ってフラグを立てて判断したり、トリガーとなるキーを&quot;fn&quot;キーに一時的に変換し、&ldquo;fn&quot;と合わせて押した場合のみ変換を行う、などのテクニックが必要となります。</p>
-<p>Emacsの２ストロークキーの設定は、最初は非常に面倒な作業でした。割り当てたいキーを指定するだけなら簡単でしたが、キー入力を間違えた時に備えたエラー処理を全てのキーについて行う必要があり、設定を記述したJSONファイルが17,000行以上になったこともありました。その後、Karabiner-Elementsに新しい機能が追加され、その機能を利用したら設定ファイルが220行程度まで縮小できました。また、一つのキーを押している間だけキーの変換を行うという設定については、当初は変数を使ってフラグを立てる方法で実装していましたが、GitHubにある設定例を見て、トリガーとなるキーを一時的に<code>&quot;fn&quot;</code>キーに変換し、<code>&quot;fn&quot;</code>と合わせて押した場合のみキーの変換を行うという設定方法を知ってから、変数をチェックする処理や変数の初期化処理が不要となり、設定がシンプルに行えるようになりました。さらに、先日、開発者がリファレンスを作成してくれましたが、このリファレンスに掲載されていた例を参考にすることで、「テンキーのピリオド２連打でコンマ入力」を実現する方法が思いついたりもしました。</p>
-<p>あと、Karabiner-Elementsはキー変換とコマンド実行の機能しかないため、enthumbleの「&ldquo;無変換/英数 ＋ カーソルキー&rdquo; で &ldquo;←↑↓→&quot;を入力」という機能を実現するのには試行錯誤しました。最初は、<code>&quot;shell_command&quot;: &quot;echo '←' | pbcopy | pbpaste&quot;</code>で上手くいくかと思いましたが、よく考えると、<code>pbcopy</code>も<code>pbpaste</code>も標準入出力が対象になっているので、それ以外の場面で動くことはないことに気付きました。</p>
-<p>次に、&ldquo;←&quot;を一旦クリップボードにコピーして、それをペーストすれば文字入力と同じ結果が得られると考えて、以下の方法を試しました。しかし、クリップボードに&quot;←&quot;をコピーするところまではできましたが、クリップボードへのコピーより先に&quot;command-v&quot;が実行されてしまいました。</p>
-<pre tabindex="0"><code>{ &quot;shell_command&quot;: &quot;osascript -e 'set the clipboard to \&quot;←\&quot;'&quot; },
-{
-  &quot;key_code&quot;: &quot;v&quot;,
-  &quot;modifiers&quot;: [&quot;option&quot;]
-} 
-</code></pre><p>どうも、AppleScriptの動作が遅いことが原因で、<code>&quot;osascript -e 'set the clipboard to \&quot;←\&quot;'&quot;</code>の処理が終わる前に&quot;command-V&quot;の処理が行われたようでした。<code>&quot;osascript ~~~&quot;</code>の処理が終わるまで&quot;command-V&quot;を実行しないという処理を実現する方法は全く分かりませんでしたので、&ldquo;←&quot;のクリップボードへのコピーもペーストもAppleScriptで行うように設定したところ、動作は遅いものの、狙い通りの機能が実装できました。</p>
-<pre tabindex="0"><code>{ &quot;shell_command&quot;: &quot;osascript -e 'set the clipboard to \&quot;←\&quot;'&quot; },
-{ &quot;shell_command&quot;: &quot;osascript -e 'tell application \&quot;System Events\&quot; to keystroke \&quot;v\&quot; using command down'&quot; } 
-</code></pre><h1 id="カスタマイズの効果">カスタマイズの効果</h1>
-<p>自分が欲しい機能を順次実装しているので、Macの操作は随分と楽になっています。特に、Windowsでは可能なのにMacでは不可能な操作（全角/半角キーでのIME切り替えなど）が可能になり、２つのOSを使う際に戸惑うことが少なくなりました。</p>
-<p>今ではむしろ、&ldquo;ctrl-h/d → Backspace/Delete&quot;のように、Macでは可能だがWindowsではカスタマイズしないと実現できないキー操作を実現する方法が欲しくなっています。</p>
-<p>また、「全角/半角キーでIMEを切り替え」や「Controlキー連打で特定の処理実行」といったカスタマイズは、Macのシステム環境での設定とKarabiner-Elementsを組み合わせたり、BetterTouchToolを使って実現したりしていましたが、そうした設定を全てKarabiner-Elementsだけで可能となり、設定の管理も非常に楽になりました。</p>
-<h1 id="本記事の補足情報">本記事の補足情報</h1>
-<p>QiitaでKarabiner-Elementsの設定項目の解説や設定例を掲載していますので、よろしければそちらも見てください。</p>
-<ul>
-<li><a href="https://qiita.com/s-show/items/a1fd228b04801477729c" target="_blank" rel="noopener noreferrer">Karabiner-Elementsの各設定項目の内容について</a>
-</li>
-<li><a href="https://qiita.com/s-show/items/40ad22c4ee4a0465fad5" target="_blank" rel="noopener noreferrer">Karabiner-Elementの設定例について - Qiita</a>
-</li>
-<li><a href="https://qiita.com/s-show/items/08a7c1b558e4d7e6f1b0" target="_blank" rel="noopener noreferrer">Karabiner-Elementsを使ってJISキーボードの&quot;全角/半角&quot;でIMEを切り替える方法 - Qiita</a>
-</li>
-<li><a href="https://qiita.com/s-show/items/e83215f4ee10422abd7c" target="_blank" rel="noopener noreferrer">Karabiner-Elementsの設定項目が増えてEmacsライクな設定が楽になった - Qiita</a>
-</li>
-<li><a href="https://qiita.com/s-show/items/0036e45d4b5928569dd9" target="_blank" rel="noopener noreferrer">Karabiner-Elementsでenthumble(Windows App)のような操作を実現する方法 - Qiita</a>
-</li>
-<li><a href="https://qiita.com/s-show/items/c991327a5317c3e0cf4b" target="_blank" rel="noopener noreferrer">Karabiner-Elementsを使ってキーの２連打に処理を割り当てる方法 - Qiita</a>
-</li>
-<li><a href="https://qiita.com/s-show/items/fb788d90faba7eeb9051" target="_blank" rel="noopener noreferrer">KE-complex_modificationsを使ってKarabiner-Elementsの設定を楽にする方法 - Qiita</a>
-</li>
-</ul>
 </div><div class="modal fade" id="rewardModal" tabindex="-1" aria-labelledby="rewardModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content surface">
@@ -307,12 +289,43 @@
     </div>
   </div>
 </div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
-  <div class="post-nav post-prev"><div class="post-nav post-next">
-    <a href="https://s-show.github.io/posts/2017-11-26/">【読書記録】忘れられた日本の村
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://s-show.github.io/posts/2021-12-11/">Github Actions で Re:view Starter のファイルをビルドする方法
 </a>
-    <i class="fas fa-fw fa-chevron-right"></i>
   </div></div></div>
-</article><div class="card component row post-comments">
+</article><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title"></h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://s-show.github.io/posts/2019-10-13/">ArduinoとPlaidを使ってマイコンを複製する方法
+</a>
+          <span class="float-end post-date">2019-10-13
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-07-22/">自作キーボードでLEDが点灯しない時のテスト方法と対処方法
+</a>
+          <span class="float-end post-date">2019-07-22
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2020-12-03/">自作キーボード活動2年目の振り返り
+</a>
+          <span class="float-end post-date">2020-12-03
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-06-18/">AutoHotKeyの解説と自分の設定について
+</a>
+          <span class="float-end post-date">2019-06-18
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2017-11-25/">Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法
+</a>
+          <span class="float-end post-date">2017-11-25
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments">
   <div class="card-header">
     <h2 class="card-title"></h2>
   </div>

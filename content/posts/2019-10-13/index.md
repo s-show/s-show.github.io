@@ -182,8 +182,6 @@ Plaidの回路図で、基板にあるISPポートの各ピンがATMega328Pの�
 
 {{< bsimage src="image5.png" title="Plaid の ISP ポート" >}}
 
-[![](https://kankodori-blog.com/wp-content/uploads/2019/10/Plaid_ISP6PIN-644x644.jpg)](https://kankodori-blog.com/wp-content/uploads/2019/10/Plaid_ISP6PIN.jpg)
-
 ### Plaid と Arduino の接続
 
 上の2つの表を元に、ArduinoとPlaidを次のとおり接続する。

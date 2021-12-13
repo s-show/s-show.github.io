@@ -6,7 +6,16 @@
     <description>Recent content on 閑古鳥ブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
-    <lastBuildDate>Sat, 11 Dec 2021 08:00:00 +0900</lastBuildDate><atom:link href="https://s-show.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Dec 2021 09:00:00 +0900</lastBuildDate><atom:link href="https://s-show.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>QMK API を使ってキーボードのリストを取得する方法</title>
+      <link>https://s-show.github.io/posts/2021-12-12/</link>
+      <pubDate>Sun, 12 Dec 2021 09:00:00 +0900</pubDate>
+      
+      <guid>https://s-show.github.io/posts/2021-12-12/</guid>
+      <description>前置き 自作キーボードのトラブルシューティングのための問診票テンプレート を作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリスト</description>
+    </item>
+    
     <item>
       <title>Github Actions で Re:view Starter のファイルをビルドする方法</title>
       <link>https://s-show.github.io/posts/2021-12-11/</link>
