@@ -9,3 +9,30 @@ Listening on port 6060
 > node app.js
 
 Listening on port 6060
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+(node:18949) ExperimentalWarning: The ESM module loader is experimental.
+Listening on port 6060
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+Listening on port 6060
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+(node:60261) ExperimentalWarning: The ESM module loader is experimental.
+Listening on port 6060
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+Listening on port 6060
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+Listening on port 6060

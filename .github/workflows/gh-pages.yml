@@ -1,52 +1,53 @@
-# name: GitHub Pages
+name: GitHub Pages
 
-# on:
-#   push:
-#     branches:
-#       - master  # Set a branch name to trigger deployment
-#   pull_request:
+on:
+  push:
+    branches:
+      - master  # Set a branch name to trigger deployment
+  pull_request:
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-20.04
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
 
-#     concurrency:
-#       group: ${{ github.workflow }}-${{ github.ref }}
-#     steps:
-#       - uses: actions/checkout@v2
-#         with:
-#           submodules: true  # Fetch Hugo themes (true OR recursive)
-#           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-#       # ブログカード生成のためのローカルAPIサーバを建てるための作業
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: 16.x
+      # ブログカード生成のためのローカルAPIサーバを建てるための作業
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
 
-#       - name: Install NPM packages
-#         run: npm ci
+      - name: Install NPM packages
+        run: npm ci
 
-#       - name: Setup Hugo
-#         uses: peaceiris/actions-hugo@v2
-#         with:
-#           hugo-version: '0.85.0'
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.85.0'
 
-#       - name: Start Local API Server
-#         run: |
-#           npm start &
-#           npx wait-on http://127.0.0.1:6060 &
-#           jobs
-#         env:
-#           PORT: 6060
+      - name: Start Local API Server
+        run: |
+          npm start &
+          npx wait-on http://127.0.0.1:6060 &
+          ifconfig
+          jobs
+        env:
+          PORT: 6060
 
-#       - name: Build
-#         run: hugo --minify
+      - name: Build
+        run: hugo --minify
 
-#       - name: Deploy
-#         uses: peaceiris/actions-gh-pages@v3
-#         if: ${{ github.ref == 'refs/heads/main' }}
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-# #          publish_branch: master  # default: gh-pages
-#           publish_dir: ./docs
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: master  # default: gh-pages
+          publish_dir: ./docs

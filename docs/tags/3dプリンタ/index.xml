@@ -6,7 +6,16 @@
     <description>Recent content in 3Dプリンタ on 閑古鳥ブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 20 Dec 2019 14:39:06 +0000</lastBuildDate><atom:link href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Jan 2022 13:21:51 +0900</lastBuildDate><atom:link href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Klipper と FluiddPi の設定について</title>
+      <link>https://s-show.github.io/posts/2022-01-02/</link>
+      <pubDate>Sun, 02 Jan 2022 13:21:51 +0900</pubDate>
+      
+      <guid>https://s-show.github.io/posts/2022-01-02/</guid>
+      <description>目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド &amp;amp; インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマ</description>
+    </item>
+    
     <item>
       <title>AnyCubic i3 Mega S に TMC2208 を導入する</title>
       <link>https://s-show.github.io/posts/2019-12-20/</link>

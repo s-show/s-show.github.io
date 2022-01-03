@@ -6,7 +6,16 @@
     <description>Recent content on 閑古鳥ブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
-    <lastBuildDate>Sun, 12 Dec 2021 09:00:00 +0900</lastBuildDate><atom:link href="https://s-show.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Jan 2022 13:21:51 +0900</lastBuildDate><atom:link href="https://s-show.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Klipper と FluiddPi の設定について</title>
+      <link>https://s-show.github.io/posts/2022-01-02/</link>
+      <pubDate>Sun, 02 Jan 2022 13:21:51 +0900</pubDate>
+      
+      <guid>https://s-show.github.io/posts/2022-01-02/</guid>
+      <description>目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド &amp;amp; インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマ</description>
+    </item>
+    
     <item>
       <title>QMK API を使ってキーボードのリストを取得する方法</title>
       <link>https://s-show.github.io/posts/2021-12-12/</link>
