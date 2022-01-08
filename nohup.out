@@ -36,3 +36,76 @@ Listening on port 6060
 > node app.js
 
 Listening on port 6060
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+events.js:377
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::6060
+    at Server.setupListenHandle [as _listen2] (net.js:1320:16)
+    at listenInCluster (net.js:1368:12)
+    at Server.listen (net.js:1454:7)
+    at Function.listen (/Users/shimizu/kankodori-blog/node_modules/express/lib/application.js:618:24)
+    at file:///Users/shimizu/kankodori-blog/app.js:17:5
+    at ModuleJob.run (internal/modules/esm/module_job.js:170:25)
+    at async Loader.import (internal/modules/esm/loader.js:178:24)
+    at async Object.loadESM (internal/process/esm_loader.js:68:5)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (net.js:1347:8)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 6060
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! kankodori-blog@1.0.0 start: `node app.js`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the kankodori-blog@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /Users/shimizu/.npm/_logs/2022-01-07T15_56_56_331Z-debug.log
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+Listening on port 6060
+{
+  error: true,
+  result: {
+    success: false,
+    requestUrl: '<nil>',
+    error: 'Invalid URL',
+    errorDetails: Error: Invalid URL
+        at setOptionsAndReturnOpenGraphResults (/Users/shimizu/kankodori-blog/node_modules/open-graph-scraper/lib/openGraphScraper.js:40:28)
+        at /Users/shimizu/kankodori-blog/node_modules/open-graph-scraper/index.js:29:23
+        at new Promise (<anonymous>)
+        at Object.exports.run (/Users/shimizu/kankodori-blog/node_modules/open-graph-scraper/index.js:26:10)
+        at module.exports (/Users/shimizu/kankodori-blog/node_modules/open-graph-scraper/index.js:52:49)
+        at file:///Users/shimizu/kankodori-blog/app.js:7:24
+        at Layer.handle [as handle_request] (/Users/shimizu/kankodori-blog/node_modules/express/lib/router/layer.js:95:5)
+        at next (/Users/shimizu/kankodori-blog/node_modules/express/lib/router/route.js:137:13)
+        at Route.dispatch (/Users/shimizu/kankodori-blog/node_modules/express/lib/router/route.js:112:3)
+        at Layer.handle [as handle_request] (/Users/shimizu/kankodori-blog/node_modules/express/lib/router/layer.js:95:5)
+  }
+}
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+Listening on port 6060
+
+> kankodori-blog@1.0.0 start /Users/shimizu/kankodori-blog
+> node app.js
+
+Listening on port 6060
+Listening on port 6060
+Listening on port 6060
+Listening on port 6060

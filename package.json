@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/s-show/s-show.github.io#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "open-graph-scraper": "^4.11.0",
     "wait-on": "^6.0.0"
   },

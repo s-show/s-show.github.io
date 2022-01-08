@@ -10,6 +10,7 @@ app.get("/ogp", async (expressRequest, expressResponse, expressNext) => {
         return;
     });
     if (data) {
+        console.log(data);
         expressResponse.json(data.result);
     }
 });
