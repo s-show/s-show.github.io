@@ -117,8 +117,8 @@ viewer = true # Image Viewer
     # useExtendedSearch = true
 
 [reward]
-  alipay = "images/reward/alipay.png"
-  wechat = "images/reward/wechat.png"
+  #alipay = "images/reward/alipay.png"
+  #wechat = "images/reward/wechat.png"
   #paypal = "images/reward/paypal.png"
   #patreon = "images/reward/patreon.png"
   #liberapay = "images/reward/liberapay.png"
