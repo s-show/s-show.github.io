@@ -6,7 +6,14 @@
   </div>
   <div class="card-body">
     {{- partial "post/comments/disqus.html" . -}}
-    {{- partial "post/comments/utterances" . -}}
+    <script src="https://utteranc.es/client.js"
+        repo="s-show/s-show.github.io"
+        issue-term="title"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
     {{- partial "post/comments/custom" . -}}
   </div>
 </div>
