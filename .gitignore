@@ -128,3 +128,6 @@ dist
 
 # Push 不要なログファイル
 nohup.out
+
+# Github Actions で生成する為追跡不要なファイル
+docs/
