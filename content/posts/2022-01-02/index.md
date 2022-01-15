@@ -592,6 +592,55 @@ mesh_pps = 2,2
 	</figcaption>
 </figure>
 
+#### メッシュベッドレベリングの結果に基づくベッドのネジ調整(Prusa限定)
+
+(2022年1月16日追記)
+
+Prusa の定番改造の1つに、ナイロンナットを使ってベッドの高さを厳密に調整できるようにするというものがあります（ [PRUSA i3 MK3 Nylock Bed Leveling - YouTube](https://www.youtube.com/watch?v=hDv73AdiBqM) 参照）。
+
+私はナイロンナットの代わりにシリコンチューブを使う方法（[Silicone Bed Level Mod Prusa MK3 – SCHWEINERT.COM](https://www.schweinert.com/silicone-bed-level-mod-prusa-mk3/) 参照）を採用していますが、どちらの方法でも、メッシュベッドレベリングの計測結果から中心部を除く8つのネジの回転量を計算する必要があります。
+
+OctoPrint にはそのためのプラグイン（[PrusaOwners/OctoPrint-PrusaMeshMap: This plugin performs a mesh bed leveling operation then returns the results as an easy to read heatmap.](https://github.com/PrusaOwners/OctoPrint-PrusaMeshMap) がありますが、FluiddPi にはそうした機能がありません。
+
+そのため代替手段が必要になりますが、[Convert g81 absolute values to relative ones.](https://pcboy.github.io/g81_relative/) を使えば、メッシュベッドレベリングの結果を元にネジの回転量を計算してくれます。
+
+作業の流れは次のとおりです。
+
+1. ベッドを加熱する（ex: 60℃）
+1. 左のメニューの Tune を開いて XYZ のホーミングを行う
+1. `CALIBRATE` をクリックしてメッシュベッドレベリングを行う
+1. 測定結果を `SAVE_CONFIG` コマンドで `printer.cfg` に保存する
+1. `printer.cfg` に保存された測定結果を [Convert g81 absolute values to relative ones.](https://pcboy.github.io/g81_relative/) に貼り付ける
+1. 求められたネジの回転量に従ってネジを回す
+1. 1. に戻って調整結果の確認と再調整を行い、納得できるまで繰り返す。
+
+測定結果を毎回 `printer.cfg` に保存するのは無駄に見えますが、FluiddPi のターミナルに表示される測定結果を [Convert g81 absolute values to relative ones.](https://pcboy.github.io/g81_relative/) の形式に整えるのは面倒なのに対し、`printer.cfg` に保存した測定結果の形式を整えるのは相対的に楽なので、測定結果を `printer.cfg` に保存してから作業を行っています。
+
+```
+FuliddPi のターミナルに表示される測定結果
+17:09:21 
+// probe at 1.806,14.998 is z=2.166976
+17:09:26 
+// probe at 39.303,14.998 is z=2.076594
+,.
+17:11:00 
+// probe at 114.297,215.002 is z=1.853148
+17:11:05 
+// probe at 151.794,215.002 is z=1.687447
+```
+
+```
+//printer.cfg に保存される測定結果
+#*# 	0.075000, 0.032500, -0.001250, 0.030000, 0.052500
+#*# 	0.081250, 0.061250, -0.022500, 0.011250, 0.026250
+#*# 	0.040000, -0.007500, -0.008750, 0.011250, -0.022500
+#*# 	0.070000, 0.058750, 0.083750, 0.033750, 0.035000
+#*# 	0.102500, 0.062500, 0.083750, 0.072500, 0.071250
+```
+
+{{< bsimage src="pcboy.github.io.png" title="Convert g81 absolute values to relative ones. の貼り付け画面" >}}
+
+
 ### Mesh Bed Leveling のトラブル
 
 Mesh Bed Leveling が途中で停止する現象に悩まされていましたが、Discord の The 602 Wastelan の[投稿](https://discord.com/channels/448951856660480030/450674720061259776/897203486654087178)を元に `horizontal_move_z: 2` を `horizontal_move_z: 5` に変更したところ、きちんとレベリングしてくれるようになりました。
