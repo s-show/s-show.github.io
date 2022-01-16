@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Karabiner-Elements on 閑古鳥ブログ</title>
+    <link>https://s-show.github.io/tags/karabiner-elements/</link>
+    <description>Recent content in Karabiner-Elements on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
+    <lastBuildDate>Sat, 25 Nov 2017 12:35:30 +0000</lastBuildDate><atom:link href="https://s-show.github.io/tags/karabiner-elements/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法</title>
+      <link>https://s-show.github.io/posts/2017-11-25/</link>
+      <pubDate>Sat, 25 Nov 2017 12:35:30 +0000</pubDate>
+      
+      <guid>https://s-show.github.io/posts/2017-11-25/</guid>
+      <description>Karabiner-Elementsとは Karabiner-Elementsは、Macのキーボードカスタマイズアプリで、設定ファイルを自分で</description>
+    </item>
+    
+  </channel>
+</rss>

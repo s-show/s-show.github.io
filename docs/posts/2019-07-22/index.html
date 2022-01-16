@@ -1,0 +1,457 @@
+<!doctype html><html lang="jp"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>自作キーボードでLEDが点灯しない時のテスト方法と対処方法 - 閑古鳥ブログ</title><link rel="apple-touch-icon" href="https://s-show.github.io/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/favicon.ico">
+<link rel="manifest" href="https://s-show.github.io/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="自作キーボードでLEDが点灯しない時のテスト方法と対処方法">
+<meta itemprop="description" content="salicylic-acid3 さんが作成・販売されている自作キーボードのNaked48LED - 自キ温泉街販売所 - BOOTH とSetta21 - 自キ温泉街販売所 - BOOTH を組み立てた際、"><meta itemprop="datePublished" content="2019-07-22T14:19:11+00:00" />
+<meta itemprop="dateModified" content="2019-07-22T14:19:11+00:00" />
+<meta itemprop="wordCount" content="2773">
+<meta itemprop="keywords" content="プログラミング,備忘録,自作キーボード," /><meta property="og:title" content="自作キーボードでLEDが点灯しない時のテスト方法と対処方法" />
+<meta property="og:description" content="salicylic-acid3 さんが作成・販売されている自作キーボードのNaked48LED - 自キ温泉街販売所 - BOOTH とSetta21 - 自キ温泉街販売所 - BOOTH を組み立てた際、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://s-show.github.io/posts/2019-07-22/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-07-22T14:19:11+00:00" />
+<meta property="article:modified_time" content="2019-07-22T14:19:11+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="自作キーボードでLEDが点灯しない時のテスト方法と対処方法"/>
+<meta name="twitter:description" content="salicylic-acid3 さんが作成・販売されている自作キーボードのNaked48LED - 自キ温泉街販売所 - BOOTH とSetta21 - 自キ温泉街販売所 - BOOTH を組み立てた際、"/>
+<meta name="robots" content="noindex, nofollow" /><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css" integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm&#43;Z2wp7s1&#43;ne0=" crossorigin="anonymous">
+<noscript><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css" integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm&#43;Z2wp7s1&#43;ne0=" crossorigin="anonymous"></noscript>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-367F1P4JXZ');
+    </script>
+  </head>
+  <body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://s-show.github.io/">閑古鳥ブログ
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share-alt"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e8%87%aa%e4%bd%9c%e3%82%ad%e3%83%bc%e3%83%9c%e3%83%bc%e3%83%89%e3%81%a7LED%e3%81%8c%e7%82%b9%e7%81%af%e3%81%97%e3%81%aa%e3%81%84%e6%99%82%e3%81%ae%e3%83%86%e3%82%b9%e3%83%88%e6%96%b9%e6%b3%95%e3%81%a8%e5%af%be%e5%87%a6%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2019-07-22%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2019-07-22%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title"></h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label=""
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label=""
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label=""
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label=""
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label=""
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label=""
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label=""
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label=""
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label=""
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label=""
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label=""
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label=""
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+<section class="setting actions d-flex justify-content-center mt-auto">
+  <a role="button" class="d-flex flex-column align-items-center" id="pageReloader">
+    <i class="fas fa-2x fa-redo-alt"></i> 
+  </a>
+</section>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://s-show.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://s-show.github.io/"></a></li><li class="breadcrumb-item"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">自作キーボードでLEDが点灯しない時のテスト方法と対処方法</li></ol>
+  </div>
+</nav><article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" role="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    
+    
+  </div>
+</div>
+<div class="card-header ">
+    <h1 class="card-title post-title">自作キーボードでLEDが点灯しない時のテスト方法と対処方法
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="">
+    2019-07-22
+  </span><span class="post-reading-time">
+    
+  </span><span class="post-taxonomies"><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded-pill post-taxonomy">プログラミング</a><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded-pill post-taxonomy">備忘録</a><a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="badge rounded-pill post-taxonomy">自作キーボード</a></span>
+</div>
+<div class="post-content mb-3"><p><a href="https://salicylic-acid3.hatenablog.com/" target="_blank" rel="noopener noreferrer">salicylic-acid3</a>
+ さんが作成・販売されている自作キーボードの<a href="https://salicylic-acid3.booth.pm/items/1271568" target="_blank" rel="noopener noreferrer">Naked48LED - 自キ温泉街販売所 - BOOTH</a>
+と<a href="https://salicylic-acid3.booth.pm/items/1271667" target="_blank" rel="noopener noreferrer">Setta21 - 自キ温泉街販売所 - BOOTH</a>
+を組み立てた際、LED の取り付けで四苦八苦したので、その時にネットで集めた情報や Discord の Self-Made Keyboards in Japan で教えていただいた情報をまとめてみたいと思う。</p>
+<h2 id="led-チップの向きの確認">LED チップの向きの確認</h2>
+<p>LED チップが点灯しない時、まず最初に確認するのは取り付けた LED チップの向きである。LED の向きが違えば当然点灯しないし、テスターを使う必要もない簡単な作業なので、まずはここから開始する。</p>
+<p>もし向きが違っていた場合、一度外して再度取り付けることは可能である。しかし、自分の体験から言うと、取り外す時の熱でチップが壊れる可能性があるので、新品に交換した方がトラブルが少ないと思う。</p>
+<h2 id="promicro-の-led-の確認">ProMicro の LED の確認</h2>
+<p>LED チップの向きが正しいことが確認できたら、次はテスターを使った確認に進む…でも間違いでは無いが、テスター無しでもできる確認事項が1つあるので、それも行ってみる。</p>
+<p>方法は、 ProMicro に QMK Firmware を書き込んだ後、基盤に ProMicro を取り付けた上でPCとUSBケーブルで接続し、 ProMicro のLEDが点灯するか確認するというものである。</p>
+<p>ProMicro の LED が点灯した場合、 ProMicro から LED に電力を供給する VCC（＋）と GND（ー）はショートしていないことが確認できるので、その場合、次の確認作業に進むことになる。</p>
+<h2 id="テスターによるテスト">テスターによるテスト</h2>
+<p>続いて、テスターを使って導通を確認する。</p>
+<p>注意事項として、電源を供給しない状態のキーボードにテスターを当てて分かるのは「ショートの有無と基盤内の断線の有無」までで、 LED チップが壊れているか否かは、キーボードに電源を供給した上で、点灯している LED と点灯していない LED を繋いでみないと分からない。</p>
+<p>なので、テスターによる調査で全てが分かる訳では無いが、デバッグ作業では「原因では無いもの」を除外していくことが大事なので、この作業は省略できない。</p>
+<h3 id="基盤内の断線の有無の調査">基盤内の断線の有無の調査</h3>
+<p>まずは、基盤内の断線の有無を調べるため、 LED チップに点灯のための電力や制御信号を送信する ProMicro の設置箇所から各 LED チップまでの導通を確認していく。</p>
+<h4 id="基本情報">基本情報</h4>
+<p>フルカラーで輝度・色味を制御できる LED チップの場合、電源のVCCとGNDパッドに加えて、輝度・色味を制御するための DIN と DOUT のパッドがある。それぞれのパッドの位置関係は次の図のとおり<a href="http://doc.switch-science.com/datasheets/sk6812mini.pdf" target="_blank" rel="noopener noreferrer">（SK6812miniデータシートより）</a>
+。</p>
+<figure class="figure bsimage">
+  <img src="image1.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">SK6812mini のパッド</figcaption>
+</figure>
+<p>また、 ProMicro のピン毎の説明は次の図のとおり（製造元の <a href="https://cdn.sparkfun.com/datasheets/Dev/Arduino/Boards/ProMicro16MHzv1.pdf" target="_blank" rel="noopener noreferrer">SparkFunのWebページ</a>
+ より）。</p>
+<figure class="figure bsimage">
+  <img src="image2.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">ProMicro のピン配置</figcaption>
+</figure>
+<h4 id="vcc-ラインの導通確認">VCC ラインの導通確認</h4>
+<p>LED チップを点灯させる電力は ProMicro のVCCから供給されるので、基盤に ProMicro を取り付けた際にVCCのピンが刺さるスルーホールにテスターの電極の片方を当て、もう片方を各 LED チップのVCCに当てる。これを全ての LED チップに対して行っていく。 もし、ここが導通していなければ、基盤内部の電源供給ラインが断線している可能性が考えられる。</p>
+<h4 id="gnd-ラインの導通確認">GND ラインの導通確認</h4>
+<p>ProMicro のVCCから供給された電力はGNDに戻るので、VCCラインを調査した時と同様に、GNDのピンが刺さるスルーホールにテスターの電極の片方を当て、もう片方を各 LED チップのGNDに当てていく。</p>
+<p>GNDは複数のピンがあるので、どれが LED チップと接続しているかは、試行錯誤して確認するしかない。</p>
+<h4 id="din-ラインの導通確認">DIN ラインの導通確認</h4>
+<p>LED チップの制御信号を送信する DIN ラインも確認するが、 ProMicro のどのピンから制御信号が出ているかはキーボードによって異なる。</p>
+<p>私が調べたところ、制御信号の出力ピンは <code>config.h</code> ファイルの <code>#define RGB_DI_PIN</code> で定義される<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>ので、そこを確認する。 ちなみに、QMK-Firmwareのディレクトリで <code>grep -r &quot;#define RGB_DI_PIN&quot; keyboards | cut -d &quot;:&quot; -f 2 | cut -d &quot; &quot; -f 3 | sort | uniq -c | sort -nr | awk -F, '{ sum += $1 } END{ print sum }'</code> コマンドを実行したところ、一番多かったピンはD3（88件）で、二番目のE2（39件）の2倍以上であった。</p>
+<p>何番のピンから制御信号が出力されているか確認できたら、これまでと同様に確認する。</p>
+<p>ただし、LEDの制御信号は、 ProMicro から最初のこの方法で確認できるのは、「 ProMicro が送信した制御信号が通るラインが断線していないか」であって、「 LED チップ間のデータ送信の成功・不成功」は、次の方法で確認することになる。</p>
+<h4 id="dout-ラインの確認">DOUT ラインの確認</h4>
+<p>LED チップの制御信号を次の LED チップに送信するのが DOUT になるが、これだけは ProMicro と繋がっていない。</p>
+<p>その代わり、1番目の LED チップの DOUT は2番目の LED チップの DIN に繋がり、2番目の LED チップの DOUT は3番目の LED チップの DIN に繋がり…という連結が繰り返されている。ただし、最後の LED チップの DOUT はどこにも繋がらない形になる。</p>
+<p>そのため、 DOUT については、 ProMicro との接続ではなく、次の LED の DIN との接続を確認することになるが、電源を接続して確認する方が視覚的に分かりやすいので、確認方法は次で述べる。</p>
+<h3 id="led-チップ間の導通確認-led-チップの故障の調査">LED チップ間の導通確認・ LED チップの故障の調査</h3>
+<p>まず、作者のウェブサイトなどで、自分が組み立てているキーボードの LED の順番を確認する。続いてキーボードに電気を供給するため、キーボードをPCに接続する。私が組み立てた Setta21 の場合、次の順番となっている。</p>
+<p><a href="https://salicylic-acid3.hatenablog.com/entry/setta21-build-guide" target="_blank" rel="noopener noreferrer">(自作テンキーキット『Setta21』ビルドガイド - 自作キーボード温泉街の歩き方より)</a>
+</p>
+<figure class="figure bsimage">
+  <img src="image3.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">Setta21 の LED の接続順</figcaption>
+</figure>
+<p>それから、点灯していない LED の一つ前にある点灯している LED の DIN と、点灯していない LED の DIN をジャンパワイヤーなどで接続する。<a href="https://twitter.com/mtei/status/970334819400888321" target="_blank" rel="noopener noreferrer">(@mteiさんのツィートより)</a>
+</p>
+<figure class="figure bsimage">
+  <img src="image4.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">DINとDOUTの接続確認</figcaption>
+</figure>
+<p>もし、この方法で点灯していない LED が点灯した場合、<strong>点灯している</strong> LED の DOUT が壊れているので、点灯していてもその LED チップは交換しないといけない。</p>
+<p>一方、この方法でも点灯していない LED が引き続き点灯しない場合、点灯していない LED は壊れていると思われるので、交換する必要がある。</p>
+<p>何だかまどろっこしい確認方法であるが、 LED チップが壊れているか否かは、点灯のための電力を供給している状態で、 DIN に制御信号を送り込んで点灯するかどうかで調べるしか無い模様なので、面倒でもこの方法で進めるしか無い。</p>
+<h2 id="まとめ">まとめ</h2>
+<p>以上の内容が、私が調べたり教えていただいた情報を自分なりにまとめたものである。</p>
+<p>プログラミングのデバッグ作業とは異なり、「点灯しない」というメッセージ以外のエラーメッセージが表示されないので、骨が折れる作業である。</p>
+<p>その分、全部の LED が点灯した時はとても嬉しいので、この記事が誰かの参考になれば幸いである。</p>
+<hr>
+<p>本記事の執筆で参考にした記事</p>
+<ul>
+<li><a href="https://twitter.com/mtei/status/970330289313480705" target="_blank" rel="noopener noreferrer">m.tei / ishiiさんのツイート</a>
+</li>
+<li><a href="https://marksard.github.io/2018/08/04/make-the-crkbd/" target="_blank" rel="noopener noreferrer">コルネキーボードを作りました ～LED取り付けに四苦八苦記～ | キオクノロンダリング</a>
+</li>
+<li><a href="https://qiita.com/mizuhof/items/0c34308c2d57c9345f3a" target="_blank" rel="noopener noreferrer">QMK Firmware でオリジナルキーボードのファームウェアを作成する - Qiita</a>
+</li>
+<li>DiscordのSelf-Made Keyboards in Japanサーバで教えていただいた方々の投稿</li>
+</ul>
+<hr>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://docs.qmk.fm/#/config_options?id=rgb-light-configuration" target="_blank" rel="noopener noreferrer">Config Options - QMK Firmware</a>
+の<code>RGB Light Configuration</code>にて確認した。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://s-show.github.io/posts/2019-06-18/">AutoHotKeyの解説と自分の設定について
+</a>
+  </div><div class="post-nav post-next">
+    <a href="https://s-show.github.io/posts/2019-10-13/">ArduinoとPlaidを使ってマイコンを複製する方法
+</a>
+    <i class="fas fa-fw fa-chevron-right"></i>
+  </div></div></div>
+</article><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title"></h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://s-show.github.io/posts/2019-06-18/">AutoHotKeyの解説と自分の設定について
+</a>
+          <span class="float-end post-date">2019-06-18
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2018-03-22/">Macbook Proでメモリ交換して電源が入らなくなってから復活するまでの経緯
+</a>
+          <span class="float-end post-date">2018-05-22
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2017-11-25/">Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法
+</a>
+          <span class="float-end post-date">2017-11-25
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2018-02-12/">【読書記録】日本軍兵士――アジア・太平洋戦争の現実
+</a>
+          <span class="float-end post-date">2018-02-12
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2017-11-27/">【読書記録】日米開戦と情報戦
+</a>
+          <span class="float-end post-date">2017-11-27
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="s-show/s-show.github.io"
+  issue-term="title"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="s-show" src="https://s-show.github.io/img/profileIcon.png" loading="lazy"
+   width="500" height="500"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">s-show</div><div class="profile-bio">プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a href="https://s-show.github.io/about/">About</a></div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list"><li>
+        <a href="https://s-show.github.io/posts/2022-01-16/">RClone を使って Klipper の設定をバックアップする方法
+</a>
+        <span class="float-end post-date">2022-01-16
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2022-01-07/">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法
+</a>
+        <span class="float-end post-date">2022-01-07
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2022-01-02/">Klipper と FluiddPi の設定について
+</a>
+        <span class="float-end post-date">2022-01-02
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2021-12-12/">QMK API を使ってキーボードのリストを取得する方法
+</a>
+        <span class="float-end post-date">2021-12-12
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2021-12-11/">Github Actions で Re:view Starter のファイルをビルドする方法
+</a>
+        <span class="float-end post-date">2021-12-11
+</span>
+      </li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-header">
+        <h2 class="card-title">
+          <a href="https://s-show.github.io/tags"></a>
+        </h2>
+      </div>
+      <div class="card-body">
+        <div class="py-2"><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="備忘録">
+            備忘録
+          </a><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded post-taxonomy" title="プログラミング">
+            プログラミング
+          </a><a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="badge rounded post-taxonomy" title="自作キーボード">
+            自作キーボード
+          </a><a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="badge rounded post-taxonomy" title="3Dプリンタ">
+            3Dプリンタ
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="読書記録">
+            読書記録
+          </a><a href="https://s-show.github.io/tags/mac/" class="badge rounded post-taxonomy" title="Mac">
+            Mac
+          </a><a href="https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/" class="badge rounded post-taxonomy" title="未分類">
+            未分類
+          </a><a href="https://s-show.github.io/tags/karabiner-elements/" class="badge rounded post-taxonomy" title="Karabiner-Elements">
+            Karabiner-Elements
+          </a><a href="https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/" class="badge rounded post-taxonomy" title="太平洋戦争">
+            太平洋戦争
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/" class="badge rounded post-taxonomy" title="読書">
+            読書
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/s-show" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2022 s-show. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div></footer>
+<script src="https://s-show.github.io/js/bundle.min.b2d9b1dc0e92226edeb5e67ad4c3955a5f8ef4554e1b63bc61002a5b5b6ca932.js" integrity="sha256-stmx3A6SIm7eteZ61MOVWl&#43;O9FVOG2O8YQAqW1tsqTI=" crossorigin="anonymous" defer></script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('https:\/\/s-show.github.io\/service-worker.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script>
+	
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-367F1P4JXZ', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+</body>
+</html>

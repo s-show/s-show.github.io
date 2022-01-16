@@ -1,0 +1,1016 @@
+<!doctype html><html lang="jp"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Klipper と FluiddPi の設定について - 閑古鳥ブログ</title><link rel="apple-touch-icon" href="https://s-show.github.io/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/favicon.ico">
+<link rel="manifest" href="https://s-show.github.io/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Klipper と FluiddPi の設定について">
+<meta itemprop="description" content="目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド &amp; インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマ"><meta itemprop="datePublished" content="2022-01-02T13:21:51+09:00" />
+<meta itemprop="dateModified" content="2022-01-02T13:21:51+09:00" />
+<meta itemprop="wordCount" content="11157">
+<meta itemprop="keywords" content="3Dプリンタ,備忘録," /><meta property="og:title" content="Klipper と FluiddPi の設定について" />
+<meta property="og:description" content="目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド &amp; インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://s-show.github.io/posts/2022-01-02/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-02T13:21:51+09:00" />
+<meta property="article:modified_time" content="2022-01-02T13:21:51+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Klipper と FluiddPi の設定について"/>
+<meta name="twitter:description" content="目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド &amp; インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマ"/>
+<meta name="robots" content="noindex, nofollow" /><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css" integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm&#43;Z2wp7s1&#43;ne0=" crossorigin="anonymous">
+<noscript><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css" integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm&#43;Z2wp7s1&#43;ne0=" crossorigin="anonymous"></noscript>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-367F1P4JXZ');
+    </script>
+  </head>
+  <body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://s-show.github.io/">閑古鳥ブログ
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share-alt"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Klipper%20%e3%81%a8%20FluiddPi%20%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6&url=https%3a%2f%2fs-show.github.io%2fposts%2f2022-01-02%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2022-01-02%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title"></h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label=""
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label=""
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label=""
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label=""
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label=""
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label=""
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label=""
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label=""
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label=""
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label=""
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label=""
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label=""
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+<section class="setting actions d-flex justify-content-center mt-auto">
+  <a role="button" class="d-flex flex-column align-items-center" id="pageReloader">
+    <i class="fas fa-2x fa-redo-alt"></i> 
+  </a>
+</section>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://s-show.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://s-show.github.io/"></a></li><li class="breadcrumb-item"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">Klipper と FluiddPi の設定について</li></ol>
+  </div>
+</nav><article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" role="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    
+    
+  </div>
+</div>
+<div class="card-header ">
+    <h1 class="card-title post-title">Klipper と FluiddPi の設定について
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="">
+    2022-01-02
+  </span><span class="post-reading-time">
+    
+  </span><span class="post-taxonomies"><a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="badge rounded-pill post-taxonomy">3Dプリンタ</a><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded-pill post-taxonomy">備忘録</a></span>
+</div>
+<div class="post-content mb-3"><div class="page-toc">
+  <details class="">
+    <summary>目次</summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前置き">前置き</a></li>
+    <li><a href="#作業の順番">作業の順番</a></li>
+    <li><a href="#fluiddpi-のインストール">FluiddPi のインストール</a></li>
+    <li><a href="#kiuah-のインストール">Kiuah のインストール</a></li>
+    <li><a href="#klipper-ファームウェアのビルド--インストール">Klipper ファームウェアのビルド &amp; インストール</a></li>
+    <li><a href="#klipper-の設定">Klipper の設定</a>
+      <ul>
+        <li><a href="#移動距離の調整">移動距離の調整</a></li>
+        <li><a href="#pid-チューニング">PID チューニング</a></li>
+        <li><a href="#pressure-advance-の調整">Pressure advance の調整</a></li>
+        <li><a href="#コマンドでファームウェアを再起動">コマンドでファームウェアを再起動</a></li>
+        <li><a href="#input-shaper">Input Shaper</a></li>
+        <li><a href="#スライサーと-fluiddpi-を繋ぐ方法">スライサーと FluiddPi を繋ぐ方法</a></li>
+        <li><a href="#g-code-の問題">G-Code の問題</a></li>
+        <li><a href="#position_min-の設定">position_min の設定</a></li>
+        <li><a href="#bltouch-の使い方">BLTouch の使い方</a></li>
+        <li><a href="#プローブの-z-offset-の調整">プローブの Z-Offset の調整</a></li>
+        <li><a href="#mesh-bed-leveling-のトラブル">Mesh Bed Leveling のトラブル</a></li>
+        <li><a href="#その他のエラー対策">その他のエラー対策</a></li>
+        <li><a href="#printercfg-等の設定ファイルの保存場所"><code>printer.cfg</code> 等の設定ファイルの保存場所</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </details>
+</div>
+<h2 id="前置き">前置き</h2>
+<p>我が家の3Dプリンタのファームウェアを Marlin から Klipper に変更し、あわせてプリンタ操作ツールを OctoPrint から FluiddPi に変更しましたので、インストール方法などをメモしておきます。</p>
+<p>順不同であれこれ書いていますので、必要に応じて上の目次を利用してください。</p>
+<h2 id="作業の順番">作業の順番</h2>
+<p>作業は次の順番で行います。</p>
+<ol>
+<li>FluiddPi をRaspberryPi にインストール</li>
+<li>1.の RaspberryPi に Kiuah をインストール</li>
+<li>Kiuah を使って Klipper をインストール</li>
+<li>Klipper を設定</li>
+</ol>
+<h2 id="fluiddpi-のインストール">FluiddPi のインストール</h2>
+<p><a href="https://docs.fluidd.xyz/installation/fluiddpi" target="_blank" rel="noopener noreferrer">FluiddPI - Fluidd</a>
+ からイメージファイルをダウンロードし、<a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener noreferrer">Raspberry Pi Imager</a>
+ を使って MicroSD カードにイメージファイルを書き込みます。</p>
+<p>イメージを書き込んだら、MicroSD カードの <code>fluiddpi-wpa-supplicant.txt</code> ファイルを開いて無線LANの設定を行います。それからカードを RaspberryPi に差し込んで起動します。</p>
+<p>RaspberryPi が起動してしばらくしたら、作業用PCで <code>ssh pi@fluiddpi.local</code> コマンドを実行して RaspberryPi に SSH 接続し、<code>sudo raspi-config</code> を実行して次の設定を行います。</p>
+<ul>
+<li>System Options -&gt; Password でパスワードを変更します</li>
+<li>Localization Options -&gt; Timezone でタイムゾーンを変更します</li>
+<li>Localization Options -&gt; Locale でローカル設定を変更します</li>
+<li>必要に応じて System Options -&gt; Hostname でホスト名を変更します</li>
+</ul>
+<p><code>http://fluidd.local</code> にアクセスして FluiddPi の画面が表示されることを確認します。</p>
+<p>FluiddPi の画面が表示されたら、ひとまずカメラの設定を行います。</p>
+<p>私は Logitech の C270 カメラを利用していますので、左の Configuration タブにある <code>webcam.txt</code> ファイルを開いて <code>camera_usb_options</code> をアンコメントします。画面解像度は、FluiddPi の中の小さな画面で見ますので <code>640x480</code> とし、フレームレートを <code>30</code> にしています。</p>
+<p>それから Settings の Cameras でカメラを追加します。<code>Stream type</code> は <code>MJPEG Adaptive</code> にします。</p>
+<h2 id="kiuah-のインストール">Kiuah のインストール</h2>
+<p>Klipper のビルドや各種アップデートを簡単に行うため、<a href="https://github.com/th33xitus/kiauh" target="_blank" rel="noopener noreferrer">Kiuah</a>
+ をインストールします。インストールは以下のコマンドで行います。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1">1</a></span><span class="nb">cd</span> ~
+<span class="ln" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2">2</a></span>git clone https://github.com/th33xitus/kiauh.git
+</code></pre></div><h2 id="klipper-ファームウェアのビルド--インストール">Klipper ファームウェアのビルド &amp; インストール</h2>
+<p>Kiuah をインストールしたら、<code>./kiauh/kiauh.sh</code> を実行し、<code>4) [Advanced]</code> を選択してメニューを開きます。</p>
+<pre tabindex="0"><code>/=======================================================\
+|     ~~~~~~~~~~~~~~~~~ [ KIAUH ] ~~~~~~~~~~~~~~~~~     |
+|        Klipper Installation And Update Helper         |
+|     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     |
+\=======================================================/
+/=======================================================\
+|     ~~~~~~~~~~~~~~~ [ Main Menu ] ~~~~~~~~~~~~~~~     |
+|-------------------------------------------------------|
+|  0) [Upload Log]     |       Klipper: Installed: 1    |
+|                      |        Branch: master          |
+|  1) [Install]        |                                |
+|  2) [Update]         |     Moonraker: Installed: 1    |
+|  3) [Remove]         |                                |
+|  4) [Advanced]       |      Mainsail: Not installed!  |
+|  5) [Backup]         |        Fluidd: Installed!      |
+|                      | KlipperScreen: Not installed!  |
+|  6) [Settings]       |  Telegram Bot: Not installed!  |
+|                      |                                |
+|                      |          DWC2: Not installed!  |
+|  v3.1.0-85           |     Octoprint: Not installed!  |
+|-------------------------------------------------------|
+|                        Q) Quit                        |
+\=======================================================/
+Perform action: 4
+</code></pre><p>メニューを開いたら、<code>3) [Build only]</code> を選択してファームウェアビルドのオプション画面に移ります。</p>
+<pre tabindex="0"><code>/=======================================================\
+|     ~~~~~~~~~~~~~~~~~ [ KIAUH ] ~~~~~~~~~~~~~~~~~     |
+|        Klipper Installation And Update Helper         |
+|     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     |
+\=======================================================/
+/=======================================================\
+|     ~~~~~~~~~~~~~ [ Advanced Menu ] ~~~~~~~~~~~~~     |
+|-------------------------------------------------------|
+|  Klipper:                 |  Mainsail:                |
+|  1) [Switch Branch]       |  7) [Theme installer]     |
+|  2) [Rollback]            |                           |
+|                           |  System:                  |
+|  Firmware:                |  8) [Change hostname]     |
+|  3) [Build only]          |                           |
+|  4) [Flash only]          |  Extensions:              |
+|  5) [Build + Flash]       |  9) [Shell Command]       |
+|  6) [Get MCU ID]          |                           |
+|                           |  CustomPiOS:              |
+|                           |  10) [Migration Helper]   |
+|-------------------------------------------------------|
+|                       B) « Back                       |
+\=======================================================/
+Perform action: 3
+</code></pre><p>ファームウェアビルドのオプション画面が開きますので、必要な設定を行って保存するとファームウェアがビルドされて <code>~/klipper/out/klipper.elf</code> に保存されます。</p>
+<p>あとは、作業用 PC で <code>scp pi@fluiddpi.local:~/klipper/out/klipper.bin ~/</code> を実行してファームウェアをダウンロードし、プリンタに書き込みます。</p>
+<h2 id="klipper-の設定">Klipper の設定</h2>
+<p>Klipper の設定は、<code>~/klipper_config/printer.cfg</code> を編集して行います。</p>
+<p>Fliddpi をインストールした RaspberryPi の <code>~/klipper/config/</code> ディレクトリには主要なマザーボードの設定例が保存されていますので、自分に合ったものを <code>cp ~/klipper/config/generic-einsy-rambo.cfg ~/klipper_config/printer.cfg</code>  でコピーして編集していきます。なお、FluiddPi の Configuration タブの Other Files の CONFIG_EXAMPLES からも同じ設定例にアクセスできます。</p>
+<p>なお、Prusa MK3S+ については、Klipper の Github の<a href="https://github.com/Klipper3d/klipper/pull/4080?w=1" target="_blank" rel="noopener noreferrer">プルリク</a>
+に「Prusa i3 MK3S に合わせた <code>printer.cfg</code> を作成したので <a href="https://github.com/Klipper3d/klipper/pull/4080/files#diff-d10f346fb8c271a10682675f9f1fc0a98076073f37f820aadff3a8469c13c490" target="_blank" rel="noopener noreferrer"><code>config/printer-prusa-mk3s-2021.cfg</code></a>
+ として追加して欲しい」とがありましたので、これを元に設定していきました。</p>
+<h3 id="移動距離の調整">移動距離の調整</h3>
+<p>Marlin では「プリンタを 1mm 動かすのにステッピングモーターを何ステップ動かすか」を設定する <code>steps_per_mm</code> でプリントヘッドやベッドの移動距離を調整していましたが、Klipper では「ステッピングモーターが完全に1回転したときに軸方向に動く距離」を設定する <code>rotation_distance</code> で調整します。</p>
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://opengraph.githubassets.com/1e65e92c950b04271edacae5d75e7148d01525b5b723122171c6cbd6bf23d44d/Klipper3d/klipper" alt="klipper/Rotation_Distance.md at master · Klipper3d/klipper"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://github.com/Klipper3d/klipper" class="">klipper/Rotation_Distance.md at master · Klipper3d/klipper</a>
+			</h5>
+			<p class="card-text m-1">Klipper is a 3d-printer firmware. Contribute to Klipper3d/klipper development by creating an account …</p>
+		</div>
+	</div>
+</div>
+<div class="alert alert-info" role="alert">
+  &#x2139; 以前は `step_distance` という項目で調整されていましたが、2021年11月2日の変更でこの項目は使えなくなっています。
+</div>
+<p><code>rotation_distance</code> を求める方法は次の4つですが、上記で説明した <code>printer.cfg</code> の見本には標準的な値が設定されていますので、そちらを用いて微調整する方が早いと思います。</p>
+<p><code>rotation_distance</code> の値はプリンタの部品で決まるため、<code>printer.cfg</code> の見本がない場合、同じ部品を使っているプリンタの値を流用すれば大丈夫だと思います。</p>
+<ol>
+<li>ベルトのピッチとプーリーの歯の数から求める方法 (XY 軸)</li>
+<li>リードスクリューのピッチとスレッド数から求める方法 (Z 軸)</li>
+<li>エクストルーダーのホブボルトの直径から求める方法 (エクストルーダー)</li>
+<li><code>step_distance</code> から求める方法 (古い設定例を用いる場合)</li>
+</ol>
+<h4 id="調整方法の具体的な内容">調整方法の具体的な内容</h4>
+<h5 id="ベルトのピッチとプーリーの歯の数から求める方法">ベルトのピッチとプーリーの歯の数から求める方法</h5>
+<p>公式リファレンスに掲載されている次の計算式で求めます。</p>
+<pre tabindex="0"><code>rotation_distance = ベルトのピッチ数 * プーリーの歯の数
+（筆者翻訳）
+</code></pre><p>2mmピッチのベルトと20歯のプーリーを使っていれば <code>2 * 20 = 40</code> となります。</p>
+<h5 id="リードスクリューのピッチとスレッド数から求める方法">リードスクリューのピッチとスレッド数から求める方法</h5>
+<p>公式リファレンスに掲載されている次の計算式で求めます。</p>
+<pre tabindex="0"><code>rotation_distance = ピッチ数 * スレッド数
+（筆者翻訳）
+</code></pre><p>3Dプリンタで良く使われる T8 リードスクリューの場合、ピッチ数が 2 でスレッド数が 4 なので、<code>2 * 4 = 8</code> となります。</p>
+<h5 id="エクストルーダーのホブボルトの直径から求める方法">エクストルーダーのホブボルトの直径から求める方法</h5>
+<p>ホブボルトとは、次の写真のような溝付きボルトのことのようです。このボルトの直径を公式リファレンスに掲載されている計算式に代入して求めます。</p>
+<pre tabindex="0"><code>rotation_distance = &lt;diameter&gt; * 3.14
+</code></pre><p>ただ、エクストルーダーの場合、後述の「rotation_distance の調整」に沿って調整する方が手っ取り早いと思います。</p>
+<h4 id="step_distance-から求める方法"><code>step_distance</code> から求める方法</h4>
+<p>公式リファレンスに掲載されている次の計算式で求めます。</p>
+<pre tabindex="0"><code>rotation_distance = &lt;full_steps_per_rotation&gt; * &lt;microsteps&gt; * &lt;step_distance&gt;
+</code></pre><dl>
+<dt>full_steps_per_rotation</dt>
+<dd>ステッピングモーターが一回転するためのステップ数です。モーターの最小回転角が 1.8度なら <code>200</code> に、0.9度なら <code>400</code> になります。</dd>
+</dl>
+<p>私の Prusa で使用中のモーターは全て最小回転角が1.8度なので、<code>200</code> を代入します。</p>
+<dl>
+<dt>microsteps</dt>
+<dd>モータードライバーのマイクロステッピング機能です。大抵の場合 1/16 なので <code>16</code> を代入します。Prusa の TMC2130 も 1/16 です（実際は補間機能で 1/256 になっています）。</dd>
+</dl>
+<p>TMC2130 のマイクロステッピングは、<a href="https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2130_datasheet.pdf" target="_blank" rel="noopener noreferrer">Trinamic が公表しているデータシート</a>
+の86ページで確認できます。</p>
+<h4 id="ギア比の設定">ギア比の設定</h4>
+<p>エクストルーダーなどにギアボックス (BMG Extruder 等) を使っている場合、歯車の歯の数の比に応じて <code>gear_ratio: 50:17</code> のように設定します。</p>
+<p>注意点は、商品説明で「3:1」のギア比と紹介されていても、歯車の数は「50:17」となっていたりしますので、設定値は歯車の歯の数に基づく必要があります。</p>
+<h4 id="rotation_distance-の調整">rotation_distance の調整</h4>
+<p>エクストルーダーの <code>rotation_distance</code> の値の調整は、100ミリ押し出した時に何ミリ押し出されたか確認し、その値を元に <code>実際に押し出された距離 / 100mm * 現在の設定値</code> を計算して行います。</p>
+<p>XYZ 軸については、<a href="https://www.thingiverse.com/thing:1278865" target="_blank" rel="noopener noreferrer">XYZ 20mm Calibration Cube by iDig3Dprinting - Thingiverse</a>
+ を印刷して XYZ 方向の実測値を元に <code>実測値 / 20mm * 現在の設定値</code> を計算して調整します。</p>
+<p>なお、’rotation_distance<code> は、</code>steps_per_mm` とは違い、値が小さくなるほど移動量が増えることに注意が必要です。</p>
+<h3 id="pid-チューニング">PID チューニング</h3>
+<p>エクストルーダーのチューニングは <code>PID_CALIBRATE HEATER=extruder TARGET=170</code> コマンドで行います。コマンドを実行して結果が出たら、<code>SAVE_CONFIG</code> コマンドを実行してチューニング結果を <code>printer.cfg</code> に保存します。ベッドのチューニングは <code>PID_CALIBRATE HEATER=heater_bed TARGET=60</code> コマンドで同様に行います。</p>
+<h3 id="pressure-advance-の調整">Pressure advance の調整</h3>
+<p>Pressure advance は、Marlin の <code>Linear_advance</code> に相当する機能です。</p>
+<p>調整方法は Klipper の<a href="https://www.klipper3d.org/Pressure_Advance.html" target="_blank" rel="noopener noreferrer">公式リファレンス</a>
+に掲載されていますが、簡単に言うと、プリンタの設定を一時的に変更してからテスト印刷し、その結果から設定値を計算して <code>printer.cfg</code> に設定するというものです。</p>
+<p>まず、<code>SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=1 ACCEL=500</code> コマンドを実行してコーナーの速度を落とします。速度を落とす理由は、コーナーでエクストルーダーの押し出し効果を強調するためです。</p>
+<p>次に、<code>TUNING_TOWER COMMAND=SET_PRESSURE_ADVANCE PARAMETER=ADVANCE START=0 FACTOR=.005</code> を実行して、1レイヤー毎に <code>PRESSURE_ADVANCE</code> のパラメータを <code>0</code> から <code>0.005</code> ずつ増やしていきます。なお、ボーデン型のプリンタを使っている場合、<code>FACTOR=.005</code> を <code>FACTOR=.020</code> にします。</p>
+<p>それから <a href="https://www.klipper3d.org/prints/square_tower.stl" target="_blank" rel="noopener noreferrer">square_tower.stl</a>
+ を次の設定で印刷します。</p>
+<dl>
+<dt>レイヤーの高さ</dt>
+<dd>ノズルの直径の 75% とするよう指示されていますので、0.4mm ノズルなら <code>0.3mm</code> とします。</dd>
+<dt>速度</dt>
+<dd>100mm/s のような高速にし、スライサーの加速度コントロール機能は無効にします。</dd>
+<dt>インフィル</dt>
+<dd>0% にします。</dd>
+<dt>トップレイヤー</dt>
+<dd>不要なので <code>0</code> とします。</dd>
+</dl>
+<p>印刷が終わったら、底面からコーナーの造形がダメになる部分までの高さを測り、次の式で <code>PRESSURE_ADVANCE</code> のパラメータを求めます。なお、この印刷は「上のレイヤーほどコーナーの造形がダメになる」ので、コーナーの造形がダメになった時点で印刷を中止すると時間の節約になります。</p>
+<figure class="figure bsimage">
+  <img src="measure_pressure_advance.jpg" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		底面から造形がダメになる部分までの高さを計測</br>
+		<a href="https://www.klipper3d.org/Pressure_Advance.html">Klipper documentation Pressure advance </a>より
+	</figcaption>
+</figure>
+<pre tabindex="0"><code>pressure_advance = &lt;start&gt; + &lt;measured_height&gt; * &lt;factor&gt;.
+(For example, 0 + 12.40 * 0.005 would be 0.062.)
+</code></pre><p>なお、<code>PRESSURE_ADVANCE</code> のパラメータは、温度やフィラメントによって異なりますので、その都度調べる必要があります。</p>
+<blockquote>
+<p>The pressure advance value is dependent on the extruder, the nozzle, and the filament. It is common for filament from different manufactures or with different pigments to require significantly different pressure advance values. Therefore, one should calibrate pressure advance on each printer and with each spool of filament.</p>
+<p>PRESSURE_ADVANCE の値は、エクストルーダー、ノズルまたはフィラメントに依存します。メーカーや顔料が異なるフィラメントでは、PRESSURE_ADVANCE の値が大きく異なるのが一般的です。そのため、フィラメントスプール毎またはプリンター毎に PRESSURE_ADVANCE の値を調整するべきです。（拙訳）</p>
+<p><a href="https://www.klipper3d.org/Pressure_Advance.html#important-notes" target="_blank" rel="noopener noreferrer">Pressure advance - Klipper documentation</a>
+ より引用</p>
+</blockquote>
+<h3 id="コマンドでファームウェアを再起動">コマンドでファームウェアを再起動</h3>
+<p>次のコマンドでファームウェアを再起動できます。これで再起動できない場合、本体の電源を切ることになります。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1">1</a></span>curl -X POST fluiddpi.local/printer/firmware_restart
+</code></pre></div><p><a href="https://moonraker.readthedocs.io/en/latest/web_api/#firmware-restart" target="_blank" rel="noopener noreferrer">Moonraker Docs » Client Developers » Client API</a>
+</p>
+<h3 id="input-shaper">Input Shaper</h3>
+<p>Input Shaper とは、プリンタ自身の振動をキャンセルして印刷物の品質を向上させる機能で、Klipper オリジナルの機能です。大量の計算を必要とするため、現時点では RapberryPi をプリンタの MCU として使用する Klipper しか実現できない機能ではないかと思います。</p>
+<blockquote>
+<p>Input shaping is an open-loop control technique which creates a commanding signal that cancels its own vibrations.</p>
+<p>Input Shaping は、プリンタ自身の振動をキャンセルする制御信号を作成するオープンループの技術です。（拙訳）</p>
+</blockquote>
+<p>この機能を使うにはプリンタ特有の振動を調べる必要があり、調査方法は、手動＆目視で行う方法と加速度センサーを使う方法の2つがあります。最初は手動＆目視で調査を試みましたが、確認が難しかったため加速度センサーを使うことにしました。</p>
+<h4 id="事前準備">事前準備</h4>
+<p>Input Shaper の測定はハードとソフトの両方で事前準備が必要ですので、それぞれ説明します。</p>
+<h5 id="ハードの準備">ハードの準備</h5>
+<p>まず、加速度センサーを入手する必要があります。使うセンサーは ADXL345 で、私は Amazon で販売されている HiLetgo のセンサーを使っています。</p>
+<div class="amazon-widget">
+  <a href="https://www.amazon.co.jp/gp/product/B01N632NWF/?tag="></a>
+  <div class="amazon-widget-img">
+    <img src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=JP&ASIN=B01N632NWF&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL350_&tag=" />
+  </div>
+  <div class="amazon-widget-info">
+    <span class="amazon-widget-title">
+      HiLetgo® 2個セット GY-291 ADXL345 3軸デジタル 加速度モジュール 重力 加速度 チルトセンサモジュール 傾斜センサモジュール 傾斜センサ [並行輸入品]
+    </span>
+    <span class="amazon-widget-via">
+      <img src="https://www.amazon.co.jp/favicon.ico" />
+      amazon.co.jp
+    </span>
+  </div>
+</div>
+<p>このセンサーで XY 軸の振動をそれぞれ計測しますが、X 軸の計測ではセンサーをエクストルーダーに、Y 軸の計測ではセンサーをベッドに固定する必要があるため、センサーマウントを設計しました。</p>
+<p><figure class="figure bsimage">
+  <img src="ADXL345_attach_printhead.jpg" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">ADXL345 をプリントヘッドに取り付け</figcaption>
+</figure>
+<figure class="figure bsimage">
+  <img src="ADXL345_attach_bed1.jpg" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">ADXL345 をベッドに取り付け</figcaption>
+</figure></p>
+<p>このセンサーと Raspberry Pi の接続は次のとおりです。ジャンパワイヤを1本ずつ繋ぐのは面倒なので、2x4 のコネクタと 1x4 のコネクタを作成して少しでも配線を楽にしました。</p>
+<figure class="figure bsimage">
+  <img src="raspi_wiring.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		<a href="https://www.klipper3d.org/Measuring_Resonances.html#wiring">Klipper documentation Measuring_Resonances.html#wiring </a>より
+	</figcaption>
+</figure>
+<h5 id="ソフトの準備">ソフトの準備</h5>
+<p>RapberryPi で Input Shaper の計算を行うため、Python で数値計算を効率的に行うための拡張モジュールである <code>numpy</code> をインストールします。</p>
+<p>インストールは、<code>SSH</code> コマンドで Raspberry pi にログインしてから <code>~/klippy-env/bin/pip install -v numpy</code> コマンドを実行して行います。インストールに時間がかかるのでしばし待機します。</p>
+<p><code>numpy</code> をインストールしたら、<code>sudo apt update</code> でパッケージを更新してから <code>sudo apt install python-numpy python-matplotlib</code> を実行して <code>numpy</code> が依存するライブラリをインストールします。</p>
+<p>次に RapberryPi の MCU を klipper のためのセカンダリ MCU として使うための設定を行います。</p>
+<p>まず、以下のコマンドを実行して、RapberryPi をセカンダリ MCU として使うためのスクリプトをデーモンに登録します。</p>
+<pre tabindex="0"><code>cd ~/klipper/
+sudo cp &quot;./scripts/klipper-mcu-start.sh&quot; /etc/init.d/klipper_mcu
+sudo update-rc.d klipper_mcu defaults
+</code></pre><p>次に <code>sudo raspi-config</code> を実行して Raspberry Pi の設定画面を開き、<code>3 Interface Options</code> -&gt; <code>P4 SPI</code> と設定画面を開いて SPI 機能を有効化します。</p>
+<p>それから次のコマンドを実行して Klipper のビルドオプション画面を開きます。ビルドオプションでは、<code>Microcontroller Architecture</code> を <code>Linux process</code> にして設定を保存します。</p>
+<pre tabindex="0"><code>cd ~/klipper/
+make menuconfig
+</code></pre><p>そして、次のコマンドを実行してファームウェアのビルドと書き込みを行います。</p>
+<pre tabindex="0"><code>sudo service klipper stop
+make flash
+sudo service klipper start
+</code></pre><p>これで RapberryPi をセカンダリ MCU として使う準備が出来ましたので、<code>printer.cfg</code> に次の設定を追加します。</p>
+<pre tabindex="0"><code>[mcu rpi]
+serial: /tmp/klipper_host_mcu
+
+[adxl345]
+cs_pin: rpi:None
+
+[resonance_tester]
+accel_chip: adxl345
+probe_points:
+    100,100,20  # an example
+</code></pre><p>以上で事前準備は完了です。</p>
+<h4 id="測定">測定</h4>
+<p>センサーをプリンタに固定して RapberryPi に接続したら、FluiddPi から <code>SHAPER_CALIBRATE AXIS=X</code> コマンドを実行して計測と調整を行います。センサーの XYZ 軸の方向を計測したい方向に合わせます。測定が終わったら <code>SAVE_CONFIG</code> を実行して測定結果に基づく設定値を <code>printer.cfg</code> に保存します。</p>
+<figure class="figure bsimage">
+  <img src="ADXL345_attach_bed2.jpg" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">ADXL345 の測定向きを計測方向に合わせる</figcaption>
+</figure>
+<pre tabindex="0"><code>// 測定結果
+[x-axis]
+21:14:50 // Wait for calculations..
+21:14:51 // Calculating the best input shaper parameters for x axis
+21:14:52 // Fitted shaper 'zv' frequency = 59.4 Hz (vibrations = 8.1%, smoothing ~= 0.050)
+21:14:52 // To avoid too much smoothing with 'zv', suggested max_accel &lt;= 13800 mm/sec^2
+21:14:54 // Fitted shaper 'mzv' frequency = 54.0 Hz (vibrations = 0.2%, smoothing ~= 0.070)
+21:14:54 // To avoid too much smoothing with 'mzv', suggested max_accel &lt;= 8600 mm/sec^2
+21:14:56 // Fitted shaper 'ei' frequency = 64.0 Hz (vibrations = 0.0%, smoothing ~= 0.079)
+21:14:56 // To avoid too much smoothing with 'ei', suggested max_accel &lt;= 7600 mm/sec^2
+21:14:57 // Fitted shaper '2hump_ei' frequency = 79.8 Hz (vibrations = 0.0%, smoothing ~= 0.085)
+21:14:57 // To avoid too much smoothing with '2hump_ei', suggested max_accel &lt;= 7100 mm/sec^2
+21:14:59 // Fitted shaper '3hump_ei' frequency = 95.8 Hz (vibrations = 0.0%, smoothing ~= 0.089)
+21:14:59 // To avoid too much smoothing with '3hump_ei', suggested max_accel &lt;= 6700 mm/sec^2
+21:14:59 // Recommended shaper_type_x = mzv, shaper_freq_x = 54.0 Hz
+21:14:59 // Shaper calibration data written to /tmp/calibration_data_x_20211229_211233.csv file
+21:14:59 // The SAVE_CONFIG command will update the printer config file
+// with these parameters and restart the printer.
+</code></pre><p>なお、測定結果には加速度の上限値 (<code>suggested max_accel &lt;= 8600 mm/sec^2</code>) も表示されていますが、加速度は <code>SAVE_CONFIG</code> コマンドでは保存されないため、手動で <code>[printer]</code> セクションの <code>max_accel</code> を修正します。</p>
+<pre tabindex="0"><code>[printer]
+max_accel: 4000
+</code></pre><h3 id="スライサーと-fluiddpi-を繋ぐ方法">スライサーと FluiddPi を繋ぐ方法</h3>
+<h4 id="cura-の場合">Cura の場合</h4>
+<p>Settings → Printer → Manage Printers → Connect Octoprint → Add の順番で設定画面を開き、接続名称と IP アドレスを入力します。それから Connect ボタンをクリックしますと接続します（API Key は不要）。</p>
+<p><figure class="figure bsimage">
+  <img src="cura_screenshot1.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">Cura の設定画面</figcaption>
+</figure>
+<figure class="figure bsimage">
+  <img src="cura_screenshot2.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">Cura の設定画面</figcaption>
+</figure></p>
+<h4 id="prusaslicer--superslicer-の場合">PrusaSlicer / SuperSlicer の場合</h4>
+<p>右パネルのプリンタメニューの右側の歯車アイコンをクリックして “Add physical printer” を開き、ホスト名に <code>fluiddpi.local (ホスト名を変更している場合は変更後のホスト名)</code> を入力し、テストボタンをクリックします。API Key は入力不要です。</p>
+<figure class="figure bsimage">
+  <img src="PrusaSlicer_setting.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">PrusaSlicer/SuperSlicer の設定画面</figcaption>
+</figure>
+<h3 id="g-code-の問題">G-Code の問題</h3>
+<h4 id="klipper-非対応の-g-code">Klipper 非対応の G-Code</h4>
+<p>PrusaSlicer と SuperSlicer の Start G-code にある <code>M862.3</code> と <code>M862.1</code> は、Prusa のオリジナル G-Code なので、Klipper に読み込ませても <code>Unknown command:&quot;M862.3&quot;</code> となってしまいます。また、<code>G29</code> と <code>G80</code> も Klipper は対応していないので、マクロとして登録する必要があります。</p>
+<pre tabindex="0"><code>[gcode_macro G29]
+gcode:
+ G28
+ BED_MESH_CALIBRATE
+
+[gcode_macro G80]
+gcode:
+ BED_MESH_CALIBRATE
+ G1 X0 Y0 Z0.4 F4000
+</code></pre><ul>
+<li><a href="https://reprap.org/wiki/G-code#M862:_Print_checking" target="_blank" rel="noopener noreferrer">G-code - RepRap - M862</a>
+</li>
+<li><a href="https://reprap.org/wiki/G-code#G29:_Detailed_Z-Probe" target="_blank" rel="noopener noreferrer">G-code - RepRap - G29</a>
+</li>
+<li><a href="https://reprap.org/wiki/G-code#G80:_Mesh-based_Z_probe" target="_blank" rel="noopener noreferrer">G-code - RepRap - G80</a>
+</li>
+</ul>
+<h4 id="cura-でスライスした場合の問題">Cura でスライスした場合の問題</h4>
+<p>Cura でスライスした場合、最初のノズル加熱の G-Code が <code>M104 S210 �</code> となり、プリンタがこのコードに到達した時点で停止してしまうという不具合に遭遇しました。</p>
+<p>PrusaSlicer や SuperSlicer では発生しないので、考えられる原因は、Cura がノズルの温度を小数点以下第1位 (ex: 220.0) まで指定できることではないかと思っています。</p>
+<p>手作業で修正すれば OK なのですが、面倒なので Ender 3 Pro で印刷するときは Cura ではなく SuperSlicer を使うようにしました。</p>
+<h3 id="position_min-の設定">position_min の設定</h3>
+<p>Ender 3 Pro のエクストルーダー改造により、ベッドを <code>Y=0</code> の場所まで移動させるとノズルがベッドからはみ出してしまう状態になっています。</p>
+<figure class="figure bsimage">
+  <img src="Ender3_nozzle_position.jpg" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">ノズルのはみ出し状況</figcaption>
+</figure>
+<p>この状態だと <code>Y=0~20</code> の部分が印刷に使えないため、<code>[stepper_y]</code> セクションに次の設定を追加して、ノズル位置のオフセットを行っています。</p>
+<pre tabindex="0"><code>[stepper_y]
+position_endstop: -20
+position_min: -20
+</code></pre><h3 id="bltouch-の使い方">BLTouch の使い方</h3>
+<h4 id="マザーボードとの接続方法">マザーボードとの接続方法</h4>
+<p>SKR mini e3 V2.0 と BLTouch は、BIGTREETECH の Github に掲載されている次の写真のとおり接続します。</p>
+<figure class="figure bsimage">
+  <img src="bltouch_wiring1.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		<a href="https://github.com/bigtreetech/BIGTREETECH-SKR-mini-E3/blob/master/hardware/BTT%20SKR%20MINI%20E3%20V2.0/Hardware/bltouch-2.0-1.jpg">https://github.com/bigtreetech/BIGTREETECH-SKR-mini-E3/blob/master/hardware/BTT SKR MINI E3 V2.0/Hardware/bltouch-2.0-1.jpg </a>より
+	</figcaption>
+</figure>
+<p>Github には、次の写真のように Z 軸のエンドストップに接続する方法も掲載されていますが、こちらでは上手くいきません。</p>
+<figure class="figure bsimage">
+  <img src="bltouch_wiring2.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		<a href="https://github.com/bigtreetech/BIGTREETECH-SKR-mini-E3/blob/master/hardware/BTT%20SKR%20MINI%20E3%20V2.0/Hardware/bltouch-2.0-2.jpg">https://github.com/bigtreetech/BIGTREETECH-SKR-mini-E3/blob/master/hardware/BTT SKR MINI E3 V2.0/Hardware/bltouch-2.0-2.jpg </a>より
+	</figcaption>
+</figure>
+<p>Klipper で BLTouch を Z 軸のエンドストップとして使う場合、<code>[stepper_z]</code> セクションの <code>endstop_pin</code> を <code>endstop_pin: probe: z_virtual_endstop</code> と指定するため、BLTouch の Zmin は、SKR mini e3 V2.0 の <code>Z-STOP(PC2)</code> ではなく <code>PROBE(PC14)</code> に接続します。</p>
+<blockquote>
+<p>If the BL-Touch will be used to home the Z axis then set <code>endstop_pin: probe:z_virtual_endstop</code> and remove <code>position_endstop</code> in the <code>[stepper_z]</code> config section, then add a <code>[safe_z_home]</code> config section to raise the z axis, home the xy axes, move to the center of the bed, and home the z axis</p>
+<p>BLTouch を Z 軸のホーミングで使うなら、<code>endstop_pin: probe:z_virtual_endstop</code> を設定するとともに、<code>position_endstop</code> を <code>[stepper_z]</code> セクションから削除します。それから、XY 軸のホーミングの時に Z 軸を持ち上げて、Z 軸のホーミングでベッドの中心に移動するために <code>[safe_z_home]</code> セクションを追加します。（拙訳）</p>
+<p><a href="https://www.klipper3d.org/BLTouch.html" target="_blank" rel="noopener noreferrer">BL-Touch - Klipper documentation</a>
+ より</p>
+</blockquote>
+<pre tabindex="0"><code>[stepper_z]
+endstop_pin: probe:z_virtual_endstop
+#position_endstop: 0.0
+</code></pre><figure class="figure bsimage">
+  <img src="skr_mini_e3_v2_0_schema.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		<a href="https://github.com/bigtreetech/BIGTREETECH-SKR-mini-E3/blob/master/hardware/BTT%20SKR%20MINI%20E3%20V2.0/Hardware/BTT%20SKR%20MINI%20E3%20V2.0SCHpdf.PDF">BIGTREETECH-SKR-mini-E3/BTT SKR MINI E3 V2.0SCHpdf.PDF at master · bigtreetech/BIGTREETECH-SKR-mini-E3 </a>より
+	</figcaption>
+</figure>
+<p>そして、<code>printer.cfg</code> の <code>[bltouch]</code> セクションにピンの設定を追加します。</p>
+<pre tabindex="0"><code>[bltouch]
+sensor_pin = ^PC14
+control_pin = PA1
+pin_up_reports_not_triggered = false
+probe_with_touch_mode = true
+</code></pre><p>ちなみに、3DTouch の各ピンと SKR mini e3 V2.0 のピンの対応関係は次のとおりです。BLTouch のクローン品である 3DTouch は、オリジナルの BLTouch とワイヤーのカラーが違いますが、各ピンの用途は同じです。</p>
+<table>
+<thead>
+<tr>
+<th>BLTouch のワイヤーカラー</th>
+<th>3DTouch のワイヤーカラー</th>
+<th>用途</th>
+<th>SKR mini e3 V2.0 の対応するピン</th>
+<th>Klipper の対応する設定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brown</td>
+<td>White</td>
+<td>GND</td>
+<td>GND</td>
+<td>***</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>Black</td>
+<td>5V</td>
+<td>5V</td>
+<td>***</td>
+</tr>
+<tr>
+<td>Orange</td>
+<td>Yellow</td>
+<td>Control Signal</td>
+<td>PA1 (SERVOS)</td>
+<td>control_pin</td>
+</tr>
+<tr>
+<td>Black</td>
+<td>Red</td>
+<td>GND</td>
+<td>GND</td>
+<td>***</td>
+</tr>
+<tr>
+<td>White</td>
+<td>Blue</td>
+<td>Z min</td>
+<td>PC14 (PROBE)</td>
+<td>sensor_pin</td>
+</tr>
+</tbody>
+</table>
+<figure class="figure bsimage">
+  <img src="bltouch_schema.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		<a href="https://www.antclabs.com/creality3d-board">Creality3D CR-10S Pro | antclabs </a>より
+	</figcaption>
+</figure>
+<h4 id="safe_z_home-セクションの設定"><code>[safe_z_home]</code> セクションの設定</h4>
+<p>Z 軸のホーミング時に、どの場所にノズルを下ろすか、下ろすときの速度、2回目のプロービングの速度などを設定します。</p>
+<pre tabindex="0"><code>[safe_z_home]
+home_xy_position: 115,115 # Change coordinates to the center of your print bed
+speed: 50
+z_hop: 10                 # Move up 10mm
+z_hop_speed: 5
+</code></pre><h4 id="プローブピンのオフセット設定">プローブピンのオフセット設定</h4>
+<p>ノズルとプローブピンの位置のずれを設定します。以下の設定値のうち、<code>x_offset</code> はエクストルーダー改造 MOD の作者が指定した値であり、<code>y_offset</code> は実測値に基づいて設定した値です。</p>
+<pre tabindex="0"><code>[bltouch]
+x_offset = 38.2
+y_offset = -5
+#z_offset = 0
+</code></pre><p><code>z_offset</code> は、最初は設定しますが、次に説明する Z-Offset の調整を行ったら自動でコメントアウトされ、新しい設定値が <code>printer.cfg</code> ファイルの末尾に自動で追加されます。</p>
+<h3 id="プローブの-z-offset-の調整">プローブの Z-Offset の調整</h3>
+<p><code>G28</code> でホーミングしてから <code>PROBE_CALIBRATE</code> コマンドを実行すると測定地点に移動しますので、<code>TESTZ Z=-x.x</code> or <code>TESTZ Z=+x.x</code> を実行して、シックネスゲージの 0.1mm ゲージが若干引っ掛かるところまでノズルの位置を調整します。</p>
+<p>ちょうど良いところまでノズルが下がったら、<code>ACCEPT</code> コマンドを実行してから <code>SAVE_CONFIG</code> コマンドを実行し、オフセット値を <code>printer.cfg</code> に保存します。</p>
+<h4 id="メッシュベッドレベリングの設定">メッシュベッドレベリングの設定</h4>
+<p>メッシュベッドレベリングを行う場合、<code>printer.cfg</code> に <code>[bed_mesh]</code> セクションを追加して測定個所やポイント数などを設定します。</p>
+<p><code>mesh-min</code> の場所が最初の測定個所で、<code>mesh_max</code> の場所が最後の測定個所となります。重要な点として、Klipper はここで設定した座標にプローブピンを下ろしますが、プローブピンのオフセット値を考慮しない座標を設定すると、ノズルの位置がマイナスになって <code>Move out of range</code> というエラーが発生することがあります。</p>
+<p>私の場合、プローブピンがノズルから X 方向に +38.2 ずれていますので、<code>X: 0~38.1</code> の範囲を測定個所に指定しますと、ノズルの位置が <code>X: -38.2~-0.1</code> となりエラーとなります。</p>
+<pre tabindex="0"><code>[bed_mesh]
+speed = 60
+horizontal_move_z = 6
+mesh_min = 40, 10
+mesh_max = 190, 210
+probe_count = 5, 5
+mesh_pps = 2,2
+</code></pre><p><code>probe_count</code> は、<code>mesh_min</code> と <code>mesh_max</code> の2点を結んだ長方形を何分割して測定するかというものです。具体的な動作は次の図のとおりです。</p>
+<figure class="figure bsimage">
+  <img src="mesh_bed_image.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		<a href="https://www.klipper3d.org/Bed_Mesh.html">Bed Mesh - Klipper documentation </a>より
+	</figcaption>
+</figure>
+<p><code>mesh_pps</code> は、プロービング地点とプロービング地点の間の高低差を補間します場合のポイント数を指定するもので、<code>mesh_pps = 2,2</code> は、XY でそれぞれ補間するポイントの数を2つにするというものです。</p>
+<figure class="figure bsimage">
+  <img src="mesh_bed_pps_image.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">
+		<a href="https://www.klipper3d.org/Bed_Mesh.html">Bed Mesh - Klipper documentation </a>より
+	</figcaption>
+</figure>
+<h4 id="メッシュベッドレベリングの結果に基づくベッドのネジ調整prusa限定">メッシュベッドレベリングの結果に基づくベッドのネジ調整(Prusa限定)</h4>
+<p>(2022年1月16日追記)</p>
+<p>Prusa の定番改造の1つに、ナイロンナットを使ってベッドの高さを厳密に調整できるようにするというものがあります（ <a href="https://www.youtube.com/watch?v=hDv73AdiBqM" target="_blank" rel="noopener noreferrer">PRUSA i3 MK3 Nylock Bed Leveling - YouTube</a>
+ 参照）。</p>
+<p>私はナイロンナットの代わりにシリコンチューブを使う方法（<a href="https://www.schweinert.com/silicone-bed-level-mod-prusa-mk3/" target="_blank" rel="noopener noreferrer">Silicone Bed Level Mod Prusa MK3 – SCHWEINERT.COM</a>
+ 参照）を採用していますが、どちらの方法でも、メッシュベッドレベリングの計測結果から中心部を除く8つのネジの回転量を計算する必要があります。</p>
+<p>OctoPrint にはそのためのプラグイン（<a href="https://github.com/PrusaOwners/OctoPrint-PrusaMeshMap" target="_blank" rel="noopener noreferrer">PrusaOwners/OctoPrint-PrusaMeshMap: This plugin performs a mesh bed leveling operation then returns the results as an easy to read heatmap.</a>
+ がありますが、FluiddPi にはそうした機能がありません。</p>
+<p>そのため代替手段が必要になりますが、<a href="https://pcboy.github.io/g81_relative/" target="_blank" rel="noopener noreferrer">Convert g81 absolute values to relative ones.</a>
+ を使えば、メッシュベッドレベリングの結果を元にネジの回転量を計算してくれます。</p>
+<p>作業の流れは次のとおりです。</p>
+<ol>
+<li>ベッドを加熱する（ex: 60℃）</li>
+<li>左のメニューの Tune を開いて XYZ のホーミングを行う</li>
+<li><code>CALIBRATE</code> をクリックしてメッシュベッドレベリングを行う</li>
+<li>測定結果を <code>SAVE_CONFIG</code> コマンドで <code>printer.cfg</code> に保存する</li>
+<li><code>printer.cfg</code> に保存された測定結果を <a href="https://pcboy.github.io/g81_relative/" target="_blank" rel="noopener noreferrer">Convert g81 absolute values to relative ones.</a>
+ に貼り付ける</li>
+<li>求められたネジの回転量に従ってネジを回す</li>
+<li>
+<ol>
+<li>に戻って調整結果の確認と再調整を行い、納得できるまで繰り返す。</li>
+</ol>
+</li>
+</ol>
+<p>測定結果を毎回 <code>printer.cfg</code> に保存するのは無駄に見えますが、FluiddPi のターミナルに表示される測定結果を <a href="https://pcboy.github.io/g81_relative/" target="_blank" rel="noopener noreferrer">Convert g81 absolute values to relative ones.</a>
+ の形式に整えるのは面倒なのに対し、<code>printer.cfg</code> に保存した測定結果の形式を整えるのは相対的に楽なので、測定結果を <code>printer.cfg</code> に保存してから作業を行っています。</p>
+<pre tabindex="0"><code>FuliddPi のターミナルに表示される測定結果
+17:09:21 
+// probe at 1.806,14.998 is z=2.166976
+17:09:26 
+// probe at 39.303,14.998 is z=2.076594
+,.
+17:11:00 
+// probe at 114.297,215.002 is z=1.853148
+17:11:05 
+// probe at 151.794,215.002 is z=1.687447
+</code></pre><pre tabindex="0"><code>//printer.cfg に保存される測定結果
+#*# 	0.075000, 0.032500, -0.001250, 0.030000, 0.052500
+#*# 	0.081250, 0.061250, -0.022500, 0.011250, 0.026250
+#*# 	0.040000, -0.007500, -0.008750, 0.011250, -0.022500
+#*# 	0.070000, 0.058750, 0.083750, 0.033750, 0.035000
+#*# 	0.102500, 0.062500, 0.083750, 0.072500, 0.071250
+</code></pre><figure class="figure bsimage">
+  <img src="pcboy.github.io.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">Convert g81 absolute values to relative ones. の貼り付け画面</figcaption>
+</figure>
+<h3 id="mesh-bed-leveling-のトラブル">Mesh Bed Leveling のトラブル</h3>
+<p>Mesh Bed Leveling が途中で停止する現象に悩まされていましたが、Discord の The 602 Wastelan の<a href="https://discord.com/channels/448951856660480030/450674720061259776/897203486654087178" target="_blank" rel="noopener noreferrer">投稿</a>
+を元に <code>horizontal_move_z: 2</code> を <code>horizontal_move_z: 5</code> に変更したところ、きちんとレベリングしてくれるようになりました。</p>
+<h4 id="4隅のレベリング調整機能">4隅のレベリング調整機能</h4>
+<p>Ender 3 Pro は、ベッドの4隅にあるネジで高さを調整してベッドの水平を出しますが、Klilpper には、BLTouch で4隅の高さを測り、ベッドを水平にするにはネジをどれだけ回せば良いか教えてくれる機能が備わっています。</p>
+<p><a href="https://www.klipper3d.org/Manual_Level.html#adjusting-bed-leveling-screws-using-the-bed-probe" target="_blank" rel="noopener noreferrer">Manual leveling - Klipper documentation</a>
+ 参照</p>
+<p>この機能を使うには、<code>printer.cfg</code> に <code>[screws_tilt_adjust]</code> セクションを追加して測定個所を設定します。</p>
+<pre tabindex="0"><code>[screws_tilt_adjust]
+screw1: 0, 32.5
+screw1_name: front left screw
+screw2: 164.3, 32.5
+screw2_name: front right screw
+screw3: 164.3, 202.5
+screw3_name: rear right screw
+screw4: 0, 202.5
+screw4_name: rear left screw
+horizontal_move_z: 10
+speed: 30
+screw_thread: CW-M4
+</code></pre><p>ここで指定している座標値はノズルを下ろす場所なので、ノズルとプローブピンの位置のずれを考慮して座標を指定する必要があります。</p>
+<p>Ender 3 Pro のネジの場所は、次の図のとおりベッドの角から XY 方向に 32.5mmの場所に中心点があります。</p>
+<figure class="figure bsimage">
+  <img src="ender3_screw_position.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">Ender 3 Pro のネジの配置</figcaption>
+</figure>
+<p>よって、最初の点（左手前）は <code>X:32.5 Y:32.5</code> を測定すべきですが、プローブピンがノズルから X方向に +38.2 ずれているため、やむを得ず <code>X:0 Y:32.5</code> を測定しています。この設定だと <code>X:38.2 Y:32.5</code> を測定することになります。その次の2番目の点（右手前）の X座標は <code>235-32.5-38.2</code> で求めています。</p>
+<p>設定が終わったら <code>SCREWS_TILT_CALCULATE</code> コマンドを実行します。そうすると、FluiddPi のターミナルに測定結果とネジの回転量が出力されるので、ネジを回して再度 <code>SCREWS_TILT_CALCULATE</code> コマンドを実行し、可能な限りベッドが平面になるように調整していきます。</p>
+<pre tabindex="0"><code>// 調整途中の結果のため、座標値は上の設定値と異なっている
+22:31:02 $ SCREWS_TILT_CALCULATE
+22:31:08 // probe at 0.000,57.500 is z=0.845000
+22:31:16 // probe at 159.800,57.500 is z=2.102500
+22:31:25 // probe at 159.800,227.500 is z=1.970000
+22:31:33 // probe at 0.000,227.500 is z=0.862500
+22:31:33 // 01:20 means 1 full turn and 20 minutes, CW=clockwise, CCW=counter-clockwise
+22:31:33 // front left screw (base) : x=0.0, y=57.5, z=0.84500
+22:31:33 // front right screw : x=159.8, y=57.5, z=2.10250 : adjust CCW 01:48
+22:31:33 // rear right screw : x=159.8, y=227.5, z=1.97000 : adjust CCW 01:36
+22:31:33 // rear left screw : x=0.0, y=227.5, z=0.86250 : adjust CCW 00:02
+</code></pre><p>なお、ここにある時計回り・反時計回りは、ベッドを上から見た場合の回転方向です。</p>
+<h4 id="クローン品を使うための追加設定">クローン品を使うための追加設定</h4>
+<p>純正の BLTouch ではなくクローン品の 3DTouch を使っているせいか、<code>Failed to verify BLTouch probe is raised; retrying.</code> というエラーと <code>No trigger on probe after full movement</code> というエラーが発生したため、以下の設定を追加して対応しています。</p>
+<pre tabindex="0"><code>[bltouch]
+pin_up_reports_not_triggered = false
+probe_with_touch_mode = true
+</code></pre><h3 id="その他のエラー対策">その他のエラー対策</h3>
+<p>上記以外のエラーとその対応策をメモします。</p>
+<h4 id="endstop-x-still-triggered-after-retract"><code>Endstop x still triggered after retract</code></h4>
+<p>原因は不明ですが、センサーレスホーミングを使っている状態で <code>[stepper_x]</code>, <code>[stepper_y]</code> セクションの <code>homing_retract_dist:</code> に <code>0</code> 以外を設定していると発生します。</p>
+<p><code>homing_retract_dist:</code> に <code>5</code> とかの値を設定していると、エクストルーダーやベッドが端に衝突した後に設定値の分だけ反対方向に移動するようになり、<code>0</code> を設定すると衝突した場所で停止します。衝突後に反対方向に移動してもらう必要性は乏しいので <code>0</code> を設定してエラーが発生しないようにしています。</p>
+<h4 id="-move-exceeds-maximum-extrusion-0752mm2-vs-0640mm2"><code>!! Move exceeds maximum extrusion (0.752mm^2 vs 0.640mm^2)</code></h4>
+<p>このエラーは、Klipper が「一度に押し出すフィラメントの量が多過ぎる」と判断した時に生じるエラーです。小さなエリアに過度のフィラメントを押し込んでしまうことを防ぐために設けられたエラーチェック機能です。</p>
+<p>エラーメッセージの <code>0.752mm^2</code> が G-Code を元に計算された押し出し量で、<code>0.640mm^2</code> が閾値です。閾値の <code>0.640mm^2</code> はデフォルト設定で、これを変えるには、<code>[extruder]</code> セクションの <code>max_extrude_cross_section</code> に任意の値 (ex: 1.00) を設定します。</p>
+<p>なお、デフォルト閾値の <code>0.640mm^2</code> は、公式リファレンスによると「ノズルの直径の2乗に4を乗じた」数値とのことですが、この計算式を採用した理由は不明です。</p>
+<p>このエラーについては、<code>max_extrude_cross_section</code> に大きな値 (ex: 50) を設定して対応しているケースが多い模様ですが、Klipper の作者は「スライサーのバグが原因で発生していると思う」と<a href="https://github.com/Klipper3d/klipper/issues/3010#issuecomment-649717429" target="_blank" rel="noopener noreferrer">コメント</a>
+しています。</p>
+<p>そのコメントを踏まえてエラー発生個所の G-Code を見ると、印刷前のノズル掃除を行う部分でエラーになっていました。</p>
+<pre tabindex="0"><code>G1 X60.0 E9.0 F1000.0 ; intro line
+G1 X100.0 E12.5 F1000.0 ; intro line
+</code></pre><p>ノズル掃除のためにフィラメントを多めに押し出していることが原因と思われたので、押し出し量 (<code>E9.0</code>) を少なくするとエラーが発生しなくなり、かつ、ノズル掃除にも支障がなかったので、押し出し量を抑えて対応しました。</p>
+<p>なお、このエラーチェックを行っている部分のコード (<code>klippy/kinematics/extruder.py</code>) を見ると、フィラメントの直径やノズルの大きさも考慮してチェックしているようです。</p>
+<h4 id="unable-to-read-tmc-uart-stepper_z-register-mscnt"><code>Unable to read tmc uart 'stepper_z' register MSCNT</code></h4>
+<p>UART 通信で Z 軸のモータードライバーの <code>MSCNT</code> レジスタを読み取ろうとしたが読み取れなかったというエラーで、Z 軸のホーミングを開始しようとした時に発生していました。</p>
+<p>Trinamic 社の TMC2209 の<a href="https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2209_Datasheet_V103.pdf" target="_blank" rel="noopener noreferrer">データシートの28ページ</a>
+によると、<code>MSCNT</code> レジスタは、マイクロステップのカウンタで、マイクロステップテーブルにおける位置を示すインジケータのようです。</p>
+<p>公式リファレンスの <a href="https://www.klipper3d.org/TMC_Drivers.html" target="_blank" rel="noopener noreferrer">TMC Driver</a>
+ のページの「一般的な質問」に、よく似たエラーとして <code>Unable to read tmc uart 'stepper_x' register IFCNT</code> というものが掲載されており、そこでは、原因として次の2つが挙げられています。</p>
+<ul>
+<li>モータードライバが Klipper と互換性のない状態にプログラムされている (Klipper インストール直後にエラーが発生している場合)
+<ul>
+<li>（対応策）プリンタの電源コードを抜き、Raspberry pi と接続している USB ケーブルも抜いてから数秒間待ってリセットします。</li>
+</ul>
+</li>
+<li>UART 通信の配線又はピン設定が間違っている</li>
+</ul>
+<p>しかし、電源コードと USB ケーブルを抜いてしばらく放置してもエラーが解消できず、また、配線と設定を再確認しても問題はありませんでした。Klipper の Discord サーバで質問しても解決しませんでしたが、マザーボードを新品に交換したら解消したので、ボードの故障が原因だったと思います。</p>
+<h4 id="ディスプレイ関係">ディスプレイ関係</h4>
+<p>Klipper は FluiddPi で操作しますので、配線を楽にするために思い切って外部ディスプレイを取り外したところ、次の警告メッセージが表示されるようになりました。</p>
+<pre tabindex="0"><code>fluidd warnings found.
+[display_status] is required if you do not have a [display] defined.
+Fluidd setup requirements can be found here.
+</code></pre><p>そこで、警告メッセージ中の <code>[display_status]</code> を <code>printer.cfg</code> に追加したところ、警告メッセージが表示されなくなりました。なお、このセクションの下に設定を追加する必要はありません。</p>
+<h3 id="printercfg-等の設定ファイルの保存場所"><code>printer.cfg</code> 等の設定ファイルの保存場所</h3>
+<p><code>~/klipper_config/</code> ディレクトリに保存されています。</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://s-show.github.io/posts/2021-12-12/">QMK API を使ってキーボードのリストを取得する方法
+</a>
+  </div><div class="post-nav post-next">
+    <a href="https://s-show.github.io/posts/2022-01-07/">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法
+</a>
+    <i class="fas fa-fw fa-chevron-right"></i>
+  </div></div></div>
+</article><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title"></h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://s-show.github.io/posts/2019-12-20/">AnyCubic I3 Mega S に TMC2208 を導入する
+</a>
+          <span class="float-end post-date">2019-12-20
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-07-22/">自作キーボードでLEDが点灯しない時のテスト方法と対処方法
+</a>
+          <span class="float-end post-date">2019-07-22
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-06-18/">AutoHotKeyの解説と自分の設定について
+</a>
+          <span class="float-end post-date">2019-06-18
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2018-03-22/">Macbook Proでメモリ交換して電源が入らなくなってから復活するまでの経緯
+</a>
+          <span class="float-end post-date">2018-05-22
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2021-12-12/">QMK API を使ってキーボードのリストを取得する方法
+</a>
+          <span class="float-end post-date">2021-12-12
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="s-show/s-show.github.io"
+  issue-term="title"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="s-show" src="https://s-show.github.io/img/profileIcon.png" loading="lazy"
+   width="500" height="500"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">s-show</div><div class="profile-bio">プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a href="https://s-show.github.io/about/">About</a></div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list"><li>
+        <a href="https://s-show.github.io/posts/2022-01-16/">RClone を使って Klipper の設定をバックアップする方法
+</a>
+        <span class="float-end post-date">2022-01-16
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2022-01-07/">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法
+</a>
+        <span class="float-end post-date">2022-01-07
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2022-01-02/">Klipper と FluiddPi の設定について
+</a>
+        <span class="float-end post-date">2022-01-02
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2021-12-12/">QMK API を使ってキーボードのリストを取得する方法
+</a>
+        <span class="float-end post-date">2021-12-12
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2021-12-11/">Github Actions で Re:view Starter のファイルをビルドする方法
+</a>
+        <span class="float-end post-date">2021-12-11
+</span>
+      </li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-header">
+        <h2 class="card-title">
+          <a href="https://s-show.github.io/tags"></a>
+        </h2>
+      </div>
+      <div class="card-body">
+        <div class="py-2"><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="備忘録">
+            備忘録
+          </a><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded post-taxonomy" title="プログラミング">
+            プログラミング
+          </a><a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="badge rounded post-taxonomy" title="自作キーボード">
+            自作キーボード
+          </a><a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="badge rounded post-taxonomy" title="3Dプリンタ">
+            3Dプリンタ
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="読書記録">
+            読書記録
+          </a><a href="https://s-show.github.io/tags/mac/" class="badge rounded post-taxonomy" title="Mac">
+            Mac
+          </a><a href="https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/" class="badge rounded post-taxonomy" title="未分類">
+            未分類
+          </a><a href="https://s-show.github.io/tags/karabiner-elements/" class="badge rounded post-taxonomy" title="Karabiner-Elements">
+            Karabiner-Elements
+          </a><a href="https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/" class="badge rounded post-taxonomy" title="太平洋戦争">
+            太平洋戦争
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/" class="badge rounded post-taxonomy" title="読書">
+            読書
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/s-show" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2022 s-show. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div></footer>
+<script src="https://s-show.github.io/js/bundle.min.b2d9b1dc0e92226edeb5e67ad4c3955a5f8ef4554e1b63bc61002a5b5b6ca932.js" integrity="sha256-stmx3A6SIm7eteZ61MOVWl&#43;O9FVOG2O8YQAqW1tsqTI=" crossorigin="anonymous" defer></script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('https:\/\/s-show.github.io\/service-worker.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script>
+	
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-367F1P4JXZ', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+</body>
+</html>

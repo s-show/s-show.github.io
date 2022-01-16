@@ -1,0 +1,431 @@
+<!doctype html><html lang="jp"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法 - 閑古鳥ブログ</title><link rel="apple-touch-icon" href="https://s-show.github.io/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://s-show.github.io/images/icons/favicon.ico">
+<link rel="manifest" href="https://s-show.github.io/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法">
+<meta itemprop="description" content="3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」と"><meta itemprop="datePublished" content="2022-01-07T21:41:06+09:00" />
+<meta itemprop="dateModified" content="2022-01-07T21:41:06+09:00" />
+<meta itemprop="wordCount" content="1861">
+<meta itemprop="keywords" content="3Dプリンタ,備忘録," /><meta property="og:title" content="PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法" />
+<meta property="og:description" content="3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」と" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://s-show.github.io/posts/2022-01-07/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-07T21:41:06+09:00" />
+<meta property="article:modified_time" content="2022-01-07T21:41:06+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法"/>
+<meta name="twitter:description" content="3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」と"/>
+<meta name="robots" content="noindex, nofollow" /><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css" integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm&#43;Z2wp7s1&#43;ne0=" crossorigin="anonymous">
+<noscript><link rel="stylesheet" href="https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css" integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm&#43;Z2wp7s1&#43;ne0=" crossorigin="anonymous"></noscript>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-367F1P4JXZ');
+    </script>
+  </head>
+  <body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand me-3" href="https://s-show.github.io/">閑古鳥ブログ
+    </a>
+    <button class="navbar-social-share" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+  aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+  <i class="fas fa-share-alt"></i>
+</button>
+
+<div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=PrusaSlicer%2fSuperSlicer%20%e3%81%a7%20%e4%b8%80%e5%ae%9a%e3%81%ae%e3%83%ac%e3%82%a4%e3%83%a4%e3%83%bc%e6%af%8e%e3%81%ab%e6%b8%a9%e5%ba%a6%e3%82%92%e5%a4%89%e5%8c%96%e3%81%95%e3%81%9b%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2022-01-07%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2022-01-07%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title"></h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+
+<section class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> </label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label=""
+        class="btn btn-sm palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label=""
+        class="btn btn-sm palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label=""
+        class="btn btn-sm palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label=""
+        class="btn btn-sm palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label=""
+        class="btn btn-sm palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label=""
+        class="btn btn-sm palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label=""
+        class="btn btn-sm palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label=""
+        class="btn btn-sm palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label=""
+        class="btn btn-sm palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label=""
+        class="btn btn-sm palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label=""
+        class="btn btn-sm palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label=""
+        class="btn btn-sm palette" data-palette="yellow">
+      </button></div>
+</section>
+<section class="setting actions d-flex justify-content-center mt-auto">
+  <a role="button" class="d-flex flex-column align-items-center" id="pageReloader">
+    <i class="fas fa-2x fa-redo-alt"></i> 
+  </a>
+</section>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://s-show.github.io/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://s-show.github.io/"></a></li><li class="breadcrumb-item"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法</li></ol>
+  </div>
+</nav><article class="row card component mb-4 post"><div class="post-panel-wrapper">
+  <div class="d-flex flex-column component rounded post-panel">
+    
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0" role="button" aria-label="Copyright" 
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license noopener noreferrer&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    
+    
+  </div>
+</div>
+<div class="card-header ">
+    <h1 class="card-title post-title">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="">
+    2022-01-07
+  </span><span class="post-reading-time">
+    
+  </span><span class="post-taxonomies"><a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="badge rounded-pill post-taxonomy">3Dプリンタ</a><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded-pill post-taxonomy">備忘録</a></span>
+</div>
+<div class="post-content mb-3"><p>3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」という順番で調査すると時間がいくらあっても足りません。そのため、1回のプリントで様々な設定を試せると便利ということになります。</p>
+<p>幸い、スライサー側の機能を使うことで、レイヤー高に応じて設定を変更することが可能となりますので、その方法を紹介します。</p>
+<p>なお、スライサーによって設定方法だけでなくできることも違いますので、スライサー毎に説明します。ただし、結論を先取りしますと、PrusaSlicer/SuperSlicer よりも Cura の方が設定が簡単な上に出来ることも多いので、こういう処理を行う場合は Cura を使うか、G-Code を生成してくれるサービスを利用することをお勧めします。</p>
+<h2 id="cura-の場合">Cura の場合</h2>
+<p>まず、一度スライスしてからプレビュー画面に移動し、設定を変更するレイヤーの番号をメモします。ここでは45・90番目のレイヤーで温度を変更し、50番目のレイヤーでリトラクション長を変更するという前提とします。</p>
+<p>まず、Cura のメニューの 「Extensions ｰ&gt; Post Processing ｰ&gt; Modify G-Code」を開きます。</p>
+<p>それから、Add a script ボタンをクリックして「ChangeAtZ」を追加して <code>Trigger</code> を <code>layer No.</code> にして、<code>Change Layer</code> に設定を変更したいレイヤーの番号を指定します。そして、<code>Apply To</code> を <code>Target Layer + Subsequent Layers</code>にします。これで <code>layer No.</code> より上のレイヤーでは変更した設定が適用されるようになります。</p>
+<p>例えば、最初は250度で印刷し、45番目のレイヤーから上は245度で印刷したいというときは <code>Change Extruder 1 Temp</code> にチェックを入れた上で、<code>Extruder 1 temp</code> に <code>245</code> を入力します。</p>
+<figure class="figure bsimage">
+  <img src="changeTemp.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">45番目のレイヤーから上の温度を240度に変更</figcaption>
+</figure>
+<p>また、最初はリトラクション長を 1mm で印刷し、50番目のレイヤーから上ではリトラクション長を 2mm にしたいというときは、<code>Change Retraction</code> にチェックを入れてから、<code>Change Retraction Length</code> にもチェックを入れ、<code>Retract Length</code> に <code>2</code> を入力します。</p>
+<figure class="figure bsimage">
+  <img src="changeRetracion.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">リトラクション長を2mmに変更</figcaption>
+</figure>
+<p>あとは、必要な分だけこの設定を繰り返します。</p>
+<figure class="figure bsimage">
+  <img src="changeTemp2.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">90番目のレイヤーから上の温度を230度に変更</figcaption>
+</figure>
+<h2 id="prusaslicersuperslicer-の場合">PrusaSlicer/SuperSlicer の場合</h2>
+<p>PrusaSlicer/SuperSlicer の場合、温度設定は変更できますが、リトラクション長の変更方法は見つけられていません。</p>
+<p>一応、リトラクション長を変えつつ一度のプリントで9つのモデルを印刷するという<a href="https://forum.prusaprinters.org/forum/prusaslicer/use-height-range-modifier-for-specific-parameters/">方法</a>はあるようですが、思わぬ失敗で時間を無駄にしそうなので挑戦していません。</p>
+<p>温度設定を変更する方法は、一度スライスしてからプレビュー画面に移動し、右側のスクロールバーを設定を変更するレイヤーに合わせます。</p>
+<p>それから、そのレイヤーで右クリックして「カスタムG-Codeの追加」をクリックします。</p>
+<p><figure class="figure bsimage">
+  <img src="addCustomGcode.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">カスタムG-Codeの追加</figcaption>
+</figure>
+<figure class="figure bsimage">
+  <img src="addCustomGcode_zoom.png" class="figure-img img-fluid rounded">
+  <figcaption class="figure-caption fw-light text-center">カスタムG-Codeの追加（拡大）</figcaption>
+</figure></p>
+<p>するとカスタム G-Code の入力画面が開きますので、以下のコードを追加します。なお、コードは上から順番に実行されるようです。</p>
+<pre tabindex="0"><code>M106 S0;
+M104 S240;
+M109 S240;
+M106 S255
+</code></pre><dl>
+<dt>M106 S0</dt>
+<dd>パーツ冷却ファンをストップさせるコマンドです。これがないと、エクストルーダーの温度が設定温度になるまでの間、同じ個所を冷やし続けることになります。</dd>
+<dt>M104 S240</dt>
+<dd>エクストルーダーの温度が240度に設定するコマンドです。設定温度に到達する前に次のコマンドに移ります。</dd>
+<dt>M109 S240</dt>
+<dd>エクストルーダーの温度が240度になるまで待機するというコマンドです</dd>
+<dt>M106 S255</dt>
+<dd>パーツ冷却ファンの回転数を元に戻す（ここでは全開にする前提）コマンドです。これがないと、パーツ冷却ファンがストップしたままとなります。</dd>
+</dl>
+<p>以上で PlusaSlicer/SuperSlicer を使ってレイヤー高に応じて設定を変える方法を紹介しましたが、正直な所、Cura と比較して明らかに面倒になります。</p>
+<p>なので、もっと楽をする方法を紹介します。</p>
+<h2 id="ウェブページで-g-code-を生成する方法">ウェブページで G-Code を生成する方法</h2>
+<p>YouTube で3Dプリンタの情報を中心に色々な解説動画を出している Teaching Tech が 3Dプリンタのキャリブレーションテクニックなどをまとめたページを作成しています。</p>
+<p><a href="https://teachingtechyt.github.io/calibration.html" target="_blank" rel="noopener noreferrer">Teaching Tech 3D Printer Calibration</a>
+</p>
+<p>こちらでは温度調整やリトラクト長の調整のための G-Code を生成することが出来ますので、こちらで G-Code を生成して印刷するとスライサーの設定をしなくても必要な G-Code が作れます。</p>
+<h2 id="まとめ">まとめ</h2>
+<p>新しいフィラメントを使う場合、温度設定やリトラクション長などは試行錯誤して最適値を割り出す必要がありますので、上記の方法を利用すると最適値の探索が少し楽になります。</p>
+<p>一度最適値を割り出してしまえば、その設定値はずっと使えますので、上記の方法が何かの役に立てば幸いです。</p>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-evenly">
+  <div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+    <a href="https://s-show.github.io/posts/2022-01-02/">Klipper と FluiddPi の設定について
+</a>
+  </div><div class="post-nav post-next">
+    <a href="https://s-show.github.io/posts/2022-01-16/">RClone を使って Klipper の設定をバックアップする方法
+</a>
+    <i class="fas fa-fw fa-chevron-right"></i>
+  </div></div></div>
+</article><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title"></h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://s-show.github.io/posts/2022-01-02/">Klipper と FluiddPi の設定について
+</a>
+          <span class="float-end post-date">2022-01-02
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-12-20/">AnyCubic I3 Mega S に TMC2208 を導入する
+</a>
+          <span class="float-end post-date">2019-12-20
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-07-22/">自作キーボードでLEDが点灯しない時のテスト方法と対処方法
+</a>
+          <span class="float-end post-date">2019-07-22
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2019-06-18/">AutoHotKeyの解説と自分の設定について
+</a>
+          <span class="float-end post-date">2019-06-18
+</span>
+        </li><li>
+          <a href="https://s-show.github.io/posts/2018-03-22/">Macbook Proでメモリ交換して電源が入らなくなってから復活するまでの経緯
+</a>
+          <span class="float-end post-date">2018-05-22
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="s-show/s-show.github.io"
+  issue-term="title"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container">
+    
+    <section class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt="s-show" src="https://s-show.github.io/img/profileIcon.png" loading="lazy"
+   width="500" height="500"
+   />
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name">s-show</div><div class="profile-bio">プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a href="https://s-show.github.io/about/">About</a></div></div>
+  </div>
+</section>
+  <section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title"></h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list"><li>
+        <a href="https://s-show.github.io/posts/2022-01-16/">RClone を使って Klipper の設定をバックアップする方法
+</a>
+        <span class="float-end post-date">2022-01-16
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2022-01-07/">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法
+</a>
+        <span class="float-end post-date">2022-01-07
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2022-01-02/">Klipper と FluiddPi の設定について
+</a>
+        <span class="float-end post-date">2022-01-02
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2021-12-12/">QMK API を使ってキーボードのリストを取得する方法
+</a>
+        <span class="float-end post-date">2021-12-12
+</span>
+      </li><li>
+        <a href="https://s-show.github.io/posts/2021-12-11/">Github Actions で Re:view Starter のファイルをビルドする方法
+</a>
+        <span class="float-end post-date">2021-12-11
+</span>
+      </li></ul>
+  </div>
+</section><section class="taxonomies row card component">
+      <div class="card-header">
+        <h2 class="card-title">
+          <a href="https://s-show.github.io/tags"></a>
+        </h2>
+      </div>
+      <div class="card-body">
+        <div class="py-2"><a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="備忘録">
+            備忘録
+          </a><a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="badge rounded post-taxonomy" title="プログラミング">
+            プログラミング
+          </a><a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="badge rounded post-taxonomy" title="自作キーボード">
+            自作キーボード
+          </a><a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="badge rounded post-taxonomy" title="3Dプリンタ">
+            3Dプリンタ
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/" class="badge rounded post-taxonomy" title="読書記録">
+            読書記録
+          </a><a href="https://s-show.github.io/tags/mac/" class="badge rounded post-taxonomy" title="Mac">
+            Mac
+          </a><a href="https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/" class="badge rounded post-taxonomy" title="未分類">
+            未分類
+          </a><a href="https://s-show.github.io/tags/karabiner-elements/" class="badge rounded post-taxonomy" title="Karabiner-Elements">
+            Karabiner-Elements
+          </a><a href="https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/" class="badge rounded post-taxonomy" title="太平洋戦争">
+            太平洋戦争
+          </a><a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/" class="badge rounded post-taxonomy" title="読書">
+            読書
+          </a></div>
+      </div>
+    </section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a><a class="nav-link social-link" target="_blank" href="https://github.com/s-show" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2022 s-show. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div></footer>
+<script src="https://s-show.github.io/js/bundle.min.b2d9b1dc0e92226edeb5e67ad4c3955a5f8ef4554e1b63bc61002a5b5b6ca932.js" integrity="sha256-stmx3A6SIm7eteZ61MOVWl&#43;O9FVOG2O8YQAqW1tsqTI=" crossorigin="anonymous" defer></script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('https:\/\/s-show.github.io\/service-worker.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script>
+	
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-367F1P4JXZ', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+</body>
+</html>
