@@ -45,7 +45,7 @@ jobs:
         run: hugo --minify
 
       - name: Result
-        run: ls -la ./docs
+        run: ls -la ./docs/posts
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
