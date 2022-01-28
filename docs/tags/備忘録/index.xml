@@ -6,7 +6,16 @@
     <description>Recent content in 備忘録 on 閑古鳥ブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 07 Jan 2022 21:41:06 +0900</lastBuildDate><atom:link href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jan 2022 00:50:00 +0900</lastBuildDate><atom:link href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Klipper &amp; Moonraker &amp; FluiddPi でタイムラプス動画を撮影する方法</title>
+      <link>https://s-show.github.io/posts/2022-01-29/</link>
+      <pubDate>Sat, 29 Jan 2022 00:50:00 +0900</pubDate>
+      
+      <guid>https://s-show.github.io/posts/2022-01-29/</guid>
+      <description>前置き Klipper &amp;amp; Moonraker &amp;amp; FluiddPi の組み合わせで 3Dプリンタの印刷の様子をタイムラプス動画にすることに成功しましたので、その方法をまとめます。 なお、Klipp</description>
+    </item>
+    
     <item>
       <title>PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法</title>
       <link>https://s-show.github.io/posts/2022-01-07/</link>
