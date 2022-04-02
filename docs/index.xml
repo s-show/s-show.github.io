@@ -6,7 +6,16 @@
     <description>Recent content on 閑古鳥ブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 24 Feb 2022 03:00:00 +0900</lastBuildDate><atom:link href="https://s-show.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Apr 2022 00:15:04 +0900</lastBuildDate><atom:link href="https://s-show.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mainsail でサイドバーにロゴを表示させる方法</title>
+      <link>https://s-show.github.io/posts/2022-04-04/</link>
+      <pubDate>Fri, 01 Apr 2022 00:15:04 +0900</pubDate>
+      
+      <guid>https://s-show.github.io/posts/2022-04-04/</guid>
+      <description>前置き 我が家では3台の3Dプリンタ（Prusa MK3S+、Ender 3 Pro、Voron V0.0）が稼動していて、これらを全て MainsailOS で制御してい</description>
+    </item>
+    
     <item>
       <title>Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法</title>
       <link>https://s-show.github.io/posts/2022-02-24/</link>

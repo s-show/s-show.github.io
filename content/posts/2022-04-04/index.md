@@ -1,7 +1,7 @@
 ---
 title: "Mainsail でサイドバーにロゴを表示させる方法"
 date: 2022-04-01T00:15:04+09:00
-draft: true
+draft: false
 tags: [3Dプリンタ, 備忘録]
 ---
 
