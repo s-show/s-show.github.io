@@ -10,3 +10,8 @@ location = "Japan"
 
 [params]
   #layout = "compact"
+
+[social]
+  email = "kankodori.blog@gmail.com"
+  github = "s-show"
+  twitter = "s_show_0000"
