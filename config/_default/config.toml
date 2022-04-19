@@ -22,7 +22,7 @@ googleAnalytics = "G-367F1P4JXZ"
 
 enableRobotsTXT = true
 
-enableEmoji = true
+enableEmoji = false
 
 hasCJKLanguage = true # Turn on it if your content contains Chinese/Japanese/Korean Languages.
 
