@@ -2,22 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://s-show.github.io/posts/</loc>
+    <lastmod>2022-04-19T00:15:04+09:00</lastmod>
+  </url><url>
+    <loc>https://s-show.github.io/posts/2022-04-19/</loc>
+    <lastmod>2022-04-19T00:15:04+09:00</lastmod>
+  </url><url>
+    <loc>https://s-show.github.io/tags/</loc>
+    <lastmod>2022-04-19T00:15:04+09:00</lastmod>
+  </url><url>
+    <loc>https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/</loc>
+    <lastmod>2022-04-19T00:15:04+09:00</lastmod>
+  </url><url>
+    <loc>https://s-show.github.io/</loc>
+    <lastmod>2022-04-19T00:15:04+09:00</lastmod>
+  </url><url>
     <loc>https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/</loc>
     <lastmod>2022-04-01T00:15:04+09:00</lastmod>
   </url><url>
     <loc>https://s-show.github.io/posts/2022-04-04/</loc>
-    <lastmod>2022-04-01T00:15:04+09:00</lastmod>
-  </url><url>
-    <loc>https://s-show.github.io/posts/</loc>
-    <lastmod>2022-04-01T00:15:04+09:00</lastmod>
-  </url><url>
-    <loc>https://s-show.github.io/tags/</loc>
-    <lastmod>2022-04-01T00:15:04+09:00</lastmod>
-  </url><url>
-    <loc>https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/</loc>
-    <lastmod>2022-04-01T00:15:04+09:00</lastmod>
-  </url><url>
-    <loc>https://s-show.github.io/</loc>
     <lastmod>2022-04-01T00:15:04+09:00</lastmod>
   </url><url>
     <loc>https://s-show.github.io/posts/2022-02-24/</loc>

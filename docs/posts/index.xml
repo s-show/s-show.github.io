@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 閑古鳥ブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} s-show. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 01 Apr 2022 00:15:04 +0900</lastBuildDate><atom:link href="https://s-show.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Apr 2022 00:15:04 +0900</lastBuildDate><atom:link href="https://s-show.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>sudo apt update で Fish のリポジトリキーが不正と表示される件について</title>
+      <link>https://s-show.github.io/posts/2022-04-19/</link>
+      <pubDate>Tue, 19 Apr 2022 00:15:04 +0900</pubDate>
+      
+      <guid>https://s-show.github.io/posts/2022-04-19/</guid>
+      <description>前置き MainsailOS をインストールしている Raspberry Pi で sudo apt update を実行したら The following signatures were invalid: EXPKEYSIG 2CE2AC08D880C8E4 shells:fish OBS Project &amp;lt;shells:fish@build.opensuse.org&amp;gt; と表示されるようになりました。 1&amp;gt; sudo apt update 2Get:1 https://pkgs.tailscale.com/stable/raspbian buster InRelease 3Hit:2 http://archive.raspberrypi.org/debian buster InRelease 4Get:3 http://raspbian.raspberrypi.org/raspbian buster InRelease [15.0</description>
+    </item>
+    
     <item>
       <title>Mainsail でサイドバーにロゴを表示させる方法</title>
       <link>https://s-show.github.io/posts/2022-04-04/</link>
