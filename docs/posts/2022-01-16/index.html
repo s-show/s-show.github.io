@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="RClone を使って Klipper の設定をバックアップする方法">
 <meta itemprop="description" content="前置き Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに"><meta itemprop="datePublished" content="2022-01-16T01:31:30+09:00" />
 <meta itemprop="dateModified" content="2022-01-16T01:31:30+09:00" />
-<meta itemprop="wordCount" content="2229">
+<meta itemprop="wordCount" content="2499">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="RClone を使って Klipper の設定をバックアップする方法" />
 <meta property="og:description" content="前置き Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに" />
 <meta property="og:type" content="article" />
@@ -205,6 +205,10 @@
 た。</p>
 <p>そこで、備忘録として実施した手順をメモします。</p>
 <h2 id="手順">手順</h2>
+<div class="alert alert-info" role="alert">
+  <i class="fas fa-fw fa-info-circle"></i> 手順の変更などに合わせて記事を修正 (2022/04/22)
+</div>
+
 <h3 id="rclone-のインストール">RClone のインストール</h3>
 <ol>
 <li>ホストPCから Raspberry Pi に SSH 接続する</li>
@@ -327,6 +331,10 @@
 <span class="ln" id="94"><a style="outline: none; text-decoration:none; color:inherit" href="#94">94</a></span>   <span class="se">\ </span><span class="s2">&#34;seafile&#34;</span>
 <span class="ln" id="95"><a style="outline: none; text-decoration:none; color:inherit" href="#95">95</a></span>Storage&gt; <span class="m">16</span>
 </code></pre></div><p>利用するオンラインストレージを聞かれるので、利用したいものを選択します。今回は Google Drive を使うので、 <code>16</code> を選択しています。</p>
+<div class="alert alert-info" role="alert">
+  <i class="fas fa-fw fa-info-circle"></i> RClone が対応するオンラインストレージが変更されると番号は変わります。2022年4年22月時点では、Google Drive は 17 になっています。
+</div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1"> 1</a></span>Option client_id.
 <span class="ln" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2"> 2</a></span>Google Application Client Id
 <span class="ln" id="3"><a style="outline: none; text-decoration:none; color:inherit" href="#3"> 3</a></span>Setting your own is recommended.
@@ -390,15 +398,27 @@
 <span class="ln" id="6"><a style="outline: none; text-decoration:none; color:inherit" href="#6">6</a></span>n<span class="o">)</span> No
 <span class="ln" id="7"><a style="outline: none; text-decoration:none; color:inherit" href="#7">7</a></span>y/n&gt; n
 </code></pre></div><p>オート設定を行うか聞かれますが、SSH 接続で設定しているので <code>n</code> を選択します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1">1</a></span>Option config_verification_code.
-<span class="ln" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2">2</a></span>Verification code
-<span class="ln" id="3"><a style="outline: none; text-decoration:none; color:inherit" href="#3">3</a></span>Go to this URL, authenticate <span class="k">then</span> paste the code here.
-<span class="ln" id="4"><a style="outline: none; text-decoration:none; color:inherit" href="#4">4</a></span>https://accounts.google.com/o/oauth2/auth?...
-<span class="ln" id="5"><a style="outline: none; text-decoration:none; color:inherit" href="#5">5</a></span>Enter a string value. Press Enter <span class="k">for</span> the default <span class="o">(</span><span class="s2">&#34;&#34;</span><span class="o">)</span>.
-<span class="ln" id="6"><a style="outline: none; text-decoration:none; color:inherit" href="#6">6</a></span>config_verification_code&gt; ***
-</code></pre></div><p><code>https://~~</code> の URL をブラウザで開いて RClone に権限を与えます。</p>
-<p>そうするとアクセス用のコードが表示されるので、 <code>config_verification_code</code> のところに貼り付けます。</p>
-<p><figure class="figure bsimage">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1"> 1</a></span>Option config_token.
+<span class="ln" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2"> 2</a></span>For this to work, you will need rclone available on a machine that has
+<span class="ln" id="3"><a style="outline: none; text-decoration:none; color:inherit" href="#3"> 3</a></span>a web browser available.
+<span class="ln" id="4"><a style="outline: none; text-decoration:none; color:inherit" href="#4"> 4</a></span>For more <span class="nb">help</span> and alternate methods see: https://rclone.org/remote_setup/
+<span class="ln" id="5"><a style="outline: none; text-decoration:none; color:inherit" href="#5"> 5</a></span>Execute the following on the machine with the web browser <span class="o">(</span>same rclone
+<span class="ln" id="6"><a style="outline: none; text-decoration:none; color:inherit" href="#6"> 6</a></span>version recommended<span class="o">)</span>:
+<span class="ln" id="7"><a style="outline: none; text-decoration:none; color:inherit" href="#7"> 7</a></span>        rclone authorize <span class="s2">&#34;drive&#34;</span> <span class="s2">&#34;eyJzY29wZSI6ImRyaXZlIn0&#34;</span>
+<span class="ln" id="8"><a style="outline: none; text-decoration:none; color:inherit" href="#8"> 8</a></span>Then paste the result.
+<span class="ln" id="9"><a style="outline: none; text-decoration:none; color:inherit" href="#9"> 9</a></span>Enter a value.
+<span class="ln" id="10"><a style="outline: none; text-decoration:none; color:inherit" href="#10">10</a></span>config_token&gt; ***
+</code></pre></div><div class="alert alert-warning" role="alert">
+  <i class="fas fa-fw fa-exclamation-triangle"></i> この手順は変更されていますので、2022年4月22日に修正しています。
+</div>
+
+<p>ダイアログに「RClone が使える PC で以下のコードを実行して結果を貼り付けること（意訳）」と指示が表示されますので、指示に従って手元の PC で <code>rclone authorize &quot;drive&quot; &quot;eyJzY29wZSI6ImRyaXZlIn0&quot;</code> を実行します。</p>
+<p>すると、起動したローカルサーバの URL が表示されますので、その URL にアクセスすると Google のアクセス権限設定ページにジャンプします。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln" id="1"><a style="outline: none; text-decoration:none; color:inherit" href="#1">1</a></span>2022/04/19 13:09:19 NOTICE: Config file <span class="s2">&#34;/home/***/.config/rclone/rclone.conf&#34;</span> not found - using defaults
+<span class="ln" id="2"><a style="outline: none; text-decoration:none; color:inherit" href="#2">2</a></span>2022/04/19 13:09:19 NOTICE: If your browser doesn<span class="err">&#39;</span>t open automatically go to the following link: http://127.0.0.1:53682/auth?state<span class="o">=</span>hogehoge
+<span class="ln" id="3"><a style="outline: none; text-decoration:none; color:inherit" href="#3">3</a></span>2022/04/19 13:09:19 NOTICE: Log in and authorize rclone <span class="k">for</span> access
+<span class="ln" id="4"><a style="outline: none; text-decoration:none; color:inherit" href="#4">4</a></span>2022/04/19 13:09:19 NOTICE: Waiting <span class="k">for</span> code...
+</code></pre></div><p><figure class="figure bsimage">
   <img src="Google%e8%a8%ad%e5%ae%9a%e7%94%bb%e9%9d%a21.png" class="figure-img img-fluid rounded">
   <figcaption class="figure-caption fw-light text-center">使用するアカウントを選択</figcaption>
 </figure>

@@ -13,6 +13,8 @@ Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定
 
 ## 手順
 
+{{< alert " 手順の変更などに合わせて記事を修正 (2022/04/22)" >}}
+
 ### RClone のインストール
 
 1. ホストPCから Raspberry Pi に SSH 接続する
@@ -150,6 +152,9 @@ Storage> 16
 
 利用するオンラインストレージを聞かれるので、利用したいものを選択します。今回は Google Drive を使うので、 `16` を選択しています。
 
+{{< alert " RClone が対応するオンラインストレージが変更されると番号は変わります。2022年4年22月時点では、Google Drive は 17 になっています。" >}}
+
+
 ```bash
 Option client_id.
 Google Application Client Id
@@ -239,17 +244,31 @@ y/n> n
 オート設定を行うか聞かれますが、SSH 接続で設定しているので `n` を選択します。
 
 ```bash
-Option config_verification_code.
-Verification code
-Go to this URL, authenticate then paste the code here.
-https://accounts.google.com/o/oauth2/auth?...
-Enter a string value. Press Enter for the default ("").
-config_verification_code> ***
+Option config_token.
+For this to work, you will need rclone available on a machine that has
+a web browser available.
+For more help and alternate methods see: https://rclone.org/remote_setup/
+Execute the following on the machine with the web browser (same rclone
+version recommended):
+        rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"
+Then paste the result.
+Enter a value.
+config_token> ***
 ```
 
-`https://~~` の URL をブラウザで開いて RClone に権限を与えます。
+{{< alert " この手順は変更されていますので、2022年4月22日に修正しています。" warning >}}
 
-そうするとアクセス用のコードが表示されるので、 `config_verification_code` のところに貼り付けます。
+
+ダイアログに「RClone が使える PC で以下のコードを実行して結果を貼り付けること（意訳）」と指示が表示されますので、指示に従って手元の PC で `rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"` を実行します。
+
+すると、起動したローカルサーバの URL が表示されますので、その URL にアクセスすると Google のアクセス権限設定ページにジャンプします。
+
+```bash
+2022/04/19 13:09:19 NOTICE: Config file "/home/***/.config/rclone/rclone.conf" not found - using defaults
+2022/04/19 13:09:19 NOTICE: If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=hogehoge
+2022/04/19 13:09:19 NOTICE: Log in and authorize rclone for access
+2022/04/19 13:09:19 NOTICE: Waiting for code...
+```
 
 {{< bsimage src="Google設定画面1.png" title="使用するアカウントを選択" >}}
 {{< bsimage src="Google設定画面2.png" title="アクセスを許可" >}}
