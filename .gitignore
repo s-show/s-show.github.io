@@ -128,3 +128,6 @@ dist
 
 # Push 不要なログファイル
 nohup.out
+
+# Hugo build file
+.docs/
