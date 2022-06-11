@@ -1,0 +1,290 @@
+<!doctype html><html lang=jp><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法 - 閑古鳥ブログ</title><link rel=apple-touch-icon href=https://s-show.github.io/images/icons/icon-180x180.png sizes=180x180><link rel=icon href=https://s-show.github.io/images/icons/icon-32x32.png sizes=32x32 type=image/png><link rel=icon href=https://s-show.github.io/images/icons/icon-16x16.png sizes=16x16 type=image/png><link rel=icon href=https://s-show.github.io/images/icons/favicon.ico><link rel=manifest href=https://s-show.github.io/manifest.json><meta name=keywords content><meta name=description content><meta itemprop=name content="Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法"><meta itemprop=description content="目次 前置き TL;DL 具体的な作業 Klipper と Moonraker の削除 Klipper のインストール Moonraker のインストール printer.cfg の編集 moonraker.conf の編集 タイムラプス動画撮影のスクリプトをインストール Webカメ"><meta itemprop=datePublished content="2022-02-24T03:00:00+09:00"><meta itemprop=dateModified content="2022-02-24T03:00:00+09:00"><meta itemprop=wordCount content="4365"><meta itemprop=keywords content="3Dプリンタ,備忘録,"><meta property="og:title" content="Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法"><meta property="og:description" content="目次 前置き TL;DL 具体的な作業 Klipper と Moonraker の削除 Klipper のインストール Moonraker のインストール printer.cfg の編集 moonraker.conf の編集 タイムラプス動画撮影のスクリプトをインストール Webカメ"><meta property="og:type" content="article"><meta property="og:url" content="https://s-show.github.io/posts/2022-02-24/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-02-24T03:00:00+09:00"><meta property="article:modified_time" content="2022-02-24T03:00:00+09:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法"><meta name=twitter:description content="目次 前置き TL;DL 具体的な作業 Klipper と Moonraker の削除 Klipper のインストール Moonraker のインストール printer.cfg の編集 moonraker.conf の編集 タイムラプス動画撮影のスクリプトをインストール Webカメ"><meta name=twitter:site content="@s_show_0000"><meta name=robots content="noindex, nofollow"><link rel=stylesheet href=https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm+Z2wp7s1+ne0=" crossorigin=anonymous><noscript><link rel=stylesheet href=https://s-show.github.io/css/bundle.min.b3819d7e53a79e3e99558e39e688388793f3b93b570829be676c29eecd7e9ded.css integrity="sha256-s4GdflOnnj6ZVY455og4h5PzuTtXCCm+Z2wp7s1+ne0=" crossorigin=anonymous></noscript><script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-367F1P4JXZ')</script></head><body><script>const items=['mode','palette'];items.forEach(function(a){const b=localStorage.getItem('hbs-'+a);b&&document.body.parentElement.setAttribute('data-'+a,b)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top"><div class=container><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarSupportedContent aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
+<i class="fas fa-bars"></i>
+</button><a class="navbar-brand me-3" href=https://s-show.github.io/>閑古鳥ブログ</a>
+<button class=navbar-social-share type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasSocialShare aria-controls=offcanvasSocialShare aria-label="Toggle social share">
+<i class="fas fa-share-alt"></i></button><div class="offcanvas offcanvas-bottom surface" tabindex=-1 id=offcanvasSocialShare aria-labelledby=offcanvasSocialShare><div class=offcanvas-header><h3 class=offcanvas-title>Share</h3><button type=button class="btn btn-sm btn-outline-primary" data-bs-dismiss=offcanvas aria-label=Close>
+<i class="fas fa-times"></i></button></div><div class=offcanvas-body><a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Raspberry%20Pi%201%e5%8f%b0%e3%81%a73D%e3%83%97%e3%83%aa%e3%83%b3%e3%82%bf2%e5%8f%b0%e3%82%92%e5%8b%95%e3%81%8b%e3%81%97%e3%81%a4%e3%81%a4%e3%82%bf%e3%82%a4%e3%83%a0%e3%83%a9%e3%83%97%e3%82%b9%e5%8b%95%e7%94%bb%e3%82%92%e6%92%ae%e5%bd%b1%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2022-02-24%2f"><i class="fab fa-fw fa-twitter"></i> Twitter</a>
+<a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2022-02-24%2f"><i class="fab fa-fw fa-facebook-f"></i> Facebook</a></div></div><button class=navbar-settings type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasSettings aria-controls=offcanvasSettings aria-label="Toggle settings">
+<i class="fas fa-ellipsis-v"></i></button><div class="offcanvas offcanvas-end surface h-100" tabindex=-1 id=offcanvasSettings aria-labelledby=offcanvasSettings><div class=offcanvas-header><h3 class=offcanvas-title></h3><button type=button class="btn btn-sm btn-outline-primary" data-bs-dismiss=offcanvas aria-label=Close>
+<i class="fas fa-times"></i></button></div><div class="offcanvas-body d-flex flex-column"><section class=setting><form class=row><div class=col-auto><label><i class="fas fa-fw fa-adjust"></i></label></div><div class="col-auto ms-auto"><div class="form-check form-switch"><input class=form-check-input type=checkbox id=modeSwitcher></div></div></form></section><section class=setting><form class="font-size-switcher-form row"><div class=col-auto><label for=fontSize class=form-label><i class="fas fa-fw fa-font"></i></label></div><div class="col-auto ms-auto"><input type=range class=form-range min=-2 max=2 id=fontSize></div></form></section><section class="setting palettes"><form class=row><div class=col-auto><label><i class="fas fa-fw fa-palette"></i></label></div><div class="col-auto ms-auto"><a id=btnPalette class="btn btn-sm btn-outline-primary" role=button aria-label=palettePicker><i class="fas fa-eye-dropper"></i></a></div></form><div class="mt-2 d-flex visually-hidden" id=palettePicker><button type=button id=palette-blue aria-label class="btn btn-sm palette" data-palette=blue>
+</button><button type=button id=palette-blue-gray aria-label class="btn btn-sm palette" data-palette=blue-gray>
+</button><button type=button id=palette-brown aria-label class="btn btn-sm palette" data-palette=brown>
+</button><button type=button id=palette-cyan aria-label class="btn btn-sm palette" data-palette=cyan>
+</button><button type=button id=palette-green aria-label class="btn btn-sm palette" data-palette=green>
+</button><button type=button id=palette-indigo aria-label class="btn btn-sm palette" data-palette=indigo>
+</button><button type=button id=palette-orange aria-label class="btn btn-sm palette" data-palette=orange>
+</button><button type=button id=palette-pink aria-label class="btn btn-sm palette" data-palette=pink>
+</button><button type=button id=palette-purple aria-label class="btn btn-sm palette" data-palette=purple>
+</button><button type=button id=palette-red aria-label class="btn btn-sm palette" data-palette=red>
+</button><button type=button id=palette-teal aria-label class="btn btn-sm palette" data-palette=teal>
+</button><button type=button id=palette-yellow aria-label class="btn btn-sm palette" data-palette=yellow></button></div></section><section class="setting actions d-flex justify-content-center mt-auto"><a role=button class="d-flex flex-column align-items-center" id=pageReloader><i class="fas fa-2x fa-redo-alt"></i></a></section></div></div><div class="collapse navbar-collapse" tabindex=-1 id=navbarSupportedContent aria-labelledby=navbarSupportedContent><form class="search-bar my-1" action=https://s-show.github.io/search><div class="input-group input-group-sm"><span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+<input class="form-control rounded-pill" name=q type=search aria-label=Search></div></form><ul class="navbar-nav ms-auto"></ul></div></div></nav></header><main role=main class=container><div class="row content"><div class=col-lg-8><div class=container><nav class="row card component" aria-label=breadcrumb><div class=card-body><ol class=breadcrumb><li class=breadcrumb-item><a href=https://s-show.github.io/></a></li><li class=breadcrumb-item><a href=https://s-show.github.io/posts/>Posts</a></li><li class="breadcrumb-item active">Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法</li></ol></div></nav><article class="row card component mb-4 post"><div class=post-panel-wrapper><div class="d-flex flex-column component rounded post-panel"><a id=sidebarToggler class="action d-none d-lg-block" role=button><i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i></a>
+<a class=action data-bs-container=body data-bs-toggle=popover data-bs-html=true data-bs-placement=bottom data-bs-trigger=focus tabindex=0 role=button aria-label=Copyright data-bs-content='<a target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a>
+'><i class="fas fa-fw fa-copyright"></i></a></div></div><div class=card-header><h1 class="card-title post-title">Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法</h1></div><div class=card-body><div class=post-meta><span class=post-date title>2022-02-24
+</span><span class=post-reading-time></span><span class=post-taxonomies><a href=https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="badge rounded-pill post-taxonomy">3Dプリンタ</a><a href=https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="badge rounded-pill post-taxonomy">備忘録</a></span></div><div class="post-content mb-3"><div class=page-toc><details><summary>目次</summary><nav id=TableOfContents><ul><li><a href=#前置き>前置き</a></li><li><a href=#tldl>TL;DL</a></li><li><a href=#具体的な作業>具体的な作業</a><ul><li><a href=#klipper-と-moonraker-の削除>Klipper と Moonraker の削除</a></li><li><a href=#klipper-のインストール>Klipper のインストール</a></li><li><a href=#moonraker-のインストール>Moonraker のインストール</a></li><li><a href=#printercfg-の編集><code>printer.cfg</code> の編集</a></li><li><a href=#moonrakerconf-の編集><code>moonraker.conf</code> の編集</a></li><li><a href=#タイムラプス動画撮影のスクリプトをインストール>タイムラプス動画撮影のスクリプトをインストール</a></li><li><a href=#webカメラの設定>Webカメラの設定</a></li><li><a href=#fluiddpi-の設定>FluiddPi の設定</a></li></ul></li></ul></nav></details></div><h2 id=前置き>前置き</h2><p>日本の3Dプリンタユーザーが集まっている Discord の 3D Printing Japan Comunity のメンバーの虎鉄悦夫さんが<a href=https://note.com/etsuo_note/n/n85e4243bf10c target=_blank rel="noopener noreferrer">Raspberry pi1台で複数台のKlipper搭載３Dプリンタを制御する方法（KIAUH活用版）｜虎鉄悦夫｜note</a>
+という記事を執筆されたので、自分もやってみようと思ってみたら結構大変だったので、自分用の備忘録として作業記録を残します。</p><p>なお、今回の作業はゼロからのスタートではなく、2台の Raspberry Pi で2台の3Dプリンタ（Klipperインストール済）を制御している状態からスタートして、1台の Raspberry Pi で2台の3Dプリンタを動かしながらタイムラプス動画も撮影できるようにしました。</p><h2 id=tldl>TL;DL</h2><ol><li>Klipper と Moonraker を一度削除してから2台分インストールする</li><li><code>klipper_config/printer_1/printer.cfg</code> と <code>klipper_config/printer_2/printer.cfg</code> を設定する</li><li>タイムラプス動画撮影のためのスクリプトを clone する</li><li>タイムラプス動画撮影のインストールスクリプトを2つ用意して修正する</li><li>タイムラプス動画撮影のスクリプトをインストールする</li><li>カメラの設定ファイルを2つ用意して編集する</li><li>動画を保存するディレクトリを2つ用意する</li><li>FluiddPi で2台のプリンタを制御できるようにする</li></ol><h2 id=具体的な作業>具体的な作業</h2><h3 id=klipper-と-moonraker-の削除>Klipper と Moonraker の削除</h3><p>既存の Klipper と Moonraker の削除は、Kiauh を使うと簡単です。まず、<code>./kiauh/kiauh.sh</code> でプロンプトを開いて <code>3) [Remove]</code> を選択します。</p><pre><code>/=======================================================\
+|     ~~~~~~~~~~~~~~~~~ [ KIAUH ] ~~~~~~~~~~~~~~~~~     |
+|        Klipper Installation And Update Helper         |
+|     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     |
+\=======================================================/
+/=======================================================\
+|     ~~~~~~~~~~~~~~~ [ Main Menu ] ~~~~~~~~~~~~~~~     |
+|-------------------------------------------------------|
+|  0) [Upload Log]     |       Klipper: Installed: 2    |
+|                      |        Branch: master          |
+|  1) [Install]        |                                |
+|  2) [Update]         |     Moonraker: Installed: 2    |
+|  3) [Remove]         |                                |
+|  4) [Advanced]       |      Mainsail: Not installed!  |
+|  5) [Backup]         |        Fluidd: Installed!      |
+|                      | KlipperScreen: Not installed!  |
+|  6) [Settings]       |  Telegram Bot: Not installed!  |
+|                      |                                |
+|                      |          DWC2: Not installed!  |
+|  v3.1.0-93           |     Octoprint: Not installed!  |
+|-------------------------------------------------------|
+|                        Q) Quit                        |
+\=======================================================/
+Perform action: 3
+</code></pre><p>次に <code>1) [Klipper]</code> を選択して Klipper を削除すると答えると、合わせて Moonraker も削除するか聞かれますので、はいと答えます。</p><pre><code>/=======================================================\
+|     ~~~~~~~~~~~~~~~~~ [ KIAUH ] ~~~~~~~~~~~~~~~~~     |
+|        Klipper Installation And Update Helper         |
+|     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     |
+\=======================================================/
+/=======================================================\
+|     ~~~~~~~~~~~~~~ [ Remove Menu ] ~~~~~~~~~~~~~~     |
+|-------------------------------------------------------|
+|  Directories which remain untouched:                  |
+|  --&gt; Your printer configuration directory             |
+|  --&gt; ~/kiauh-backups                                  |
+|  You need remove them manually if you wish so.        |
+|-------------------------------------------------------|
+|  Firmware:                |  Touchscreen GUI:         |
+|  1) [Klipper]             |  5) [KlipperScreen]       |
+|                           |                           |
+|  Klipper API:             |  Other:                   |
+|  2) [Moonraker]           |  6) [Duet Web Control]    |
+|                           |  7) [OctoPrint]           |
+|  Klipper Webinterface:    |  8) [PrettyGCode]         |
+|  3) [Mainsail]            |  9) [Telegram Bot]        |
+|  4) [Fluidd]              |                           |
+|                           |  10) [MJPG-Streamer]      |
+|                           |  11) [NGINX]              |
+|-------------------------------------------------------|
+|                       B) « Back                       |
+\=======================================================/
+Perform action: 1
+</code></pre><p>これで既存の Klipper と Moonraker を削除できましたので、今度は必要な台数分 Klipper と Moonraker をインストールします。</p><h3 id=klipper-のインストール>Klipper のインストール</h3><p>インストール方法は、<code>./kiauh/kiauh.sh</code> でプロンプトを開いて <code>1) [Install]</code> を選択し、続いて <code>1) [Klipper]</code> を選択します。</p><pre><code>/=======================================================\
+|     ~~~~~~~~~~~~~~~~~ [ KIAUH ] ~~~~~~~~~~~~~~~~~     |
+|        Klipper Installation And Update Helper         |
+|     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     |
+\=======================================================/
+/=======================================================\
+|     ~~~~~~~~~~~ [ Installation Menu ] ~~~~~~~~~~~     |
+|-------------------------------------------------------|
+|  You need this menu usually only for installing       |
+|  all necessary dependencies for the various           |
+|  functions on a completely fresh system.              |
+|-------------------------------------------------------|
+|  Firmware:                |  Touchscreen GUI:         |
+|  1) [Klipper]             |  5) [KlipperScreen]       |
+|                           |                           |
+|  Klipper API:             |  Other:                   |
+|  2) [Moonraker]           |  6) [Duet Web Control]    |
+|                           |  7) [OctoPrint]           |
+|  Klipper Webinterface:    |  8) [PrettyGCode]         |
+|  3) [Mainsail]            |  9) [Telegram Bot]        |
+|  4) [Fluidd]              |                           |
+|                           |  Webcam:                  |
+|                           |  10) [MJPG-Streamer]      |
+|-------------------------------------------------------|
+|                       B) « Back                       |
+\=======================================================/
+Perform action: 1
+</code></pre><p>そうすると何台分インストールするか聞かれますので、必要な台数を回答するとその数だけ Klipper をインストールしてくれます。</p><h3 id=moonraker-のインストール>Moonraker のインストール</h3><p>Moonraker のインストールも同様の手順で、上の画面で <code>2) [Moonraker]</code> を選択すると何台分インストールするか聞かれるので、必要な台数を回答します。</p><p>なお、インストールの最後に FluiddPi でアクセスするときに必要な IPアドレスが表示されますので、忘れずにメモします。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=c1>#########################################################</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span> <span class=m>2</span> Moonraker instances have been <span class=nb>set</span> up!
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=c1>#########################################################</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>       ● Instance 1: 192.168.1.5:7125
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>       ● Instance 2: 192.168.1.5:7126
+</code></pre></div><p>これで Klipper と Moonraker がサービスとして必要な台数分だけ起動されます。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>systemctl -l <span class=p>|</span> grep klipper
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>klipper-1.service  loaded active running   Starts klipper instance <span class=m>1</span> on startup
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>klipper-2.service  loaded active running   Starts klipper instance <span class=m>2</span> on startup
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>systemctl -l <span class=p>|</span> grep moonraker
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>moonraker-1.service  loaded active running   Starts Moonraker <span class=m>1</span> on startup
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>moonraker-2.service  loaded active running   Starts Moonraker <span class=m>2</span> on startup
+</code></pre></div><p>ちなみに、Klipper と Moonraker が1台分だけ起動されている場合のサービス状況は次のとおりです。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>systemctl list-units --type<span class=o>=</span>service <span class=p>|</span> grep klipper
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>klipper.service     loaded active running Starts klipper on startup
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>systemctl list-units --type<span class=o>=</span>service <span class=p>|</span> grep moonraker
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>moonraker.service   loaded active running Starts Moonraker on startup
+</code></pre></div><h3 id=printercfg-の編集><code>printer.cfg</code> の編集</h3><p><code>klipper_config/printer_1</code> と <code>klipper_config/printer_2</code> ができているはずなので、それぞれのディレクトリに <code>printer.cfg</code> を作成して設定します。私の場合、<code>klipper_config/printer_1/printer.cfg</code> を Prusa に、<code>klipper_config/printer_2/printer.cfg</code> を Ender 3 Pro に割り当てています。</p><p><code>printer.cfg</code> の <code>[mcu]</code> に設定するシリアルポートについては、Raspberry Pi とプリンタを接続してからプリンタの電源を入れ、<code>./kiauh/kiauh.sh</code> を実行して <code>4) Advanced</code> -> <code>6) [Get MCU ID]</code> -> <code>1) USB</code> と進むと確認できます。</p><pre><code>###### Identifying MCU ...
+ ● (USB) MCU #1: /dev/serial/by-id/usb-Klipper_stm32f103xe_34FFFFFF344E313337570157-if00
+ ● (USB) MCU #2: /dev/serial/by-id/usb-Prusa_Research__prusa3d.com__Original_Prusa_i3_MK3_CZPX3419X004XC43991-if00
+</code></pre><p>ここで確認したシリアルポートを <code>[mcu]</code> に設定します。プリンタを取り違えるとホットエンドが常時加熱されたりしますので、その点は注意してください。そのほかの設定は、プリンタが1台の場合と同じです。</p><h3 id=moonrakerconf-の編集><code>moonraker.conf</code> の編集</h3><p><code>klipper_config/printer_1</code> と <code>klipper_config/printer_2</code> に <code>moonraker.cfg</code> を作成して設定します。<code>printer.cfg</code> とは違い、<code>moonraker.conf</code> はプリンタが複数台になったことに伴って設定箇所が増えていますので、変更点と変更理由を説明します。</p><p>なお、<code>klipper_config/printer_1/moonraker.cfg</code> を Prusa に、<code>klipper_config/printer_2/moonraker.cfg</code> を Ender 3 Pro に割り当てています。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_2/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[server]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-port: 7125
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+port: 7126
+</span></code></pre></div><p>Ender 3 Pro のアクセス先が「192.168.1.5:7126」となっていることに伴う変更です。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_1/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[server]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-klippy_uds_address: /tmp/klippy_uds
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+klippy_uds_address: /tmp/klippy_uds-1
+</span></code></pre></div><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_2/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[server]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-klippy_uds_address: /tmp/klippy_uds
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+klippy_uds_address: /tmp/klippy_uds-2
+</span></code></pre></div><p>上記のインストールにより <code>/tmp/klippy_uds</code> が <code>/tmp/klippy_uds-1</code>、<code>/tmp/klippy_uds-2</code> になっていますので、それに合わせて変更しています。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_1/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gi>+[database]
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gi>+database_path: /home/pi/.moonraker_database_1
+</span></code></pre></div><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_2/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gi>+[database]
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gi>+database_path: /home/pi/.moonraker_database_2
+</span></code></pre></div><p>デフォルトでは設定不要のセクションですが、上記のインストールにより設定する必要が生じています。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_1/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[file_manager]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-config_path: ~/klipper_config
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+config_path: ~/klipper_config/printer_1
+</span></code></pre></div><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_2/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[file_manager]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-config_path: ~/klipper_config
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+config_path: ~/klipper_config/printer_2
+</span></code></pre></div><p>設定ファイルの保存場所が <code>/klipper_config/printer_1</code> と <code>/klipper_config/printer_2</code> に分かれたことに伴う変更です。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_1/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[update_manager timelapse]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-#output_path: ~/timelapse/
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+output_path: ~/timelapse/printer1
+</span></code></pre></div><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_2/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[update_manager timelapse]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-#output_path: ~/timelapse/
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+output_path: ~/timelapse/printer2
+</span></code></pre></div><p>タイムラプス動画の保存場所をプリンタ毎に用意しています。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_1/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[timelapse]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-#frame_path: /tmp/timelapse/
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+frame_path: /tmp/timelapse/printer1
+</span></code></pre></div><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_2/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[timelapse]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-#frame_path: /tmp/timelapse/
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+frame_path: /tmp/timelapse/printer2
+</span></code></pre></div><p>タイムラプス動画の撮影中の画像の保存先をプリンタ毎に分けています。保存先が同じだと、2台のカメラで撮影した画像が繋ぎ合わされた動画が作成されます。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># printer_2/moonraker.cfg
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>[timelapse]
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd>-#snapshoturl: http://localhost:8080/?action=snapshot
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+snapshoturl: http://192.168.1.5:8081/?action=snapshot
+</span></code></pre></div><p>2台目のプリンタのみ設定します。2台の Webカメラを使うように設定していますが、2台目のカメラの URL がデフォルトの <code>http://localhost:8080/?action=snapshot</code> から変更されていますので、それに伴う変更です。なお、IPアドレス直打ちにしているのは、<code>localhost</code> では上手く接続できないときがあったためです。</p><h3 id=タイムラプス動画撮影のスクリプトをインストール>タイムラプス動画撮影のスクリプトをインストール</h3><p><code>git clone https://github.com/mainsail-crew/moonraker-timelapse.git</code> を実行してタイムラプス動画撮影スクリプトをインストールしますが、このスクリプトは、複数台のプリンタが接続されているケースに対応していないため、修正が必要です。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>cp moonraker-timelapse/install.sh moonraker-timelapse/install_printer1.sh
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>cp moonraker-timelapse/install.sh moonraker-timelapse/install_printer2.sh
+</code></pre></div><p>上記のコマンドでスクリプトを必要な台数分コピーしてから、Klipper と Moonraker を複数起動したことに伴うサービス名の変更に対応するための修正を行います。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=gd>-    if [ &#34;$(sudo systemctl list-units --full -all -t service --no-legend | grep -F &#34;klipper.service&#34;)&#34; ]; then
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=gd></span><span class=gi>+    if [ &#34;$(sudo systemctl list-units --full -all -t service --no-legend | grep -F &#34;klipper-1.service&#34;)&#34; ]; then
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=gi></span><span class=gd>-        sudo systemctl stop klipper
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=gd></span><span class=gi>+        sudo systemctl stop klipper-1
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=gi></span><span class=gd>-    if [ &#34;$(sudo systemctl list-units --full -all -t service --no-legend | grep -F &#34;moonraker.service&#34;)&#34; ]; then
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=gd></span><span class=gi>+    if [ &#34;$(sudo systemctl list-units --full -all -t service --no-legend | grep -F &#34;moonraker-1.service&#34;)&#34; ]; then
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=gi></span><span class=gd>-        sudo systemctl stop moonraker
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=gd></span><span class=gi>+        sudo systemctl stop moonraker-1
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=gi></span><span class=gd>- After=moonraker.service
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=gd>- Wants=moonraker.service
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=gd></span><span class=gi>+ After=moonraker-1.service
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=gi>+ Wants=moonraker-1.service
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=gi></span><span class=gd>- ExecStopPost=systemctl restart klipper
+</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span><span class=gd>- ExecStopPost=systemctl restart moonraker
+</span><span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span><span class=gd></span><span class=gi>+ ExecStopPost=systemctl restart klipper-1
+</span><span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span><span class=gi>+ ExecStopPost=systemctl restart moonraker-1
+</span><span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=gi></span><span class=gd>-    sudo systemctl restart moonraker
+</span><span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span><span class=gd></span><span class=gi>+    sudo systemctl restart moonraker-1
+</span><span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span><span class=gi></span><span class=gd>-    sudo systemctl restart klipper
+</span><span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span><span class=gd></span><span class=gi>+    sudo systemctl restart klipper-1
+</span></code></pre></div><p>スクリプトを修正したら、次のコマンドでスクリプトをインストールします。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>bash ~/moonraker-timelapse/install_printer1.sh <span class=nv>KLIPPER_CONFIG_DIR</span><span class=o>=</span>/home/pi/klipper_config/printer_1/
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>bash ~/moonraker-timelapse/install_printer2.sh <span class=nv>KLIPPER_CONFIG_DIR</span><span class=o>=</span>/home/pi/klipper_config/printer_2/
+</code></pre></div><p>引数に <code>KLIPPER_CONFIG_DIR=/home/pi/klipper_config/printer_1/</code> を指定しているのは、<code>printer.cfg</code> の保存場所が <code>klipper_config</code> から <code>klipper_config/printer_1</code> に変更されていることに対応するためです。</p><p>あとは、タイムラプス動画を保存する場所をカメラ毎に用意します。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>mkdir timelapse/printer1
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>mkdir timelapse/printer2
+</code></pre></div><h3 id=webカメラの設定>Webカメラの設定</h3><p>次に Webカメラの設定を行います（この作業に一番悩みました）。</p><p>まず、FluiddPi をインストールしている場合、Webカメラは <code>webcamd.service</code> というサービスで制御されています。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>systemctl list-units --type<span class=o>=</span>service <span class=p>|</span> grep webcam
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>webcamd.service     loaded active running the FluiddPI webcam daemon <span class=o>(</span>based on OctoPi<span class=o>)</span> with the user specified config
+</code></pre></div><p>このサービスは <code>/etc/systemd/system/webcamd.service</code> から起動されており、コードは次のとおりです。</p><div class=highlight><pre class=chroma><code class=language-ini data-lang=ini><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=na>cat /etc/systemd/system/webcamd.service</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=k>[Unit]</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=na>Description</span><span class=o>=</span><span class=s>the FluiddPI webcam daemon (based on OctoPi) with the user specified config</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=k>[Service]</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=na>WorkingDirectory</span><span class=o>=</span><span class=s>/usr/local/bin</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=na>StandardOutput</span><span class=o>=</span><span class=s>append:/var/log/webcamd.log</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=na>StandardError</span><span class=o>=</span><span class=s>append:/var/log/webcamd.log</span>
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=na>ExecStart</span><span class=o>=</span><span class=s>/usr/local/bin/webcamd</span>
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=na>Restart</span><span class=o>=</span><span class=s>always</span>
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=na>Type</span><span class=o>=</span><span class=s>forking</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=na>User</span><span class=o>=</span><span class=s>pi</span>
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span><span class=k>[Install]</span>
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span><span class=na>WantedBy</span><span class=o>=</span><span class=s>multi-user.target</span>
+</code></pre></div><p>そして、<code>/etc/systemd/system/webcamd.service</code> は <code>/usr/local/bin/webcamd</code> を実行していますが、<code>/usr/local/bin/webcamd</code> のコードを見ると、<code>~/klipper_config</code> ディレクトリにある複数の <code>webcam*.txt</code> を読み込んでいることが分かります。</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c1># /usr/local/bin/webcamd 抜粋</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=nv>config_dir</span><span class=o>=</span><span class=s2>&#34;/home/pi/klipper_config&#34;</span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=nb>echo</span> <span class=s2>&#34;Starting up webcamDaemon...&#34;</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=nb>echo</span> <span class=s2>&#34;&#34;</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=nv>cfg_files</span><span class=o>=()</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=c1>#cfg_files+=/boot/fluidd.txt</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=k>if</span> <span class=o>[[</span> -d <span class=si>${</span><span class=nv>config_dir</span><span class=si>}</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>  <span class=nv>cfg_files</span><span class=o>+=(</span> <span class=sb>`</span>ls <span class=si>${</span><span class=nv>config_dir</span><span class=si>}</span>/webcam*.txt<span class=sb>`</span> <span class=o>)</span>
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=k>fi</span>
+</code></pre></div><p>そのため、複数台のWebカメラを制御したければ、<code>klipper_config/webcam1.txt</code>、<code>klipper_config/webcam2.txt</code> という具合に、カメラの台数分だけ設定ファイルを用意すれば良いということになります。</p><p>そこで、次のコマンドで設定ファイルをカメラの台数分用意するとともに、既存の <code>webcam.txt</code> を読み込ませないためにリネームします。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>cp klipper_config/webcam.txt klipper_config/webcam1.txt
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>cp klipper_config/webcam.txt klipper_config/webcam2.txt
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>mv klipper_config/webcam.txt klipper_config/webcam.txt.backup
+</code></pre></div><p>そして、<code>webcam1.txt</code> と <code>webcam2.txt</code> を設定しますが、カメラを複数台使う場合、デバイスファイル（<code>/dev/video*</code>）と映像の出力先（<code>-p 808*</code>）を指定する必要があります。</p><p>デバイスファイルは次のコマンドで確認できます。私のカメラは2台とも Logicool C270 なので <code>usb-046d_0825</code> の部分が同じですが、<code>video0, video1</code> が1台目のカメラ、<code>video2, video3</code> が2台目のカメラのデバイスファイルで、<code>webcam*.txt</code> では、<code>video0, video2</code> を指定します。</p><div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>ls -la /dev/v4l/by-id
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>total <span class=m>0</span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>drwxr-xr-x <span class=m>2</span> root root <span class=m>120</span> Feb  <span class=m>6</span> 06:17 .
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>drwxr-xr-x <span class=m>4</span> root root  <span class=m>80</span> Feb  <span class=m>6</span> 06:17 ..
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>lrwxrwxrwx <span class=m>1</span> root root  <span class=m>12</span> Feb  <span class=m>6</span> 06:17 usb-046d_0825_338DCAC0-video-index0 -&gt; ../../video2
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>lrwxrwxrwx <span class=m>1</span> root root  <span class=m>12</span> Feb  <span class=m>6</span> 06:17 usb-046d_0825_338DCAC0-video-index1 -&gt; ../../video3
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>lrwxrwxrwx <span class=m>1</span> root root  <span class=m>12</span> Feb  <span class=m>6</span> 06:17 usb-046d_0825_C0A8C1F0-video-index0 -&gt; ../../video0
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>8</a></span>lrwxrwxrwx <span class=m>1</span> root root  <span class=m>12</span> Feb  <span class=m>6</span> 06:17 usb-046d_0825_C0A8C1F0-video-index1 -&gt; ../../video1
+</code></pre></div><p>映像の出力先は、<code>camera_http_options</code> に <code>-p 8080</code> とポート番号で指定します。</p><p>これらを踏まえて、デフォルト設定から変更した点は次のとおりです。</p><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># webcam1.txt
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gd>-camera_usb_options=&#34;-r 640x480 -f 10&#34;
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd></span><span class=gi>+camera_usb_options=&#34;-r 640x480 -d /dev/video0&#34;
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gi></span><span class=gd>-#camera_http_options=&#34;-n&#34;
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span><span class=gd></span><span class=gi>+camera_http_options=&#34;-n -p 8080&#34;
+</span></code></pre></div><div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span># webcam2.txt
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gd>-camera_usb_options=&#34;-r 640x480 -f 10&#34;
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gd></span><span class=gi>+camera_usb_options=&#34;-r 640x480 -d /dev/video2&#34;
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gi></span><span class=gd>-#camera_http_options=&#34;-n&#34;
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span><span class=gd></span><span class=gi>+camera_http_options=&#34;-n -p 8081&#34;
+</span></code></pre></div><p>上手くいけば、次のとおり <code>webcamd.service</code> で2つのカメラが制御されるようになります。</p><pre><code>systemctl status webcamd.service
+● webcamd.service - the FluiddPI webcam daemon (based on OctoPi) with the user specified config
+   Loaded: loaded (/etc/systemd/system/webcamd.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2022-02-06 06:49:48 GMT; 6h ago
+  Process: 378 ExecStart=/usr/local/bin/webcamd (code=exited, status=0/SUCCESS)
+    Tasks: 6 (limit: 3596)
+   CGroup: /system.slice/webcamd.service
+           ├─537 ./mjpg_streamer -o output_http.so -w ./www-mjpgstreamer -n -p 8080 -i input_uvc.so -r 640x480 -d /dev/v
+           └─590 ./mjpg_streamer -o output_http.so -w ./www-mjpgstreamer -n -p 8081 -i input_uvc.so -r 640x480 -d /dev/v
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: Format............: JPEG
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: TV-Norm...........: DEFAULT
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: www-folder-path......: ./www-mjpgstreamer/
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: HTTP TCP port........: 8081
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: HTTP Listen Address..: (null)
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: username:password....: disabled
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: commands.............: disabled
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: starting input plugin input_uvc.so
+Feb 06 06:49:47 fluiddpi mjpg_streamer[590]: MJPG-streamer [590]: starting output plugin: output_http.so (ID: 00)
+Feb 06 06:49:48 fluiddpi systemd[1]: Started the FluiddPI webcam daemon (based on OctoPi) with the user specified config
+lines 1-19/19 (END)
+</code></pre><p>ここまできたら、後は FluiddPi 側の設定に移ります。</p><h3 id=fluiddpi-の設定>FluiddPi の設定</h3><p>まず、<code>http://fluiddpi.local</code> または <code>http://192.168.1.5:7125</code> にアクセスします。それから、右上のメニューアイコンをクリックしてから Add Printer をクリックします。</p><p><figure class="figure bsimage"><img src=image01.png class="figure-img img-fluid rounded"><figcaption class="figure-caption fw-light text-center">FluiddPi - Menu</figcaption></figure><figure class="figure bsimage"><img src=image02.png class="figure-img img-fluid rounded"><figcaption class="figure-caption fw-light text-center">FluiddPi - Add Printer</figcaption></figure></p><p>すると API URL の入力を求められますので、上記の Moonraker のインストールの最後に表示された <code>192.168.1.5:7126</code> を入力します。問題がなければ入力欄右側にある雲マークが緑色になりますので、SAVE ボタンを押して保存します。</p><figure class="figure bsimage"><img src=image03.png class="figure-img img-fluid rounded"><figcaption class="figure-caption fw-light text-center">FluiddPi - URL 入力</figcaption></figure><p>これで Printers にもう1台のプリンタが表示されますので、必要に応じて2台のプリンタの制御画面を切り替えて操作します。</p><figure class="figure bsimage"><img src=image04.png class="figure-img img-fluid rounded"><figcaption class="figure-caption fw-light text-center">FluiddPi - プリンタ追加後</figcaption></figure></div><hr><div class="post-navs d-flex mb-3 justify-content-evenly"><div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-left"></i>
+<a href=https://s-show.github.io/posts/2022-01-29/>Klipper & Moonraker & FluiddPi でタイムラプス動画を撮影する方法</a></div><div class="post-nav post-next"><a href=https://s-show.github.io/posts/2022-04-04/>Mainsail でサイドバーにロゴを表示させる方法</a>
+<i class="fas fa-fw fa-chevron-right"></i></div></div></div></article><section class="related-posts row card component"><div class=card-header><h2 class=card-title></h2></div><div class=card-body><ul class=post-list><li><a href=https://s-show.github.io/posts/2022-01-29/>Klipper & Moonraker & FluiddPi でタイムラプス動画を撮影する方法</a>
+<span class="float-end post-date">2022-01-29</span></li><li><a href=https://s-show.github.io/posts/2022-01-07/>PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法</a>
+<span class="float-end post-date">2022-01-07</span></li><li><a href=https://s-show.github.io/posts/2022-01-02/>Klipper と FluiddPi の設定について</a>
+<span class="float-end post-date">2022-01-02</span></li><li><a href=https://s-show.github.io/posts/2019-12-20/>AnyCubic I3 Mega S に TMC2208 を導入する</a>
+<span class="float-end post-date">2019-12-20</span></li><li><a href=https://s-show.github.io/posts/2019-07-22/>自作キーボードでLEDが点灯しない時のテスト方法と対処方法</a>
+<span class="float-end post-date">2019-07-22</span></li></ul></div></section><div class="card component row post-comments"><div class=card-header><h2 class=card-title></h2></div><div class=card-body><script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script></div></div></div></div><aside class="col-lg-4 sidebar d-flex"><div class=container><section class="card row text-center profile component"><div class=card-body><div class="col-12 d-flex align-items-center justify-content-center"><img class="profile-avatar rounded-circle" alt=s-show src=https://s-show.github.io/img/profileIcon.png loading=lazy width=500 height=500></div><div class="col-12 profile-meta"><div class=profile-name>s-show</div><div class=profile-bio>プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class=profile-location><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class=profile-about><i class="fas fa-fw fa-user"></i><a href=https://s-show.github.io/about/>About</a></div></div></div></section><section class="recent-posts row card component"><div class=card-header><h2 class=card-title></h2></div><div class=card-body><ul class=post-list><li><a href=https://s-show.github.io/posts/2022-06-11/>Html-Include の使い方</a>
+<span class="float-end post-date">2022-06-11</span></li><li><a href=https://s-show.github.io/posts/2022-04-19/>Sudo Apt Update で Fish のリポジトリキーが不正と表示される件について</a>
+<span class="float-end post-date">2022-04-19</span></li><li><a href=https://s-show.github.io/posts/2022-04-04/>Mainsail でサイドバーにロゴを表示させる方法</a>
+<span class="float-end post-date">2022-04-01</span></li><li><a href=https://s-show.github.io/posts/2022-02-24/>Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法</a>
+<span class="float-end post-date">2022-02-24</span></li><li><a href=https://s-show.github.io/posts/2022-01-29/>Klipper & Moonraker & FluiddPi でタイムラプス動画を撮影する方法</a>
+<span class="float-end post-date">2022-01-29</span></li></ul></div></section><section class="taxonomies row card component"><div class=card-header><h2 class=card-title><a href=https://s-show.github.io/tags></a></h2></div><div class=card-body><div class=py-2><a href=https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="badge rounded post-taxonomy" title=備忘録>備忘録
+</a><a href=https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="badge rounded post-taxonomy" title=3Dプリンタ>3Dプリンタ
+</a><a href=https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="badge rounded post-taxonomy" title=プログラミング>プログラミング
+</a><a href=https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="badge rounded post-taxonomy" title=自作キーボード>自作キーボード
+</a><a href=https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="badge rounded post-taxonomy" title=読書記録>読書記録
+</a><a href=https://s-show.github.io/tags/mac/ class="badge rounded post-taxonomy" title=Mac>Mac
+</a><a href=https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="badge rounded post-taxonomy" title=未分類>未分類
+</a><a href=https://s-show.github.io/tags/karabiner-elements/ class="badge rounded post-taxonomy" title=Karabiner-Elements>Karabiner-Elements
+</a><a href=https://s-show.github.io/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/ class="badge rounded post-taxonomy" title=太平洋戦争>太平洋戦争
+</a><a href=https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8/ class="badge rounded post-taxonomy" title=読書>読書</a></div></div></section></div></aside></div></main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email><i class="fas fa-fw fa-2x fa-envelope"></i>
+</a><a class="nav-link social-link" target=_blank href=https://github.com/s-show title=GitHub rel="noopener noreferrer"><i class="fa-fw fa-2x fab fa-github"></i>
+</a><a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer"><i class="fa-fw fa-2x fab fa-twitter"></i></a></nav><div class="copyright mb-2">Copyright © 2021-2022 s-show. All Rights Reserved.</div><div class="powered-by mb-2">Powered by <a href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">Bootstrap</a> theme.</div></footer><script src=https://s-show.github.io/js/bundle.min.cad4670da25efb2f2d4578e73723cf1c0a7aca5323b959a0a4635c65e5580a2d.js integrity="sha256-ytRnDaJe+y8tRXjnNyPPHAp6ylMjuVmgpGNcZeVYCi0=" crossorigin=anonymous defer></script><script>'serviceWorker'in navigator&&window.addEventListener('load',()=>{navigator.serviceWorker.register('https://s-show.github.io/service-worker.js').then(function(a){console.log('Successfully registered service worker',a)}).catch(function(a){console.warn('Error whilst registering service worker',a)})})</script><script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-367F1P4JXZ','auto'),ga('send','pageview'))</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
