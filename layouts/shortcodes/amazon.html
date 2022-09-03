@@ -1,18 +1,13 @@
-{{- $tag := .Site.Params.amazonJpAffiliate }}
-{{- $asin := .Get "asin" -}}
-{{- $title := .Get "title" -}}
-<div class="amazon-widget">
-  <a href="https://www.amazon.co.jp/gp/product/{{ $asin }}/?tag={{ $tag }}"></a>
-  <div class="amazon-widget-img">
-    <img src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=JP&ASIN={{ $asin }}&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL350_&tag={{ $tag }}" />
-  </div>
-  <div class="amazon-widget-info">
-    <span class="amazon-widget-title">
-      {{ $title }}
-    </span>
-    <span class="amazon-widget-via">
-      <img src="https://www.amazon.co.jp/favicon.ico" />
-      amazon.co.jp
-    </span>
-  </div>
+<!-- {{- $asin := .Get "asin" -}} -->
+<!-- {{- $title := .Get "title" -}} -->
+
+<div class="amazon-widget-info">
+  <a href="https://www.amazon.co.jp/gp/product/{{ .Get "asin" }}">
+	  <div class="amazon-widget-img">
+	    <img src="https://images-na.ssl-images-amazon.com/images/P/{{ .Get "asin"}}.09.MZZZZZZZ.jpg" />
+	  </div>
+    <p class="amazon-widget-title">
+			{{ .Get "title" }}
+		</p>
+	</a>
 </div>

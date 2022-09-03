@@ -42,7 +42,8 @@ dd {
 }
 .amazon-widget-title {
 	font-weight: bold;
-	display:block;
+	display: block;
+	margin-bottom: 2rem;
 }
 .amazon-widget-via {
 	color: #aaa;

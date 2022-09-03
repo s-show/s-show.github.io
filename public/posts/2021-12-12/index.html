@@ -1,0 +1,640 @@
+<!doctype html>
+<html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="ja"
+  data-bs-theme="dark" data-palette="indigo">
+  <head><script src="https://hbs-skeleton.netlify.app/assets/init/bundle.min.00c265f9d2518fceba4409847bdd76b83360fb4881b876f5f53feeb5bb872122.js" integrity="sha256-AMJl&#43;dJRj866RAmEe912uDNg&#43;0iBuHb19T/utbuHISI=" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QMK API を使ってキーボードのリストを取得する方法 - 閑古鳥ブログ</title>
+    <link rel="icon" href="https://hbs-skeleton.netlify.app/images/icons/icon-16x16.png?version=bc881cf71418802eab46d38df006b6f0" sizes="16x16">
+    <link rel="icon" href="https://hbs-skeleton.netlify.app/images/icons/icon-32x32.png?version=c2740df8b4aa429981718fd3b63dc468" sizes="32x32">
+    <link rel="apple-touch-icon" href="https://hbs-skeleton.netlify.app/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_180x180_resize_box_3.png" sizes="180x180" type="image/png">
+    <link rel="icon" href="https://hbs-skeleton.netlify.app/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_150x150_resize_box_3.png" sizes="150x150" type="image/png">
+    <link rel="icon" href="https://hbs-skeleton.netlify.app/images/icons/icon-192x192.png?version=314faa3d71d23e1cf545f1280bd01e37" sizes="192x192">
+<link rel="mask-icon" href="https://hbs-skeleton.netlify.app/safari-pinned-tab.svg" color="#6f42c1"><link rel="icon" href="https://hbs-skeleton.netlify.app/images/icons/favicon.ico?version=b21aa710a837168f4ddf45779e92164c">
+<meta name="keywords" content="" />
+<meta name="description" content="前置き# 自作キーボードのトラブルシューティングのための問診票テンプレートを作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリス" />
+    <meta name="robots" content="index, follow" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QMK API を使ってキーボードのリストを取得する方法"/>
+<meta name="twitter:description" content="前置き# 自作キーボードのトラブルシューティングのための問診票テンプレートを作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリス"/>
+<meta name="twitter:site" content="@s_show_0000"/>
+<meta property="og:title" content="QMK API を使ってキーボードのリストを取得する方法" />
+<meta property="og:description" content="前置き# 自作キーボードのトラブルシューティングのための問診票テンプレートを作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリス" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hbs-skeleton.netlify.app/posts/2021-12-12/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-12T09:00:00+09:00" />
+<meta property="article:modified_time" content="2021-12-12T09:00:00+09:00" />
+
+<meta itemprop="name" content="QMK API を使ってキーボードのリストを取得する方法">
+<meta itemprop="description" content="前置き# 自作キーボードのトラブルシューティングのための問診票テンプレートを作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリス"><meta itemprop="datePublished" content="2021-12-12T09:00:00+09:00" />
+<meta itemprop="dateModified" content="2021-12-12T09:00:00+09:00" />
+<meta itemprop="wordCount" content="385">
+<meta itemprop="keywords" content="プログラミング,自作キーボード," />
+
+<link data-precache rel="stylesheet" href="https://hbs-skeleton.netlify.app/assets/main/bundle.min.7e621ff4e9e40c16e1ac7f0518e9341897a8a63fbcb9ade1e653ac0cef061bba.css" integrity="sha256-fmIf9OnkDBbhrH8FGOk0GJeopj+8ua3h5lOsDO8GG7o=" crossorigin="anonymous">
+
+    <link data-precache rel="stylesheet" href="https://hbs-skeleton.netlify.app/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css" integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin="anonymous">
+</head>
+  <body><header>
+  
+<nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top">
+  <div class="container">
+<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href="https://hbs-skeleton.netlify.app/">閑古鳥ブログ
+</a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1" data-bs-scroll="true" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">閑古鳥ブログ</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto">
+					
+          
+        </ul>
+        <hr class="d-lg-none">
+  <form class="search-bar ms-auto my-1" action="https://hbs-skeleton.netlify.app/search/" novalidate>
+    <div class="input-group input-group-sm align-items-center">
+      <span class="btn btn-search disabled position-absolute left-0 border-0">
+        <i class="fas fa-fw fa-search fa-lg"></i>
+      </span>
+      <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+    </div>
+  </form><hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto">
+<li class="nav-item dropdown col-6 col-lg-auto">
+    <a class="nav-link px-0 py-2 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">フォントサイズ</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown">
+        <li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                極小
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                標準
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大
+            </button>
+        </li>
+    </ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+    <a class="nav-link px-0 py-2 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">パレット</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row">
+            <li class="col-4 my-1">
+                <a role="button" id="palette-blue" aria-label="Blue"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="Blue Gray"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-brown" aria-label="Brown"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-cyan" aria-label="Cyan"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-green" aria-label="Green"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-indigo" aria-label="Indigo"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-orange" aria-label="Orange"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-pink" aria-label="Pink"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-purple" aria-label="Purple"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-red" aria-label="Red"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-teal" aria-label="Teal"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-yellow" aria-label="Yellow"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li>
+        </div>
+    </ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+    <a class="nav-link px-0 py-2 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-moon" id="modeIcon"></i>
+        <span class="d-lg-none">表示モード</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown">
+        <li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li>
+        <li class="mode-item active" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li>
+        <li class="mode-item" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li>
+    </ul>
+</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+</header>
+
+    <main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">あなたのブラウザはJavascriptをサポートしていません。</div>
+</noscript>
+<aside class="col-lg-4 sidebar d-flex order-lg-5">
+  <div class="container d-flex flex-column">
+    
+    <div class="accordion profile">
+  <div class="accordion-item card row text-center component">
+    <div class="accordion-header card-header border-0" id="profile-header">
+      <a class="accordion-button d-lg-none mb-2 collapsed shadow-none p-0 bg-transparent text-surface" type="button" data-bs-toggle="collapse" data-bs-target="#profile" aria-expanded="false" aria-controls="profile">
+        プロフィール
+      </a>
+    </div>
+    <div class="card-body collapse accordion-collapse accordion-body d-lg-block" id="profile" aria-labelledby="profile-header">
+      <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle " alt="s-show" src="https://hbs-skeleton.netlify.app/img/profileIcon.png" loading="lazy" data-viewer-invisible width="500" height="500" />
+</picture></div>
+      <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">s-show</div><div class="profile-bio">プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about text-primary"><i class="fas fa-fw fa-user"></i><a href="https://hbs-skeleton.netlify.app/about/">About</a></div><div class="profile-contact text-primary"><i class="fas fa-fw fa-question-circle"></i><a href="https://hbs-skeleton.netlify.app/contact/">Contact Us</a></div></div>
+
+
+<nav class="social-links nav justify-content-center mt-1 justify-content-around">
+    <a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+      <a class="nav-link social-link" target="_blank" href="https://github.com/s-show" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+      <a class="nav-link social-link" target="_blank" href="https://twitter.com/s_show_0000" title="Twitter" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-twitter"></i>
+      </a>
+  <a class="nav-link social-link" target="_blank" href="https://hbs-skeleton.netlify.app/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i>
+  </a>
+</nav>
+</div>
+  </div>
+</div>
+
+
+<div class="accordion taxonomies-toggle">
+    <section class="row card component accordion-item">
+        <div class="accordion-header card-header border-0">
+            <a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#taxonomies-toggle" aria-expanded="false" aria-controls="taxonomies-toggle">
+                分類
+            </a>
+        </div>
+        <div class="card-body collapse accordion-collapse accordion-body d-lg-block" id="taxonomies-toggle">
+            <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                            type="button" role="tab" aria-controls="タグ" aria-selected="true">
+                            タグ
+                        </button>
+                    </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                        type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                        アーカイブ
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content mt-3">
+                    <div class="tab-pane active" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0">
+                        <a href="https://hbs-skeleton.netlify.app/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="備忘録">
+                            備忘録
+                            <span class="badge badge-sm text-secondary bg-white ms-1">10</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="3Dプリンタ">
+                            3Dプリンタ
+                            <span class="badge badge-sm text-secondary bg-white ms-1">8</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="プログラミング">
+                            プログラミング
+                            <span class="badge badge-sm text-secondary bg-white ms-1">5</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="自作キーボード">
+                            自作キーボード
+                            <span class="badge badge-sm text-secondary bg-white ms-1">4</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="読書記録">
+                            読書記録
+                            <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/klipper/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Klipper">
+                            Klipper
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/mac/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Mac">
+                            Mac
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/mainsail/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Mainsail">
+                            Mainsail
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="未分類">
+                            未分類
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags/karabiner-elements/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Karabiner-Elements">
+                            Karabiner-Elements
+                            <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+                        </a>
+                        <a href="https://hbs-skeleton.netlify.app/tags" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title='全部'>
+                        全部
+                        <span class="badge badge-sm text-secondary bg-white ms-1">13</span>
+                        </a>
+                    </div>
+                <div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0">
+
+    <a href="https://hbs-skeleton.netlify.app/archives/2022/" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">12</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2020">
+    2020 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2019">
+    2019 <span class="badge badge-sm text-secondary bg-white ms-1">4</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2017">
+    2017 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="accordion posts-toggle">
+    <section class="row card component accordion-item">
+        <div class="accordion-header card-header border-0">
+            <a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#posts-toggle" aria-expanded="false" aria-controls="posts-toggle">
+                投稿
+            </a>
+        </div>
+        <div class="card-body collapse accordion-collapse accordion-body d-lg-block" id="posts-toggle">
+            <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="recent-posts-tab" data-bs-toggle="tab" data-bs-target="#recent-posts" 
+                        type="button" role="tab" aria-controls="recent-posts" aria-selected="true">
+                        最近の投稿
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content mt-3">
+                <div class="tab-pane active" id="recent-posts" role="tabpanel" aria-labelledby="recent-posts-tab" tabindex="0">
+                    <ul class="post-list list-unstyled ms-1">
+                    <li class="mb-2">
+    <div class="d-flex">
+        <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+            <a class="post-title" href="https://hbs-skeleton.netlify.app/posts/2022-06-17/">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に設定を変更する方法</a>
+            <div class="post-meta mt-2">
+                <span class="post-date">2022-08-31</span>
+            </div>
+        </div>
+    </div>
+                    </li>
+                    <li class="mb-2">
+    <div class="d-flex">
+        <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+            <a class="post-title" href="https://hbs-skeleton.netlify.app/posts/2022-08-31/">Klipper のマクロを使って Step by step 印刷を実現する方法</a>
+            <div class="post-meta mt-2">
+                <span class="post-date">2022-08-30</span>
+            </div>
+        </div>
+    </div>
+                    </li>
+                    <li class="mb-2">
+    <div class="d-flex">
+        <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+            <a class="post-title" href="https://hbs-skeleton.netlify.app/posts/2022-08-20/">Mainsail から rotation_distance を確認する方法</a>
+            <div class="post-meta mt-2">
+                <span class="post-date">2022-08-19</span>
+            </div>
+        </div>
+    </div>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
+
+    
+  </div>
+</aside>
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="https://hbs-skeleton.netlify.app/">ホーム</a></li><li class="breadcrumb-item text-surface"><a href="https://hbs-skeleton.netlify.app/posts/">Posts</a></li><li class="breadcrumb-item active">QMK API を使ってキーボードのリストを取得する方法</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    
+    
+  </div>
+</div><article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">QMK API を使ってキーボードのリストを取得する方法</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="公開: 2021-12-12 09:00:00 &#43;0900 JST.">2021-12-12</span><span class="post-reading-time me-1 mb-1">1分間</span><a href="https://hbs-skeleton.netlify.app/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">プログラミング</a><a href="https://hbs-skeleton.netlify.app/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">自作キーボード</a>
+</div>
+<div class="post-content mb-3" data-bs-spy="scroll" data-bs-target="#TableOfContents" tabindex="0"><h2 id="前置き" data-numberify>前置き<a class="anchor ms-1 d-none" href="#前置き">#</a></h2>
+<p>自作キーボードのトラブルシューティングのための<a href="https://s-show.github.io/mon-shin-dialog-sample/" target="_blank" rel="noopener noreferrer">問診票テンプレート<i class="fas fa-external-link-square-alt ms-1"></i></a>を作る時に、QMK Firmware リポジトリの <code>keyboards</code> ディレクトリにあるキーボードのリストを取得する方法を発見していました。</p>
+<p>ネットを検索しても紹介されているページが見当たらないので、こちらで紹介します。</p>
+<h2 id="方法" data-numberify>方法<a class="anchor ms-1 d-none" href="#方法">#</a></h2>
+<p><code>https://api.qmk.fm/v1/keyboards</code> にアクセスするとキーボードのリストが JSON 形式で返ってきますので、使用目的に合わせてテキスト処理をして使います。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="ln" id="hl-0-1"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-1"> 1</a></span><span class="cl"><span class="c1">// コード例
+</span></span></span><span class="line"><span class="ln" id="hl-0-2"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-2"> 2</a></span><span class="cl"><span class="c1"></span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://api.qmk.fm/v1/keyboards&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln" id="hl-0-3"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-3"> 3</a></span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln" id="hl-0-4"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-4"> 4</a></span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln" id="hl-0-5"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-5"> 5</a></span><span class="cl">      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Response not success.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln" id="hl-0-6"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-6"> 6</a></span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln" id="hl-0-7"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-7"> 7</a></span><span class="cl">      <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln" id="hl-0-8"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-8"> 8</a></span><span class="cl">    <span class="p">})</span> 
+</span></span><span class="line"><span class="ln" id="hl-0-9"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-9"> 9</a></span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln" id="hl-0-10"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-10">10</a></span><span class="cl">      <span class="c1">// `data` は CSV なので `split(&#39;,&#39;)` で配列に変換。
+</span></span></span><span class="line"><span class="ln" id="hl-0-11"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-11">11</a></span><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">keyboardList</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln" id="hl-0-12"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-12">12</a></span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">keyboardList</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln" id="hl-0-13"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-13">13</a></span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln" id="hl-0-14"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-14">14</a></span><span class="cl">    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;There has been a problem with your fetch operation:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln" id="hl-0-15"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-15">15</a></span><span class="cl">
+</span></span><span class="line"><span class="ln" id="hl-0-16"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-16">16</a></span><span class="cl"><span class="o">&gt;</span> <span class="p">[</span><span class="s2">&#34;[&#34;</span><span class="mi">0_</span><span class="nx">sixty</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="mi">10</span><span class="nx">bleoledhub</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="mi">1</span><span class="nx">upkeyboards</span><span class="o">/</span><span class="mi">1</span><span class="nx">up60hse</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="mi">1</span><span class="nx">upkeyboards</span><span class="o">/</span><span class="mi">1</span><span class="nx">up60hte</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="p">...</span>
+</span></span></code></pre></div><p>コード例2</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln" id="hl-1-1"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-1">1</a></span><span class="cl">curl https://api.qmk.fm/v1/keyboards <span class="p">|</span> jq
+</span></span><span class="line"><span class="ln" id="hl-1-2"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-2">2</a></span><span class="cl">
+</span></span><span class="line"><span class="ln" id="hl-1-3"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-3">3</a></span><span class="cl"><span class="o">[</span>
+</span></span><span class="line"><span class="ln" id="hl-1-4"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-4">4</a></span><span class="cl">  <span class="s2">&#34;0_sixty&#34;</span>,
+</span></span><span class="line"><span class="ln" id="hl-1-5"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-5">5</a></span><span class="cl">  <span class="s2">&#34;0_sixty/underglow&#34;</span>,
+</span></span><span class="line"><span class="ln" id="hl-1-6"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-6">6</a></span><span class="cl">  ...
+</span></span><span class="line"><span class="ln" id="hl-1-7"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-7">7</a></span><span class="cl">  <span class="s2">&#34;zvecr/zv48/f401&#34;</span>,
+</span></span><span class="line"><span class="ln" id="hl-1-8"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-8">8</a></span><span class="cl">  <span class="s2">&#34;zvecr/zv48/f411&#34;</span>
+</span></span><span class="line"><span class="ln" id="hl-1-9"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-9">9</a></span><span class="cl"><span class="o">]</span>
+</span></span></code></pre></div><hr>
+<p>参考情報
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://opengraph.githubassets.com/c99b2ef68a42d7226a5e93cd0b22942854f21020a4f6674744d51a7ed53ef324/qmk/qmk_api" alt="qmk_api/keyboard_api.md at master · qmk/qmk_api"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://github.com/qmk/qmk_api" class="">qmk_api/keyboard_api.md at master · qmk/qmk_api</a>
+			</h5>
+			<p class="card-text m-1">QMK API, information on keyboards and keymaps, and a compile service. - qmk_api/keyboard_api.md at …</p>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://developer.mozilla.org/mdn-social-share.0ca9dbda.png" alt="Fetch の使用 - Web API | MDN"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch" class="">Fetch の使用 - Web API | MDN</a>
+			</h5>
+			<p class="card-text m-1">Fetch API は、リクエストやレスポンスといった HTTP のパイプラインを操作する要素にアクセスするための JavaScript インターフェイスです。グローバルの fetch() メソッドも …</p>
+		</div>
+	</div>
+</div></p>
+</div></div><div class="card-footer">
+  <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+      <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform="rotate-90"></i>
+      <a href="https://hbs-skeleton.netlify.app/posts/2021-12-11/">Github Actions で Re:view Starter のファイルをビルドする方法</a>
+    </div><div class="post-nav post-next">
+      <a href="https://hbs-skeleton.netlify.app/posts/2022-01-02/">Klipper と FluiddPi の設定について</a>
+      <i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform="rotate-270"></i>
+    </div></div>
+</div></article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">Copyright</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by/4.0/deed.en">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
+  CC BY 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
+          <a class="post-title" href="https://hbs-skeleton.netlify.app/posts/2019-10-13/">
+            ArduinoとPlaidを使ってマイコンを複製する方法
+          </a>
+          <span class="post-meta post-date float-end">2019-10-13
+</span>
+          <div class="post-summary my-3"><p>前置き# 自作キーボードのPlaidはお気に入りのキーボードであるが、このキーボードは、ProMicro の代わりにマイコンの ATMega328P を使っており、キーボードには ISP ポートが用意されている。
+なので、このキーボードを AVR ライターがわりに使えるのではないか、また、秋月とかで購入した ATMega328P にデータをバックアップしておいて、いざというときはマイコンだけ置き換えて対処する、といったこともできるんじゃないかと思って挑戦してみた。
+その挑戦がうまくいったので、その手順を備忘録として残しておく。
+作業の手順# 作業に使うものは次のとおり。
+Plaid Arduino Uno（互換品でOK） ブレッド...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href="https://hbs-skeleton.netlify.app/posts/2019-10-13/">もっと読む</a></div></div>
+        </li><li class="mb-3 border-bottom">
+          <a class="post-title" href="https://hbs-skeleton.netlify.app/posts/2019-07-22/">
+            自作キーボードでLEDが点灯しない時のテスト方法と対処方法
+          </a>
+          <span class="post-meta post-date float-end">2019-07-22
+</span>
+          <div class="post-summary my-3"><p>salicylic-acid3 さんが作成・販売されている自作キーボードのNaked48LED - 自キ温泉街販売所 - BOOTHとSetta21 - 自キ温泉街販売所 - BOOTHを組み立てた際、LED の取り付けで四苦八苦したので、その時にネットで集めた情報や Discord の Self-Made Keyboards in Japan で教えていただいた情報をまとめてみたいと思う。
+LED チップの向きの確認# LED チップが点灯しない時、まず最初に確認するのは取り付けた LED チップの向きである。LED の向きが違えば当然点灯しないし、テスターを使う必要もない簡単な作業なので、まずはここから開始する。
+もし向きが違っ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href="https://hbs-skeleton.netlify.app/posts/2019-07-22/">もっと読む</a></div></div>
+        </li><li class="mb-3 border-bottom">
+          <a class="post-title" href="https://hbs-skeleton.netlify.app/posts/2020-12-03/">
+            自作キーボード活動2年目の振り返り
+          </a>
+          <span class="post-meta post-date float-end">2020-12-03
+</span>
+          <div class="post-summary my-3"><p>前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに至った話」とか「小説家に営業した話」といったディープな話題は書けません。 なので、自作キーボード活動2年目を振り返る記事を書きたいと思いますが、2年目を簡単に振り返ると、オリジナルキーボードの製作が一番比重が大きく、QMK のドキュメント翻訳レビューがそれに続き、Discord の #mon-shin チャンネル用のダイアログページを作ったという1年間でした。なので、これらの活動について書いていきます。
+オリジナルキー...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href="https://hbs-skeleton.netlify.app/posts/2020-12-03/">もっと読む</a></div></div>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">コメント</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="s-show/s-show.github.io"
+  issue-term="title"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+</div>
+</div></div>
+</div>
+
+      </div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=QMK%20API%20%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%ad%e3%83%bc%e3%83%9c%e3%83%bc%e3%83%89%e3%81%ae%e3%83%aa%e3%82%b9%e3%83%88%e3%82%92%e5%8f%96%e5%be%97%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fhbs-skeleton.netlify.app%2fposts%2f2021-12-12%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhbs-skeleton.netlify.app%2fposts%2f2021-12-12%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 戻る
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 再表示
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> URLをコピー
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<nav class="social-links nav justify-content-center mb-2">
+    <a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+      <a class="nav-link social-link" target="_blank" href="https://github.com/s-show/s-show.github.io" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+      <a class="nav-link social-link" target="_blank" href="https://www.reddit.com/user/s-show" title="Reddit" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-reddit"></i>
+      </a>
+      <a class="nav-link social-link" target="_blank" href="https://twitter.com/s_show_0000" title="Twitter" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-twitter"></i>
+      </a>
+  <a class="nav-link social-link" target="_blank" href="https://hbs-skeleton.netlify.app/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i>
+  </a>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2022 s-show. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">HBS</a> theme.
+</div></footer>
+<script data-precache src="https://hbs-skeleton.netlify.app/assets/main/bundle.min.dea66aa38f30c509e8573161b1007baf5c08031b550e5c901fd78bc62898a24d.js" integrity="sha256-3qZqo48wxQnoVzFhsQB7r1wIAxtVDlyQH9eLxiiYok0=" crossorigin="anonymous" defer></script><script data-precache src="https://hbs-skeleton.netlify.app/assets/icons/bundle.min.c53ffc0a12b715c06f51f5c331bd18aea0e122cd95c23b5cef8d87c559154443.js" integrity="sha256-xT/8ChK3FcBvUfXDMb0YrqDhIs2Vwjtc742HxVkVREM=" crossorigin="anonymous" defer></script>
+<script data-precache src="https://hbs-skeleton.netlify.app/assets/viewer/bundle.min.9f713149f059d05fcb65e7f7c27308e61c384500e80ab1c333c2510a36a5d70c.js" integrity="sha256-n3ExSfBZ0F/LZef3wnMI5hw4RQDoCrHDM8JRCjal1ww=" crossorigin="anonymous" defer></script>
+  </body>
+</html>

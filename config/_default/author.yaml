@@ -1,0 +1,14 @@
+name: s-show
+avatar: img/profileIcon.png # Avatar image. Default to "images/profile.webp".
+bio: 'プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員'
+#company: Company # HTML markup are supported, such as: <a href="https://example.com" target="_blank" rel="noopener noreferrer">Company</a>.
+location: Japan # HTML markup are supported, such as: <a href='https://www.openstreetmap.org/search?query=Earth'>Earth</a>.
+# about: https://razonyang.com # The external about page. The internal about page will be used if not set.
+params: {
+  # layout: compact
+}
+social:
+  email: kankodori.blog@gmail.com
+  github: s-show
+  twitter: s_show_0000
+  #rss: "" # Remove RSS

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3Dプリンタ on 閑古鳥ブログ</title>
+    <link>https://hbs-skeleton.netlify.app/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/</link>
+    <description>Recent content in 3Dプリンタ on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-2022 s-show. All Rights Reserved.</copyright>
+    <lastBuildDate>Tue, 30 Aug 2022 20:27:31 +0900</lastBuildDate><atom:link href="https://hbs-skeleton.netlify.app/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Klipper のマクロを使って Step by step 印刷を実現する方法</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2022-08-31/</link>
+      <pubDate>Tue, 30 Aug 2022 20:27:31 +0900</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2022-08-31/</guid>
+      <description>前置き# 2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法は</description>
+    </item>
+    
+    <item>
+      <title>Mainsail から rotation_distance を確認する方法</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2022-08-20/</link>
+      <pubDate>Fri, 19 Aug 2022 23:58:35 +0900</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2022-08-20/</guid>
+      <description>前置き# Klipper の設定項目の1つである rotation_distance は、ステッピングモーターが1回転した時の移動量を指定するものですが、フィラメント毎に調整しないと印刷物の大</description>
+    </item>
+    
+    <item>
+      <title>Mainsail でサイドバーにロゴを表示させる方法</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2022-04-04/</link>
+      <pubDate>Fri, 01 Apr 2022 00:15:04 +0900</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2022-04-04/</guid>
+      <description>前置き# 我が家では3台の3Dプリンタ（Prusa MK3S+、Ender 3 Pro、Voron V0.0）が稼動していて、これらを全て MainsailOS で制御して</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2022-02-24/</link>
+      <pubDate>Thu, 24 Feb 2022 03:00:00 +0900</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2022-02-24/</guid>
+      <description>目次 前置き TL;DL 具体的な作業 Klipper と Moonraker の削除 Klipper のインストール Moonraker のインストール printer.cfg の編集 moonraker.conf の編集 タイムラプス動画撮影のスクリプトをインストール Webカメ</description>
+    </item>
+    
+    <item>
+      <title>Klipper &amp; Moonraker &amp; FluiddPi でタイムラプス動画を撮影する方法</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2022-01-29/</link>
+      <pubDate>Sat, 29 Jan 2022 00:50:00 +0900</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2022-01-29/</guid>
+      <description>前置き# Klipper &amp;amp; Moonraker &amp;amp; FluiddPi の組み合わせで 3Dプリンタの印刷の様子をタイムラプス動画にすることに成功しましたので、その方法をまとめます。 なお、Klip</description>
+    </item>
+    
+    <item>
+      <title>PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2022-01-07/</link>
+      <pubDate>Fri, 07 Jan 2022 21:41:06 +0900</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2022-01-07/</guid>
+      <description>3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」と</description>
+    </item>
+    
+    <item>
+      <title>Klipper と FluiddPi の設定について</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2022-01-02/</link>
+      <pubDate>Sun, 02 Jan 2022 13:21:51 +0900</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2022-01-02/</guid>
+      <description>目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド &amp;amp; インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマ</description>
+    </item>
+    
+    <item>
+      <title>AnyCubic i3 Mega S に TMC2208 を導入する</title>
+      <link>https://hbs-skeleton.netlify.app/posts/2019-12-20/</link>
+      <pubDate>Fri, 20 Dec 2019 14:39:06 +0000</pubDate>
+      
+      <guid>https://hbs-skeleton.netlify.app/posts/2019-12-20/</guid>
+      <description>前置き# AnyCubic 製の AnyCubic Mega S という3Dプリンタを使っていますが、動作中にモーター音に加えて結構な大きさの電子音が鳴ってうるさいので、モータードライバ</description>
+    </item>
+    
+  </channel>
+</rss>
+
