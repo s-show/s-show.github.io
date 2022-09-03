@@ -46,7 +46,7 @@ jobs:
         run: hugo --minify
 
       - name: Result
-        run: ls -la ./docs/posts
+        run: ls -la ./public/posts
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
@@ -54,5 +54,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./docs
+          publish_dir: ./public/posts
           #keep_files: true
