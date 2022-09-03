@@ -1,101 +1,736 @@
-<!doctype html><html class=position-relative itemscope itemtype=http://schema.org/WebPage lang=ja data-bs-theme=dark data-palette=indigo><head><script src=https://hbs-skeleton.netlify.app/assets/init/bundle.min.1900f26bd37db8fb0cee1fe9d8e42a4cf52a5c4fc697cc728ea89da5acbb9914.js integrity="sha256-GQDya9N9uPsM7h/p2OQqTPUqXE/Gl8xyjqidpay7mRQ=" crossorigin=anonymous></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Github Actions で Re:view Starter のファイルをビルドする方法 - 閑古鳥ブログ</title><link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/icon-16x16.png?version=bc881cf71418802eab46d38df006b6f0" sizes=16x16><link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/icon-32x32.png?version=c2740df8b4aa429981718fd3b63dc468" sizes=32x32><link rel=apple-touch-icon href=https://hbs-skeleton.netlify.app/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_180x180_resize_box_3.png sizes=180x180 type=image/png><link rel=icon href=https://hbs-skeleton.netlify.app/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_150x150_resize_box_3.png sizes=150x150 type=image/png><link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/icon-192x192.png?version=314faa3d71d23e1cf545f1280bd01e37" sizes=192x192><link rel=mask-icon href=https://hbs-skeleton.netlify.app/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/favicon.ico?version=b21aa710a837168f4ddf45779e92164c"><meta name=keywords content><meta name=description content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強"><meta name=robots content="index, follow"><meta name=twitter:card content="summary"><meta name=twitter:title content="Github Actions で Re:view Starter のファイルをビルドする方法"><meta name=twitter:description content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強"><meta name=twitter:site content="@s_show_0000"><meta property="og:title" content="Github Actions で Re:view Starter のファイルをビルドする方法"><meta property="og:description" content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強"><meta property="og:type" content="article"><meta property="og:url" content="https://hbs-skeleton.netlify.app/posts/2021-12-11/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-12-11T08:00:00+09:00"><meta property="article:modified_time" content="2021-12-11T08:00:00+09:00"><meta itemprop=name content="Github Actions で Re:view Starter のファイルをビルドする方法"><meta itemprop=description content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強"><meta itemprop=datePublished content="2021-12-11T08:00:00+09:00"><meta itemprop=dateModified content="2021-12-11T08:00:00+09:00"><meta itemprop=wordCount content="1761"><meta itemprop=keywords content><link data-precache rel=stylesheet href="https://hbs-skeleton.netlify.app/assets/main/bundle.min.5f71a4c83bcc1b89fa75514265626442f0177cedbeb29bacf91d6de0695a5505.css" integrity="sha256-X3GkyDvMG4n6dVFCZWJkQvAXfO2+spus+R1t4GlaVQU=" crossorigin=anonymous><link data-precache rel=stylesheet href=https://hbs-skeleton.netlify.app/custom.css crossorigin=anonymous><link data-precache rel=stylesheet href=https://hbs-skeleton.netlify.app/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous></head><body><header><nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top"><div class=container><a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href=https://hbs-skeleton.netlify.app/>閑古鳥ブログ</a>
-<button class="navbar-toggler order-5" type=button data-bs-toggle=offcanvas data-bs-target=#navbarMenus aria-controls=navbarMenus aria-expanded=false aria-label="Toggle navigation">
-<i class="fas fa-ellipsis-h"></i></button><div class="offcanvas-lg offcanvas-end flex-grow-1" data-bs-scroll=true tabindex=-1 id=navbarMenus aria-labelledby=navbarMenusLabel><div class="offcanvas-header px-4 pb-0"><h5 class=offcanvas-title id=navbarMenusLabel>閑古鳥ブログ</h5><button type=button class="btn-close btn-close-white" data-bs-dismiss=offcanvas data-bs-target=#navbarMenus aria-label=Close></button></div><div class="offcanvas-body p-4 pt-0 p-lg-0"><hr class=d-lg-none><ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"></ul><hr class=d-lg-none><form class="search-bar ms-auto my-1" action=https://hbs-skeleton.netlify.app/search/ novalidate><div class="input-group input-group-sm align-items-center"><span class="btn btn-search disabled position-absolute left-0 border-0"><i class="fas fa-fw fa-search fa-lg"></i></span>
-<input class="py-2 form-control rounded search-input" name=q type=search aria-label=Search required></div></form><hr class=d-lg-none><ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown col-6 col-lg-auto"><a class="nav-link px-0 py-2 px-lg-1" href=# id=fontSizeDropdown role=button data-bs-toggle=dropdown aria-expanded=false><i class="fas fa-fw fa-font"></i>
-<span class=d-lg-none>フォントサイズ</span></a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby=fontSizeDropdown><li><button class="font-size-item dropdown-item" data-size=xs>
-極小</button></li><li><button class="font-size-item dropdown-item" data-size=sm>
-小</button></li><li><button class="font-size-item dropdown-item active" data-size=md>
-標準</button></li><li><button class="font-size-item dropdown-item" data-size=lg>
-大</button></li><li><button class="font-size-item dropdown-item" data-size=xl>
-特大</button></li></ul></li><li class="nav-item dropdown col-6 col-lg-auto"><a class="nav-link px-0 py-2 px-lg-1" href=# id=paletteDropdown role=button data-bs-toggle=dropdown aria-expanded=false><i class="fas fa-fw fa-palette"></i>
-<span class=d-lg-none>パレット</span></a><ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby=paletteDropdown><div class=row><li class="col-4 my-1"><a role=button id=palette-blue aria-label=Blue class="btn btn-sm w-100 palette text-bg-blue" data-palette=blue></a></li><li class="col-4 my-1"><a role=button id=palette-blue-gray aria-label="Blue Gray" class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette=blue-gray></a></li><li class="col-4 my-1"><a role=button id=palette-brown aria-label=Brown class="btn btn-sm w-100 palette text-bg-brown" data-palette=brown></a></li><li class="col-4 my-1"><a role=button id=palette-cyan aria-label=Cyan class="btn btn-sm w-100 palette text-bg-cyan" data-palette=cyan></a></li><li class="col-4 my-1"><a role=button id=palette-green aria-label=Green class="btn btn-sm w-100 palette text-bg-green" data-palette=green></a></li><li class="col-4 my-1"><a role=button id=palette-indigo aria-label=Indigo class="btn btn-sm w-100 palette text-bg-indigo" data-palette=indigo></a></li><li class="col-4 my-1"><a role=button id=palette-orange aria-label=Orange class="btn btn-sm w-100 palette text-bg-orange" data-palette=orange></a></li><li class="col-4 my-1"><a role=button id=palette-pink aria-label=Pink class="btn btn-sm w-100 palette text-bg-pink" data-palette=pink></a></li><li class="col-4 my-1"><a role=button id=palette-purple aria-label=Purple class="btn btn-sm w-100 palette text-bg-purple" data-palette=purple></a></li><li class="col-4 my-1"><a role=button id=palette-red aria-label=Red class="btn btn-sm w-100 palette text-bg-red" data-palette=red></a></li><li class="col-4 my-1"><a role=button id=palette-teal aria-label=Teal class="btn btn-sm w-100 palette text-bg-teal" data-palette=teal></a></li><li class="col-4 my-1"><a role=button id=palette-yellow aria-label=Yellow class="btn btn-sm w-100 palette text-bg-yellow" data-palette=yellow></a></li></div></ul></li><li class="nav-item dropdown col-6 col-lg-auto"><a class="nav-link px-0 py-2 px-lg-1" href=# id=modeDropdown role=button data-bs-toggle=dropdown aria-expanded=false><i class="mode-icon fas fa-fw fa-moon" id=modeIcon></i>
-<span class=d-lg-none>表示モード</span></a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby=modeDropdown><li class=mode-item data-color-mode=light data-icon=sun><button class=dropdown-item>
-<i class="mode-icon fas fa-fw fa-sun"></i> Light</button></li><li class="mode-item active" data-color-mode=dark data-icon=moon><button class=dropdown-item>
-<i class="mode-icon fas fa-fw fa-moon"></i> Dark</button></li><li class=mode-item data-color-mode=auto data-icon=adjust><button class=dropdown-item>
-<i class="mode-icon fas fa-fw fa-adjust"></i> Auto</button></li></ul></li></ul></div></div></div></nav></header><main class=container><div class="row content"><noscript><div class="alert alert-danger" role=alert>あなたのブラウザはJavascriptをサポートしていません。</div></noscript><aside class="col-lg-4 sidebar d-flex order-lg-5"><div class="container d-flex flex-column"><div class="accordion profile"><div class="accordion-item card row text-center component"><div class="accordion-header card-header border-0" id=profile-header><a class="accordion-button d-lg-none mb-2 collapsed shadow-none p-0 bg-transparent text-surface" type=button data-bs-toggle=collapse data-bs-target=#profile aria-expanded=false aria-controls=profile>プロフィール</a></div><div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=profile aria-labelledby=profile-header><div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt=s-show src=https://hbs-skeleton.netlify.app/img/profileIcon.png loading=lazy data-viewer-invisible width=500 height=500></picture></div><div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">s-show</div><div class=profile-bio>プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class=profile-location><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about text-primary"><i class="fas fa-fw fa-user"></i><a href=https://hbs-skeleton.netlify.app/about/>About</a></div><div class="profile-contact text-primary"><i class="fas fa-fw fa-question-circle"></i><a href=https://hbs-skeleton.netlify.app/contact/>Contact Us</a></div></div><nav class="social-links nav justify-content-center mt-1 justify-content-around"><a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email><i class="fas fa-fw fa-2x fa-envelope"></i></a>
-<a class="nav-link social-link" target=_blank href=https://github.com/s-show title=GitHub rel="noopener noreferrer"><i class="fa-fw fa-2x fab fa-github"></i></a>
-<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer"><i class="fa-fw fa-2x fab fa-twitter"></i></a>
-<a class="nav-link social-link" target=_blank href=https://hbs-skeleton.netlify.app/index.xml title=RSS rel="noopener noreferrer"><i class="fas fa-fw fa-2x fa-rss"></i></a></nav></div></div></div><div class="accordion taxonomies-toggle"><section class="row card component accordion-item"><div class="accordion-header card-header border-0"><a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#taxonomies-toggle aria-expanded=false aria-controls=taxonomies-toggle>分類</a></div><div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=taxonomies-toggle><ul class="nav nav-pills nav-fill" id=myTab role=tablist><li class=nav-item role=presentation><button class="nav-link active" id=taxonomyTagsTab data-bs-toggle=tab data-bs-target=#taxonomyTags type=button role=tab aria-controls=タグ aria-selected=true>
-タグ</button></li><li class=nav-item role=presentation><button class=nav-link id=taxonomyArchivesTab data-bs-toggle=tab data-bs-target=#taxonomyArchive type=button role=tab aria-controls=taxonomyArchives aria-selected=true>
-アーカイブ</button></li></ul><div class="tab-content mt-3"><div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0><a href=https://hbs-skeleton.netlify.app/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>備忘録
-<span class="badge badge-sm text-secondary bg-white ms-1">10</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>3Dプリンタ
-<span class="badge badge-sm text-secondary bg-white ms-1">9</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=プログラミング>プログラミング
-<span class="badge badge-sm text-secondary bg-white ms-1">5</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=自作キーボード>自作キーボード
-<span class="badge badge-sm text-secondary bg-white ms-1">4</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=読書記録>読書記録
-<span class="badge badge-sm text-secondary bg-white ms-1">3</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>Klipper
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/mac/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mac>Mac
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/mainsail/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mainsail>Mainsail
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=未分類>未分類
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags/karabiner-elements/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Karabiner-Elements>Karabiner-Elements
-<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a>
-<a href=https://hbs-skeleton.netlify.app/tags class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=全部>全部
-<span class="badge badge-sm text-secondary bg-white ms-1">13</span></a></div><div class=tab-pane id=taxonomyArchive role=tabpanel aria-labelledby=taxonomyArchiveTab tabindex=0><a href=https://hbs-skeleton.netlify.app/archives/2022/ class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2022>2022 <span class="badge badge-sm text-secondary bg-white ms-1">12</span></a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2021>2021 <span class="badge badge-sm text-secondary bg-white ms-1">3</span></a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2020>2020 <span class="badge badge-sm text-secondary bg-white ms-1">2</span></a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2019>2019 <span class="badge badge-sm text-secondary bg-white ms-1">4</span></a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2018>2018 <span class="badge badge-sm text-secondary bg-white ms-1">2</span></a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2017>2017 <span class="badge badge-sm text-secondary bg-white ms-1">3</span></a></div></div></div></section></div><div class="accordion posts-toggle"><section class="row card component accordion-item"><div class="accordion-header card-header border-0"><a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#posts-toggle aria-expanded=false aria-controls=posts-toggle>投稿</a></div><div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=posts-toggle><ul class="nav nav-pills nav-fill" id=myTab role=tablist><li class=nav-item role=presentation><button class="nav-link active" id=recent-posts-tab data-bs-toggle=tab data-bs-target=#recent-posts type=button role=tab aria-controls=recent-posts aria-selected=true>
-最近の投稿</button></li></ul><div class="tab-content mt-3"><div class="tab-pane active" id=recent-posts role=tabpanel aria-labelledby=recent-posts-tab tabindex=0><ul class="post-list list-unstyled ms-1"><li class=mb-2><div class=d-flex><div class="flex-grow-1 d-flex flex-column h-auto justify-content-center"><a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-09-03/>SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法</a><div class="post-meta mt-2"><span class=post-date>2022-08-31</span></div></div></div></li><li class=mb-2><div class=d-flex><div class="flex-grow-1 d-flex flex-column h-auto justify-content-center"><a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-08-31/>Klipper のマクロを使って Step by step 印刷を実現する方法</a><div class="post-meta mt-2"><span class=post-date>2022-08-30</span></div></div></div></li><li class=mb-2><div class=d-flex><div class="flex-grow-1 d-flex flex-column h-auto justify-content-center"><a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-08-20/>Mainsail から rotation_distance を確認する方法</a><div class="post-meta mt-2"><span class=post-date>2022-08-19</span></div></div></div></li></ul></div></div></div></section></div></div></aside><div class=col-lg-8><div class=container><nav class="row card component" aria-label=breadcrumb><div class="card-body pb-0"><ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://hbs-skeleton.netlify.app/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://hbs-skeleton.netlify.app/posts/>Posts</a></li><li class="breadcrumb-item active">Github Actions で Re:view Starter のファイルをビルドする方法</li></ol></div></nav><div class="post-panel-wrapper position-sticky"><div class="d-flex flex-column component rounded post-panel position-absolute border"><a class="action action-panel-toggler" role=button title="Panel toggler"><i class="fas fa-fw fa-chevron-circle-down"></i></a>
-<a id=sidebarToggler class="action d-none d-lg-block" role=button title="Sidebar toggler"><i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i></a>
-<a class=action href=#post-copyright role=button aria-label=Copyright title=Copyright><i class="fas fa-fw fa-copyright"></i></a>
-<a class=action href=#post-comments role=button aria-label=Comments title=Comments><i class="fas fa-fw fa-comments"></i></a></div></div><article class="row card component mb-4 post"><div class=card-header><h1 class="card-title post-title my-2">Github Actions で Re:view Starter のファイルをビルドする方法</h1></div><div class=card-body><div class="post-meta mb-3"><span class="post-date me-1 mb-1" title="公開: 2021-12-11 08:00:00 +0900 JST.">2021-12-11</span></div><div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2><p>今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を <a href=https://qiita.com/kauplan/items/d01e6e39a05be0b908a1 target=_blank rel="noopener noreferrer">RE:View Starter<i class="fas fa-external-link-square-alt ms-1"></i></a> で作成しています。</p><p>勉強会の都度その回の資料を執筆し、ビルドして出来た PDF ファイルを職場にメールで送っているのですが、送り忘れた場合に備えて、Github Actions を使って Github 上でもビルドを行ってリポジトリからダウンロードできるようにしようと思いました。</p><p>そのため Github Actions の設定をあれこれ調べたのですが、プライベートリポジトリにしているせいで詰まった部分が結構ありましたので、備忘録代わりに調べたことをまとめます。</p><h2 id=前提 data-numberify>前提<a class="anchor ms-1 d-none" href=#前提>#</a></h2><p>ファイルの構成は次のとおり（主なファイルのみ列挙）で、リポジトリはプライベートリポジトリ。<code>contens/</code> ディレクトリに <code>.re</code> ファイルを保存しています。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=ln id=hl-0-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-1>1</a></span><span class=cl>.
-</span></span><span class=line><span class=ln id=hl-0-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-2>2</a></span><span class=cl>├ README.md
-</span></span><span class=line><span class=ln id=hl-0-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-3>3</a></span><span class=cl>├ Rakefile
-</span></span><span class=line><span class=ln id=hl-0-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-4>4</a></span><span class=cl>├ catalog.yml
-</span></span><span class=line><span class=ln id=hl-0-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-5>5</a></span><span class=cl>├ config-starter.yml
-</span></span><span class=line><span class=ln id=hl-0-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-6>6</a></span><span class=cl>├ config.yml
-</span></span><span class=line><span class=ln id=hl-0-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-7>7</a></span><span class=cl>├ contents/
-</span></span><span class=line><span class=ln id=hl-0-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-0-8>8</a></span><span class=cl>├ workshop.pdf
-</span></span></code></pre></div><h2 id=結論 data-numberify>結論<a class="anchor ms-1 d-none" href=#結論>#</a></h2><p><code>.github/workflows/main.yml</code> を次のとおり設定し、環境変数 <code>PAT</code> に Personal access token（Scope は <code>repo</code> ）を設定すればビルドできます。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=ln id=hl-1-1><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-1> 1</a></span><span class=cl><span class=nt>on</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>push]</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-2><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-2> 2</a></span><span class=cl><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-3><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-3> 3</a></span><span class=cl><span class=w></span><span class=nt>jobs</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-4><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-4> 4</a></span><span class=cl><span class=w>  </span><span class=nt>review</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-5><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-5> 5</a></span><span class=cl><span class=w>    </span><span class=nt>runs-on</span><span class=p>:</span><span class=w> </span><span class=l>ubuntu-latest</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-6><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-6> 6</a></span><span class=cl><span class=w>    </span><span class=nt>container</span><span class=p>:</span><span class=w> </span><span class=l>docker://kauplan/review2.5</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-7><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-7> 7</a></span><span class=cl><span class=w>    </span><span class=nt>steps</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-8><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-8> 8</a></span><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Checkout</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-9><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-9> 9</a></span><span class=cl><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/checkout@v2</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-10><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-10>10</a></span><span class=cl><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-11><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-11>11</a></span><span class=cl><span class=w>          </span><span class=nt>repository</span><span class=p>:</span><span class=w> </span><span class=l>s-show/workshop_document</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-12><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-12>12</a></span><span class=cl><span class=w>          </span><span class=nt>token</span><span class=p>:</span><span class=w> </span><span class=l>${{ secrets.PAT }}</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-13><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-13>13</a></span><span class=cl><span class=w>          </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-14><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-14>14</a></span><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Build pdf</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-15><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-15>15</a></span><span class=cl><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=l>rake pdf</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-16><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-16>16</a></span><span class=cl><span class=w>      </span>- <span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/upload-artifact@v1</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-17><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-17>17</a></span><span class=cl><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-18><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-18>18</a></span><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Save PDF</span><span class=w>
-</span></span></span><span class=line><span class=ln id=hl-1-19><a style=outline:none;text-decoration:none;color:inherit href=#hl-1-19>19</a></span><span class=cl><span class=w>          </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./workshop.pdf</span><span class=w>
-</span></span></span></code></pre></div><h2 id=解説 data-numberify>解説<a class="anchor ms-1 d-none" href=#解説>#</a></h2><dl><dt><code>on: [push]</code></dt><dd>アクション実行のタイミングを push 時に設定します。</dd><dt><code>jobs.review:runs-on: ubuntu-latest</code></dt><dd>ワークフローを実行する仮想環境に Ubuntu の最新版を指定します。</dd><dt><code>jobs.container: docker://kauplan/review2.5</code></dt><dd>Re:view Starter のビルドは Docker のコンテナを利用しているので、Github Actions でも Docker のコンテナを利用するための設定。コンテナには Re:view Starter の作者が作成したコンテナを指定します。</dd></dl><div class="card col-9 mt-3 mb-3"><div class="row g-1"><div class=col-3><img class=blog-card-image src alt="Docker Hub"></div><div class=col-9><h5 class=m-1><a href>Docker Hub</a></h5><p class="card-text m-1"></p></div></div></div><dl><dt><code>jobs.steps.name: Checkout</code></dt><dd>ジョブの命名。このジョブは、勉強会資料のリポジトリを Github Actions で使うためにチェックアウトするものなので「Checkout」としています。</dd><dt><code>jobs.steps.name.uses: actions/checkout@v2</code></dt><dd>Github Actions の環境はリポジトリがチェックアウトされていない状態なので、そのままではリポジトリのデータにアクセスできません。そこで、公開アクションの <code>actions/checkout@v2</code> を使ってリポジトリをチェックアウトして <code>$GITHUB_WORKSPACE</code> の下に置くようにします。</dd></dl><div class="card col-9 mt-3 mb-3"><div class="row g-1"><div class=col-3><img class=blog-card-image src=https://opengraph.githubassets.com/b67af1920cfa27d0787169cc6c0c7eb28995e3e5a6ca61caa0efb3584680a50f/actions/checkout alt="GitHub - actions/checkout: Action for checking out a repo"></div><div class=col-9><h5 class=m-1><a href=https://github.com/actions/checkout>GitHub - actions/checkout: Action for checking out a repo</a></h5><p class="card-text m-1">Action for checking out a repo. Contribute to actions/checkout development by creating an account on …</p></div></div></div><dl><dt><code>jobs.steps.name.with.repository: s-show/workshop_document</code></dt><dd>勉強会資料のリポジトリをチェックアウトの対象に指定してます。</dd><dt><code>jobs.steps.name.with.token: ${{ secrets.PAT}}</code></dt><dd>勉強会資料のリポジトリはプライベートリポジトリなので、認証情報がなければ Github Actions はリポジトリにアクセスできない。そのため、ここで環境変数経由で認証情報を渡しています。</dd></dl><p>プライベートリポジトリを使う場合のコードは以下に掲載されています。</p><div class="card col-9 mt-3 mb-3"><div class="row g-1"><div class=col-3><img class=blog-card-image src=https://opengraph.githubassets.com/b67af1920cfa27d0787169cc6c0c7eb28995e3e5a6ca61caa0efb3584680a50f/actions/checkout alt="GitHub - actions/checkout: Action for checking out a repo"></div><div class=col-9><h5 class=m-1><a href=https://github.com/actions/checkout>GitHub - actions/checkout: Action for checking out a repo</a></h5><p class="card-text m-1">Action for checking out a repo. Contribute to actions/checkout development by creating an account on …</p></div></div></div><p>認証情報の生成は後で説明します。</p><dl><dt><code>jobs.steps.name.with.path: ./</code></dt><dd>リポジトリのトップディレクトリを作業ディレクトリに指定しています。</dd><dt><code>jobs.steps.name: Buid pdf</code></dt><dd>ジョブの命名。このジョブは、PDFファイルを出力するジョブ。</dd><dt><code>jobs.steps.run: rake pdf</code></dt><dd>PDF ファイルをビルドするコマンド。Re:view Starter のユーザーズガイドに記載されている PDF 出力コマンドは <code>docker run --rm -v $PWD:/work -w /work kauplan/review2.5 rake pdf</code> であるが、最後の <code>rake pdf</code> だけで実行可能。</dd><dt><code>jobs.steps.uses: actions/upload-artifact@v1</code></dt><dd>ビルドした PDF ファイルを保存するため、公開アクションの <code>upload-artifact@v1</code> を使用しています。</dd><dt><code>jobs.steps.uses.with.path: ./workshop.pdf</code></dt><dd>トップディレクトリに <code>workshop.pdf</code> というファイル名で保存するよう設定しています。</dd></dl><h2 id=プライベートリポジトリにアクセスするための準備 data-numberify>プライベートリポジトリにアクセスするための準備<a class="anchor ms-1 d-none" href=#プライベートリポジトリにアクセスするための準備>#</a></h2><p>プライベートリポジトリにアクセスするには認証情報が必要なので、認証情報を環境変数経由で Github Actions に渡すための設定を行います。</p><h3 id=personal-access-token-の生成 data-numberify>Personal access token の生成<a class="anchor ms-1 d-none" href=#personal-access-token-の生成>#</a></h3><p>Personal access token の生成画面はユーザー設定画面にありますので、画面右上のユーザーアイコンの「Settings」を開いてから「Developer settings -> Personal access token -> generate new token」の順番で開いていきます。</p><p>生成ページを開いたら、<code>Note</code> に任意の名称を入力し、スコープに <code>repo</code> を指定して Personal access token を生成し、生成した Personal access token をコピーします。</p><h3 id=環境変数の設定 data-numberify>環境変数の設定<a class="anchor ms-1 d-none" href=#環境変数の設定>#</a></h3><p>環境変数はリポジトリ毎に設定するので、リポジトリの「Setting」を開いてから「Secrets -> New repository secret」の順番で開いていきます。</p><p>環境変数の設定画面を開いたら、 <code>Name</code> に <code>PAT</code> を、 <code>Value</code> に <code>Personal access token</code> の値を貼り付けて保存します。</p><h2 id=デバッグ用の設定 data-numberify>デバッグ用の設定<a class="anchor ms-1 d-none" href=#デバッグ用の設定>#</a></h2><p>デフォルト設定でもそこそこ詳しいログが保存されますが、さらに詳細なログが保存されても問題はないので、環境変数に次のペアを登録して詳細なログが保存されるように設定します。</p><p><code>ACTIONS_STEP_DEBUG</code> → <code>true</code></p><p><code>ACTIONS_RUNNER_DEBUG</code> → <code>true</code></p><div class="card col-9 mt-3 mb-3"><div class="row g-1"><div class=col-3><img class=blog-card-image src=https://github.githubassets.com/images/modules/open_graph/github-logo.png alt="デバッグロギングの有効化 - GitHub Docs"></div><div class=col-9><h5 class=m-1><a href=https://docs.github.com/ja/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging>デバッグロギングの有効化 - GitHub Docs</a></h5><p class="card-text m-1">ワークフロージョブあるいはステップが期待どおりに動作しない理由を診断する上で、十分な詳細がワークフローのログになかった場合、追加のデバッグロギングを有効化できます。</p></div></div></div></div></div><div class=card-footer><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev"><i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
-<a href=https://hbs-skeleton.netlify.app/posts/2021-12-10/>2021年に実施した3Dプリンターの改造</a></div><div class="post-nav post-next"><a href=https://hbs-skeleton.netlify.app/posts/2021-12-12/>QMK API を使ってキーボードのリストを取得する方法</a>
-<i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i></div></div></div></article><div class="post-copyright mb-3 row card component" id=post-copyright><div class=card-header><h2 class="card-title fs-4 my-2 text-surface">Copyright</h2></div><div class=card-body><a class="d-flex align-items-center flex-column" target=_blank rel="license noopener noreferrer" href=https://creativecommons.org/licenses/by/4.0/deed.en><span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
-CC BY 4.0</a></div></div><section class="related-posts row card component"><div class=card-header><h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2></div><div class=card-body><ul class="post-list list-unstyled"><li class="mb-3 border-bottom"><a class=post-title href=https://hbs-skeleton.netlify.app/posts/2021-12-10/>2021年に実施した3Dプリンターの改造</a>
-<span class="post-meta post-date float-end">2021-12-10</span><div class="post-summary my-3"><p>前置き# ~~この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の1日目の記事です。
+<!doctype html>
+<html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="ja"
+  data-bs-theme="dark" data-palette="indigo">
+  <head><script src="https://s-show.github.io/assets/init/bundle.min.f5d577b0fc1dfbf3ab8fabb3fcf01a67b55ba8dbe1bda319f952ffb7b71fcf6f.js" integrity="sha256-9dV3sPwd&#43;/Orj6uz/PAaZ7VbqNvhvaMZ&#43;VL/t7cfz28=" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Github Actions で Re:view Starter のファイルをビルドする方法 - 閑古鳥ブログ</title>
+    <link rel="icon" href="https://s-show.github.io/images/icons/icon-16x16.png?version=bc881cf71418802eab46d38df006b6f0" sizes="16x16">
+    <link rel="icon" href="https://s-show.github.io/images/icons/icon-32x32.png?version=c2740df8b4aa429981718fd3b63dc468" sizes="32x32">
+    <link rel="apple-touch-icon" href="https://s-show.github.io/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_180x180_resize_box_3.png" sizes="180x180" type="image/png">
+    <link rel="icon" href="https://s-show.github.io/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_150x150_resize_box_3.png" sizes="150x150" type="image/png">
+    <link rel="icon" href="https://s-show.github.io/images/icons/icon-192x192.png?version=314faa3d71d23e1cf545f1280bd01e37" sizes="192x192">
+<link rel="mask-icon" href="https://s-show.github.io/safari-pinned-tab.svg" color="#6f42c1"><link rel="icon" href="https://s-show.github.io/images/icons/favicon.ico?version=b21aa710a837168f4ddf45779e92164c">
+<meta name="keywords" content="" />
+<meta name="description" content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強" />
+    <meta name="robots" content="index, follow" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Github Actions で Re:view Starter のファイルをビルドする方法"/>
+<meta name="twitter:description" content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強"/>
+<meta name="twitter:site" content="@s_show_0000"/>
+<meta property="og:title" content="Github Actions で Re:view Starter のファイルをビルドする方法" />
+<meta property="og:description" content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://s-show.github.io/posts/2021-12-11/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-11T08:00:00+09:00" />
+<meta property="article:modified_time" content="2021-12-12T01:11:58+09:00" />
+
+<meta itemprop="name" content="Github Actions で Re:view Starter のファイルをビルドする方法">
+<meta itemprop="description" content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強"><meta itemprop="datePublished" content="2021-12-11T08:00:00+09:00" />
+<meta itemprop="dateModified" content="2021-12-12T01:11:58+09:00" />
+<meta itemprop="wordCount" content="1761">
+<meta itemprop="keywords" content="" />
+
+<link data-precache rel="stylesheet" href="https://s-show.github.io/assets/main/bundle.min.68031d16d81e499513a9c6231d8e43af21084c11ca07734c13f974fe899f440e.css" integrity="sha256-aAMdFtgeSZUTqcYjHY5DryEITBHKB3NME/l0/omfRA4=" crossorigin="anonymous">
+
+    <link data-precache rel="stylesheet" href="https://s-show.github.io/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css" integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin="anonymous">
+</head>
+  <body><header>
+  
+<nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top">
+  <div class="container">
+<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href="https://s-show.github.io/">閑古鳥ブログ
+</a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1" data-bs-scroll="true" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">閑古鳥ブログ</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto">
+					
+          
+        </ul>
+        <hr class="d-lg-none">
+  <form class="search-bar ms-auto my-1" action="https://s-show.github.io/search/" novalidate>
+    <div class="input-group input-group-sm align-items-center">
+      <span class="btn btn-search disabled position-absolute left-0 border-0">
+        <i class="fas fa-fw fa-search fa-lg"></i>
+      </span>
+      <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+    </div>
+  </form><hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto">
+<li class="nav-item dropdown col-6 col-lg-auto">
+    <a class="nav-link px-0 py-2 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">フォントサイズ</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown">
+        <li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                極小
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                標準
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大
+            </button>
+        </li>
+        <li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大
+            </button>
+        </li>
+    </ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+    <a class="nav-link px-0 py-2 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">パレット</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row">
+            <li class="col-4 my-1">
+                <a role="button" id="palette-blue" aria-label="Blue"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="Blue Gray"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-brown" aria-label="Brown"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-cyan" aria-label="Cyan"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-green" aria-label="Green"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-indigo" aria-label="Indigo"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-orange" aria-label="Orange"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-pink" aria-label="Pink"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-purple" aria-label="Purple"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-red" aria-label="Red"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-teal" aria-label="Teal"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li>
+            <li class="col-4 my-1">
+                <a role="button" id="palette-yellow" aria-label="Yellow"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li>
+        </div>
+    </ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+    <a class="nav-link px-0 py-2 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-moon" id="modeIcon"></i>
+        <span class="d-lg-none">表示モード</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown">
+        <li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li>
+        <li class="mode-item active" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li>
+        <li class="mode-item" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li>
+    </ul>
+</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+</header>
+
+    <main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">あなたのブラウザはJavascriptをサポートしていません。</div>
+</noscript>
+<aside class="col-lg-4 sidebar d-flex order-lg-5">
+  <div class="container d-flex flex-column">
+    
+    <div class="accordion profile">
+  <div class="accordion-item card row text-center component">
+    <div class="accordion-header card-header border-0" id="profile-header">
+      <a class="accordion-button d-lg-none mb-2 collapsed shadow-none p-0 bg-transparent text-surface" type="button" data-bs-toggle="collapse" data-bs-target="#profile" aria-expanded="false" aria-controls="profile">
+        プロフィール
+      </a>
+    </div>
+    <div class="card-body collapse accordion-collapse accordion-body d-lg-block" id="profile" aria-labelledby="profile-header">
+      <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle " alt="s-show" src="https://s-show.github.io/img/profileIcon.png" loading="lazy" data-viewer-invisible width="500" height="500" />
+</picture></div>
+      <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">s-show</div><div class="profile-bio">プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class="profile-location"><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about text-primary"><i class="fas fa-fw fa-user"></i><a href="https://s-show.github.io/about/">About</a></div><div class="profile-contact text-primary"><i class="fas fa-fw fa-question-circle"></i><a href="https://s-show.github.io/contact/">Contact Us</a></div></div>
+
+
+<nav class="social-links nav justify-content-center mt-1 justify-content-around">
+    <a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+      <a class="nav-link social-link" target="_blank" href="https://github.com/s-show" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+      <a class="nav-link social-link" target="_blank" href="https://twitter.com/s_show_0000" title="Twitter" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-twitter"></i>
+      </a>
+  <a class="nav-link social-link" target="_blank" href="https://s-show.github.io/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i>
+  </a>
+</nav>
+</div>
+  </div>
+</div>
+
+
+<div class="accordion taxonomies-toggle">
+    <section class="row card component accordion-item">
+        <div class="accordion-header card-header border-0">
+            <a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#taxonomies-toggle" aria-expanded="false" aria-controls="taxonomies-toggle">
+                分類
+            </a>
+        </div>
+        <div class="card-body collapse accordion-collapse accordion-body d-lg-block" id="taxonomies-toggle">
+            <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                            type="button" role="tab" aria-controls="タグ" aria-selected="true">
+                            タグ
+                        </button>
+                    </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                        type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                        アーカイブ
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content mt-3">
+                    <div class="tab-pane active" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0">
+                        <a href="https://s-show.github.io/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="備忘録">
+                            備忘録
+                            <span class="badge badge-sm text-secondary bg-white ms-1">10</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="3Dプリンタ">
+                            3Dプリンタ
+                            <span class="badge badge-sm text-secondary bg-white ms-1">9</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="プログラミング">
+                            プログラミング
+                            <span class="badge badge-sm text-secondary bg-white ms-1">5</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="自作キーボード">
+                            自作キーボード
+                            <span class="badge badge-sm text-secondary bg-white ms-1">4</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="読書記録">
+                            読書記録
+                            <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/klipper/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Klipper">
+                            Klipper
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/mac/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Mac">
+                            Mac
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/mainsail/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Mainsail">
+                            Mainsail
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="未分類">
+                            未分類
+                            <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags/karabiner-elements/" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title="Karabiner-Elements">
+                            Karabiner-Elements
+                            <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+                        </a>
+                        <a href="https://s-show.github.io/tags" class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title='全部'>
+                        全部
+                        <span class="badge badge-sm text-secondary bg-white ms-1">13</span>
+                        </a>
+                    </div>
+                <div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0">
+
+    <a href="https://s-show.github.io/archives/2022/" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">12</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2020">
+    2020 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2019">
+    2019 <span class="badge badge-sm text-secondary bg-white ms-1">4</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+
+    <a href="" class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title="2017">
+    2017 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="accordion posts-toggle">
+    <section class="row card component accordion-item">
+        <div class="accordion-header card-header border-0">
+            <a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#posts-toggle" aria-expanded="false" aria-controls="posts-toggle">
+                投稿
+            </a>
+        </div>
+        <div class="card-body collapse accordion-collapse accordion-body d-lg-block" id="posts-toggle">
+            <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="recent-posts-tab" data-bs-toggle="tab" data-bs-target="#recent-posts" 
+                        type="button" role="tab" aria-controls="recent-posts" aria-selected="true">
+                        最近の投稿
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content mt-3">
+                <div class="tab-pane active" id="recent-posts" role="tabpanel" aria-labelledby="recent-posts-tab" tabindex="0">
+                    <ul class="post-list list-unstyled ms-1">
+                    <li class="mb-2">
+    <div class="d-flex">
+        <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+            <a class="post-title" href="https://s-show.github.io/posts/2022-09-03/">SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法</a>
+            <div class="post-meta mt-2">
+                <span class="post-date">2022-08-31</span>
+            </div>
+        </div>
+    </div>
+                    </li>
+                    <li class="mb-2">
+    <div class="d-flex">
+        <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+            <a class="post-title" href="https://s-show.github.io/posts/2022-08-31/">Klipper のマクロを使って Step by step 印刷を実現する方法</a>
+            <div class="post-meta mt-2">
+                <span class="post-date">2022-08-30</span>
+            </div>
+        </div>
+    </div>
+                    </li>
+                    <li class="mb-2">
+    <div class="d-flex">
+        <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+            <a class="post-title" href="https://s-show.github.io/posts/2022-08-20/">Mainsail から rotation_distance を確認する方法</a>
+            <div class="post-meta mt-2">
+                <span class="post-date">2022-08-19</span>
+            </div>
+        </div>
+    </div>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
+
+    
+  </div>
+</aside>
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="https://s-show.github.io/">ホーム</a></li><li class="breadcrumb-item text-surface"><a href="https://s-show.github.io/posts/">Posts</a></li><li class="breadcrumb-item active">Github Actions で Re:view Starter のファイルをビルドする方法</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    
+    
+  </div>
+</div><article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Github Actions で Re:view Starter のファイルをビルドする方法</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="公開: 2021-12-11 08:00:00 &#43;0900 JST, 更新: 2021-12-12 01:11:58 &#43;0900 JST.">2021-12-11</span>
+</div>
+<div class="post-content mb-3" data-bs-spy="scroll" data-bs-target="#TableOfContents" tabindex="0"><h2 id="前置き" data-numberify>前置き<a class="anchor ms-1 d-none" href="#前置き">#</a></h2>
+<p>今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を <a href="https://qiita.com/kauplan/items/d01e6e39a05be0b908a1" target="_blank" rel="noopener noreferrer">RE:View Starter<i class="fas fa-external-link-square-alt ms-1"></i></a> で作成しています。</p>
+<p>勉強会の都度その回の資料を執筆し、ビルドして出来た PDF ファイルを職場にメールで送っているのですが、送り忘れた場合に備えて、Github Actions を使って Github 上でもビルドを行ってリポジトリからダウンロードできるようにしようと思いました。</p>
+<p>そのため Github Actions の設定をあれこれ調べたのですが、プライベートリポジトリにしているせいで詰まった部分が結構ありましたので、備忘録代わりに調べたことをまとめます。</p>
+<h2 id="前提" data-numberify>前提<a class="anchor ms-1 d-none" href="#前提">#</a></h2>
+<p>ファイルの構成は次のとおり（主なファイルのみ列挙）で、リポジトリはプライベートリポジトリ。<code>contens/</code> ディレクトリに <code>.re</code> ファイルを保存しています。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln" id="hl-0-1"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-1">1</a></span><span class="cl">.
+</span></span><span class="line"><span class="ln" id="hl-0-2"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-2">2</a></span><span class="cl">├ README.md
+</span></span><span class="line"><span class="ln" id="hl-0-3"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-3">3</a></span><span class="cl">├ Rakefile
+</span></span><span class="line"><span class="ln" id="hl-0-4"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-4">4</a></span><span class="cl">├ catalog.yml
+</span></span><span class="line"><span class="ln" id="hl-0-5"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-5">5</a></span><span class="cl">├ config-starter.yml
+</span></span><span class="line"><span class="ln" id="hl-0-6"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-6">6</a></span><span class="cl">├ config.yml
+</span></span><span class="line"><span class="ln" id="hl-0-7"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-7">7</a></span><span class="cl">├ contents/
+</span></span><span class="line"><span class="ln" id="hl-0-8"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-0-8">8</a></span><span class="cl">├ workshop.pdf
+</span></span></code></pre></div><h2 id="結論" data-numberify>結論<a class="anchor ms-1 d-none" href="#結論">#</a></h2>
+<p><code>.github/workflows/main.yml</code> を次のとおり設定し、環境変数 <code>PAT</code> に Personal access token（Scope は <code>repo</code> ）を設定すればビルドできます。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln" id="hl-1-1"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-1"> 1</a></span><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-2"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-2"> 2</a></span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-3"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-3"> 3</a></span><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-4"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-4"> 4</a></span><span class="cl"><span class="w">  </span><span class="nt">review</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-5"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-5"> 5</a></span><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-6"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-6"> 6</a></span><span class="cl"><span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w"> </span><span class="l">docker://kauplan/review2.5</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-7"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-7"> 7</a></span><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-8"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-8"> 8</a></span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-9"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-9"> 9</a></span><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-10"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-10">10</a></span><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-11"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-11">11</a></span><span class="cl"><span class="w">          </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l">s-show/workshop_document</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-12"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-12">12</a></span><span class="cl"><span class="w">          </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.PAT }}</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-13"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-13">13</a></span><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">./</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-14"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-14">14</a></span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build pdf</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-15"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-15">15</a></span><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">rake pdf</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-16"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-16">16</a></span><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/upload-artifact@v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-17"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-17">17</a></span><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-18"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-18">18</a></span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Save PDF</span><span class="w">
+</span></span></span><span class="line"><span class="ln" id="hl-1-19"><a style="outline: none; text-decoration:none; color:inherit" href="#hl-1-19">19</a></span><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">./workshop.pdf</span><span class="w">
+</span></span></span></code></pre></div><h2 id="解説" data-numberify>解説<a class="anchor ms-1 d-none" href="#解説">#</a></h2>
+<dl>
+<dt><code>on: [push]</code></dt>
+<dd>アクション実行のタイミングを push 時に設定します。</dd>
+<dt><code>jobs.review:runs-on: ubuntu-latest</code></dt>
+<dd>ワークフローを実行する仮想環境に Ubuntu の最新版を指定します。</dd>
+<dt><code>jobs.container: docker://kauplan/review2.5</code></dt>
+<dd>Re:view Starter のビルドは Docker のコンテナを利用しているので、Github Actions でも Docker のコンテナを利用するための設定。コンテナには Re:view Starter の作者が作成したコンテナを指定します。</dd>
+</dl>
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="" alt="Docker Hub"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="" class="">Docker Hub</a>
+			</h5>
+			<p class="card-text m-1"></p>
+		</div>
+	</div>
+</div>
+<dl>
+<dt><code>jobs.steps.name: Checkout</code></dt>
+<dd>ジョブの命名。このジョブは、勉強会資料のリポジトリを Github Actions で使うためにチェックアウトするものなので「Checkout」としています。</dd>
+<dt><code>jobs.steps.name.uses: actions/checkout@v2</code></dt>
+<dd>Github Actions の環境はリポジトリがチェックアウトされていない状態なので、そのままではリポジトリのデータにアクセスできません。そこで、公開アクションの <code>actions/checkout@v2</code> を使ってリポジトリをチェックアウトして <code>$GITHUB_WORKSPACE</code> の下に置くようにします。</dd>
+</dl>
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://opengraph.githubassets.com/b67af1920cfa27d0787169cc6c0c7eb28995e3e5a6ca61caa0efb3584680a50f/actions/checkout" alt="GitHub - actions/checkout: Action for checking out a repo"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://github.com/actions/checkout" class="">GitHub - actions/checkout: Action for checking out a repo</a>
+			</h5>
+			<p class="card-text m-1">Action for checking out a repo. Contribute to actions/checkout development by creating an account on …</p>
+		</div>
+	</div>
+</div>
+<dl>
+<dt><code>jobs.steps.name.with.repository: s-show/workshop_document</code></dt>
+<dd>勉強会資料のリポジトリをチェックアウトの対象に指定してます。</dd>
+<dt><code>jobs.steps.name.with.token: ${{ secrets.PAT}}</code></dt>
+<dd>勉強会資料のリポジトリはプライベートリポジトリなので、認証情報がなければ Github Actions はリポジトリにアクセスできない。そのため、ここで環境変数経由で認証情報を渡しています。</dd>
+</dl>
+<p>プライベートリポジトリを使う場合のコードは以下に掲載されています。</p>
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://opengraph.githubassets.com/b67af1920cfa27d0787169cc6c0c7eb28995e3e5a6ca61caa0efb3584680a50f/actions/checkout" alt="GitHub - actions/checkout: Action for checking out a repo"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://github.com/actions/checkout" class="">GitHub - actions/checkout: Action for checking out a repo</a>
+			</h5>
+			<p class="card-text m-1">Action for checking out a repo. Contribute to actions/checkout development by creating an account on …</p>
+		</div>
+	</div>
+</div>
+<p>認証情報の生成は後で説明します。</p>
+<dl>
+<dt><code>jobs.steps.name.with.path: ./</code></dt>
+<dd>リポジトリのトップディレクトリを作業ディレクトリに指定しています。</dd>
+<dt><code>jobs.steps.name: Buid pdf</code></dt>
+<dd>ジョブの命名。このジョブは、PDFファイルを出力するジョブ。</dd>
+<dt><code>jobs.steps.run: rake pdf</code></dt>
+<dd>PDF ファイルをビルドするコマンド。Re:view Starter のユーザーズガイドに記載されている PDF 出力コマンドは <code>docker run --rm -v $PWD:/work -w /work kauplan/review2.5 rake pdf</code> であるが、最後の <code>rake pdf</code> だけで実行可能。</dd>
+<dt><code>jobs.steps.uses: actions/upload-artifact@v1</code></dt>
+<dd>ビルドした PDF ファイルを保存するため、公開アクションの <code>upload-artifact@v1</code> を使用しています。</dd>
+<dt><code>jobs.steps.uses.with.path: ./workshop.pdf</code></dt>
+<dd>トップディレクトリに <code>workshop.pdf</code> というファイル名で保存するよう設定しています。</dd>
+</dl>
+<h2 id="プライベートリポジトリにアクセスするための準備" data-numberify>プライベートリポジトリにアクセスするための準備<a class="anchor ms-1 d-none" href="#プライベートリポジトリにアクセスするための準備">#</a></h2>
+<p>プライベートリポジトリにアクセスするには認証情報が必要なので、認証情報を環境変数経由で Github Actions に渡すための設定を行います。</p>
+<h3 id="personal-access-token-の生成" data-numberify>Personal access token の生成<a class="anchor ms-1 d-none" href="#personal-access-token-の生成">#</a></h3>
+<p>Personal access token の生成画面はユーザー設定画面にありますので、画面右上のユーザーアイコンの「Settings」を開いてから「Developer settings -&gt; Personal access token -&gt; generate new token」の順番で開いていきます。</p>
+<p>生成ページを開いたら、<code>Note</code> に任意の名称を入力し、スコープに <code>repo</code> を指定して Personal access token を生成し、生成した Personal access token をコピーします。</p>
+<h3 id="環境変数の設定" data-numberify>環境変数の設定<a class="anchor ms-1 d-none" href="#環境変数の設定">#</a></h3>
+<p>環境変数はリポジトリ毎に設定するので、リポジトリの「Setting」を開いてから「Secrets -&gt; New repository secret」の順番で開いていきます。</p>
+<p>環境変数の設定画面を開いたら、 <code>Name</code> に <code>PAT</code> を、 <code>Value</code> に  <code>Personal access token</code> の値を貼り付けて保存します。</p>
+<h2 id="デバッグ用の設定" data-numberify>デバッグ用の設定<a class="anchor ms-1 d-none" href="#デバッグ用の設定">#</a></h2>
+<p>デフォルト設定でもそこそこ詳しいログが保存されますが、さらに詳細なログが保存されても問題はないので、環境変数に次のペアを登録して詳細なログが保存されるように設定します。</p>
+<p><code>ACTIONS_STEP_DEBUG</code> → <code>true</code></p>
+<p><code>ACTIONS_RUNNER_DEBUG</code> → <code>true</code></p>
+
+
+
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="https://github.githubassets.com/images/modules/open_graph/github-logo.png" alt="デバッグロギングの有効化 - GitHub Docs"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="https://docs.github.com/ja/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging" class="">デバッグロギングの有効化 - GitHub Docs</a>
+			</h5>
+			<p class="card-text m-1">ワークフロージョブあるいはステップが期待どおりに動作しない理由を診断する上で、十分な詳細がワークフローのログになかった場合、追加のデバッグロギングを有効化できます。</p>
+		</div>
+	</div>
+</div>
+</div></div><div class="card-footer">
+  <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+      <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform="rotate-90"></i>
+      <a href="https://s-show.github.io/posts/2021-12-10/">2021年に実施した3Dプリンターの改造</a>
+    </div><div class="post-nav post-next">
+      <a href="https://s-show.github.io/posts/2021-12-12/">QMK API を使ってキーボードのリストを取得する方法</a>
+      <i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform="rotate-270"></i>
+    </div></div>
+</div></article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">Copyright</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by/4.0/deed.en">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
+  CC BY 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
+          <a class="post-title" href="https://s-show.github.io/posts/2021-12-10/">
+            2021年に実施した3Dプリンターの改造
+          </a>
+          <span class="post-meta post-date float-end">2021-12-10
+</span>
+          <div class="post-summary my-3"><p>前置き# ~~この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の1日目の記事です。
 （最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを務められる予定だった tomorrow56@ガジェット分解(モ2済) さんが公開日を12日に変更されたので、期せずしてトップバッターになりました。）
 本アドベントカレンダーは「今年実施した/今年までに実施した3Dプリンターへの改造内容をまとめる記事」なので、今使っている Prusa MK3S+ と Ender3Pro の改造履歴をまとめます。
-実際の改造# 私が現在使っている 3Dプリンタは「Prusa i3 MK3S+」...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://hbs-skeleton.netlify.app/posts/2021-12-10/>もっと読む</a></div></div></li><li class="mb-3 border-bottom"><a class=post-title href=https://hbs-skeleton.netlify.app/posts/2020-12-03/>自作キーボード活動2年目の振り返り</a>
-<span class="post-meta post-date float-end">2020-12-03</span><div class="post-summary my-3"><p>前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに至った話」とか「小説家に営業した話」といったディープな話題は書けません。 なので、自作キーボード活動2年目を振り返る記事を書きたいと思いますが、2年目を簡単に振り返ると、オリジナルキーボードの製作が一番比重が大きく、QMK のドキュメント翻訳レビューがそれに続き、Discord の #mon-shin チャンネル用のダイアログページを作ったという1年間でした。なので、これらの活動について書いていきます。
-オリジナルキー...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://hbs-skeleton.netlify.app/posts/2020-12-03/>もっと読む</a></div></div></li><li class="mb-3 border-bottom"><a class=post-title href=https://hbs-skeleton.netlify.app/posts/2020-01-01/>自作キーボードから始まったものづくりへの取り組み</a>
-<span class="post-meta post-date float-end">2020-01-01</span><div class="post-summary my-3"><p>明けましておめでとうございます。新年もよろしくお願いします。
+実際の改造# 私が現在使っている 3Dプリンタは「Prusa i3 MK3S+」...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href="https://s-show.github.io/posts/2021-12-10/">もっと読む</a></div></div>
+        </li><li class="mb-3 border-bottom">
+          <a class="post-title" href="https://s-show.github.io/posts/2020-12-03/">
+            自作キーボード活動2年目の振り返り
+          </a>
+          <span class="post-meta post-date float-end">2020-12-03
+</span>
+          <div class="post-summary my-3"><p>前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに至った話」とか「小説家に営業した話」といったディープな話題は書けません。 なので、自作キーボード活動2年目を振り返る記事を書きたいと思いますが、2年目を簡単に振り返ると、オリジナルキーボードの製作が一番比重が大きく、QMK のドキュメント翻訳レビューがそれに続き、Discord の #mon-shin チャンネル用のダイアログページを作ったという1年間でした。なので、これらの活動について書いていきます。
+オリジナルキー...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href="https://s-show.github.io/posts/2020-12-03/">もっと読む</a></div></div>
+        </li><li class="mb-3 border-bottom">
+          <a class="post-title" href="https://s-show.github.io/posts/2020-01-01/">
+            自作キーボードから始まったものづくりへの取り組み
+          </a>
+          <span class="post-meta post-date float-end">2020-01-01
+</span>
+          <div class="post-summary my-3"><p>明けましておめでとうございます。新年もよろしくお願いします。
 本記事が新年最初の記事になるが、新年最初の記事ということで、昨年1年間を振り返って今年の簡単な抱負を書いてみようと思います。
 昨年1年間の大きな変化# 仕事は変わらなかったので大きな変化はありませんが、私生活では意外な変化がありました。といっても、結婚とかそういう話ではなく、趣味というか、新たな世界が広がったという話です。
 こう書くと大仰な話に聞こえますが、簡単に言えば「物を作る」とことの面白さを知ったということです。
 以下、そういう変化に至った経緯を簡単に書いていきます。
-経緯# 「物を作る」ことの面白さを知ったきっかけは、自作キーボードを作ったことです。では、なぜ自作...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://hbs-skeleton.netlify.app/posts/2020-01-01/>もっと読む</a></div></div></li></ul></div></section><div class="card component row post-comments" id=post-comments><div class=card-header><h2 class="card-title my-2 fs-4 text-surface">コメント</h2></div><div class=card-body><script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script></div></div></div></div></div></main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex=-1 id=offcanvasActionsPanel aria-labelledby=offcanvasActionsPanelLabel><div class=offcanvas-header><h5 class="offcanvas-title fs-4" id=offcanvasActionsPanelLabel><i class="fas fa-fw fa-th-large me-1"></i>
-Actions</h5><button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button></div><div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto"><a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Github%20Actions%20%e3%81%a7%20Re%3aview%20Starter%20%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e3%83%93%e3%83%ab%e3%83%89%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fhbs-skeleton.netlify.app%2fposts%2f2021-12-11%2f"><i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter</a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhbs-skeleton.netlify.app%2fposts%2f2021-12-11%2f"><i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook</a></div><hr class=mb-4><div class="actions d-flex overflow-auto align-items-center"><a role=button class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();"><span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform=rotate-90></i></span> 戻る</a>
-<a role=button class="action action-reload-page d-flex flex-column align-items-center me-3"><span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 再表示</a>
-<a role=button class="action action-copy-url d-flex flex-column align-items-center me-3"><span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> URLをコピー</a></div></div></div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email><i class="fas fa-fw fa-2x fa-envelope"></i></a>
-<a class="nav-link social-link" target=_blank href=https://github.com/s-show/s-show.github.io title=GitHub rel="noopener noreferrer"><i class="fa-fw fa-2x fab fa-github"></i></a>
-<a class="nav-link social-link" target=_blank href=https://www.reddit.com/user/s-show title=Reddit rel="noopener noreferrer"><i class="fa-fw fa-2x fab fa-reddit"></i></a>
-<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer"><i class="fa-fw fa-2x fab fa-twitter"></i></a>
-<a class="nav-link social-link" target=_blank href=https://hbs-skeleton.netlify.app/index.xml title=RSS rel="noopener noreferrer"><i class="fas fa-fw fa-2x fa-rss"></i></a></nav><div class="copyright mb-2">Copyright © 2021-2022 s-show. All Rights Reserved.</div><div class="powered-by mb-2">Powered by <a class=text-primary href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a class=text-primary href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">HBS</a> theme.</div></footer><script data-precache src=https://hbs-skeleton.netlify.app/assets/main/bundle.min.16f86643047d8f0ca6e30c6c53df1f844501211b2179a5ea9d20ceaadee1571e.js integrity="sha256-FvhmQwR9jwym4wxsU98fhEUBIRsheaXqnSDOqt7hVx4=" crossorigin=anonymous defer></script><script data-precache src=https://hbs-skeleton.netlify.app/assets/icons/bundle.min.c53ffc0a12b715c06f51f5c331bd18aea0e122cd95c23b5cef8d87c559154443.js integrity="sha256-xT/8ChK3FcBvUfXDMb0YrqDhIs2Vwjtc742HxVkVREM=" crossorigin=anonymous defer></script>
-<script data-precache src=https://hbs-skeleton.netlify.app/assets/viewer/bundle.min.9f713149f059d05fcb65e7f7c27308e61c384500e80ab1c333c2510a36a5d70c.js integrity="sha256-n3ExSfBZ0F/LZef3wnMI5hw4RQDoCrHDM8JRCjal1ww=" crossorigin=anonymous defer></script></body></html>
+経緯# 「物を作る」ことの面白さを知ったきっかけは、自作キーボードを作ったことです。では、なぜ自作...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href="https://s-show.github.io/posts/2020-01-01/">もっと読む</a></div></div>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">コメント</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="s-show/s-show.github.io"
+  issue-term="title"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>
+</div>
+</div></div>
+</div>
+
+      </div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Github%20Actions%20%e3%81%a7%20Re%3aview%20Starter%20%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e3%83%93%e3%83%ab%e3%83%89%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-11%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2021-12-11%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 戻る
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 再表示
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> URLをコピー
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<nav class="social-links nav justify-content-center mb-2">
+    <a class="nav-link social-link" href="mailto:kankodori.blog@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+      <a class="nav-link social-link" target="_blank" href="https://github.com/s-show/s-show.github.io" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+      <a class="nav-link social-link" target="_blank" href="https://www.reddit.com/user/s-show" title="Reddit" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-reddit"></i>
+      </a>
+      <a class="nav-link social-link" target="_blank" href="https://twitter.com/s_show_0000" title="Twitter" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-twitter"></i>
+      </a>
+  <a class="nav-link social-link" target="_blank" href="https://s-show.github.io/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i>
+  </a>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2022 s-show. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">HBS</a> theme.
+</div></footer>
+<script data-precache src="https://s-show.github.io/assets/main/bundle.min.700c969b99dc25ac19faf3315e8ed340427e081cca6045aab34770e3b5b731b5.js" integrity="sha256-cAyWm5ncJawZ&#43;vMxXo7TQEJ&#43;CBzKYEWqs0dw47W3MbU=" crossorigin="anonymous" defer></script><script data-precache src="https://s-show.github.io/assets/icons/bundle.min.c53ffc0a12b715c06f51f5c331bd18aea0e122cd95c23b5cef8d87c559154443.js" integrity="sha256-xT/8ChK3FcBvUfXDMb0YrqDhIs2Vwjtc742HxVkVREM=" crossorigin="anonymous" defer></script>
+<script data-precache src="https://s-show.github.io/assets/viewer/bundle.min.9f713149f059d05fcb65e7f7c27308e61c384500e80ab1c333c2510a36a5d70c.js" integrity="sha256-n3ExSfBZ0F/LZef3wnMI5hw4RQDoCrHDM8JRCjal1ww=" crossorigin="anonymous" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-367F1P4JXZ', { 'anonymize_ip': false });
+}
+</script>
+
+  </body>
+</html>
