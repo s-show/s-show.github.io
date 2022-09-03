@@ -55,8 +55,8 @@ socialShare: true # disable social network sharing
 
 # poweredBy: false # Whether to show powered by.
 
-# readingTime: false # Whether to display the reading time.
-# postDate: false # Whether to display the post date in the post meta section.
+readingTime: false # Whether to display the reading time.
+postDate: true # Whether to display the post date in the post meta section.
 
 featuredPostCount: false # The number of featured posts shown in sidebar. Turn off by setting it to false.
 recentPostCount: 3 # The number of recent posts shown in sidebar. Turn off by setting it to false.
@@ -74,7 +74,7 @@ sidebarTaxonomies: [tags] # The order of taxonomies on the sidebar.
 pinnedPostCount: 3 # The number of pinned posts.
 
 # Custom CSS and JS
-customCSS:
+customCSS: ['custom.css']
 customJS:
 
 tocWordCount: 1 # TOC is displayed only if the post's word count exceeds this value.
