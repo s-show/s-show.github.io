@@ -1,0 +1,824 @@
+<!doctype html><html class=position-relative itemscope itemtype=http://schema.org/WebPage lang=ja data-bs-theme=dark data-palette=indigo>
+<head><script src=https://hbs-skeleton.netlify.app/assets/init/bundle.min.1ad09c9d1ccd7e169664ba9a3467a32c3ec1b69865f4fbad47023e754aabf14d.js integrity="sha256-GtCcnRzNfhaWZLqaNGejLD7Btphl9PutRwI+dUqr8U0=" crossorigin=anonymous></script>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>RClone を使って Klipper の設定をバックアップする方法 - 閑古鳥ブログ</title>
+<link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/icon-16x16.png?version=bc881cf71418802eab46d38df006b6f0" sizes=16x16>
+<link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/icon-32x32.png?version=c2740df8b4aa429981718fd3b63dc468" sizes=32x32>
+<link rel=apple-touch-icon href=https://hbs-skeleton.netlify.app/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_180x180_resize_box_3.png sizes=180x180 type=image/png>
+<link rel=icon href=https://hbs-skeleton.netlify.app/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_150x150_resize_box_3.png sizes=150x150 type=image/png>
+<link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/icon-192x192.png?version=314faa3d71d23e1cf545f1280bd01e37" sizes=192x192>
+<link rel=mask-icon href=https://hbs-skeleton.netlify.app/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://hbs-skeleton.netlify.app/images/icons/favicon.ico?version=b21aa710a837168f4ddf45779e92164c">
+<meta name=keywords content>
+<meta name=description content="前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージ">
+<meta name=robots content="index, follow"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="RClone を使って Klipper の設定をバックアップする方法">
+<meta name=twitter:description content="前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージ">
+<meta name=twitter:site content="@s_show_0000">
+<meta property="og:title" content="RClone を使って Klipper の設定をバックアップする方法">
+<meta property="og:description" content="前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hbs-skeleton.netlify.app/posts/2022-01-16/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-01-16T01:31:30+09:00">
+<meta property="article:modified_time" content="2022-01-16T01:31:30+09:00">
+<meta itemprop=name content="RClone を使って Klipper の設定をバックアップする方法">
+<meta itemprop=description content="前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージ"><meta itemprop=datePublished content="2022-01-16T01:31:30+09:00">
+<meta itemprop=dateModified content="2022-01-16T01:31:30+09:00">
+<meta itemprop=wordCount content="2343">
+<meta itemprop=keywords content>
+<link data-precache rel=stylesheet href="https://hbs-skeleton.netlify.app/assets/main/bundle.min.5f71a4c83bcc1b89fa75514265626442f0177cedbeb29bacf91d6de0695a5505.css" integrity="sha256-X3GkyDvMG4n6dVFCZWJkQvAXfO2+spus+R1t4GlaVQU=" crossorigin=anonymous>
+<link data-precache rel=stylesheet href=https://hbs-skeleton.netlify.app/custom.css crossorigin=anonymous>
+<link data-precache rel=stylesheet href=https://hbs-skeleton.netlify.app/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
+</head>
+<body><header>
+<nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top">
+<div class=container>
+<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href=https://hbs-skeleton.netlify.app/>閑古鳥ブログ
+</a>
+<button class="navbar-toggler order-5" type=button data-bs-toggle=offcanvas data-bs-target=#navbarMenus aria-controls=navbarMenus aria-expanded=false aria-label="Toggle navigation">
+<i class="fas fa-ellipsis-h"></i>
+</button>
+<div class="offcanvas-lg offcanvas-end flex-grow-1" data-bs-scroll=true tabindex=-1 id=navbarMenus aria-labelledby=navbarMenusLabel>
+<div class="offcanvas-header px-4 pb-0">
+<h5 class=offcanvas-title id=navbarMenusLabel>閑古鳥ブログ</h5>
+<button type=button class="btn-close btn-close-white" data-bs-dismiss=offcanvas data-bs-target=#navbarMenus aria-label=Close></button>
+</div>
+<div class="offcanvas-body p-4 pt-0 p-lg-0">
+<hr class=d-lg-none>
+<ul class="navbar-nav flex-row flex-wrap align-items-center me-auto">
+</ul>
+<hr class=d-lg-none>
+<form class="search-bar ms-auto my-1" action=https://hbs-skeleton.netlify.app/search/ novalidate>
+<div class="input-group input-group-sm align-items-center">
+<span class="btn btn-search disabled position-absolute left-0 border-0">
+<i class="fas fa-fw fa-search fa-lg"></i>
+</span>
+<input class="py-2 form-control rounded search-input" name=q type=search aria-label=Search required>
+</div>
+</form><hr class=d-lg-none>
+<ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto">
+<li class="nav-item dropdown col-6 col-lg-auto">
+<a class="nav-link px-0 py-2 px-lg-1" href=# id=fontSizeDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+<i class="fas fa-fw fa-font"></i>
+<span class=d-lg-none>フォントサイズ</span>
+</a>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby=fontSizeDropdown>
+<li>
+<button class="font-size-item dropdown-item" data-size=xs>
+極小
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item" data-size=sm>
+小
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item active" data-size=md>
+標準
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item" data-size=lg>
+大
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item" data-size=xl>
+特大
+</button>
+</li>
+</ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+<a class="nav-link px-0 py-2 px-lg-1" href=# id=paletteDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+<i class="fas fa-fw fa-palette"></i>
+<span class=d-lg-none>パレット</span>
+</a>
+<ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby=paletteDropdown>
+<div class=row>
+<li class="col-4 my-1">
+<a role=button id=palette-blue aria-label=Blue class="btn btn-sm w-100 palette text-bg-blue" data-palette=blue>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-blue-gray aria-label="Blue Gray" class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette=blue-gray>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-brown aria-label=Brown class="btn btn-sm w-100 palette text-bg-brown" data-palette=brown>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-cyan aria-label=Cyan class="btn btn-sm w-100 palette text-bg-cyan" data-palette=cyan>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-green aria-label=Green class="btn btn-sm w-100 palette text-bg-green" data-palette=green>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-indigo aria-label=Indigo class="btn btn-sm w-100 palette text-bg-indigo" data-palette=indigo>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-orange aria-label=Orange class="btn btn-sm w-100 palette text-bg-orange" data-palette=orange>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-pink aria-label=Pink class="btn btn-sm w-100 palette text-bg-pink" data-palette=pink>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-purple aria-label=Purple class="btn btn-sm w-100 palette text-bg-purple" data-palette=purple>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-red aria-label=Red class="btn btn-sm w-100 palette text-bg-red" data-palette=red>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-teal aria-label=Teal class="btn btn-sm w-100 palette text-bg-teal" data-palette=teal>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-yellow aria-label=Yellow class="btn btn-sm w-100 palette text-bg-yellow" data-palette=yellow>
+</a>
+</li>
+</div>
+</ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+<a class="nav-link px-0 py-2 px-lg-1" href=# id=modeDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+<i class="mode-icon fas fa-fw fa-moon" id=modeIcon></i>
+<span class=d-lg-none>表示モード</span>
+</a>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby=modeDropdown>
+<li class=mode-item data-color-mode=light data-icon=sun>
+<button class=dropdown-item>
+<i class="mode-icon fas fa-fw fa-sun"></i> Light
+</button>
+</li>
+<li class="mode-item active" data-color-mode=dark data-icon=moon>
+<button class=dropdown-item>
+<i class="mode-icon fas fa-fw fa-moon"></i> Dark
+</button>
+</li>
+<li class=mode-item data-color-mode=auto data-icon=adjust>
+<button class=dropdown-item>
+<i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+</button>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<main class=container>
+<div class="row content"><noscript>
+<div class="alert alert-danger" role=alert>あなたのブラウザはJavascriptをサポートしていません。</div>
+</noscript>
+<aside class="col-lg-4 sidebar d-flex order-lg-5">
+<div class="container d-flex flex-column">
+<div class="accordion profile">
+<div class="accordion-item card row text-center component">
+<div class="accordion-header card-header border-0" id=profile-header>
+<a class="accordion-button d-lg-none mb-2 collapsed shadow-none p-0 bg-transparent text-surface" type=button data-bs-toggle=collapse data-bs-target=#profile aria-expanded=false aria-controls=profile>
+プロフィール
+</a>
+</div>
+<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=profile aria-labelledby=profile-header>
+<div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt=s-show src=https://hbs-skeleton.netlify.app/img/profileIcon.png loading=lazy data-viewer-invisible width=500 height=500>
+</picture></div>
+<div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">s-show</div><div class=profile-bio>プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class=profile-location><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about text-primary"><i class="fas fa-fw fa-user"></i><a href=https://hbs-skeleton.netlify.app/about/>About</a></div><div class="profile-contact text-primary"><i class="fas fa-fw fa-question-circle"></i><a href=https://hbs-skeleton.netlify.app/contact/>Contact Us</a></div></div>
+<nav class="social-links nav justify-content-center mt-1 justify-content-around">
+<a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
+<i class="fas fa-fw fa-2x fa-envelope"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://github.com/s-show title=GitHub rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-github"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-twitter"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://hbs-skeleton.netlify.app/index.xml title=RSS rel="noopener noreferrer">
+<i class="fas fa-fw fa-2x fa-rss"></i>
+</a>
+</nav>
+</div>
+</div>
+</div>
+<div class="accordion taxonomies-toggle">
+<section class="row card component accordion-item">
+<div class="accordion-header card-header border-0">
+<a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#taxonomies-toggle aria-expanded=false aria-controls=taxonomies-toggle>
+分類
+</a>
+</div>
+<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=taxonomies-toggle>
+<ul class="nav nav-pills nav-fill" id=myTab role=tablist>
+<li class=nav-item role=presentation>
+<button class="nav-link active" id=taxonomyTagsTab data-bs-toggle=tab data-bs-target=#taxonomyTags type=button role=tab aria-controls=タグ aria-selected=true>
+タグ
+</button>
+</li>
+<li class=nav-item role=presentation>
+<button class=nav-link id=taxonomyArchivesTab data-bs-toggle=tab data-bs-target=#taxonomyArchive type=button role=tab aria-controls=taxonomyArchives aria-selected=true>
+アーカイブ
+</button>
+</li>
+</ul>
+<div class="tab-content mt-3">
+<div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0>
+<a href=https://hbs-skeleton.netlify.app/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>
+備忘録
+<span class="badge badge-sm text-secondary bg-white ms-1">10</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>
+3Dプリンタ
+<span class="badge badge-sm text-secondary bg-white ms-1">9</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=プログラミング>
+プログラミング
+<span class="badge badge-sm text-secondary bg-white ms-1">5</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=自作キーボード>
+自作キーボード
+<span class="badge badge-sm text-secondary bg-white ms-1">4</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=読書記録>
+読書記録
+<span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>
+Klipper
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/mac/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mac>
+Mac
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/mainsail/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mainsail>
+Mainsail
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=未分類>
+未分類
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/karabiner-elements/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Karabiner-Elements>
+Karabiner-Elements
+<span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=全部>
+全部
+<span class="badge badge-sm text-secondary bg-white ms-1">13</span>
+</a>
+</div>
+<div class=tab-pane id=taxonomyArchive role=tabpanel aria-labelledby=taxonomyArchiveTab tabindex=0>
+<a href=https://hbs-skeleton.netlify.app/archives/2022/ class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2022>
+2022 <span class="badge badge-sm text-secondary bg-white ms-1">12</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2021>
+2021 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2020>
+2020 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2019>
+2019 <span class="badge badge-sm text-secondary bg-white ms-1">4</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2018>
+2018 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2017>
+2017 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="accordion posts-toggle">
+<section class="row card component accordion-item">
+<div class="accordion-header card-header border-0">
+<a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#posts-toggle aria-expanded=false aria-controls=posts-toggle>
+投稿
+</a>
+</div>
+<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=posts-toggle>
+<ul class="nav nav-pills nav-fill" id=myTab role=tablist>
+<li class=nav-item role=presentation>
+<button class="nav-link active" id=recent-posts-tab data-bs-toggle=tab data-bs-target=#recent-posts type=button role=tab aria-controls=recent-posts aria-selected=true>
+最近の投稿
+</button>
+</li>
+</ul>
+<div class="tab-content mt-3">
+<div class="tab-pane active" id=recent-posts role=tabpanel aria-labelledby=recent-posts-tab tabindex=0>
+<ul class="post-list list-unstyled ms-1">
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-09-03/>SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法</a>
+<div class="post-meta mt-2">
+<span class=post-date>2022-08-31</span>
+</div>
+</div>
+</div>
+</li>
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-08-31/>Klipper のマクロを使って Step by step 印刷を実現する方法</a>
+<div class="post-meta mt-2">
+<span class=post-date>2022-08-30</span>
+</div>
+</div>
+</div>
+</li>
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-08-20/>Mainsail から rotation_distance を確認する方法</a>
+<div class="post-meta mt-2">
+<span class=post-date>2022-08-19</span>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</aside>
+<div class=col-lg-8>
+<div class=container><nav class="row card component" aria-label=breadcrumb>
+<div class="card-body pb-0">
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://hbs-skeleton.netlify.app/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://hbs-skeleton.netlify.app/posts/>Posts</a></li><li class="breadcrumb-item active">RClone を使って Klipper の設定をバックアップする方法</li></ol>
+</div>
+</nav><div class="post-panel-wrapper position-sticky">
+<div class="d-flex flex-column component rounded post-panel position-absolute border">
+<a class="action action-panel-toggler" role=button title="Panel toggler">
+<i class="fas fa-fw fa-chevron-circle-down"></i>
+</a>
+<a id=sidebarToggler class="action d-none d-lg-block" role=button title="Sidebar toggler">
+<i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i>
+</a>
+<a class=action href=#post-copyright role=button aria-label=Copyright title=Copyright>
+<i class="fas fa-fw fa-copyright"></i>
+</a>
+<a class=action href=#post-comments role=button aria-label=Comments title=Comments>
+<i class="fas fa-fw fa-comments"></i>
+</a>
+</div>
+</div><article class="row card component mb-4 post">
+<div class=card-header>
+<h1 class="card-title post-title my-2">RClone を使って Klipper の設定をバックアップする方法</h1>
+</div>
+<div class=card-body><div class="post-meta mb-3">
+<span class="post-date me-1 mb-1" title="公開: 2022-01-15 16:31:30 +0000 UTC.">2022-01-16</span>
+</div>
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<p>Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに定期的にバックアップするようにしまし
+た。</p>
+<p>そこで、備忘録として実施した手順をメモします。</p>
+<h2 id=手順 data-numberify>手順<a class="anchor ms-1 d-none" href=#手順>#</a></h2>
+<div class="alert alert- 手順の変更などに合わせて記事を修正 (2022/04/22)" role=alert>
+### RClone のインストール
+1. ホストPCから Raspberry Pi に SSH 接続する
+1. `sudo ls` を実行して root ユーザのパスワードを入力しておく
+1. `curl https://rclone.org/install.sh | sudo bash` でインストール用スクリプトをダウンロードして実行する
+### RClone の設定
+RClone をインストールしたら、`rclone config` を実行して設定ダイアログを起動します。
+なお、ここでは過去に行った設定（ `Fuliddpi_backup` ）が表示されています。
+```bash
+Current remotes:
+Name Type
+==== ====
+Fluiddpi_backup drive ← 過去に行った設定
+e) Edit existing remote
+n) New remote
+d) Delete remote
+r) Rename remote
+c) Copy remote
+s) Set configuration password
+q) Quit config
+e/n/d/r/c/s/q> n
+```
+`n` を選択して新しい設定を開始します。
+```bash
+name> test
+```
+設定の名前を入力します。名前は任意のものを設定します。
+```bash
+Option Storage.
+Type of storage to configure.
+Enter a string value. Press Enter for the default ("").
+Choose a number from below, or type in your own value.
+1 / 1Fichier
+\ "fichier"
+2 / Alias for an existing remote
+\ "alias"
+3 / Amazon Drive
+\ "amazon cloud drive"
+4 / Amazon S3 Compliant Storage Providers including AWS, Alibaba, Ceph, Digital Ocean, Dreamhost, IBM COS, Minio, SeaweedFS, and Tencent COS
+\ "s3"
+5 / Backblaze B2
+\ "b2"
+6 / Better checksums for other remotes
+\ "hasher"
+7 / Box
+\ "box"
+8 / Cache a remote
+\ "cache"
+9 / Citrix Sharefile
+\ "sharefile"
+10 / Compress a remote
+\ "compress"
+11 / Dropbox
+\ "dropbox"
+12 / Encrypt/Decrypt a remote
+\ "crypt"
+13 / Enterprise File Fabric
+\ "filefabric"
+14 / FTP Connection
+\ "ftp"
+15 / Google Cloud Storage (this is not Google Drive)
+\ "google cloud storage"
+16 / Google Drive
+\ "drive"
+17 / Google Photos
+\ "google photos"
+18 / Hadoop distributed file system
+\ "hdfs"
+19 / Hubic
+\ "hubic"
+20 / In memory object storage system.
+\ "memory"
+21 / Jottacloud
+\ "jottacloud"
+22 / Koofr
+\ "koofr"
+23 / Local Disk
+\ "local"
+24 / Mail.ru Cloud
+\ "mailru"
+25 / Mega
+\ "mega"
+26 / Microsoft Azure Blob Storage
+\ "azureblob"
+27 / Microsoft OneDrive
+\ "onedrive"
+28 / OpenDrive
+\ "opendrive"
+29 / OpenStack Swift (Rackspace Cloud Files, Memset Memstore, OVH)
+\ "swift"
+30 / Pcloud
+\ "pcloud"
+31 / Put.io
+\ "putio"
+32 / QingCloud Object Storage
+\ "qingstor"
+33 / SSH/SFTP Connection
+\ "sftp"
+34 / Sia Decentralized Cloud
+\ "sia"
+35 / Sugarsync
+\ "sugarsync"
+36 / Tardigrade Decentralized Cloud Storage
+\ "tardigrade"
+37 / Transparently chunk/split large files
+\ "chunker"
+38 / Union merges the contents of several upstream fs
+\ "union"
+39 / Uptobox
+\ "uptobox"
+40 / Webdav
+\ "webdav"
+41 / Yandex Disk
+\ "yandex"
+42 / Zoho
+\ "zoho"
+43 / http Connection
+\ "http"
+44 / premiumize.me
+\ "premiumizeme"
+45 / seafile
+\ "seafile"
+Storage> 16
+```
+利用するオンラインストレージを聞かれるので、利用したいものを選択します。今回は Google Drive を使うので、 `16` を選択しています。
+<div class="alert alert- RClone が対応するオンラインストレージが変更されると番号は変わります。2022年4年22月時点では、Google Drive は 17 になっています。" role=alert>
+```bash
+Option client_id.
+Google Application Client Id
+Setting your own is recommended.
+See https://rclone.org/drive/#making-your-own-client-id for how to create your own.
+If you leave this blank, it will use an internal key which is low performance.
+Enter a string value. Press Enter for the default ("").
+client_id>
+Option client_secret.
+OAuth Client Secret.
+Leave blank normally.
+Enter a string value. Press Enter for the default ("").
+client_secret>
+```
+`client_id` と `client_secret` を聞かれますが、空欄でOKです。
+```bash
+Option scope.
+Scope that rclone should use when requesting access from drive.
+Enter a string value. Press Enter for the default ("").
+Choose a number from below, or type in your own value.
+1 / Full access all files, excluding Application Data Folder.
+\ "drive"
+2 / Read-only access to file metadata and file contents.
+\ "drive.readonly"
+/ Access to files created by rclone only.
+3 | These are visible in the drive website.
+| File authorization is revoked when the user deauthorizes the app.
+\ "drive.file"
+/ Allows read and write access to the Application Data folder.
+4 | This is not visible in the drive website.
+\ "drive.appfolder"
+/ Allows read-only access to file metadata but
+5 | does not allow any access to read or download file content.
+\ "drive.metadata.readonly"
+scope> 1
+```
+どのスコープ範囲を適用するか聞かれるので、フルアクセス可能な `1` を選択します。
+（書き込みオンリーの権限がないため、止むを得ずフルアクセスを選択しています。）
+```bash
+Option root_folder_id.
+ID of the root folder.
+Leave blank normally.
+Fill in to access "Computers" folders (see docs), or for rclone to use
+a non root folder as its starting point.
+Enter a string value. Press Enter for the default ("").
+root_folder_id>
+```
+`root_folder_id` を聞かれますが、空欄のままでOKです。
+```bash
+Option service_account_file.
+Service Account Credentials JSON file path.
+Leave blank normally.
+Needed only if you want use SA instead of interactive login.
+Leading `~` will be expanded in the file name as will environment variables such as `${RCLONE_CONFIG_DIR}`.
+Enter a string value. Press Enter for the default ("").
+service_account_file>
+```
+`service_account_file` について聞かれますが、こちらも空欄でOKです。
+```bash
+Edit advanced config?
+y) Yes
+n) No (default)
+y/n> n
+```
+アドバンスト設定を行うか聞かれますので、 `n` を入力してアドバンスト設定を行わず先に進みます。
+```bash
+Use auto config?
+* Say Y if not sure
+* Say N if you are working on a remote or headless machine
+y) Yes (default)
+n) No
+y/n> n
+```
+オート設定を行うか聞かれますが、SSH 接続で設定しているので `n` を選択します。
+```bash
+Option config_token.
+For this to work, you will need rclone available on a machine that has
+a web browser available.
+For more help and alternate methods see: https://rclone.org/remote_setup/
+Execute the following on the machine with the web browser (same rclone
+version recommended):
+rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"
+Then paste the result.
+Enter a value.
+config_token> ***
+```
+<div class="alert alert- この手順は変更されていますので、2022年4月22日に修正しています。" role=alert><i class="alert-icon fas fa-fw fa-info-circle me-1"></i>
+ダイアログに「RClone が使える PC で以下のコードを実行して結果を貼り付けること（意訳）」と指示が表示されますので、指示に従って手元の PC で `rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"` を実行します。
+すると、起動したローカルサーバの URL が表示されますので、その URL にアクセスすると Google のアクセス権限設定ページにジャンプします。
+```bash
+2022/04/19 13:09:19 NOTICE: Config file "/home/***/.config/rclone/rclone.conf" not found - using defaults
+2022/04/19 13:09:19 NOTICE: If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=hogehoge
+2022/04/19 13:09:19 NOTICE: Log in and authorize rclone for access
+2022/04/19 13:09:19 NOTICE: Waiting for code...
+```
+<figure class="figure bsimage">
+<img src=Google%e8%a8%ad%e5%ae%9a%e7%94%bb%e9%9d%a21.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">使用するアカウントを選択</figcaption>
+</figure>
+<figure class="figure bsimage">
+<img src=Google%e8%a8%ad%e5%ae%9a%e7%94%bb%e9%9d%a22.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">アクセスを許可</figcaption>
+</figure>
+<figure class="figure bsimage">
+<img src=Google%e8%a8%ad%e5%ae%9a%e7%94%bb%e9%9d%a23.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">RClone で使うコードをコピー</figcaption>
+</figure>
+```bash
+Configure this as a Shared Drive (Team Drive)?
+y) Yes
+n) No (default)
+y/n> n
+```
+今回使う Google Drive がチームで使うものか聞かれますが、私の Google Drive は個人用なので `n` を選択します。
+```bash
+--------------------
+[test]
+type = drive
+scope = drive
+token = {"access_token":"***",...}
+team_drive =
+--------------------
+y) Yes this is OK (default)
+e) Edit this remote
+d) Delete this remote
+y/e/d> y
+```
+これまでの選択に基づいた設定結果が表示されますので、問題がなれば `y` を選択します。
+```bash
+Current remotes:
+Name Type
+==== ====
+Fluiddpi_backup drive
+test drive
+e) Edit existing remote
+n) New remote
+d) Delete remote
+r) Rename remote
+c) Copy remote
+s) Set configuration password
+q) Quit config
+e/n/d/r/c/s/q>
+```
+設定完了後のリモートドライブの一覧が表示されます。
+設定が上手くできたか確認するため、 `rclone ls Fluiddpi_backup:` を実行してリモートドライブの内容が表示されるか確認します。きちんと設定できていれば、Google Drive に保存しているファイルがリストアップされます。
+```bash
+pi@fluiddpiender3:~ $ rclone ls Fluiddpi_backup:
+10138 FluiddPi_Prusa/klipper_config/printer.cfg
+10138 FluiddPi_Prusa/klipper_config/printer-20220110_020804.cfg
+10152 FluiddPi_Prusa/klipper_config/printer-20220110_020020.cfg
+...
+```
+続いて、Cron で定期的に実行するバックアップスクリプトを作成します。スクリプトは `~/klipper_backup.sh` としました。
+なお、バックアップ先の Google Drive には、あらかじめ `FluiddPi_Ender3` という名前でディレクトリを作成しています。
+```bash
+#!/bin/bash
+rclone copy klipper_config/ Fluiddpi_backup:FluiddPi_Ender3/klipper_config
+rclone copy -L klipper_logs/ Fluiddpi_backup:FluiddPi_Ender3/klipper_logs
+```
+スクリプトを作成したら、 `chmod 777 ~/klipper_backup.sh` コマンドでスクリプトに実行権限を与えます。
+それから `crontab -e` で Cron の設定ファイルを開き、バックアップスクリプトを実行する日時を設定します。ここでは、毎日夜中の2時15分にバックアップを実行する設定にしています。
+```bash
+# Edit this file to introduce tasks to be run by cron.
+#
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+#
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+#
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+#
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+#
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h dom mon dow command
+15 2 * * * /home/pi/klipper_backup.sh
+```
+以上で設定完了です。これで毎日同じ時間にバックアップが実行されます。
+</div>
+</div>
+</div>
+</div></div><div class=card-footer>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+<i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
+<a href=https://hbs-skeleton.netlify.app/posts/2022-01-07/>PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法</a>
+</div><div class="post-nav post-next">
+<a href=https://hbs-skeleton.netlify.app/posts/2022-01-29/>Klipper & Moonraker & FluiddPi でタイムラプス動画を撮影する方法</a>
+<i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i>
+</div></div>
+</div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
+<div class=card-header>
+<h2 class="card-title fs-4 my-2 text-surface">Copyright</h2>
+</div>
+<div class=card-body><a class="d-flex align-items-center flex-column" target=_blank rel="license noopener noreferrer" href=https://creativecommons.org/licenses/by/4.0/deed.en>
+<span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
+CC BY 4.0
+</a>
+</div>
+</div><section class="related-posts row card component">
+<div class=card-header>
+<h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2>
+</div>
+<div class=card-body>
+<ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
+<a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-01-07/>
+PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法
+</a>
+<span class="post-meta post-date float-end">2022-01-07
+</span>
+<div class="post-summary my-3"><p>3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」という順番で調査すると時間がいくらあっても足りません。そのため、1回のプリントで様々な設定を試せると便利ということになります。
+幸い、スライサー側の機能を使うことで、レイヤー高に応じて設定を変更することが可能となりますので、その方法を紹介します。
+なお、スライサーによって設定方法だけでなくできることも違いますので、スライサー毎に説明します。ただし、結論を先取りしますと、PrusaSlicer/SuperSlicer よりも Cura の方が設定が簡単な上に出来ることも多いので、こういう処理を行...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://hbs-skeleton.netlify.app/posts/2022-01-07/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://hbs-skeleton.netlify.app/posts/2022-01-02/>
+Klipper と FluiddPi の設定について
+</a>
+<span class="post-meta post-date float-end">2022-01-02
+</span>
+<div class="post-summary my-3"><p>目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド & インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマンドでファームウェアを再起動 Input Shaper スライサーと FluiddPi を繋ぐ方法 G-Code の問題 position_min の設定 BLTouch の使い方 プローブの Z-Offset の調整 Mesh Bed Leveling のトラブル その他のエラー対策 printer.cfg 等の設定ファイルの保存場所 前置き# 我が家の3Dプリンタ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://hbs-skeleton.netlify.app/posts/2022-01-02/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://hbs-skeleton.netlify.app/posts/2021-12-12/>
+QMK API を使ってキーボードのリストを取得する方法
+</a>
+<span class="post-meta post-date float-end">2021-12-12
+</span>
+<div class="post-summary my-3"><p>前置き# 自作キーボードのトラブルシューティングのための問診票テンプレートを作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリストを取得する方法を発見していました。
+ネットを検索しても紹介されているページが見当たらないので、こちらで紹介します。
+方法# https://api.qmk.fm/v1/keyboards にアクセスするとキーボードのリストが JSON 形式で返ってきますので、使用目的に合わせてテキスト処理をして使います。
+1// コード例 2fetch('https://api.qmk.fm/v1/keyboards') 3 .then(response => { 4...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://hbs-skeleton.netlify.app/posts/2021-12-12/>もっと読む</a></div></div>
+</li></ul>
+</div>
+</section><div class="card component row post-comments" id=post-comments>
+<div class=card-header>
+<h2 class="card-title my-2 fs-4 text-surface">コメント</h2>
+</div>
+<div class=card-body><script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script>
+</div>
+</div></div>
+</div>
+</div>
+</main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex=-1 id=offcanvasActionsPanel aria-labelledby=offcanvasActionsPanelLabel>
+<div class=offcanvas-header>
+<h5 class="offcanvas-title fs-4" id=offcanvasActionsPanelLabel>
+<i class="fas fa-fw fa-th-large me-1"></i>
+Actions
+</h5>
+<button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
+</div>
+<div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=RClone%20%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%20Klipper%20%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%82%92%e3%83%90%e3%83%83%e3%82%af%e3%82%a2%e3%83%83%e3%83%97%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fhbs-skeleton.netlify.app%2fposts%2f2022-01-16%2f">
+<i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+</a>
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhbs-skeleton.netlify.app%2fposts%2f2022-01-16%2f">
+<i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+</a>
+</div>
+<hr class=mb-4><div class="actions d-flex overflow-auto align-items-center">
+<a role=button class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+<span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform=rotate-90></i></span> 戻る
+</a>
+<a role=button class="action action-reload-page d-flex flex-column align-items-center me-3">
+<span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 再表示
+</a>
+<a role=button class="action action-copy-url d-flex flex-column align-items-center me-3">
+<span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> URLをコピー
+</a>
+</div>
+</div>
+</div>
+<nav class="social-links nav justify-content-center mb-2">
+<a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
+<i class="fas fa-fw fa-2x fa-envelope"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://github.com/s-show/s-show.github.io title=GitHub rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-github"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://www.reddit.com/user/s-show title=Reddit rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-reddit"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-twitter"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://hbs-skeleton.netlify.app/index.xml title=RSS rel="noopener noreferrer">
+<i class="fas fa-fw fa-2x fa-rss"></i>
+</a>
+</nav>
+<div class="copyright mb-2">
+Copyright © 2021-2022 s-show. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+Powered by <a class=text-primary href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a class=text-primary href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">HBS</a> theme.
+</div></footer>
+<script data-precache src=https://hbs-skeleton.netlify.app/assets/main/bundle.min.5acd70d8291a37bee71cb446d20468072c7e98d50b53d229a35c4b40722338dd.js integrity="sha256-Ws1w2CkaN77nHLRG0gRoByx+mNULU9Ipo1xLQHIjON0=" crossorigin=anonymous defer></script><script data-precache src=https://hbs-skeleton.netlify.app/assets/icons/bundle.min.e463af86313483a41647b10fe3f6b7f5155673c4ee5feecfb9927075dbcc99f7.js integrity="sha256-5GOvhjE0g6QWR7EP4/a39RVWc8TuX+7PuZJwddvMmfc=" crossorigin=anonymous defer></script>
+<script data-precache src=https://hbs-skeleton.netlify.app/assets/viewer/bundle.min.656553c767bb7b8c29a3d0bf77142fe671344d24fe46bc9df13b218f0ebb2f6f.js integrity="sha256-ZWVTx2e7e4wpo9C/dxQv5nE0TST+Rryd8Tshjw67L28=" crossorigin=anonymous defer></script>
+</body>
+</html>
