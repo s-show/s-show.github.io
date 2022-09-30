@@ -60,10 +60,17 @@ dd {
 
 /* 画像読み込みショートコード用の設定 */
 .bsimage img{
-	border-style: solid;
-	border-width: 1px;
-	border-color: #7e7e7e;
-	border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  padding: 0.5rem;
+  // data-bs-theme 属性は html タグで使用されている
+  :root,
+  [data-bs-theme='light'] & {
+    border: solid 0.1rem rgb(225, 225, 225);
+  }
+  :root,
+  [data-bs-theme='dark'] & {
+    border: solid 0.1rem rgb(80, 80, 80);
+  }
 }
 
 /* ブログカード用の設定 */
