@@ -2,7 +2,7 @@
 <head><script src=https://s-show.github.io/assets/init/bundle.min.4e0393749316f2ca60d3692b603476a26e95d78437f2763585f7a97d94b04f54.js integrity="sha256-TgOTdJMW8spg02krYDR2om6V14Q38nY1hfepfZSwT1Q=" crossorigin=anonymous></script>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>Mainsail から rotation_distance を確認する方法 - 閑古鳥ブログ</title>
+<title>Mainsail から rotation_distance を確認・変更する方法 - 閑古鳥ブログ</title>
 <link rel=icon href="https://s-show.github.io/images/icons/icon-16x16.png?version=bc881cf71418802eab46d38df006b6f0" sizes=16x16>
 <link rel=icon href="https://s-show.github.io/images/icons/icon-32x32.png?version=c2740df8b4aa429981718fd3b63dc468" sizes=32x32>
 <link rel=apple-touch-icon href=https://s-show.github.io/favicon_huc1d2ba7c7d6d5aa3e01f2f328b911c53_11507_180x180_resize_box_3.png sizes=180x180 type=image/png>
@@ -10,23 +10,23 @@
 <link rel=icon href="https://s-show.github.io/images/icons/icon-192x192.png?version=314faa3d71d23e1cf545f1280bd01e37" sizes=192x192>
 <link rel=mask-icon href=https://s-show.github.io/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://s-show.github.io/images/icons/favicon.ico?version=b21aa710a837168f4ddf45779e92164c">
 <meta name=keywords content>
-<meta name=description content="前置き# Klipper の設定項目の1つである rotation_distance は、ステッピングモーターが1回転した時の移動量を指定するものですが、フィラメント毎に調整しないと印刷物の大">
+<meta name=description content="追記事項（2022年9月30日）# この記事を公開した時に、 そこで rotation_distance の設定値を引数として渡すと printer.cfg の設定値を変更するシェルスクリプトは作成したの">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="Mainsail から rotation_distance を確認する方法">
-<meta name=twitter:description content="前置き# Klipper の設定項目の1つである rotation_distance は、ステッピングモーターが1回転した時の移動量を指定するものですが、フィラメント毎に調整しないと印刷物の大">
+<meta name=twitter:title content="Mainsail から rotation_distance を確認・変更する方法">
+<meta name=twitter:description content="追記事項（2022年9月30日）# この記事を公開した時に、 そこで rotation_distance の設定値を引数として渡すと printer.cfg の設定値を変更するシェルスクリプトは作成したの">
 <meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="Mainsail から rotation_distance を確認する方法">
-<meta property="og:description" content="前置き# Klipper の設定項目の1つである rotation_distance は、ステッピングモーターが1回転した時の移動量を指定するものですが、フィラメント毎に調整しないと印刷物の大">
+<meta property="og:title" content="Mainsail から rotation_distance を確認・変更する方法">
+<meta property="og:description" content="追記事項（2022年9月30日）# この記事を公開した時に、 そこで rotation_distance の設定値を引数として渡すと printer.cfg の設定値を変更するシェルスクリプトは作成したの">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://s-show.github.io/posts/2022-08-20/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2022-08-19T23:58:35+09:00">
 <meta property="article:modified_time" content="2022-08-19T23:58:35+09:00">
-<meta itemprop=name content="Mainsail から rotation_distance を確認する方法">
-<meta itemprop=description content="前置き# Klipper の設定項目の1つである rotation_distance は、ステッピングモーターが1回転した時の移動量を指定するものですが、フィラメント毎に調整しないと印刷物の大"><meta itemprop=datePublished content="2022-08-19T23:58:35+09:00">
+<meta itemprop=name content="Mainsail から rotation_distance を確認・変更する方法">
+<meta itemprop=description content="追記事項（2022年9月30日）# この記事を公開した時に、 そこで rotation_distance の設定値を引数として渡すと printer.cfg の設定値を変更するシェルスクリプトは作成したの"><meta itemprop=datePublished content="2022-08-19T23:58:35+09:00">
 <meta itemprop=dateModified content="2022-08-19T23:58:35+09:00">
-<meta itemprop=wordCount content="1740">
+<meta itemprop=wordCount content="2955">
 <meta itemprop=keywords content="3Dプリンタ,Klipper,Mainsail,">
-<link data-precache rel=stylesheet href="https://s-show.github.io/assets/main/bundle.min.68031d16d81e499513a9c6231d8e43af21084c11ca07734c13f974fe899f440e.css" integrity="sha256-aAMdFtgeSZUTqcYjHY5DryEITBHKB3NME/l0/omfRA4=" crossorigin=anonymous>
+<link data-precache rel=stylesheet href="https://s-show.github.io/assets/main/bundle.min.2f97cee03d63ba6cb667a87b185956f903bdc36c9ed2a8ff0dbac7c574a40975.css" integrity="sha256-L5fO4D1jumy2Z6h7GFlW+QO9w2ye0qj/DbrHxXSkCXU=" crossorigin=anonymous>
 <link data-precache rel=stylesheet href=https://s-show.github.io/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
 </head>
 <body><header>
@@ -360,7 +360,7 @@ Karabiner-Elements
 <div class=col-lg-8>
 <div class=container><nav class="row card component" aria-label=breadcrumb>
 <div class="card-body pb-0">
-<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://s-show.github.io/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://s-show.github.io/posts/>Posts</a></li><li class="breadcrumb-item active">Mainsail から rotation_distance を確認する方法</li></ol>
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://s-show.github.io/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://s-show.github.io/posts/>Posts</a></li><li class="breadcrumb-item active">Mainsail から rotation_distance を確認・変更する方法</li></ol>
 </div>
 </nav><div class="post-panel-wrapper position-sticky">
 <div class="d-flex flex-column component rounded post-panel position-absolute border">
@@ -379,12 +379,18 @@ Karabiner-Elements
 </div>
 </div><article class="row card component mb-4 post">
 <div class=card-header>
-<h1 class="card-title post-title my-2">Mainsail から rotation_distance を確認する方法</h1>
+<h1 class="card-title post-title my-2">Mainsail から rotation_distance を確認・変更する方法</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
 <span class="post-date me-1 mb-1" title="公開: 2022-08-19 14:58:35 +0000 UTC.">2022-08-19</span><a href=https://s-show.github.io/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://s-show.github.io/tags/klipper/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Klipper</a><a href=https://s-show.github.io/tags/mainsail/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Mainsail</a>
 </div>
-<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=追記事項2022年9月30日 data-numberify>追記事項（2022年9月30日）<a class="anchor ms-1 d-none" href=#追記事項2022年9月30日>#</a></h2>
+<p>この記事を公開した時に、</p>
+<blockquote>
+<p>そこで <code>rotation_distance</code> の設定値を引数として渡すと <code>printer.cfg</code> の設定値を変更するシェルスクリプトは作成したのですが、これを Mainsail の CONSOLE から実行する方法が分からないため、この点は現在保留中です。正確に言うと、Mainsail の CONSOLE で複数の引数を渡す方法が分からない（できない？）ため、保留にしています。</p>
+</blockquote>
+<p>と書いていましたが、このたび、Mainsail の Console から <code>rotation_distance</code> の設定値を変更することに成功しましたので、その方法を末尾にまとめました。</p>
+<h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
 <p>Klipper の設定項目の1つである <code>rotation_distance</code> は、ステッピングモーターが1回転した時の移動量を指定するものですが、フィラメント毎に調整しないと印刷物の大きさが微妙に変わってしまうため、新しいフィラメントを使う度に調整が必要になります。しかし、G-Code で設定できる <code>pressure_advance</code> とは異なり、 <code>rotation_distance</code> を調整するには毎回次の作業が必要になります。</p>
 <ol>
 <li><code>printer.cfg</code> ファイルの現在の設定値を確認</li>
@@ -395,7 +401,7 @@ Karabiner-Elements
 </ol>
 <p>このうち、新しい設定値の計算については、印刷物の実測値と現在の設定値から自動的に計算できる<a href=https://codepen.io/s-show/full/NWaBVOR target=_blank rel="noopener noreferrer">ツール<i class="fas fa-external-link-square-alt ms-1"></i></a>を作成しているので特に面倒な作業ではないのですが、現在の設定値を確認するには、Mainsail の MACHINE タブで <code>printer.cfg</code> ファイルを開いてスクロールしながら目視で確認するか、SSH で Raspberry Pi にアクセスして <code>cat klipper_config/printer.cfg | grep ^rotation_distance</code> コマンドを実行する必要があり、正直言って面倒な作業でした。</p>
 <p>そこで、現在の設定値を簡単に確認できる方法を探していたところ、Mainsail で任意のシェルコマンドを実行できる方法が見つかったため、早速試したところ上手くいきましたので、その方法をまとめました。</p>
-<h2 id=tldl data-numberify>tl,dl<a class="anchor ms-1 d-none" href=#tldl>#</a></h2>
+<h2 id=大まかな処理の流れ data-numberify>大まかな処理の流れ<a class="anchor ms-1 d-none" href=#大まかな処理の流れ>#</a></h2>
 <ol>
 <li>KIAUH のプラグインである <a href=https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md target=_blank rel="noopener noreferrer">G-Code Shell Command Extension<i class="fas fa-external-link-square-alt ms-1"></i></a> をインストール</li>
 <li><code>rotaton_distance</code> を確認するためのシェルスクリプト ( <code>~/get_rotation_distance.sh</code> ) を作成して実行権限を追加</li>
@@ -415,7 +421,7 @@ rotation_distance: 8.09
 --
 enable_pin: !PA4
 rotation_distance: 21.77
-</code></pre><h2 id=各手順の説明 data-numberify>各手順の説明<a class="anchor ms-1 d-none" href=#各手順の説明>#</a></h2>
+</code></pre><h2 id=各手順の説明rotation_distance-の確認 data-numberify>各手順の説明（rotation_distance の確認）<a class="anchor ms-1 d-none" href=#各手順の説明rotation_distance-の確認>#</a></h2>
 <h3 id=g-code-shell-command-extension-のインストール data-numberify>G-Code Shell Command Extension のインストール<a class="anchor ms-1 d-none" href=#g-code-shell-command-extension-のインストール>#</a></h3>
 <p><a href=https://github.com/th33xitus/kiauh/blob/master/docs/gcode_shell_command.md target=_blank rel="noopener noreferrer">G-Code Shell Command Extension<i class="fas fa-external-link-square-alt ms-1"></i></a> は、Mainsail の Console からシェルコマンドを実行できるようにする KIAUH のプラグインです。</p>
 <p>インストール方法は次のとおりです。なお、KIAUH が既にインストールされていることを前提にしています。KIAUH をインストールしていない場合、<a href=https://github.com/th33xitus/kiauh target=_blank rel="noopener noreferrer">th33xitus/kiauh: Klipper Installation And Update Helper<i class="fas fa-external-link-square-alt ms-1"></i></a> を参照してインストールしてください。</p>
@@ -428,7 +434,7 @@ rotation_distance: 21.77
 </ol>
 <h3 id=シェルスクリプトの作成 data-numberify>シェルスクリプトの作成<a class="anchor ms-1 d-none" href=#シェルスクリプトの作成>#</a></h3>
 <p>G-Code Shell Command をインストールしたら、次は <code>rotation_distance</code> を確認するためのシェルスクリプトを作成します。</p>
-<p>シェルスクリプトのコードは次のとおりです。保存場所はどこでもOKで、<code>chmod 777 ~/get_rotation_distance.sh</code> でスクリプトに実行権限を追加します。</p>
+<p>シェルスクリプトの保存場所はどこでもOKなので、以下のコードのスクリプトを <code>~/get_rotation_distance.sh</code> で作成しています。スクリプトを作成したら <code>chmod 777 ~/get_rotation_distance.sh</code> で実行権限を追加します。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=cp>#!/bin/bash
 </span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=cp></span>cat ~/klipper/printer.cfg <span class=p>|</span> grep --before-context<span class=o>=</span><span class=m>1</span> ^rotation_distance
 </code></pre></div><p>なお、直前の１行を出力しているのは、私の <code>printer.cfg</code> では <code>rotation_distance</code> をフィラメント毎に設定しており、設定値の1行前にフィラメント名を記載しているためです。</p>
@@ -463,35 +469,127 @@ rotation_distance: 8.09
 enable_pin: !PA4
 rotation_distance: 21.77
 </code></pre><h3 id=rotation_distance-の修正 data-numberify>rotation_distance の修正<a class="anchor ms-1 d-none" href=#rotation_distance-の修正>#</a></h3>
+<p><strong>2022年9月30日加筆修正</strong></p>
 <p>上記の方法で <code>rotation_distance</code> の設定値を確認することはできますが、もう一歩進めて設定値の修正までできるようになるとさらに楽になります。</p>
-<p>そこで <code>rotation_distance</code> の設定値を引数として渡すと <code>printer.cfg</code> の設定値を変更するシェルスクリプトは作成したのですが、これを Mainsail の CONSOLE から実行する方法が分からないため、この点は現在保留中です。正確に言うと、Mainsail の CONSOLE で複数の引数を渡す方法が分からない（できない？）ため、保留にしています。</p>
-<p>とりあえず KIAUH の Issues で複数パラメーターを渡せる機能を追加して欲しいと<a href=https://github.com/th33xitus/kiauh/issues/233 target=_blank rel="noopener noreferrer">要望<i class="fas fa-external-link-square-alt ms-1"></i></a>していますので、機能が実装されるのを待つか、現時点でも可能であればその方法も追記しようと思います。</p>
-<p>なお、シェルスクリプトのコードは次のとおりです。前提として、 <code>rotation_distance</code> を設定している行に、コメントで XYZ 軸の区別ができるようにするためのコメントを挿入しています。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=cp>#!/bin/bash
+<p><del>そこで <code>rotation_distance</code> の設定値を引数として渡すと <code>printer.cfg</code> の設定値を変更するシェルスクリプトは作成したのですが、これを Mainsail の CONSOLE から実行する方法が分からないため、この点は現在保留中です。正確に言うと、Mainsail の CONSOLE で複数の引数を渡す方法が分からない（できない？）ため、保留にしています。</del></p>
+<p><del>とりあえず KIAUH の Issues で複数パラメーターを渡せる機能を追加して欲しいと<a href=https://github.com/th33xitus/kiauh/issues/233 target=_blank rel="noopener noreferrer">要望<i class="fas fa-external-link-square-alt ms-1"></i></a>していますので、機能が実装されるのを待つか、現時点でも可能であればその方法も追記しようと思います。</del></p>
+<p><del>なお、シェルスクリプトのコードは次のとおりです。前提として、 <code>rotation_distance</code> を設定している行に、コメントで XYZ 軸の区別ができるようにするためのコメントを挿入しています。</del></p>
+<p>そのため、まず <code>rotation_distance</code> の設定値を引数として渡したら <code>printer.cfg</code> の内容を書き換えるシェルスクリプト（<code>~/ change_rotation_distance.sh</code>）を作成しました。ある程度のエラーには対応できるように作成していますが、もし不具合がありましたらコメント欄で教えてください。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=cp>#!/usr/bin/bash
 </span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=cp></span>
-<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=k>while</span> <span class=nb>getopts</span> x:y:z: OPT
-<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=k>do</span>
-<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>  <span class=k>case</span> <span class=nv>$OPT</span> in
-<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>    x<span class=o>)</span> <span class=nv>x_axis</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$OPTARG</span><span class=s2>&#34;</span> <span class=p>;;</span>
-<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>    y<span class=o>)</span> <span class=nv>y_axis</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$OPTARG</span><span class=s2>&#34;</span> <span class=p>;;</span>
-<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>    z<span class=o>)</span> <span class=nv>z_axis</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$OPTARG</span><span class=s2>&#34;</span> <span class=p>;;</span>
-<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>  <span class=k>esac</span>
-<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=k>done</span>
-<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>
-<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>sed -E <span class=s2>&#34;s/^(rotation_distance:)\s[0-9]+\.[0-9]+(.+X)/\1 </span><span class=si>${</span><span class=nv>x_axis</span><span class=si>}</span><span class=s2> \2/&#34;</span> -i printer.cfg
-<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>sed -E <span class=s2>&#34;s/^(rotation_distance:)\s[0-9]+\.[0-9]+(.+Y)/\1 </span><span class=si>${</span><span class=nv>y_axis</span><span class=si>}</span><span class=s2> \2/&#34;</span> -i printer.cfg
-<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>sed -E <span class=s2>&#34;s/^(rotation_distance:)\s[0-9]+\.[0-9]+(.+Z)/\1 </span><span class=si>${</span><span class=nv>z_axis</span><span class=si>}</span><span class=s2> \2/&#34;</span> -i printer.cfg
-</code></pre></div><pre tabindex=0><code># printer.cfg
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>Message<span class=o>()</span> <span class=o>{</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>  cat <span class=s>&lt;&lt;- EOF
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=s>This script is change rotation_distance value.
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=s>Usage: sh change_rotation_distance -x 40 -y 39.5 -z 8.4
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=s>       sh change_rotation_distance -y 40 -z 8
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=s>       sh change_rotation_distance -h
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=s> NG -&gt; sh change_rotation_distance -x -y -z 8.9
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=s>       sh change_rotation_distance -x -40 -y -40 -z 8.9
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=s>EOF</span>
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=o>}</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>isNumeric<span class=o>()</span> <span class=o>{</span>
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>  <span class=k>if</span> expr <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> : <span class=s2>&#34;[0-9]*</span>$<span class=s2>&#34;</span> &gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span> <span class=o>||</span> <span class=o>(</span> expr <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> : <span class=s2>&#34;[0-9]*\.[0-9]*</span>$<span class=s2>&#34;</span> &gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span> <span class=o>&amp;&amp;</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> !<span class=o>=</span> <span class=s2>&#34;.&#34;</span> <span class=o>]</span> <span class=o>)</span><span class=p>;</span><span class=k>then</span>
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>    <span class=nv>return_value</span><span class=o>=</span><span class=m>0</span>
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span>  <span class=k>else</span>
+<span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span>    <span class=nv>return_value</span><span class=o>=</span><span class=m>1</span>
+<span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span>  <span class=k>fi</span>
+<span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span>  <span class=k>return</span> <span class=s2>&#34;</span><span class=nv>$return_value</span><span class=s2>&#34;</span>
+<span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span><span class=o>}</span>
+<span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span>
+<span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span><span class=k>if</span> <span class=o>[</span> <span class=nv>$#</span> -eq <span class=m>0</span> <span class=o>]</span>
+<span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span><span class=k>then</span>
+<span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25>25</a></span>  Message
+<span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26>26</a></span>  <span class=nb>exit</span> <span class=m>0</span>
+<span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27>27</a></span><span class=k>fi</span>
+<span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28>28</a></span>
+<span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29>29</a></span><span class=k>while</span> <span class=nb>getopts</span> x:y:z:h OPT
+<span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30>30</a></span><span class=k>do</span> 
+<span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31>31</a></span>  isNumeric <span class=s2>&#34;</span><span class=nv>$OPTARG</span><span class=s2>&#34;</span>
+<span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32>32</a></span>  <span class=nv>return_value</span><span class=o>=</span><span class=nv>$?</span>
+<span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33>33</a></span>  <span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$return_value</span><span class=s2>&#34;</span> -eq <span class=m>1</span> <span class=o>]</span>
+<span class=ln id=34><a style=outline:none;text-decoration:none;color:inherit href=#34>34</a></span>  <span class=k>then</span>
+<span class=ln id=35><a style=outline:none;text-decoration:none;color:inherit href=#35>35</a></span>    <span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$OPT</span><span class=s2>&#34;</span> <span class=o>=</span> <span class=s1>&#39;h&#39;</span> <span class=o>]</span>
+<span class=ln id=36><a style=outline:none;text-decoration:none;color:inherit href=#36>36</a></span>    <span class=k>then</span>
+<span class=ln id=37><a style=outline:none;text-decoration:none;color:inherit href=#37>37</a></span>      Message
+<span class=ln id=38><a style=outline:none;text-decoration:none;color:inherit href=#38>38</a></span>      <span class=nb>exit</span> <span class=m>0</span>
+<span class=ln id=39><a style=outline:none;text-decoration:none;color:inherit href=#39>39</a></span>    <span class=k>elif</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$OPT</span><span class=s2>&#34;</span> !<span class=o>=</span> <span class=s1>&#39;?&#39;</span> <span class=o>]</span>
+<span class=ln id=40><a style=outline:none;text-decoration:none;color:inherit href=#40>40</a></span>    <span class=k>then</span>
+<span class=ln id=41><a style=outline:none;text-decoration:none;color:inherit href=#41>41</a></span>      <span class=nb>echo</span> <span class=s2>&#34;-</span><span class=si>${</span><span class=nv>OPT</span><span class=si>}</span><span class=s2> argument is not a positive number.&#34;</span>
+<span class=ln id=42><a style=outline:none;text-decoration:none;color:inherit href=#42>42</a></span>      Message
+<span class=ln id=43><a style=outline:none;text-decoration:none;color:inherit href=#43>43</a></span>      <span class=nb>exit</span> <span class=m>1</span>
+<span class=ln id=44><a style=outline:none;text-decoration:none;color:inherit href=#44>44</a></span>    <span class=k>fi</span>
+<span class=ln id=45><a style=outline:none;text-decoration:none;color:inherit href=#45>45</a></span>  <span class=k>fi</span>
+<span class=ln id=46><a style=outline:none;text-decoration:none;color:inherit href=#46>46</a></span>  <span class=k>case</span> <span class=nv>$OPT</span> in
+<span class=ln id=47><a style=outline:none;text-decoration:none;color:inherit href=#47>47</a></span>    x<span class=o>)</span> <span class=nv>x_axis</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$OPTARG</span><span class=s2>&#34;</span> <span class=p>;;</span>
+<span class=ln id=48><a style=outline:none;text-decoration:none;color:inherit href=#48>48</a></span>    y<span class=o>)</span> <span class=nv>y_axis</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$OPTARG</span><span class=s2>&#34;</span> <span class=p>;;</span> 
+<span class=ln id=49><a style=outline:none;text-decoration:none;color:inherit href=#49>49</a></span>    z<span class=o>)</span> <span class=nv>z_axis</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$OPTARG</span><span class=s2>&#34;</span> <span class=p>;;</span> 
+<span class=ln id=50><a style=outline:none;text-decoration:none;color:inherit href=#50>50</a></span>    ?<span class=o>)</span> Message
+<span class=ln id=51><a style=outline:none;text-decoration:none;color:inherit href=#51>51</a></span>       <span class=nb>exit</span> <span class=m>1</span> <span class=p>;;</span>
+<span class=ln id=52><a style=outline:none;text-decoration:none;color:inherit href=#52>52</a></span>  <span class=k>esac</span>
+<span class=ln id=53><a style=outline:none;text-decoration:none;color:inherit href=#53>53</a></span><span class=k>done</span>
+<span class=ln id=54><a style=outline:none;text-decoration:none;color:inherit href=#54>54</a></span>
+<span class=ln id=55><a style=outline:none;text-decoration:none;color:inherit href=#55>55</a></span><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>x_axis</span><span class=si>}</span><span class=s2>&#34;</span> <span class=o>]</span>
+<span class=ln id=56><a style=outline:none;text-decoration:none;color:inherit href=#56>56</a></span><span class=k>then</span>
+<span class=ln id=57><a style=outline:none;text-decoration:none;color:inherit href=#57>57</a></span>  sed -E <span class=s2>&#34;s/^(rotation_distance:)\s?[0-9]+\.?[0-9]+(.+#\s?[xX])/\1 </span><span class=si>${</span><span class=nv>x_axis</span><span class=si>}</span><span class=s2>\2/&#34;</span> -i <span class=nv>$HOME</span>/klipper_config/printer.cfg
+<span class=ln id=58><a style=outline:none;text-decoration:none;color:inherit href=#58>58</a></span><span class=k>fi</span>
+<span class=ln id=59><a style=outline:none;text-decoration:none;color:inherit href=#59>59</a></span>
+<span class=ln id=60><a style=outline:none;text-decoration:none;color:inherit href=#60>60</a></span><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>y_axis</span><span class=si>}</span><span class=s2>&#34;</span> <span class=o>]</span>
+<span class=ln id=61><a style=outline:none;text-decoration:none;color:inherit href=#61>61</a></span><span class=k>then</span>
+<span class=ln id=62><a style=outline:none;text-decoration:none;color:inherit href=#62>62</a></span>  sed -E <span class=s2>&#34;s/^(rotation_distance:)\s?[0-9]+\.?[0-9]+(.+#\s?[yY])/\1 </span><span class=si>${</span><span class=nv>y_axis</span><span class=si>}</span><span class=s2>\2/&#34;</span> -i <span class=nv>$HOME</span>/klipper_config/printer.cfg
+<span class=ln id=63><a style=outline:none;text-decoration:none;color:inherit href=#63>63</a></span><span class=k>fi</span>
+<span class=ln id=64><a style=outline:none;text-decoration:none;color:inherit href=#64>64</a></span>
+<span class=ln id=65><a style=outline:none;text-decoration:none;color:inherit href=#65>65</a></span><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>z_axis</span><span class=si>}</span><span class=s2>&#34;</span> <span class=o>]</span>
+<span class=ln id=66><a style=outline:none;text-decoration:none;color:inherit href=#66>66</a></span><span class=k>then</span>
+<span class=ln id=67><a style=outline:none;text-decoration:none;color:inherit href=#67>67</a></span>  sed -E <span class=s2>&#34;s/^(rotation_distance:)\s?[0-9]+\.?[0-9]+(.+#\s?[zZ])/\1 </span><span class=si>${</span><span class=nv>z_axis</span><span class=si>}</span><span class=s2>\2/&#34;</span> -i <span class=nv>$HOME</span>/klipper_config/printer.cfg
+<span class=ln id=68><a style=outline:none;text-decoration:none;color:inherit href=#68>68</a></span><span class=k>fi</span>
+</code></pre></div><p>あわせて、<code>printer.cfg</code> に4つある <code>rotation_distance</code> について、どれが XYZ 軸の値なのかを示すコメントを追加して、<code>sed</code> コマンドの検索パターンで指定できるようにしました。</p>
+<pre tabindex=0><code># printer.cfg
 
 [stepper_x]
-rotation_distance: 32.14  # X Axis
-
+rotation_distance: 32.14  # x_axis
 [stepper_y]
-rotation_distance: 32.07  # Y Axis
-
+rotation_distance: 32.07  # y_axis
 [stepper_z]
-rotation_distance: 8.09  # Z Axis
-</code></pre><p><code> sh change_rotation_distance.sh -x 32.14 -y 32.07 -z 8.09</code> の形で <code>rotation_distance</code> の設定を引数として渡します。</p>
+rotation_distance: 8.09  # z_axis
+</code></pre><p><del><code>sh change_rotation_distance.sh -x 32.14 -y 32.07 -z 8.09</code> の形で <code>rotation_distance</code> の設定を引数として渡します。</del></p>
+<p>それから、このシェルスクリプトを Mainsail の Console から実行するためのマクロを作成します。このマクロのコードは、KIAUH の Issues で私が「複数パラメーターを渡せる機能を追加して欲しい」と<a href=https://github.com/th33xitus/kiauh/issues/233 target=_blank rel="noopener noreferrer">要望<i class="fas fa-external-link-square-alt ms-1"></i></a>したのに対し、「この方法を試してほしい」と<a href=https://github.com/th33xitus/kiauh/issues/233#issuecomment-1260980803 target=_blank rel="noopener noreferrer">回答<i class="fas fa-external-link-square-alt ms-1"></i></a>していただいたものをほぼコピーしています。</p>
+<pre tabindex=0><code># printer.cfg
+
+[gcode_shell_command change_rotation_distance]
+command: sh /home/pi/change_rotation_distance.sh
+timeout: 30.
+verbose: True
+
+[gcode_macro change_rotation_distance]
+gcode:
+    # Set the X, Y, Z variables up here. Assuming that the default is None
+    {% set param_data = [] %}
+
+    # If variable is None, ignore and don't add it to param_data list
+    {% if X is not none %}
+      {% set param_data = param_data +  ['-x ' + X] %}
+    {% endif %}
+    {% if Y is not none %}
+      {% set param_data = param_data +  ['-y ' + Y] %}
+    {% endif %}
+    {% if Z is not none %}
+      {% set param_data = param_data +  ['-z ' + Z] %}
+    {% endif %}
+
+    # Join param_data with a space
+    {% set param_data = ' '.join(param_data) %}
+
+    RUN_SHELL_COMMAND CMD=change_rotation_distance PARAMS=&quot;{pass_data}&quot;
+    # Note the quotation marks around the pass_data. Without them, Klipper will attempt (and fail) to interpret each word in the params
+</code></pre><p>マクロを作成したら Klipper を再起動して読み込ませます。そして、Mainsail の Console に次のコマンドを入力して実行します。このとき、シェルスクリプトに渡す引数をシングルクォーテーション（<code>'</code>）で囲む必要があります。</p>
+<p><code>RUN_SHELL_COMMAND CMD=change_rotation_distance PARAMS='-x 31.644 -y 31.574 -z 8.042'</code></p>
+<p>このコマンドを実行すると <code>Running Command {change_rotation_distance}...:</code> と表示されてシェルスクリプトが実行され、少し待つと <code>Command {change_rotation_distance} finished</code> と実行完了の通知が表示されます。</p>
+<p>実際に <code>rotation_distance</code> の設定値が変更されたか確認するため、Mainsail の Console に <code>RUN_SHELL_COMMAND CMD=get_rotation_distance</code> と入力して実行すると、<code>rotation_distance</code> の設定値が変更されていることが確認できます。</p>
+<figure class="figure bsimage">
+<img src=image01.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">実行結果</figcaption>
+</figure>
 </div></div><div class=card-footer>
 <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
 <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
@@ -561,7 +659,7 @@ Actions
 <button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
 </div>
 <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Mainsail%20%e3%81%8b%e3%82%89%20rotation_distance%20%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2022-08-20%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Mainsail%20%e3%81%8b%e3%82%89%20rotation_distance%20%e3%82%92%e7%a2%ba%e8%aa%8d%e3%83%bb%e5%a4%89%e6%9b%b4%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fs-show.github.io%2fposts%2f2022-08-20%2f">
 <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
 </a>
 <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fs-show.github.io%2fposts%2f2022-08-20%2f">
