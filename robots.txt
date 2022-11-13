@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://s-show.github.io/sitemap.xml
+Sitemap: https://kankodori-blog.com/sitemap.xml
