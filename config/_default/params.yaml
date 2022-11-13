@@ -13,8 +13,8 @@ keywords: Hugo, Bootstrap, Blog Theme
 metaRobots: nofollow # Default value for Meta Tag robots
 # metaRobots:  # disable Meta Tag robots
 
-# logo: images/logo.png # Logo image. Default to images/logo.webp.
-logo: false # Disable Logo
+logo: images/logo.webp # Logo image. Default to images/logo.webp.
+#logo: true # Disable Logo
 brand: 閑古鳥ブログ # トップページ右上に表示するブランド名（ブログ名）
 
 palette: indigo # Default palette. Optional. You'll need to clear the browser cache after modifying this.
@@ -42,7 +42,7 @@ color: dark # light, dark or auto. Default to auto.
 dateFormat: 2006-01-02
 
 # Google Adsense
-googleAdsense: 
+googleAdsense:
 
 # math: true # Enable math globally.
 toc: false # Disable TOC globally.
@@ -113,13 +113,13 @@ analytics:
 
 # Site verification
 siteVerification:
-  google: 
-#  bing: 
-#  baidu: 
+  google:
+#  bing:
+#  baidu:
 #  baiduUnion:  # Baidu Union
-#  so: 
-#  sogou: 
-#  shenma: 
+#  so:
+#  sogou:
+#  shenma:
 
 creativeCommons:
   by: true # Credit must be given to you, the creator.
@@ -133,7 +133,7 @@ utterances:
   label: comment
   # By default, light and dark mode correspond to github-light and github-dark, respectively.
   # Optional values: github-light, github-dark, preferred-color-scheme, github-dark-orange, icy-dark, dark-blue, photon-dark.
-  #theme:  
+  #theme:
 
 search:
   paginate: 5 # Pagination. Default to 10.
@@ -170,8 +170,8 @@ fontSize:
     #short_name: HBS
     # display: fullscreen # Default to standalone.
     # description:  # Default to site description.
-    # theme_color: 
-    # background_color: 
+    # theme_color:
+    # background_color:
 
     # Icons
     # [[pwa.manifest.icons]]
