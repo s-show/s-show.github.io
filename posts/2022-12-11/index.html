@@ -2,7 +2,7 @@
 <head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法 - 閑古鳥ブログ</title>
+<title>WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ</title>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
 <link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
@@ -10,22 +10,22 @@
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
 <link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
 <meta name=keywords content>
-<meta name=description content="以前PrusaSlicer/SuperSlicer で 一定のレイヤー毎に設定を変更する方法 という記事を書いたのですが、執筆後に色々調べたところ">
+<meta name=description content="前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているた">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法">
-<meta name=twitter:description content="以前PrusaSlicer/SuperSlicer で 一定のレイヤー毎に設定を変更する方法 という記事を書いたのですが、執筆後に色々調べたところ">
+<meta name=twitter:title content="WSL2 + Neovim + VSCode でIME の状態を制御する方法">
+<meta name=twitter:description content="前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているた">
 <meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法">
-<meta property="og:description" content="以前PrusaSlicer/SuperSlicer で 一定のレイヤー毎に設定を変更する方法 という記事を書いたのですが、執筆後に色々調べたところ">
+<meta property="og:title" content="WSL2 + Neovim + VSCode でIME の状態を制御する方法">
+<meta property="og:description" content="前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているた">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://kankodori-blog.com/posts/2022-09-03/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2022-08-31T21:45:46+09:00">
-<meta property="article:modified_time" content="2022-08-31T21:45:46+09:00">
-<meta itemprop=name content="SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法">
-<meta itemprop=description content="以前PrusaSlicer/SuperSlicer で 一定のレイヤー毎に設定を変更する方法 という記事を書いたのですが、執筆後に色々調べたところ"><meta itemprop=datePublished content="2022-08-31T21:45:46+09:00">
-<meta itemprop=dateModified content="2022-08-31T21:45:46+09:00">
-<meta itemprop=wordCount content="1443">
-<meta itemprop=keywords content="3Dプリンタ,">
+<meta property="og:url" content="https://kankodori-blog.com/posts/2022-12-11/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-12-11T21:26:56+09:00">
+<meta property="article:modified_time" content="2022-12-11T21:26:56+09:00">
+<meta itemprop=name content="WSL2 + Neovim + VSCode でIME の状態を制御する方法">
+<meta itemprop=description content="前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているた"><meta itemprop=datePublished content="2022-12-11T21:26:56+09:00">
+<meta itemprop=dateModified content="2022-12-11T21:26:56+09:00">
+<meta itemprop=wordCount content="1505">
+<meta itemprop=keywords content="備忘録,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
 <link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.2f97cee03d63ba6cb667a87b185956f903bdc36c9ed2a8ff0dbac7c574a40975.css" integrity="sha256-L5fO4D1jumy2Z6h7GFlW+QO9w2ye0qj/DbrHxXSkCXU=" crossorigin=anonymous>
@@ -364,7 +364,7 @@ Karabiner-Elements
 <div class=col-lg-8>
 <div class=container><nav class="row card component" aria-label=breadcrumb>
 <div class="card-body pb-0">
-<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法</li></ol>
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">WSL2 + Neovim + VSCode でIME の状態を制御する方法</li></ol>
 </div>
 </nav><div class="post-panel-wrapper position-sticky">
 <div class="d-flex flex-column component rounded post-panel position-absolute border">
@@ -383,92 +383,99 @@ Karabiner-Elements
 </div>
 </div><article class="row card component mb-4 post">
 <div class=card-header>
-<h1 class="card-title post-title my-2">SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法</h1>
+<h1 class="card-title post-title my-2">WSL2 + Neovim + VSCode でIME の状態を制御する方法</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-08-31 12:45:46 +0000 UTC.">2022-08-31</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a>
+<span class="post-date me-1 mb-1" title="公開: 2022-12-11 12:26:56 +0000 UTC.">2022-12-11</span><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
 </div>
-<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><p>以前<a href=https://s-show.github.io/posts/2022-01-07/ target=_blank rel="noopener noreferrer">PrusaSlicer/SuperSlicer で 一定のレイヤー毎に設定を変更する方法<i class="fas fa-external-link-square-alt ms-1"></i></a> という記事を書いたのですが、執筆後に色々調べたところ、SuperSlicer だとより簡単に、かつリトラクト長も変えられることが分かりましたので、その方法を紹介します。</p>
-<h2 id=大まかな作業の流れ data-numberify>大まかな作業の流れ<a class="anchor ms-1 d-none" href=#大まかな作業の流れ>#</a></h2>
-<ol>
-<li>モデルをスライスして、設定を変更したい箇所の高さの範囲を確認する</li>
-<li>右側の設定画面で「Height range Modifier」をクリック</li>
-<li>設定画面下側に設定を変更する高さの範囲を入力する画面が表示されるので、設定を変更したい高さの範囲を入力する。</li>
-<li>「Range 0.00-2.00 (mm)」という形で設定を変更する高さ範囲が表示されるので、その範囲の右側の歯車アイコンをクリックして変更したい項目を選ぶ。</li>
-<li>設定を変更したい高さ範囲を追加する場合、3番目に戻って作業を繰り返す</li>
-</ol>
-<h2 id=実際のモデルを使った方法温度変更 data-numberify>実際のモデルを使った方法（温度変更）<a class="anchor ms-1 d-none" href=#実際のモデルを使った方法温度変更>#</a></h2>
-<p>ここからは実際のモデルを使って手順を説明します。使うモデルは <a href=https://teachingtechyt.github.io/calibration.html#temp target=_blank rel="noopener noreferrer">Teaching Tech 3D Printer Calibration<i class="fas fa-external-link-square-alt ms-1"></i></a> で配布されているモデルで、高さによって印刷温度を変えて印刷することで、一回の印刷で複数の温度設定を確認できるものです。</p>
-<p>まず、モデルをスライスして、右側のバーで高さに応じた印刷状況を確認できるようにします。</p>
-<p>それから、右側のバーを上下に動かして、温度を切り替える高さを決定します。ここでは、最初に温度を切り替える高さを9.00mmにしています。</p>
-<figure class="figure bsimage">
-<img src=image01.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<p>再び同様に右側のバーを動かして2番目、3番目……に温度を切り替える高さを決定していきます。その結果、次のとおり温度を切り替える高さを決定しました。</p>
-<figure class="figure bsimage">
-<img src=image02.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<p>これで高さの調査ができましたので、次は右側の設定画面で「Height range Modifier」をクリックして設定を変更する高さの範囲を入力していきます。</p>
-<p><figure class="figure bsimage">
-<img src=image10.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<figure class="figure bsimage">
-<img src=image03.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure></p>
-<p>高さの範囲の設定が完了したら、次はそれぞれの高さの範囲毎に温度を設定します。</p>
-<p>それぞれの高さの範囲の右側にある歯車のアイコンをクリックすると設定変更が可能な項目が表示されますので、「Add settings」→「Filament」の順番で選択します</p>
-<figure class="figure bsimage">
-<img src=image04.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<p>そうすると変更可能なフィラメント設定が表示されますので、「Temperature」にチェックを付けて「Apply」をクリックします。</p>
-<figure class="figure bsimage">
-<img src=image05.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<p>右側の設定画面に追加された「Filament」をクリックすると下側に温度を入力する画面が表示されますので、設定したい温度（ここでは260℃）を入力します。あとは同じ作業をそれぞれの高さ範囲について実施します。</p>
-<p><figure class="figure bsimage">
-<img src=image06.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<figure class="figure bsimage">
-<img src=image07.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure></p>
-<p>これでそれぞれの高さ範囲について印刷温度を変更することができましたので、再度スライスします。スライス後に「Gcode Preview」の「View」を「Temperature」にすると、設定した高さ範囲によって印刷温度が変更されていることが分かります。</p>
-<figure class="figure bsimage">
-<img src=image08.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<h2 id=実際のモデルを使った方法リトラクト長の変更 data-numberify>実際のモデルを使った方法（リトラクト長の変更）<a class="anchor ms-1 d-none" href=#実際のモデルを使った方法リトラクト長の変更>#</a></h2>
-<p>以上で紹介した方法と同様の方法で、高さに応じてリトラクト長を変更することが可能です。</p>
-<p>作業手順は、上記の手順のうち「Add settings」→「Filament」の順番で選択するところまで同じです。</p>
-<figure class="figure bsimage">
-<img src=image04.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<p>変更可能なフィラメント設定が表示されたら、今度は「Retraction length」にチェックを付けて「Apply」をクリックします。</p>
-<figure class="figure bsimage">
-<img src=image11.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<p>そうすると右側の設定画面の下側にリトラクト長を入力する画面が表示されますので、設定したい長さを入力します。あとは同じ作業をそれぞれの高さ範囲について実施します。</p>
-<figure class="figure bsimage">
-<img src=image12.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center"></figcaption>
-</figure>
-<p>これで、一度の印刷で複数のリトラクト長を試せるようになります。</p>
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<p>これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているため、思い切って Neovim を使ってみることにしました。</p>
+<p>ただ、必要に応じて VSCode も使えるようにしたいので、VSCode のプラグインの <a href=https://github.com/vscode-neovim/vscode-neovim target=_blank rel="noopener noreferrer">vscode-neovim/vscode-neovim: Vim-mode for VS Code using embedded Neovim<i class="fas fa-external-link-square-alt ms-1"></i></a> もインストールして、VSCode と Neovim を統合することにしました。</p>
+<p>そのために現在進行形で色々と設定していますので、備忘録として設定内容をメモしていきます。</p>
+<h2 id=今回実現したいこと data-numberify>今回実現したいこと<a class="anchor ms-1 d-none" href=#今回実現したいこと>#</a></h2>
+<p>インサートモードでの IME の状態を記憶しておいて、ノーマルモードに戻ってから再度インサートモードに入ったときに、従前の IME の状態を復元するというものです。</p>
+<p>つまり、インサートモードで IME をオンにして日本語を編集し、そこから <code>esc</code> キーでいったんノーマルモードに戻ったら IME をオフにしてキー操作に備え、再びインサートモードに入ったら IME の状態を復元（＝IME オン）するというものです。</p>
+<p>この機能を実現したい理由は、私がエディタで編集する文書の多くが日本語の文章なので、インサートモードで選択した IME の状態を、再びインサートモードに入ったときに復元できると作業効率が大幅にアップするためです。</p>
+<p>ノーマルモードに戻ったときに IME を自動的にオフにする方法はすぐに見つかったのですが、インサートモードで選択していた IME の状態を復元する方法は中々見つからなかったため、その方法をメモします。</p>
+<h2 id=環境 data-numberify>環境<a class="anchor ms-1 d-none" href=#環境>#</a></h2>
+<pre tabindex=0><code># Powershell
+$ wsl --version
+WSL バージョン: 1.0.3.0
+カーネル バージョン: 5.15.79.1
+WSLg バージョン: 1.0.47
+MSRDC バージョン: 1.2.3575
+Direct3D バージョン: 1.606.4
+DXCore バージョン: 10.0.25131.1002-220531-1700.rs-onecore-base2-hyp
+Windowsバージョン: 10.0.22621.900
+</code></pre><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c1># WSL2</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>$ lsb_release -a
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>No LSB modules are available.
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>Distributor ID: Ubuntu
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>Description:    Ubuntu 20.04.5 LTS
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>Release:        20.04
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>Codename:       focal
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>$ nvim --version
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>NVIM v0.8.1
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>Build type: Release
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>LuaJIT 2.1.0-beta3
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>Compiled by linuxbrew@43b3775c8372
+</code></pre></div><h2 id=使った外部ツール data-numberify>使った外部ツール<a class="anchor ms-1 d-none" href=#使った外部ツール>#</a></h2>
+<p>Neovim 自体に IME の状態取得や切り替え機能は備わっていませんので、IME の状態取得や切り替えは外部ツールを使う必要があります。</p>
+<p>私が使ったのは <a href=https://github.com/kaz399/spzenhan.vim target=_blank rel="noopener noreferrer">kaz399/spzenhan.vim<i class="fas fa-external-link-square-alt ms-1"></i></a> というツールです。このツールは、引数無しで実行すると IME の状態（IME ON → 1, IME OFF → 0）を返し、引数に <code>1</code> か <code>0</code> を渡すと IME をオン・オフしてくれるというものです。</p>
+<p>このツールは <a href=https://github.com/iuchim/zenhan target=_blank rel="noopener noreferrer">iuchim/zenhan<i class="fas fa-external-link-square-alt ms-1"></i></a> から Fork して開発されたツールですが、zenhan が備えている IME の切り替え機能に現在の IME の状態を取得する機能が追加されているため、今回採用しました。</p>
+<h2 id=手順 data-numberify>手順<a class="anchor ms-1 d-none" href=#手順>#</a></h2>
+<h3 id=ツールのインストール data-numberify>ツールのインストール<a class="anchor ms-1 d-none" href=#ツールのインストール>#</a></h3>
+<p>まず、<code>git clone [git@github.com](mailto:git@github.com):kaz399/spzenhan.vim.git</code> コマンドで spzenhan.vim をインストールします。</p>
+<h3 id=パスの設定 data-numberify>パスの設定<a class="anchor ms-1 d-none" href=#パスの設定>#</a></h3>
+<p>私はシェルに fish を使っているため、 <code>set -Ux fish_user_paths $HOME/spzenhan.vim/zenhan/ $fish_user_paths</code> コマンドでツールへのパスを通しました。これで <code>spzenhan.exe</code> コマンドで IME の状態取得や制御ができるようになります。使用結果は次のとおりです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=c1># IME ON の時</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>$ spzenhan.exe
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=m>1</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=c1># IME Off の時</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>$ spzenhan.exe
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span><span class=m>0</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>8</a></span>$ spzenhan.exe <span class=m>1</span> <span class=c1># IME Off -&gt; On</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9>9</a></span>$ spzenhan.exe <span class=m>0</span> <span class=c1># IME On -&gt; Off</span>
+</code></pre></div><h2 id=initvim-の設定 data-numberify>init.vim の設定<a class="anchor ms-1 d-none" href=#initvim-の設定>#</a></h2>
+<p>以下のコードを <code>init.vim</code> に追加します。</p>
+<pre tabindex=0><code>&quot; IME制御の設定
+command! ImeOff silent !spzenhan.exe 0
+command! ImeOn  silent !spzenhan.exe 1
+
+function! ImeAutoOn()
+    if !exists('b:ime_status')
+        let b:ime_status=0
+    endif
+    if b:ime_status==1
+        :silent ImeOn
+    endif
+endfunction
+
+function! ImeAutoOff()
+    let b:ime_status=system('spzenhan.exe')
+    :silent ImeOff
+endfunction
+
+&quot; IME off when in insert mode
+augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * call ImeAutoOn()
+    autocmd InsertLeave * call ImeAutoOff()
+augroup END
+</code></pre><p>コードの内容を解説しますと、<code>command!</code> で IME のオンオフを切り替える <code>ImeOff</code> と <code>ImeOn</code> という<a href=https://vim-jp.org/vimdoc-ja/map.html#user-commands target=_blank rel="noopener noreferrer">ユーザー定義コマンド<i class="fas fa-external-link-square-alt ms-1"></i></a>を作成し、それをインサートモードに入ったとき（<code>autocmd InsertEnter</code>）とインサートモードを抜けるとき（<code>autocmd InsertLeave</code>）に <code>ImeAutoOn()</code>, <code>ImeAutoOff()</code> 関数経由で実行しています。</p>
+<p><code>ImeAutoOff</code> 関数では <code>let b:ime_status=system('spzenhan.exe')</code> で spzenhan.exe を引数無しで実行して IME の状態を取得して変数に格納しています。この変数を <code>ImeAutoOn</code> 関数で使用することで、インサートモードを抜けるときの IME の状態を復元しています。</p>
+<hr>
+<h2 id=参考にしたサイト data-numberify>参考にしたサイト<a class="anchor ms-1 d-none" href=#参考にしたサイト>#</a></h2>
+<ul>
+<li><a href=https://hacolab.hatenablog.com/entry/2020/01/15/194928 target=_blank rel="noopener noreferrer">【FreeBSD】Vim/Neovimで挿入モード遷移時に前回のIME状態をセットする(uim-fep/fcitx) - HacoLab<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://gitpress.io/@mimori37/VSCode%E3%81%A7%E3%82%82normal%E7%A7%BB%E8%A1%8C%E6%99%82%E3%81%ABIME%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%81%9F%E3%81%84 target=_blank rel="noopener noreferrer">VSCodeでもnormal移行時に英数IMEに切り替えたい - GitPress.io<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ul>
 </div></div><div class=card-footer>
 <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
 <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
-<a href=https://kankodori-blog.com/posts/2022-08-31/>Klipper のマクロを使って Step by step 印刷を実現する方法</a>
-</div><div class="post-nav post-next">
-<a href=https://kankodori-blog.com/posts/2022-09-05/>QMK Firmware で1つのキーに Hold/Double Tap を割り当てる方法</a>
-<i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i>
+<a href=https://kankodori-blog.com/posts/2022-11-20/>WSL2 で生成した SSH の鍵を Windows11 で使う方法</a>
 </div></div>
 </div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
 <div class=card-header>
@@ -485,24 +492,23 @@ CC BY 4.0
 </div>
 <div class=card-body>
 <ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2022-08-31/>
-Klipper のマクロを使って Step by step 印刷を実現する方法
+<a class=post-title href=https://kankodori-blog.com/posts/2022-11-20/>
+WSL2 で生成した SSH の鍵を Windows11 で使う方法
 </a>
-<span class="post-meta post-date float-end">2022-08-30
+<span class="post-meta post-date float-end">2022-11-20
 </span>
-<div class="post-summary my-3"><p>前置き# 2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法はないか」という質問がありました。
-そこで、1行ずつ実行する方法を調べたのですが、その過程でレイヤー切り替え毎に手動で一時停止・印刷再開を行う方法を編み出せましたので、誰かの参考になればと思い方法をまとめました。
-必要な手順の概要# printer.cfg に save_variables セクションを追加して一時停止フラグを格納するファイルのファイル名を指定する SAVE_VARIABLE マクロを使って一時停止フラグのオン・...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-08-31/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。
+しかし、WSL2 だけではなく Windows11 でも Github にアクセスする必要が出てきたので、WSL2 で生成した鍵のペアを Windows11 でも使えるようにしました。
+Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする方法はいくつか見つかりましたが、その反対の方法を解説したページが見つからなかったため、手順を備忘録として公開します。
+環境# OS: Windows11 Pro...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-11-20/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2022-08-20/>
-Mainsail から rotation_distance を確認・変更する方法
+<a class=post-title href=https://kankodori-blog.com/posts/2022-04-19/>
+sudo apt update で Fish のリポジトリキーが不正と表示される件について
 </a>
-<span class="post-meta post-date float-end">2022-08-19
+<span class="post-meta post-date float-end">2022-04-19
 </span>
-<div class="post-summary my-3"><p>追記事項（2022年9月30日）# この記事を公開した時に、
-そこで rotation_distance の設定値を引数として渡すと printer.cfg の設定値を変更するシェルスクリプトは作成したのですが、これを Mainsail の CONSOLE から実行する方法が分からないため、この点は現在保留中です。正確に言うと、Mainsail の CONSOLE で複数の引数を渡す方法が分からない（できない？）ため、保留にしています。
-と書いていましたが、このたび、Mainsail の Console から rotation_distance の設定値を変更することに成功しましたので、その方法を末尾にまとめました。
-前置き#...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-08-20/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# MainsailOS をインストールしている Raspberry Pi で sudo apt update を実行したら The following signatures were invalid: EXPKEYSIG 2CE2AC08D880C8E4 shells:fish OBS Project &lt;shells:fish@build.opensuse.org> と表示されるようになりました。
+1> sudo apt update 2Get:1 https://pkgs.tailscale.com/stable/raspbian buster InRelease 3Hit:2...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-04-19/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
 <a class=post-title href=https://kankodori-blog.com/posts/2022-04-04/>
 Mainsail でサイドバーにロゴを表示させる方法
@@ -533,10 +539,10 @@ Actions
 <button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
 </div>
 <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=SuperSlicer%20%e3%81%a7%20%e4%b8%80%e5%ae%9a%e3%81%ae%e9%ab%98%e3%81%95%e6%af%8e%e3%81%ab%e6%b8%a9%e5%ba%a6%e3%82%84%e3%83%aa%e3%83%88%e3%83%a9%e3%82%af%e3%83%88%e9%95%b7%e3%82%92%e5%a4%89%e3%81%88%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-09-03%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=WSL2%20%2b%20Neovim%20%2b%20VSCode%20%e3%81%a7IME%20%e3%81%ae%e7%8a%b6%e6%85%8b%e3%82%92%e5%88%b6%e5%be%a1%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-12-11%2f">
 <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
 </a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-09-03%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-12-11%2f">
 <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
 </a>
 </div>
