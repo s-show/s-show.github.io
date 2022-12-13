@@ -2,7 +2,7 @@
 <head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>Github Actions で Re:view Starter のファイルをビルドする方法 - 閑古鳥ブログ</title>
+<title>WSL2 + Neovim でクリップボードを共有する方法 - 閑古鳥ブログ</title>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
 <link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
@@ -10,22 +10,22 @@
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
 <link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
 <meta name=keywords content>
-<meta name=description content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強">
+<meta name=description content="前置き# 昨日の WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ に続いて WSL2 + Neovim の設定についてメモしていきます。 今回は、Neovim でヤンク">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="Github Actions で Re:view Starter のファイルをビルドする方法">
-<meta name=twitter:description content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強">
+<meta name=twitter:title content="WSL2 + Neovim でクリップボードを共有する方法">
+<meta name=twitter:description content="前置き# 昨日の WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ に続いて WSL2 + Neovim の設定についてメモしていきます。 今回は、Neovim でヤンク">
 <meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="Github Actions で Re:view Starter のファイルをビルドする方法">
-<meta property="og:description" content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強">
+<meta property="og:title" content="WSL2 + Neovim でクリップボードを共有する方法">
+<meta property="og:description" content="前置き# 昨日の WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ に続いて WSL2 + Neovim の設定についてメモしていきます。 今回は、Neovim でヤンク">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://kankodori-blog.com/posts/2021-12-11/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-12-11T08:00:00+09:00">
-<meta property="article:modified_time" content="2021-12-11T08:00:00+09:00">
-<meta itemprop=name content="Github Actions で Re:view Starter のファイルをビルドする方法">
-<meta itemprop=description content="前置き# 今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を RE:View Starter で作成しています。 勉強"><meta itemprop=datePublished content="2021-12-11T08:00:00+09:00">
-<meta itemprop=dateModified content="2021-12-11T08:00:00+09:00">
-<meta itemprop=wordCount content="1737">
-<meta itemprop=keywords content>
+<meta property="og:url" content="https://kankodori-blog.com/posts/2022-12-12/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-12-12T22:05:21+09:00">
+<meta property="article:modified_time" content="2022-12-12T22:05:21+09:00">
+<meta itemprop=name content="WSL2 + Neovim でクリップボードを共有する方法">
+<meta itemprop=description content="前置き# 昨日の WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ に続いて WSL2 + Neovim の設定についてメモしていきます。 今回は、Neovim でヤンク"><meta itemprop=datePublished content="2022-12-12T22:05:21+09:00">
+<meta itemprop=dateModified content="2022-12-12T22:05:21+09:00">
+<meta itemprop=wordCount content="1457">
+<meta itemprop=keywords content="備忘録,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
 <link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.2f97cee03d63ba6cb667a87b185956f903bdc36c9ed2a8ff0dbac7c574a40975.css" integrity="sha256-L5fO4D1jumy2Z6h7GFlW+QO9w2ye0qj/DbrHxXSkCXU=" crossorigin=anonymous>
@@ -364,7 +364,7 @@ Karabiner-Elements
 <div class=col-lg-8>
 <div class=container><nav class="row card component" aria-label=breadcrumb>
 <div class="card-body pb-0">
-<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">Github Actions で Re:view Starter のファイルをビルドする方法</li></ol>
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">WSL2 + Neovim でクリップボードを共有する方法</li></ol>
 </div>
 </nav><div class="post-panel-wrapper position-sticky">
 <div class="d-flex flex-column component rounded post-panel position-absolute border">
@@ -383,152 +383,53 @@ Karabiner-Elements
 </div>
 </div><article class="row card component mb-4 post">
 <div class=card-header>
-<h1 class="card-title post-title my-2">Github Actions で Re:view Starter のファイルをビルドする方法</h1>
+<h1 class="card-title post-title my-2">WSL2 + Neovim でクリップボードを共有する方法</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2021-12-10 23:00:00 +0000 UTC.">2021-12-11</span>
+<span class="post-date me-1 mb-1" title="公開: 2022-12-12 13:05:21 +0000 UTC.">2022-12-12</span><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
 </div>
 <div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
-<p>今年の3月から部下に業務遂行のバックグラウンドとなる知識を伝えるための勉強会を開いており、そのための資料を <a href=https://qiita.com/kauplan/items/d01e6e39a05be0b908a1 target=_blank rel="noopener noreferrer">RE:View Starter<i class="fas fa-external-link-square-alt ms-1"></i></a> で作成しています。</p>
-<p>勉強会の都度その回の資料を執筆し、ビルドして出来た PDF ファイルを職場にメールで送っているのですが、送り忘れた場合に備えて、Github Actions を使って Github 上でもビルドを行ってリポジトリからダウンロードできるようにしようと思いました。</p>
-<p>そのため Github Actions の設定をあれこれ調べたのですが、プライベートリポジトリにしているせいで詰まった部分が結構ありましたので、備忘録代わりに調べたことをまとめます。</p>
-<h2 id=前提 data-numberify>前提<a class="anchor ms-1 d-none" href=#前提>#</a></h2>
-<p>ファイルの構成は次のとおり（主なファイルのみ列挙）で、リポジトリはプライベートリポジトリ。<code>contens/</code> ディレクトリに <code>.re</code> ファイルを保存しています。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>.
-<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>├ README.md
-<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>├ Rakefile
-<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>├ catalog.yml
-<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>├ config-starter.yml
-<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>├ config.yml
-<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>├ contents/
-<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>8</a></span>├ workshop.pdf
-</code></pre></div><h2 id=結論 data-numberify>結論<a class="anchor ms-1 d-none" href=#結論>#</a></h2>
-<p><code>.github/workflows/main.yml</code> を次のとおり設定し、環境変数 <code>PAT</code> に Personal access token（Scope は <code>repo</code> ）を設定すればビルドできます。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=nt>on</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>push]</span><span class=w>
-</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=w>
-</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=w></span><span class=nt>jobs</span><span class=p>:</span><span class=w>
-</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=w>  </span><span class=nt>review</span><span class=p>:</span><span class=w>
-</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=w>    </span><span class=nt>runs-on</span><span class=p>:</span><span class=w> </span><span class=l>ubuntu-latest</span><span class=w>
-</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=w>    </span><span class=nt>container</span><span class=p>:</span><span class=w> </span><span class=l>docker://kauplan/review2.5</span><span class=w>
-</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=w>    </span><span class=nt>steps</span><span class=p>:</span><span class=w>
-</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Checkout</span><span class=w>
-</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/checkout@v2</span><span class=w>
-</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
-</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=w>          </span><span class=nt>repository</span><span class=p>:</span><span class=w> </span><span class=l>s-show/workshop_document</span><span class=w>
-</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=w>          </span><span class=nt>token</span><span class=p>:</span><span class=w> </span><span class=l>${{ secrets.PAT }}</span><span class=w>
-</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=w>          </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./</span><span class=w>
-</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Build pdf</span><span class=w>
-</span><span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span><span class=w>        </span><span class=nt>run</span><span class=p>:</span><span class=w> </span><span class=l>rake pdf</span><span class=w>
-</span><span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span><span class=w>      </span>- <span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/upload-artifact@v1</span><span class=w>
-</span><span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
-</span><span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Save PDF</span><span class=w>
-</span><span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span><span class=w>          </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./workshop.pdf</span><span class=w>
-</span></code></pre></div><h2 id=解説 data-numberify>解説<a class="anchor ms-1 d-none" href=#解説>#</a></h2>
-<dl>
-<dt><code>on: [push]</code></dt>
-<dd>アクション実行のタイミングを push 時に設定します。</dd>
-<dt><code>jobs.review:runs-on: ubuntu-latest</code></dt>
-<dd>ワークフローを実行する仮想環境に Ubuntu の最新版を指定します。</dd>
-<dt><code>jobs.container: docker://kauplan/review2.5</code></dt>
-<dd>Re:view Starter のビルドは Docker のコンテナを利用しているので、Github Actions でも Docker のコンテナを利用するための設定。コンテナには Re:view Starter の作者が作成したコンテナを指定します。</dd>
-</dl>
-<div class="card col-9 mt-3 mb-3">
-<div class="row g-1">
-<div class=col-3>
-<img class=blog-card-image src alt="Docker Hub">
-</div>
-<div class=col-9>
-<h5 class=m-1>
-<a href>Docker Hub</a>
-</h5>
-<p class="card-text m-1"></p>
-</div>
-</div>
-</div>
-<dl>
-<dt><code>jobs.steps.name: Checkout</code></dt>
-<dd>ジョブの命名。このジョブは、勉強会資料のリポジトリを Github Actions で使うためにチェックアウトするものなので「Checkout」としています。</dd>
-<dt><code>jobs.steps.name.uses: actions/checkout@v2</code></dt>
-<dd>Github Actions の環境はリポジトリがチェックアウトされていない状態なので、そのままではリポジトリのデータにアクセスできません。そこで、公開アクションの <code>actions/checkout@v2</code> を使ってリポジトリをチェックアウトして <code>$GITHUB_WORKSPACE</code> の下に置くようにします。</dd>
-</dl>
-<div class="card col-9 mt-3 mb-3">
-<div class="row g-1">
-<div class=col-3>
-<img class=blog-card-image src=https://opengraph.githubassets.com/30833513c48c26882dcc9c681631d21c46a7941992a65d9dc25eb8fc3538512f/actions/checkout alt="GitHub - actions/checkout: Action for checking out a repo">
-</div>
-<div class=col-9>
-<h5 class=m-1>
-<a href=https://github.com/actions/checkout>GitHub - actions/checkout: Action for checking out a repo</a>
-</h5>
-<p class="card-text m-1">Action for checking out a repo. Contribute to actions/checkout development by creating an account on …</p>
-</div>
-</div>
-</div>
-<dl>
-<dt><code>jobs.steps.name.with.repository: s-show/workshop_document</code></dt>
-<dd>勉強会資料のリポジトリをチェックアウトの対象に指定してます。</dd>
-<dt><code>jobs.steps.name.with.token: ${{ secrets.PAT}}</code></dt>
-<dd>勉強会資料のリポジトリはプライベートリポジトリなので、認証情報がなければ Github Actions はリポジトリにアクセスできない。そのため、ここで環境変数経由で認証情報を渡しています。</dd>
-</dl>
-<p>プライベートリポジトリを使う場合のコードは以下に掲載されています。</p>
-<div class="card col-9 mt-3 mb-3">
-<div class="row g-1">
-<div class=col-3>
-<img class=blog-card-image src=https://opengraph.githubassets.com/30833513c48c26882dcc9c681631d21c46a7941992a65d9dc25eb8fc3538512f/actions/checkout alt="GitHub - actions/checkout: Action for checking out a repo">
-</div>
-<div class=col-9>
-<h5 class=m-1>
-<a href=https://github.com/actions/checkout>GitHub - actions/checkout: Action for checking out a repo</a>
-</h5>
-<p class="card-text m-1">Action for checking out a repo. Contribute to actions/checkout development by creating an account on …</p>
-</div>
-</div>
-</div>
-<p>認証情報の生成は後で説明します。</p>
-<dl>
-<dt><code>jobs.steps.name.with.path: ./</code></dt>
-<dd>リポジトリのトップディレクトリを作業ディレクトリに指定しています。</dd>
-<dt><code>jobs.steps.name: Buid pdf</code></dt>
-<dd>ジョブの命名。このジョブは、PDFファイルを出力するジョブ。</dd>
-<dt><code>jobs.steps.run: rake pdf</code></dt>
-<dd>PDF ファイルをビルドするコマンド。Re:view Starter のユーザーズガイドに記載されている PDF 出力コマンドは <code>docker run --rm -v $PWD:/work -w /work kauplan/review2.5 rake pdf</code> であるが、最後の <code>rake pdf</code> だけで実行可能。</dd>
-<dt><code>jobs.steps.uses: actions/upload-artifact@v1</code></dt>
-<dd>ビルドした PDF ファイルを保存するため、公開アクションの <code>upload-artifact@v1</code> を使用しています。</dd>
-<dt><code>jobs.steps.uses.with.path: ./workshop.pdf</code></dt>
-<dd>トップディレクトリに <code>workshop.pdf</code> というファイル名で保存するよう設定しています。</dd>
-</dl>
-<h2 id=プライベートリポジトリにアクセスするための準備 data-numberify>プライベートリポジトリにアクセスするための準備<a class="anchor ms-1 d-none" href=#プライベートリポジトリにアクセスするための準備>#</a></h2>
-<p>プライベートリポジトリにアクセスするには認証情報が必要なので、認証情報を環境変数経由で Github Actions に渡すための設定を行います。</p>
-<h3 id=personal-access-token-の生成 data-numberify>Personal access token の生成<a class="anchor ms-1 d-none" href=#personal-access-token-の生成>#</a></h3>
-<p>Personal access token の生成画面はユーザー設定画面にありますので、画面右上のユーザーアイコンの「Settings」を開いてから「Developer settings -> Personal access token -> generate new token」の順番で開いていきます。</p>
-<p>生成ページを開いたら、<code>Note</code> に任意の名称を入力し、スコープに <code>repo</code> を指定して Personal access token を生成し、生成した Personal access token をコピーします。</p>
-<h3 id=環境変数の設定 data-numberify>環境変数の設定<a class="anchor ms-1 d-none" href=#環境変数の設定>#</a></h3>
-<p>環境変数はリポジトリ毎に設定するので、リポジトリの「Setting」を開いてから「Secrets -> New repository secret」の順番で開いていきます。</p>
-<p>環境変数の設定画面を開いたら、 <code>Name</code> に <code>PAT</code> を、 <code>Value</code> に <code>Personal access token</code> の値を貼り付けて保存します。</p>
-<h2 id=デバッグ用の設定 data-numberify>デバッグ用の設定<a class="anchor ms-1 d-none" href=#デバッグ用の設定>#</a></h2>
-<p>デフォルト設定でもそこそこ詳しいログが保存されますが、さらに詳細なログが保存されても問題はないので、環境変数に次のペアを登録して詳細なログが保存されるように設定します。</p>
-<p><code>ACTIONS_STEP_DEBUG</code> → <code>true</code></p>
-<p><code>ACTIONS_RUNNER_DEBUG</code> → <code>true</code></p>
-<div class="card col-9 mt-3 mb-3">
-<div class="row g-1">
-<div class=col-3>
-<img class=blog-card-image src=https://github.githubassets.com/images/modules/open_graph/github-logo.png alt="デバッグ ログを有効にする - GitHub Docs">
-</div>
-<div class=col-9>
-<h5 class=m-1>
-<a href=https://ghdocs-prod.azurewebsites.net/ja/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging>デバッグ ログを有効にする - GitHub Docs</a>
-</h5>
-<p class="card-text m-1">ワークフロージョブあるいはステップが期待どおりに動作しない理由を診断する上で、十分な詳細がワークフローのログになかった場合、追加のデバッグロギングを有効化できます。</p>
-</div>
-</div>
-</div>
+<p>昨日の <a href=https://kankodori-blog.com/posts/2022-12-11/>WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ</a> に続いて WSL2 + Neovim の設定についてメモしていきます。</p>
+<p>今回は、Neovim でヤンクした内容を OS のクリップボードに共有する方法と、OS のクリップボードの内容を Neovim に貼り付ける方法の模索です。</p>
+<p>ちなみに、先に申し上げておきますと、今回ご紹介する方法は「現時点では動いている」というものです。色々調べて現在の設定に至っていますが、ある人にとって上手くいく方法が別の人では上手くいかなかったりしているようですので、これからご紹介する方法を真似しても上手くいかないかもしれません。</p>
+<h2 id=方法 data-numberify>方法<a class="anchor ms-1 d-none" href=#方法>#</a></h2>
+<h3 id=win32yankexe-のインストール data-numberify>win32yank.exe のインストール<a class="anchor ms-1 d-none" href=#win32yankexe-のインストール>#</a></h3>
+<p>まず、WSL2 上の Neovim と Windows 側のクリップボードの橋渡しをするアプリが必要なため、公式の <a href=https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl target=_blank rel="noopener noreferrer">FAQ<i class="fas fa-external-link-square-alt ms-1"></i></a> を参考に <code>win32yank.exe</code> をインストールします。</p>
+<p>Windows 側と WSL2 の両方に Neovim をインストールしている場合と WSL2 のみにインストールしている場合で手順が異なりますが、私は WSL2 にのみ Neovim をインストールしているため、次のコマンドで <code>win32yank.exe</code> をインストールしました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>unzip -p /tmp/win32yank.zip win32yank.exe &gt; /tmp/win32yank.exe
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>chmod +x /tmp/win32yank.exe
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>sudo mv /tmp/win32yank.exe /usr/local/bin/
+</code></pre></div><h3 id=initvim-の設定その1 data-numberify>init.vim の設定その1<a class="anchor ms-1 d-none" href=#initvim-の設定その1>#</a></h3>
+<p>公式の <a href=https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl target=_blank rel="noopener noreferrer">FAQ<i class="fas fa-external-link-square-alt ms-1"></i></a> では、<code>init.vim</code> に <code>set clipboard=unnamedplus</code> を追加すれば Neovim がデフォルトでシステム側のクリップボードを使うようになると書かれています。しかし、私の環境でこの設定を追加すると希望通りの動作にならなかったため、<code>set clipboard=unnamed</code> という設定に変更しました。</p>
+<p>この <code>set clipboard=</code> の設定は人によって説明がまちまちで、<code>set clipboard=unnamedplus</code>、<code>set cilpboard+=unnamedplus</code>、さらに <code>set clipboard=unnamed</code> にと色々なパターンがあるようです。私の場合、3つ試して <code>set clipboard=unnamed</code> で上手くいきました。</p>
+<h3 id=initvim-の設定その2 data-numberify>init.vim の設定その2<a class="anchor ms-1 d-none" href=#initvim-の設定その2>#</a></h3>
+<p>最初は <code>set clipboard=unnamedplus</code> を追加すれば Neovim でヤンクした内容が OS のクリップボードにコピーされましたが、<a href=https://github.com/vscode-neovim/vscode-neovim target=_blank rel="noopener noreferrer">vscode-neovim/vscode-neovim: Vim-mode for VS Code using embedded Neovim<i class="fas fa-external-link-square-alt ms-1"></i></a> をインストールした VSCode では、ヤンクした内容がクリップボードにコピーされませんでした。</p>
+<p>そこで同様の症状に遭遇した人がいるか調べたところ、vscode-neovim の Issues（<a href=https://github.com/vscode-neovim/vscode-neovim/issues/761 target=_blank rel="noopener noreferrer">WSL visual yank to clipboard<i class="fas fa-external-link-square-alt ms-1"></i></a>） で同じ症状に遭遇した人がいて、その方は <code>clip.exe</code> を使う設定を追加して問題を解決していました。</p>
+<p>それから、<code>win32yank.exe</code> を使う方法を紹介しているこちらの記事 (<a href=https://zenn.dev/shoseisan/articles/d7565884f5846b target=_blank rel="noopener noreferrer">Neovim on WSL2で、win32yankを導入してクリップボードの共有と遅延問題を解決<i class="fas fa-external-link-square-alt ms-1"></i></a>) と Reddit のこの投稿（<a href="https://www.reddit.com/r/neovim/comments/g94zrl/comment/forqemn/?utm_source=share&utm_medium=web2x&context=3" target=_blank rel="noopener noreferrer">Solution! Neovim clipboard with WSL<i class="fas fa-external-link-square-alt ms-1"></i></a>） も発見しましたので、これらの記事で紹介されている設定を追加したところ、VSCode でもヤンクした文字列がクリップボードにコピーされるようになりました。</p>
+<p>以上の設定をまとめると、次のとおりとなります。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c>&#34; ヤンクでWindowsのクリップボードを使う</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span><span class=nx>set</span> <span class=nx>clipboard</span><span class=p>=</span><span class=nx>unnamed</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err></span><span class=k>let</span> <span class=nx>g</span>:<span class=nx>clipboard</span> <span class=p>=</span> {<span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span>\   <span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;WslClipboard&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span>\   <span class=s1>&#39;copy&#39;</span>: {<span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span>\      <span class=s1>&#39;+&#39;</span>: <span class=s1>&#39;win32yank.exe -i --crlf&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err></span>\      <span class=s1>&#39;*&#39;</span>: <span class=s1>&#39;win32yank.exe -i --crlf&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span>\    }<span class=p>,</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span>\   <span class=s1>&#39;paste&#39;</span>: {<span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err></span>\      <span class=s1>&#39;+&#39;</span>: <span class=s1>&#39;win32yank.exe -o --lf&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span>\      <span class=s1>&#39;*&#39;</span>: <span class=s1>&#39;win32yank.exe -o --lf&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=err></span>\   }<span class=p>,</span><span class=err>
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=err></span>\   <span class=s1>&#39;cache_enabled&#39;</span>: <span class=m>0</span><span class=p>,</span><span class=err>
+</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span><span class=err></span>\ }<span class=err>
+</span></code></pre></div><p>これらの設定を追加することで、ブラウザなどでクリップボードにコピーした内容を Neovim に <code>p</code> キーで貼り付けられるようになりました。</p>
+<p>ただし、<code>nvim .</code> コマンドで Neovim を起動すると、なぜか直前にコピーした内容と異なる内容が貼付けされてしまいます。この症状を解消すべく試行錯誤しましたが解決できませんでしたので、現在は <code>nvim</code> コマンドで Neovim を起動するようにしています。</p>
+<h2 id=補足 data-numberify>補足<a class="anchor ms-1 d-none" href=#補足>#</a></h2>
+<p>私が使っている win32yank.exe ですが、公式リポジトリの Issues にはクラッシュなどの報告が結構見受けられます。私の環境でも、WindowsTerminal で Neovim を動かしてコピペして編集していますと、たまに WindowsTerminal がクラッシュしますので、その点は注意が必要だと思います。</p>
 </div></div><div class=card-footer>
 <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
 <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
-<a href=https://kankodori-blog.com/posts/2021-12-10/>2021年に実施した3Dプリンターの改造</a>
-</div><div class="post-nav post-next">
-<a href=https://kankodori-blog.com/posts/2021-12-12/>QMK API を使ってキーボードのリストを取得する方法</a>
-<i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i>
+<a href=https://kankodori-blog.com/posts/2022-12-11/>WSL2 + Neovim + VSCode でIME の状態を制御する方法</a>
 </div></div>
 </div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
 <div class=card-header>
@@ -545,35 +446,33 @@ CC BY 4.0
 </div>
 <div class=card-body>
 <ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2021-12-10/>
-2021年に実施した3Dプリンターの改造
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-11/>
+WSL2 + Neovim + VSCode でIME の状態を制御する方法
 </a>
-<span class="post-meta post-date float-end">2021-12-10
+<span class="post-meta post-date float-end">2022-12-11
 </span>
-<div class="post-summary my-3"><p>前置き# ~~この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の1日目の記事です。
-（最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを務められる予定だった tomorrow56@ガジェット分解(モ2済) さんが公開日を12日に変更されたので、期せずしてトップバッターになりました。）
-本アドベントカレンダーは「今年実施した/今年までに実施した3Dプリンターへの改造内容をまとめる記事」なので、今使っている Prusa MK3S+ と Ender3Pro の改造履歴をまとめます。
-実際の改造# 私が現在使っている 3Dプリンタは「Prusa i3 MK3S+」...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2021-12-10/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているため、思い切って Neovim を使ってみることにしました。
+ただ、必要に応じて VSCode も使えるようにしたいので、VSCode のプラグインの vscode-neovim/vscode-neovim: Vim-mode for VS Code using embedded Neovim もインストールして、VSCode と Neovim を統合することにしました。
+そのために現在進行形で色々と設定していますので、備忘録として設定内容をメモしていきます。
+今回実現したいこと# イ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-12-11/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2020-12-03/>
-自作キーボード活動2年目の振り返り
+<a class=post-title href=https://kankodori-blog.com/posts/2022-11-20/>
+WSL2 で生成した SSH の鍵を Windows11 で使う方法
 </a>
-<span class="post-meta post-date float-end">2020-12-03
+<span class="post-meta post-date float-end">2022-11-20
 </span>
-<div class="post-summary my-3"><p>前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに至った話」とか「小説家に営業した話」といったディープな話題は書けません。 なので、自作キーボード活動2年目を振り返る記事を書きたいと思いますが、2年目を簡単に振り返ると、オリジナルキーボードの製作が一番比重が大きく、QMK のドキュメント翻訳レビューがそれに続き、Discord の #mon-shin チャンネル用のダイアログページを作ったという1年間でした。なので、これらの活動について書いていきます。
-オリジナルキー...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2020-12-03/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。
+しかし、WSL2 だけではなく Windows11 でも Github にアクセスする必要が出てきたので、WSL2 で生成した鍵のペアを Windows11 でも使えるようにしました。
+Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする方法はいくつか見つかりましたが、その反対の方法を解説したページが見つからなかったため、手順を備忘録として公開します。
+環境# OS: Windows11 Pro...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-11-20/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2020-01-01/>
-自作キーボードから始まったものづくりへの取り組み
+<a class=post-title href=https://kankodori-blog.com/posts/2022-04-19/>
+sudo apt update で Fish のリポジトリキーが不正と表示される件について
 </a>
-<span class="post-meta post-date float-end">2020-01-01
+<span class="post-meta post-date float-end">2022-04-19
 </span>
-<div class="post-summary my-3"><p>明けましておめでとうございます。新年もよろしくお願いします。
-本記事が新年最初の記事になるが、新年最初の記事ということで、昨年1年間を振り返って今年の簡単な抱負を書いてみようと思います。
-昨年1年間の大きな変化# 仕事は変わらなかったので大きな変化はありませんが、私生活では意外な変化がありました。といっても、結婚とかそういう話ではなく、趣味というか、新たな世界が広がったという話です。
-こう書くと大仰な話に聞こえますが、簡単に言えば「物を作る」とことの面白さを知ったということです。
-以下、そういう変化に至った経緯を簡単に書いていきます。
-経緯# 「物を作る」ことの面白さを知ったきっかけは、自作キーボードを作ったことです。では、なぜ自作...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2020-01-01/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# MainsailOS をインストールしている Raspberry Pi で sudo apt update を実行したら The following signatures were invalid: EXPKEYSIG 2CE2AC08D880C8E4 shells:fish OBS Project &lt;shells:fish@build.opensuse.org> と表示されるようになりました。
+1> sudo apt update 2Get:1 https://pkgs.tailscale.com/stable/raspbian buster InRelease 3Hit:2...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-04-19/>もっと読む</a></div></div>
 </li></ul>
 </div>
 </section><div class="card component row post-comments" id=post-comments>
@@ -594,10 +493,10 @@ Actions
 <button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
 </div>
 <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Github%20Actions%20%e3%81%a7%20Re%3aview%20Starter%20%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e3%83%93%e3%83%ab%e3%83%89%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2021-12-11%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=WSL2%20%2b%20Neovim%20%e3%81%a7%e3%82%af%e3%83%aa%e3%83%83%e3%83%97%e3%83%9c%e3%83%bc%e3%83%89%e3%82%92%e5%85%b1%e6%9c%89%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-12-12%2f">
 <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
 </a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2021-12-11%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-12-12%2f">
 <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
 </a>
 </div>
