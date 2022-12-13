@@ -1,6 +1,6 @@
 ---
 # type: docs 
-title: WSL2 + Neovim でクリップボードを共有する方法
+title: WSL2 + Neovim + VSCode でクリップボードを共有する方法
 date: 2022-12-12T22:05:21+09:00
 featured: false
 draft: false
