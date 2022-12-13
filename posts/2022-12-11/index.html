@@ -24,7 +24,7 @@
 <meta itemprop=name content="WSL2 + Neovim + VSCode でIME の状態を制御する方法">
 <meta itemprop=description content="前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているた"><meta itemprop=datePublished content="2022-12-11T21:26:56+09:00">
 <meta itemprop=dateModified content="2022-12-11T21:26:56+09:00">
-<meta itemprop=wordCount content="1505">
+<meta itemprop=wordCount content="1501">
 <meta itemprop=keywords content="備忘録,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
@@ -326,7 +326,7 @@ Karabiner-Elements
 <li class=mb-2>
 <div class=d-flex>
 <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
-<a class=post-title href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim でクリップボードを共有する方法</a>
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim + VSCode でクリップボードを共有する方法</a>
 <div class="post-meta mt-2">
 <span class=post-date>2022-12-12</span>
 </div>
@@ -394,7 +394,7 @@ Karabiner-Elements
 <p>そのために現在進行形で色々と設定していますので、備忘録として設定内容をメモしていきます。</p>
 <h2 id=今回実現したいこと data-numberify>今回実現したいこと<a class="anchor ms-1 d-none" href=#今回実現したいこと>#</a></h2>
 <p>インサートモードでの IME の状態を記憶しておいて、ノーマルモードに戻ってから再度インサートモードに入ったときに、従前の IME の状態を復元するというものです。</p>
-<p>つまり、インサートモードで IME をオンにして日本語を編集し、そこから <code>esc</code> キーでいったんノーマルモードに戻ったら IME をオフにしてキー操作に備え、再びインサートモードに入ったら IME の状態を復元（＝IME オン）するというものです。</p>
+<p>つまり、インサートモードで IME をオンにして日本語を編集し、そこから <code>esc</code> キーでノーマルモードに戻ったら IME をオフにしてキー操作に備え、再びインサートモードに入ったら IME の状態を復元（＝IME オン）するというものです。</p>
 <p>この機能を実現したい理由は、私がエディタで編集する文書の多くが日本語の文章なので、インサートモードで選択した IME の状態を、再びインサートモードに入ったときに復元できると作業効率が大幅にアップするためです。</p>
 <p>ノーマルモードに戻ったときに IME を自動的にオフにする方法はすぐに見つかったのですが、インサートモードで選択していた IME の状態を復元する方法は中々見つからなかったため、その方法をメモします。</p>
 <h2 id=環境 data-numberify>環境<a class="anchor ms-1 d-none" href=#環境>#</a></h2>
@@ -477,7 +477,7 @@ augroup END
 <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
 <a href=https://kankodori-blog.com/posts/2022-11-20/>WSL2 で生成した SSH の鍵を Windows11 で使う方法</a>
 </div><div class="post-nav post-next">
-<a href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim でクリップボードを共有する方法</a>
+<a href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim + VSCode でクリップボードを共有する方法</a>
 <i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i>
 </div></div>
 </div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
