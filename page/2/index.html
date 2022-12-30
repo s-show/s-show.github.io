@@ -235,7 +235,7 @@
 <div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0>
 <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>
 備忘録
-<span class="badge badge-sm text-secondary bg-white ms-1">13</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">14</span>
 </a>
 <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>
 3Dプリンタ
@@ -275,12 +275,12 @@ Karabiner-Elements
 </a>
 <a href=https://kankodori-blog.com/tags class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=全部>
 全部
-<span class="badge badge-sm text-secondary bg-white ms-1">13</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">14</span>
 </a>
 </div>
 <div class=tab-pane id=taxonomyArchive role=tabpanel aria-labelledby=taxonomyArchiveTab tabindex=0>
 <a href=https://kankodori-blog.com/archives/2022/ class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2022>
-2022 <span class="badge badge-sm text-secondary bg-white ms-1">17</span>
+2022 <span class="badge badge-sm text-secondary bg-white ms-1">18</span>
 </a>
 <a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2021>
 2021 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
@@ -323,6 +323,16 @@ Karabiner-Elements
 <li class=mb-2>
 <div class=d-flex>
 <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-25/>Neovim の設定集（2022年12月29時点）</a>
+<div class="post-meta mt-2">
+<span class=post-date>2022-12-25</span>
+</div>
+</div>
+</div>
+</li>
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
 <a class=post-title href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim + VSCode でクリップボードを共有する方法</a>
 <div class="post-meta mt-2">
 <span class=post-date>2022-12-12</span>
@@ -340,16 +350,6 @@ Karabiner-Elements
 </div>
 </div>
 </li>
-<li class=mb-2>
-<div class=d-flex>
-<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
-<a class=post-title href=https://kankodori-blog.com/posts/2022-11-20/>WSL2 で生成した SSH の鍵を Windows11 で使う方法</a>
-<div class="post-meta mt-2">
-<span class=post-date>2022-11-20</span>
-</div>
-</div>
-</div>
-</li>
 </ul>
 </div>
 </div>
@@ -361,6 +361,22 @@ Karabiner-Elements
 <div class=col-lg-8>
 <div class=container>
 <div class="posts mb-4"><article class="row card post component">
+<div class=card-header>
+<h2 class="card-title post-title my-2 fs-4">
+<a href=https://kankodori-blog.com/posts/2022-06-11/>html-include の使い方</a>
+</h2>
+</div>
+<div class=card-body><div class="post-meta mb-3">
+<span class="post-date me-1 mb-1" title="公開: 2022-06-11 07:09:50 +0000 UTC.">2022-06-11</span>
+</div>
+<div class=post-summary><p>前置き# 自作キーボードのコミュニティで使用している質問用フォームを管理していますが、1つのページに全ての質問を載せる形から、問題の内容に応じて質問を分けるようにしました。
+この改修により、管理するページ数が1から6に増え、そのうち5つのページでヘッダー等が共通していましたので、共通部分を切り出す方法を探したところ、html-includes - npm というプラグインがちょうど良かったため、早速使うことにしました。
+このプラグインの解説をした日本語ページが見当たらなかったので、備忘録を兼ねて簡単な使い方を説明します。
+プラグインの概要# あるHTMLファイルに別のHTMLファイルを挿入してくれるプラグインです。各ページに共通する...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-06-11/>もっと読む</a></div>
+</div>
+</div>
+</article>
+<article class="row card post component">
 <div class=card-header>
 <h2 class="card-title post-title my-2 fs-4">
 <a href=https://kankodori-blog.com/posts/2022-04-19/>sudo apt update で Fish のリポジトリキーが不正と表示される件について</a>
@@ -491,22 +507,6 @@ fluidd v1.16.2 klipper v0.10.0-208-g247cd753 moonraker v0.7.1-273-g0a541bb 手�
 勉強会の都度その回の資料を執筆し、ビルドして出来た PDF ファイルを職場にメールで送っているのですが、送り忘れた場合に備えて、Github Actions を使って Github 上でもビルドを行ってリポジトリからダウンロードできるようにしようと思いました。
 そのため Github Actions の設定をあれこれ調べたのですが、プライベートリポジトリにしているせいで詰まった部分が結構ありましたので、備忘録代わりに調べたことをまとめます。
 前提# ファイルの構成は...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2021-12-11/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2021-12-10/>2021年に実施した3Dプリンターの改造</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2021-12-10 13:42:23 +0000 UTC.">2021-12-10</span>
-</div>
-<div class=post-summary><p>前置き# ~~この記事は 3Dプリンター改造記録 Advent Calendar 2021 - Adventar の1日目の記事です。
-（最初に本記事を執筆したときは2日目の記事でしたが、トップバッターを務められる予定だった tomorrow56@ガジェット分解(モ2済) さんが公開日を12日に変更されたので、期せずしてトップバッターになりました。）
-本アドベントカレンダーは「今年実施した/今年までに実施した3Dプリンターへの改造内容をまとめる記事」なので、今使っている Prusa MK3S+ と Ender3Pro の改造履歴をまとめます。
-実際の改造# 私が現在使っている 3Dプリンタは「Prusa i3 MK3S+」...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2021-12-10/>もっと読む</a></div>
 </div>
 </div>
 </article>

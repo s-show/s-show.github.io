@@ -1,0 +1,1199 @@
+<!doctype html><html class=position-relative itemscope itemtype=http://schema.org/WebPage lang=ja data-bs-theme=dark data-palette=indigo>
+<head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Neovim の設定集（2022年12月29時点） - 閑古鳥ブログ</title>
+<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
+<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
+<link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
+<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_150x150_resize_box_3.png sizes=150x150 type=image/png>
+<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
+<link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
+<meta name=keywords content>
+<meta name=description content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ">
+<meta name=robots content="index, follow"><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Neovim の設定集（2022年12月29時点）">
+<meta name=twitter:description content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ">
+<meta name=twitter:site content="@s_show_0000">
+<meta property="og:title" content="Neovim の設定集（2022年12月29時点）">
+<meta property="og:description" content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kankodori-blog.com/posts/2022-12-25/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-12-25T16:48:00+09:00">
+<meta property="article:modified_time" content="2022-12-25T16:48:00+09:00">
+<meta itemprop=name content="Neovim の設定集（2022年12月29時点）">
+<meta itemprop=description content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ"><meta itemprop=datePublished content="2022-12-25T16:48:00+09:00">
+<meta itemprop=dateModified content="2022-12-25T16:48:00+09:00">
+<meta itemprop=wordCount content="7123">
+<meta itemprop=keywords content="備忘録,Neovim,">
+<meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
+<meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
+<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.2f97cee03d63ba6cb667a87b185956f903bdc36c9ed2a8ff0dbac7c574a40975.css" integrity="sha256-L5fO4D1jumy2Z6h7GFlW+QO9w2ye0qj/DbrHxXSkCXU=" crossorigin=anonymous>
+<link data-precache rel=stylesheet href=https://kankodori-blog.com/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
+</head>
+<body><header>
+<nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top">
+<div class=container>
+<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href=https://kankodori-blog.com/>
+<picture><img class=logo alt=Logo src=https://kankodori-blog.com/images/logo.webp loading=lazy width=1024 height=1024>
+</picture>閑古鳥ブログ
+</a>
+<button class="navbar-toggler order-5" type=button data-bs-toggle=offcanvas data-bs-target=#navbarMenus aria-controls=navbarMenus aria-expanded=false aria-label="Toggle navigation">
+<i class="fas fa-ellipsis-h"></i>
+</button>
+<div class="offcanvas-lg offcanvas-end flex-grow-1" data-bs-scroll=true tabindex=-1 id=navbarMenus aria-labelledby=navbarMenusLabel>
+<div class="offcanvas-header px-4 pb-0">
+<h5 class=offcanvas-title id=navbarMenusLabel>閑古鳥ブログ</h5>
+<button type=button class="btn-close btn-close-white" data-bs-dismiss=offcanvas data-bs-target=#navbarMenus aria-label=Close></button>
+</div>
+<div class="offcanvas-body p-4 pt-0 p-lg-0">
+<hr class=d-lg-none>
+<ul class="navbar-nav flex-row flex-wrap align-items-center me-auto">
+</ul>
+<hr class=d-lg-none>
+<form class="search-bar ms-auto my-1" action=https://kankodori-blog.com/search/ novalidate>
+<div class="input-group input-group-sm align-items-center">
+<span class="btn btn-search disabled position-absolute left-0 border-0">
+<i class="fas fa-fw fa-search fa-lg"></i>
+</span>
+<input class="py-2 form-control rounded search-input" name=q type=search aria-label=Search required>
+</div>
+</form><hr class=d-lg-none>
+<ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto">
+<li class="nav-item dropdown col-6 col-lg-auto">
+<a class="nav-link px-0 py-2 px-lg-1" href=# id=fontSizeDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+<i class="fas fa-fw fa-font"></i>
+<span class=d-lg-none>フォントサイズ</span>
+</a>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby=fontSizeDropdown>
+<li>
+<button class="font-size-item dropdown-item" data-size=xs>
+極小
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item" data-size=sm>
+小
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item active" data-size=md>
+標準
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item" data-size=lg>
+大
+</button>
+</li>
+<li>
+<button class="font-size-item dropdown-item" data-size=xl>
+特大
+</button>
+</li>
+</ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+<a class="nav-link px-0 py-2 px-lg-1" href=# id=paletteDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+<i class="fas fa-fw fa-palette"></i>
+<span class=d-lg-none>パレット</span>
+</a>
+<ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby=paletteDropdown>
+<div class=row>
+<li class="col-4 my-1">
+<a role=button id=palette-blue aria-label=Blue class="btn btn-sm w-100 palette text-bg-blue" data-palette=blue>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-blue-gray aria-label="Blue Gray" class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette=blue-gray>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-brown aria-label=Brown class="btn btn-sm w-100 palette text-bg-brown" data-palette=brown>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-cyan aria-label=Cyan class="btn btn-sm w-100 palette text-bg-cyan" data-palette=cyan>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-green aria-label=Green class="btn btn-sm w-100 palette text-bg-green" data-palette=green>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-indigo aria-label=Indigo class="btn btn-sm w-100 palette text-bg-indigo" data-palette=indigo>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-orange aria-label=Orange class="btn btn-sm w-100 palette text-bg-orange" data-palette=orange>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-pink aria-label=Pink class="btn btn-sm w-100 palette text-bg-pink" data-palette=pink>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-purple aria-label=Purple class="btn btn-sm w-100 palette text-bg-purple" data-palette=purple>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-red aria-label=Red class="btn btn-sm w-100 palette text-bg-red" data-palette=red>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-teal aria-label=Teal class="btn btn-sm w-100 palette text-bg-teal" data-palette=teal>
+</a>
+</li>
+<li class="col-4 my-1">
+<a role=button id=palette-yellow aria-label=Yellow class="btn btn-sm w-100 palette text-bg-yellow" data-palette=yellow>
+</a>
+</li>
+</div>
+</ul>
+</li>
+<li class="nav-item dropdown col-6 col-lg-auto">
+<a class="nav-link px-0 py-2 px-lg-1" href=# id=modeDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
+<i class="mode-icon fas fa-fw fa-moon" id=modeIcon></i>
+<span class=d-lg-none>表示モード</span>
+</a>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby=modeDropdown>
+<li class=mode-item data-color-mode=light data-icon=sun>
+<button class=dropdown-item>
+<i class="mode-icon fas fa-fw fa-sun"></i> Light
+</button>
+</li>
+<li class="mode-item active" data-color-mode=dark data-icon=moon>
+<button class=dropdown-item>
+<i class="mode-icon fas fa-fw fa-moon"></i> Dark
+</button>
+</li>
+<li class=mode-item data-color-mode=auto data-icon=adjust>
+<button class=dropdown-item>
+<i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+</button>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<main class=container>
+<div class="row content"><noscript>
+<div class="alert alert-danger" role=alert>あなたのブラウザはJavascriptをサポートしていません。</div>
+</noscript>
+<aside class="col-lg-4 sidebar d-flex order-lg-5">
+<div class="container d-flex flex-column">
+<div class="accordion profile">
+<div class="accordion-item card row text-center component">
+<div class="accordion-header card-header border-0" id=profile-header>
+<a class="accordion-button d-lg-none mb-2 collapsed shadow-none p-0 bg-transparent text-surface" type=button data-bs-toggle=collapse data-bs-target=#profile aria-expanded=false aria-controls=profile>
+プロフィール
+</a>
+</div>
+<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=profile aria-labelledby=profile-header>
+<div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt=s-show src=https://kankodori-blog.com/img/profileIcon.png loading=lazy data-viewer-invisible width=500 height=500>
+</picture></div>
+<div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">s-show</div><div class=profile-bio>プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class=profile-location><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about text-primary"><i class="fas fa-fw fa-user"></i><a href=https://kankodori-blog.com/about/>About</a></div><div class="profile-contact text-primary"><i class="fas fa-fw fa-question-circle"></i><a href=https://kankodori-blog.com/contact/>Contact Us</a></div></div>
+<nav class="social-links nav justify-content-center mt-1 justify-content-around">
+<a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
+<i class="fas fa-fw fa-2x fa-envelope"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://github.com/s-show title=GitHub rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-github"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-twitter"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://kankodori-blog.com/index.xml title=RSS rel="noopener noreferrer">
+<i class="fas fa-fw fa-2x fa-rss"></i>
+</a>
+</nav>
+</div>
+</div>
+</div>
+<div class="accordion taxonomies-toggle">
+<section class="row card component accordion-item">
+<div class="accordion-header card-header border-0">
+<a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#taxonomies-toggle aria-expanded=false aria-controls=taxonomies-toggle>
+分類
+</a>
+</div>
+<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=taxonomies-toggle>
+<ul class="nav nav-pills nav-fill" id=myTab role=tablist>
+<li class=nav-item role=presentation>
+<button class="nav-link active" id=taxonomyTagsTab data-bs-toggle=tab data-bs-target=#taxonomyTags type=button role=tab aria-controls=タグ aria-selected=true>
+タグ
+</button>
+</li>
+<li class=nav-item role=presentation>
+<button class=nav-link id=taxonomyArchivesTab data-bs-toggle=tab data-bs-target=#taxonomyArchive type=button role=tab aria-controls=taxonomyArchives aria-selected=true>
+アーカイブ
+</button>
+</li>
+</ul>
+<div class="tab-content mt-3">
+<div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0>
+<a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>
+備忘録
+<span class="badge badge-sm text-secondary bg-white ms-1">14</span>
+</a>
+<a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>
+3Dプリンタ
+<span class="badge badge-sm text-secondary bg-white ms-1">10</span>
+</a>
+<a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=プログラミング>
+プログラミング
+<span class="badge badge-sm text-secondary bg-white ms-1">6</span>
+</a>
+<a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=自作キーボード>
+自作キーボード
+<span class="badge badge-sm text-secondary bg-white ms-1">5</span>
+</a>
+<a href=https://kankodori-blog.com/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=読書記録>
+読書記録
+<span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
+<a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>
+Klipper
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://kankodori-blog.com/tags/mac/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mac>
+Mac
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://kankodori-blog.com/tags/mainsail/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mainsail>
+Mainsail
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://kankodori-blog.com/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=未分類>
+未分類
+<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href=https://kankodori-blog.com/tags/karabiner-elements/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Karabiner-Elements>
+Karabiner-Elements
+<span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+</a>
+<a href=https://kankodori-blog.com/tags class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=全部>
+全部
+<span class="badge badge-sm text-secondary bg-white ms-1">14</span>
+</a>
+</div>
+<div class=tab-pane id=taxonomyArchive role=tabpanel aria-labelledby=taxonomyArchiveTab tabindex=0>
+<a href=https://kankodori-blog.com/archives/2022/ class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2022>
+2022 <span class="badge badge-sm text-secondary bg-white ms-1">18</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2021>
+2021 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2020>
+2020 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2019>
+2019 <span class="badge badge-sm text-secondary bg-white ms-1">4</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2018>
+2018 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+</a>
+<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2017>
+2017 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="accordion posts-toggle">
+<section class="row card component accordion-item">
+<div class="accordion-header card-header border-0">
+<a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#posts-toggle aria-expanded=false aria-controls=posts-toggle>
+投稿
+</a>
+</div>
+<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=posts-toggle>
+<ul class="nav nav-pills nav-fill" id=myTab role=tablist>
+<li class=nav-item role=presentation>
+<button class="nav-link active" id=recent-posts-tab data-bs-toggle=tab data-bs-target=#recent-posts type=button role=tab aria-controls=recent-posts aria-selected=true>
+最近の投稿
+</button>
+</li>
+</ul>
+<div class="tab-content mt-3">
+<div class="tab-pane active" id=recent-posts role=tabpanel aria-labelledby=recent-posts-tab tabindex=0>
+<ul class="post-list list-unstyled ms-1">
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-25/>Neovim の設定集（2022年12月29時点）</a>
+<div class="post-meta mt-2">
+<span class=post-date>2022-12-25</span>
+</div>
+</div>
+</div>
+</li>
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim + VSCode でクリップボードを共有する方法</a>
+<div class="post-meta mt-2">
+<span class=post-date>2022-12-12</span>
+</div>
+</div>
+</div>
+</li>
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-11/>WSL2 + Neovim + VSCode でIME の状態を制御する方法</a>
+<div class="post-meta mt-2">
+<span class=post-date>2022-12-11</span>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</aside>
+<div class=col-lg-8>
+<div class=container><nav class="row card component" aria-label=breadcrumb>
+<div class="card-body pb-0">
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">Neovim の設定集（2022年12月29時点）</li></ol>
+</div>
+</nav><div class="post-panel-wrapper position-sticky">
+<div class="d-flex flex-column component rounded post-panel position-absolute border">
+<a class="action action-panel-toggler" role=button title="Panel toggler">
+<i class="fas fa-fw fa-chevron-circle-down"></i>
+</a>
+<a id=sidebarToggler class="action d-none d-lg-block" role=button title="Sidebar toggler">
+<i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i>
+</a>
+<a class=action href=#post-copyright role=button aria-label=Copyright title=Copyright>
+<i class="fas fa-fw fa-copyright"></i>
+</a>
+<a class=action href=#post-comments role=button aria-label=Comments title=Comments>
+<i class="fas fa-fw fa-comments"></i>
+</a>
+</div>
+</div><article class="row card component mb-4 post">
+<div class=card-header>
+<h1 class="card-title post-title my-2">Neovim の設定集（2022年12月29時点）</h1>
+</div>
+<div class=card-body><div class="post-meta mb-3">
+<span class="post-date me-1 mb-1" title="公開: 2022-12-25 07:48:00 +0000 UTC.">2022-12-25</span><a href=https://kankodori-blog.com/tags/neovim/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Neovim</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
+</div>
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><div class=page-toc>
+<details>
+<summary>目次</summary>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#前置き>前置き</a></li>
+<li><a href=#アウトラインバッファの作成>アウトラインバッファの作成</a></li>
+<li><a href=#日本語テキストでの移動の効率化>日本語テキストでの移動の効率化</a></li>
+<li><a href=#dduvim-の導入>ddu.vim の導入</a></li>
+<li><a href=#ddcvim-の導入>ddc.vim の導入</a></li>
+<li><a href=#lualinenvim-の導入>lualine.nvim の導入</a></li>
+<li><a href=#キーバインド変更>キーバインド変更</a></li>
+<li><a href=#設定ファイル分割>設定ファイル分割</a></li>
+<li><a href=#reviewのシンタックスハイライト>Re:VIEWのシンタックスハイライト</a></li>
+<li><a href=#noicenvim-の導入>noice.nvim の導入</a></li>
+<li><a href=#導入したものの廃止したもの>導入したものの廃止したもの</a>
+<ul>
+<li><a href=#fine-cmdlinenvim>fine-cmdline.nvim</a></li>
+</ul>
+</li>
+<li><a href=#参考にしたサイト情報>参考にしたサイト・情報</a></li>
+</ul>
+</nav>
+</details>
+</div>
+<h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<p>WSL2 + Neovim + VSCode で使っていく予定だったのですが、Neovim をあれこれカスタマイズしていると Neovim が使いやすくなってきてメインエディタになりそうなので、これまでの設定をまとめてみようと思います。</p>
+<p>順不同で色々なネタを扱っていて記事が長いですので、上記の目次で必要な個所を拾い読みしてください。</p>
+<h2 id=アウトラインバッファの作成 data-numberify>アウトラインバッファの作成<a class="anchor ms-1 d-none" href=#アウトラインバッファの作成>#</a></h2>
+<p>このブログは、Go言語 で書かれた静的サイトジェネレーターの <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer">The world’s fastest framework for building websites |Hugo<i class="fas fa-external-link-square-alt ms-1"></i></a> で構築しており、記事は Markdown で書いています。また、職場で細々と行っている勉強会の資料は、書籍制作向けのテキストマークアップ言語仕様、およびその変換システムである <a href=https://reviewml.org/ target=_blank rel="noopener noreferrer">Re:VIEW - Digital Publishing System for Books and eBooks<i class="fas fa-external-link-square-alt ms-1"></i></a> で作成しています。</p>
+<p>どちらもそこそこ長い記事を書くことがあるのでアウトライン機能が欲しいのですが、プラグインはできる限り少なくしたいため、プラグイン無しでできるか挑戦したところ上手くいきましたので、方法を紹介します。</p>
+<p>処理の大まかな流れは、<code>;o</code> キーをタイプしたらファイルタイプ毎の検索条件を用いて Vimgrep と Quickfix を実行し、その結果をカレントバッファの右半分に表示するというものです。</p>
+<p>ただ、Neovim のデフォルトのファイルタイプに Re:VIEW は含まれていませんので、<code>~/.config/nvim/filetype.vim</code> に以下のコードを追加して、Re:VIEW のファイルタイプを登録します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=nx>augroup</span> <span class=nx>filetypedetect</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=err></span><span class=c>  &#34; 拡張子 .re のファイルを Re:VIEW ファイルと判定</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=err></span>  <span class=nx>au</span> <span class=nx>BufNewFile</span><span class=p>,</span><span class=nx>BufRead</span> *.<span class=nx>re</span>        <span class=nx>setf</span> <span class=nx>review</span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=err></span><span class=nx>augroup</span> <span class=nx>END</span><span class=err>
+</span></code></pre></div><p>それから、Vimgrep と Quickfix を次のとおり組み合わせます。</p>
+<ol>
+<li>Markdown と Re:VIEW の見出し部分を検索条件に設定した Vimgrep を実行</li>
+<li>Vimgrep の結果を <code>copen</code> コマンドで表示</li>
+<li><code>wincmd L</code> コマンドで結果を右側に表示</li>
+<li>上記の処理を関数にまとめた上で <code>;o</code> キーバインドに割り当て</li>
+</ol>
+<p>具体的なコードは次のとおりです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=k>function</span><span class=p>!</span> <span class=nx>CreateOutlineBuffer</span><span class=p>()</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span>  <span class=k>if</span> <span class=p>(</span>&amp;<span class=nx>ft</span><span class=p>==</span><span class=s1>&#39;review&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err></span>    <span class=nx>vimgrep</span> <span class=sr>/^=\+ /</span> %<span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span>  <span class=k>elseif</span> <span class=p>(</span>&amp;<span class=nx>ft</span><span class=p>==</span><span class=s1>&#39;markdown&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span>    <span class=nx>vimgrep</span> <span class=sr>/^#\+ /</span> %<span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span>  <span class=k>endif</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err></span>  <span class=nx>copen</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span>  <span class=nx>wincmd</span> <span class=nx>L</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span><span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> ;<span class=nx>o</span> :<span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>CreateOutlineBuffer</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span></code></pre></div><p>これで <code>;o</code> 次のスクリーンショットのようにアウトラインバッファを作成することができます。</p>
+<figure class="figure bsimage">
+<img src=outlineBuffer.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">アウトラインバッファを表示</figcaption>
+</figure>
+<p>実際の動作は次の動画のとおりです。</p>
+<video class=video-shortcode preload=auto controls>
+<source src=runOutlineBuffer.mp4 type=video/webm>
+There should have been a video here but your browser does not seem
+to support it.
+</video>
+<div class="alert alert-info" role=alert><i class="alert-icon fas fa-fw fa-info-circle me-1"></i>
+<p>ちなみに、このアウトラインバッファは、今は開発が終了した Github 製エディタのプラグインの <a href=https://github.com/t9md/atom-narrow target=_blank rel="noopener noreferrer">t9md/atom-narrow: narrow something<i class="fas fa-external-link-square-alt ms-1"></i></a> の見た目を模して設定しました。私はこのプラグインがお気に入りでしたので、見た目だけでも同じようにしたかったものです。</p>
+</div>
+<h2 id=日本語テキストでの移動の効率化 data-numberify>日本語テキストでの移動の効率化<a class="anchor ms-1 d-none" href=#日本語テキストでの移動の効率化>#</a></h2>
+<p>Vim の <code>f{char}</code> コマンドを日本語で使う場合、<code>f</code> キーをタイプしてから IME をオンにして検索文字を入力する必要があり、非常に面倒くさいです。</p>
+<p>そこで、<a href=https://sasasa.org/vim/ftjpn/ target=_blank rel="noopener noreferrer">Vimで日本語編集時の f, t の移動や操作を楽にするプラグイン ftjpn を作りました<i class="fas fa-external-link-square-alt ms-1"></i></a> をインストールして、<code>f,</code> や <code>f.</code> や <code>fg</code> のキーバインドで <code>、</code> や <code>。</code> や <code>が</code> に移動できるようにしました。</p>
+<p>ソースコードを編集するときのような細やかな移動はできませんが、<code>、</code> や <code>。</code> や <code>が</code> に移動できるだけでも結構効率は上がりますので、このプラグインは便利なプラグインです。なお、私の設定は次のとおりです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=k>let</span> <span class=nx>g</span>:<span class=nx>ftjpn_key_list</span> <span class=p>=</span> [<span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span>    \ [<span class=s1>&#39;.&#39;</span><span class=p>,</span> <span class=s1>&#39;。&#39;</span><span class=p>,</span> <span class=s1>&#39;．&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err></span>    \ [<span class=s1>&#39;,&#39;</span><span class=p>,</span> <span class=s1>&#39;、&#39;</span><span class=p>,</span> <span class=s1>&#39;，&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span>    \ [<span class=s1>&#39;g&#39;</span><span class=p>,</span> <span class=s1>&#39;が&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span>    \ [<span class=s1>&#39;w&#39;</span><span class=p>,</span> <span class=s1>&#39;を&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span>    \ [<span class=s1>&#39;h&#39;</span><span class=p>,</span> <span class=s1>&#39;は&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err></span>    \ [<span class=s1>&#39;(&#39;</span><span class=p>,</span> <span class=s1>&#39;（&#39;</span><span class=p>,</span> <span class=s1>&#39;）&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span>    \ [<span class=s1>&#39;;&#39;</span><span class=p>,</span> <span class=s1>&#39;！&#39;</span><span class=p>,</span> <span class=s1>&#39;？&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span>    \ [<span class=s1>&#39;[&#39;</span><span class=p>,</span> <span class=s1>&#39;「&#39;</span><span class=p>,</span> <span class=s1>&#39;『&#39;</span><span class=p>,</span> <span class=s1>&#39;【&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err></span>    \ [<span class=s1>&#39;]&#39;</span><span class=p>,</span> <span class=s1>&#39;」&#39;</span><span class=p>,</span> <span class=s1>&#39;』&#39;</span><span class=p>,</span> <span class=s1>&#39;】&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span>    \ ]<span class=err>
+</span></code></pre></div><p>なお、このプラグインを使い始めた当初、<code>,</code> や <code>.</code> は使えるのに <code>g</code> や <code>h</code> が使えなくて困っていましたが、作者に<a href=https://github.com/juro106/ftjpn/issues/1 target=_blank rel="noopener noreferrer">相談<i class="fas fa-external-link-square-alt ms-1"></i></a>して無事に使えるようになりました。あらためて御礼申し上げます。</p>
+<h2 id=dduvim-の導入 data-numberify>ddu.vim の導入<a class="anchor ms-1 d-none" href=#dduvim-の導入>#</a></h2>
+<p>エディタ内蔵のファイラーがあると便利なので色々探したのですが、Vim 標準の Netrw は操作性が独特だったりサイドバーの幅の調整が難しかったりとイマイチ合わなかったので、思い切って <a href=https://zenn.dev/shougo/articles/ddu-ui-filer target=_blank rel="noopener noreferrer">新世代のファイラー UI ddu-ui-filer<i class="fas fa-external-link-square-alt ms-1"></i></a> を導入しました。</p>
+<p>最初は設定方法などがさっぱり分からず悪戦苦闘の連続でしたが、何とか使えるようになるととても便利で、手放せないプラグインになりそうです。</p>
+<p>現在はファイラーに加えて、バッファリストとコマンド履歴の絞り込み＆選択にも使っています。特に、バッファリストの選択は便利な機能で、ターミナルで <code>nvim **.vim</code> や <code>nvim **.re</code> と入力して設定ファイルや Re:VIEW ファイルを一括して開いてバッファリストに読み込み、そのリストを <code>;b</code> キーバインドで呼び出してサクサク切り替えています。ついでに、リストから開くときに <code>Enter</code> だとカレントバッファに読み込み、<code>vo</code> でウィンドウを縦分割して読み込み、<code>vs</code> でウィンドウを水平分割して読み込むように設定しています。ただし、ここまで来るには悪戦苦闘の連続でした。</p>
+<p>実際の設定とその解説を書けば他の人の役に立つと思うのですが、記事が一本書けそうな気がしますので、設定の解説は別の記事にします。そのため、ここでは実際の設定のみ掲載します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>  1</a></span><span class=k>let</span> <span class=nx>g</span>:<span class=nx>denops</span>#<span class=nx>deno</span> <span class=p>=</span> <span class=s1>&#39;/home/s-show/.deno/bin/deno&#39;</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>  2</a></span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>  3</a></span><span class=err></span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>custom</span>#<span class=nx>patch_global</span><span class=p>(</span>{<span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>  4</a></span><span class=err></span>\   <span class=s1>&#39;ui&#39;</span>: <span class=s1>&#39;filer&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>  5</a></span><span class=err></span>\   <span class=s1>&#39;sources&#39;</span>: [<span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>  6</a></span><span class=err></span>\     {<span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>  7</a></span><span class=err></span>\       <span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;file&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>  8</a></span><span class=err></span>\       <span class=s1>&#39;params&#39;</span>: {}<span class=p>,</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9>  9</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10> 10</a></span><span class=err></span>\   ]<span class=p>,</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11> 11</a></span><span class=err></span>\   <span class=s1>&#39;sourceOptions&#39;</span>: {<span class=err>
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12> 12</a></span><span class=err></span>\     <span class=s1>&#39;_&#39;</span>: {<span class=err>
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13> 13</a></span><span class=err></span>\       <span class=s1>&#39;columns&#39;</span>: [<span class=s1>&#39;filename&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14> 14</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15> 15</a></span><span class=err></span>\     <span class=s1>&#39;command_history&#39;</span>: {<span class=err>
+</span><span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16> 16</a></span><span class=err></span>\       <span class=s1>&#39;matchers&#39;</span>: [ <span class=s1>&#39;matcher_substring&#39;</span> ]<span class=p>,</span><span class=err>
+</span><span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17> 17</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18> 18</a></span><span class=err></span>\     <span class=s1>&#39;buffer&#39;</span>: {<span class=err>
+</span><span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19> 19</a></span><span class=err></span>\       <span class=s1>&#39;matchers&#39;</span>: [ <span class=s1>&#39;matcher_substring&#39;</span> ]<span class=p>,</span><span class=err>
+</span><span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20> 20</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21> 21</a></span><span class=err></span>\   }<span class=p>,</span><span class=err>
+</span><span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22> 22</a></span><span class=err></span>\   <span class=s1>&#39;kindOptions&#39;</span>: {<span class=err>
+</span><span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23> 23</a></span><span class=err></span>\     <span class=s1>&#39;file&#39;</span>: {<span class=err>
+</span><span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24> 24</a></span><span class=err></span>\       <span class=s1>&#39;defaultAction&#39;</span>: <span class=s1>&#39;open&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25> 25</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26> 26</a></span><span class=err></span>\     <span class=s1>&#39;command_history&#39;</span>: {<span class=err>
+</span><span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27> 27</a></span><span class=err></span>\       <span class=s1>&#39;defaultAction&#39;</span>: <span class=s1>&#39;execute&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28> 28</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29> 29</a></span><span class=err></span>\   }<span class=p>,</span><span class=err>
+</span><span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30> 30</a></span><span class=err></span>\   <span class=s1>&#39;uiParams&#39;</span>: {<span class=err>
+</span><span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31> 31</a></span><span class=err></span>\     <span class=s1>&#39;filer&#39;</span>: {<span class=err>
+</span><span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32> 32</a></span><span class=err></span>\       <span class=s1>&#39;sort&#39;</span>: <span class=s1>&#39;filename&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33> 33</a></span><span class=err></span>\       <span class=s1>&#39;split&#39;</span>: <span class=s1>&#39;floating&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=34><a style=outline:none;text-decoration:none;color:inherit href=#34> 34</a></span><span class=err></span>\       <span class=s1>&#39;displayTree&#39;</span>: <span class=nx>v</span>:<span class=nx>true</span><span class=p>,</span><span class=err>
+</span><span class=ln id=35><a style=outline:none;text-decoration:none;color:inherit href=#35> 35</a></span><span class=err></span>\       <span class=s1>&#39;previewVertical&#39;</span>: <span class=nx>v</span>:<span class=nx>true</span><span class=p>,</span><span class=err>
+</span><span class=ln id=36><a style=outline:none;text-decoration:none;color:inherit href=#36> 36</a></span><span class=err></span>\       <span class=s1>&#39;previewWidth&#39;</span>: <span class=m>80</span><span class=p>,</span><span class=err>
+</span><span class=ln id=37><a style=outline:none;text-decoration:none;color:inherit href=#37> 37</a></span><span class=err></span>\     }<span class=err>
+</span><span class=ln id=38><a style=outline:none;text-decoration:none;color:inherit href=#38> 38</a></span><span class=err></span>\   }<span class=p>,</span><span class=err>
+</span><span class=ln id=39><a style=outline:none;text-decoration:none;color:inherit href=#39> 39</a></span><span class=err></span>\ }<span class=p>)</span><span class=err>
+</span><span class=ln id=40><a style=outline:none;text-decoration:none;color:inherit href=#40> 40</a></span><span class=err>
+</span><span class=ln id=41><a style=outline:none;text-decoration:none;color:inherit href=#41> 41</a></span><span class=err></span><span class=nx>autocmd</span> <span class=nx>FileType</span> <span class=nx>ddu</span><span class=p>-</span><span class=nx>ff</span> <span class=nx>call</span> <span class=nx>s</span>:<span class=nx>ddu_my_settings</span><span class=p>()</span><span class=err>
+</span><span class=ln id=42><a style=outline:none;text-decoration:none;color:inherit href=#42> 42</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>s</span>:<span class=nx>ddu_my_settings</span><span class=p>()</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=43><a style=outline:none;text-decoration:none;color:inherit href=#43> 43</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=44><a style=outline:none;text-decoration:none;color:inherit href=#44> 44</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>ff</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=45><a style=outline:none;text-decoration:none;color:inherit href=#45> 45</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>vo</span><span class=err>
+</span><span class=ln id=46><a style=outline:none;text-decoration:none;color:inherit href=#46> 46</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>ff</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;open&#39;</span><span class=p>,</span> <span class=s1>&#39;params&#39;</span>: {<span class=s1>&#39;command&#39;</span>: <span class=s1>&#39;vsplit&#39;</span>}}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=47><a style=outline:none;text-decoration:none;color:inherit href=#47> 47</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>vs</span><span class=err>
+</span><span class=ln id=48><a style=outline:none;text-decoration:none;color:inherit href=#48> 48</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>ff</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;open&#39;</span><span class=p>,</span> <span class=s1>&#39;params&#39;</span>: {<span class=s1>&#39;command&#39;</span>: <span class=s1>&#39;split&#39;</span>}}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=49><a style=outline:none;text-decoration:none;color:inherit href=#49> 49</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Space</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=50><a style=outline:none;text-decoration:none;color:inherit href=#50> 50</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>ff</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;toggleSelectItem&#39;</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=51><a style=outline:none;text-decoration:none;color:inherit href=#51> 51</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>i</span><span class=err>
+</span><span class=ln id=52><a style=outline:none;text-decoration:none;color:inherit href=#52> 52</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>ff</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;openFilterWindow&#39;</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=53><a style=outline:none;text-decoration:none;color:inherit href=#53> 53</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>q</span><span class=err>
+</span><span class=ln id=54><a style=outline:none;text-decoration:none;color:inherit href=#54> 54</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>ff</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;quit&#39;</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=55><a style=outline:none;text-decoration:none;color:inherit href=#55> 55</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=56><a style=outline:none;text-decoration:none;color:inherit href=#56> 56</a></span><span class=err>
+</span><span class=ln id=57><a style=outline:none;text-decoration:none;color:inherit href=#57> 57</a></span><span class=err></span><span class=nx>autocmd</span> <span class=nx>FileType</span> <span class=nx>ddu</span><span class=p>-</span><span class=nx>ff</span><span class=p>-</span><span class=nx>filter</span> <span class=nx>call</span> <span class=nx>s</span>:<span class=nx>ddu_filter_my_settings</span><span class=p>()</span><span class=err>
+</span><span class=ln id=58><a style=outline:none;text-decoration:none;color:inherit href=#58> 58</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>s</span>:<span class=nx>ddu_filter_my_settings</span><span class=p>()</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=59><a style=outline:none;text-decoration:none;color:inherit href=#59> 59</a></span><span class=err></span>  <span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=60><a style=outline:none;text-decoration:none;color:inherit href=#60> 60</a></span><span class=err></span>  \ <span class=p>&lt;</span><span class=nx>Esc</span><span class=p>&gt;&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>close</span><span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=61><a style=outline:none;text-decoration:none;color:inherit href=#61> 61</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=62><a style=outline:none;text-decoration:none;color:inherit href=#62> 62</a></span><span class=err></span>  \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>close</span><span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=63><a style=outline:none;text-decoration:none;color:inherit href=#63> 63</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>q</span><span class=err>
+</span><span class=ln id=64><a style=outline:none;text-decoration:none;color:inherit href=#64> 64</a></span><span class=err></span>  \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>close</span><span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=65><a style=outline:none;text-decoration:none;color:inherit href=#65> 65</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=66><a style=outline:none;text-decoration:none;color:inherit href=#66> 66</a></span><span class=err>
+</span><span class=ln id=67><a style=outline:none;text-decoration:none;color:inherit href=#67> 67</a></span><span class=err></span><span class=nx>autocmd</span> <span class=nx>FileType</span> <span class=nx>ddu</span><span class=p>-</span><span class=nx>filer</span> <span class=nx>call</span> <span class=nx>s</span>:<span class=nx>ddu_filer_my_settings</span><span class=p>()</span><span class=err>
+</span><span class=ln id=68><a style=outline:none;text-decoration:none;color:inherit href=#68> 68</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>s</span>:<span class=nx>ddu_filer_my_settings</span><span class=p>()</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=69><a style=outline:none;text-decoration:none;color:inherit href=#69> 69</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;&lt;</span><span class=nx>expr</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=70><a style=outline:none;text-decoration:none;color:inherit href=#70> 70</a></span><span class=err></span>    \ <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>is_tree</span><span class=p>()</span> ?<span class=err>
+</span><span class=ln id=71><a style=outline:none;text-decoration:none;color:inherit href=#71> 71</a></span><span class=err></span>    \ <span class=s2>&#34;&lt;Cmd&gt;call ddu#ui#filer#do_action(&#39;itemAction&#39;, {&#39;name&#39;: &#39;narrow&#39;})&lt;CR&gt;&#34;</span> :<span class=err>
+</span><span class=ln id=72><a style=outline:none;text-decoration:none;color:inherit href=#72> 72</a></span><span class=err></span>    \ <span class=s2>&#34;&lt;Cmd&gt;call ddu#ui#filer#do_action(&#39;itemAction&#39;)&lt;CR&gt;&#34;</span><span class=err>
+</span><span class=ln id=73><a style=outline:none;text-decoration:none;color:inherit href=#73> 73</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;&lt;</span><span class=nx>expr</span><span class=p>&gt;</span> <span class=nx>vo</span><span class=err>
+</span><span class=ln id=74><a style=outline:none;text-decoration:none;color:inherit href=#74> 74</a></span><span class=err></span>    \ <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>is_tree</span><span class=p>()</span> ?<span class=err>
+</span><span class=ln id=75><a style=outline:none;text-decoration:none;color:inherit href=#75> 75</a></span><span class=err></span>    \ <span class=s2>&#34;&lt;Cmd&gt;call ddu#ui#filer#do_action(&#39;itemAction&#39;, {&#39;name&#39;: &#39;narrow&#39;})&lt;CR&gt;&#34;</span> :<span class=err>
+</span><span class=ln id=76><a style=outline:none;text-decoration:none;color:inherit href=#76> 76</a></span><span class=err></span>    \ <span class=s2>&#34;&lt;Cmd&gt;call ddu#ui#filer#do_action(&#39;itemAction&#39;, {&#39;name&#39;: &#39;open&#39;, &#39;params&#39;: {&#39;command&#39;: &#39;vsplit&#39;}})&lt;CR&gt;&#34;</span><span class=err>
+</span><span class=ln id=77><a style=outline:none;text-decoration:none;color:inherit href=#77> 77</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Space</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=78><a style=outline:none;text-decoration:none;color:inherit href=#78> 78</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;toggleSelectItem&#39;</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=79><a style=outline:none;text-decoration:none;color:inherit href=#79> 79</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Esc</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=80><a style=outline:none;text-decoration:none;color:inherit href=#80> 80</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;quit&#39;</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=81><a style=outline:none;text-decoration:none;color:inherit href=#81> 81</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;</span> <span class=nx>o</span><span class=err>
+</span><span class=ln id=82><a style=outline:none;text-decoration:none;color:inherit href=#82> 82</a></span><span class=err></span>        \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;expandItem&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=83><a style=outline:none;text-decoration:none;color:inherit href=#83> 83</a></span><span class=err></span>        \ {<span class=s1>&#39;mode&#39;</span>: <span class=s1>&#39;toggle&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=84><a style=outline:none;text-decoration:none;color:inherit href=#84> 84</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>q</span><span class=err>
+</span><span class=ln id=85><a style=outline:none;text-decoration:none;color:inherit href=#85> 85</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;quit&#39;</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=86><a style=outline:none;text-decoration:none;color:inherit href=#86> 86</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> ..<span class=err>
+</span><span class=ln id=87><a style=outline:none;text-decoration:none;color:inherit href=#87> 87</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;narrow&#39;</span><span class=p>,</span> <span class=s1>&#39;params&#39;</span>: {<span class=s1>&#39;path&#39;</span>: <span class=s1>&#39;..&#39;</span>}}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=88><a style=outline:none;text-decoration:none;color:inherit href=#88> 88</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>c</span><span class=err>
+</span><span class=ln id=89><a style=outline:none;text-decoration:none;color:inherit href=#89> 89</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;copy&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=90><a style=outline:none;text-decoration:none;color:inherit href=#90> 90</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>p</span><span class=err>
+</span><span class=ln id=91><a style=outline:none;text-decoration:none;color:inherit href=#91> 91</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;paste&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=92><a style=outline:none;text-decoration:none;color:inherit href=#92> 92</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>d</span><span class=err>
+</span><span class=ln id=93><a style=outline:none;text-decoration:none;color:inherit href=#93> 93</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;delete&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=94><a style=outline:none;text-decoration:none;color:inherit href=#94> 94</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>r</span><span class=err>
+</span><span class=ln id=95><a style=outline:none;text-decoration:none;color:inherit href=#95> 95</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;rename&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=96><a style=outline:none;text-decoration:none;color:inherit href=#96> 96</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>mv</span><span class=err>
+</span><span class=ln id=97><a style=outline:none;text-decoration:none;color:inherit href=#97> 97</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;move&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=98><a style=outline:none;text-decoration:none;color:inherit href=#98> 98</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>t</span><span class=err>
+</span><span class=ln id=99><a style=outline:none;text-decoration:none;color:inherit href=#99> 99</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;newFile&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=100><a style=outline:none;text-decoration:none;color:inherit href=#100>100</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>mk</span><span class=err>
+</span><span class=ln id=101><a style=outline:none;text-decoration:none;color:inherit href=#101>101</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;newDirectory&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=102><a style=outline:none;text-decoration:none;color:inherit href=#102>102</a></span><span class=err></span>  <span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>yy</span><span class=err>
+</span><span class=ln id=103><a style=outline:none;text-decoration:none;color:inherit href=#103>103</a></span><span class=err></span>    \ <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>ui</span>#<span class=nx>filer</span>#<span class=nx>do_action</span><span class=p>(</span><span class=s1>&#39;itemAction&#39;</span><span class=p>,</span> {<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;yank&#39;</span>}<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=104><a style=outline:none;text-decoration:none;color:inherit href=#104>104</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=105><a style=outline:none;text-decoration:none;color:inherit href=#105>105</a></span><span class=err></span><span class=c>
+</span><span class=ln id=106><a style=outline:none;text-decoration:none;color:inherit href=#106>106</a></span><span class=c>&#34; `;f` でファイルリストを表示する</span><span class=err>
+</span><span class=ln id=107><a style=outline:none;text-decoration:none;color:inherit href=#107>107</a></span><span class=err></span><span class=nx>nmap</span> <span class=p>&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> ;<span class=nx>f</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>start</span><span class=p>(</span>{<span class=err>
+</span><span class=ln id=108><a style=outline:none;text-decoration:none;color:inherit href=#108>108</a></span><span class=err></span>\   <span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;filer&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=109><a style=outline:none;text-decoration:none;color:inherit href=#109>109</a></span><span class=err></span>\   <span class=s1>&#39;uiParams&#39;</span>: {<span class=err>
+</span><span class=ln id=110><a style=outline:none;text-decoration:none;color:inherit href=#110>110</a></span><span class=err></span>\     <span class=s1>&#39;filer&#39;</span>: {<span class=err>
+</span><span class=ln id=111><a style=outline:none;text-decoration:none;color:inherit href=#111>111</a></span><span class=err></span>\       <span class=s1>&#39;search&#39;</span>: <span class=nx>expand</span><span class=p>(</span><span class=s1>&#39;%:p&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=112><a style=outline:none;text-decoration:none;color:inherit href=#112>112</a></span><span class=err></span>\     }<span class=err>
+</span><span class=ln id=113><a style=outline:none;text-decoration:none;color:inherit href=#113>113</a></span><span class=err></span>\   }<span class=p>,</span><span class=err>
+</span><span class=ln id=114><a style=outline:none;text-decoration:none;color:inherit href=#114>114</a></span><span class=err></span>\ }<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=115><a style=outline:none;text-decoration:none;color:inherit href=#115>115</a></span><span class=err></span><span class=c>
+</span><span class=ln id=116><a style=outline:none;text-decoration:none;color:inherit href=#116>116</a></span><span class=c>&#34; `;b` でバッファリストを表示する</span><span class=err>
+</span><span class=ln id=117><a style=outline:none;text-decoration:none;color:inherit href=#117>117</a></span><span class=err></span><span class=nx>nmap</span> <span class=p>&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> ;<span class=nx>b</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>start</span><span class=p>(</span>{<span class=err>
+</span><span class=ln id=118><a style=outline:none;text-decoration:none;color:inherit href=#118>118</a></span><span class=err></span>\   <span class=s1>&#39;ui&#39;</span>: <span class=s1>&#39;ff&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=119><a style=outline:none;text-decoration:none;color:inherit href=#119>119</a></span><span class=err></span>\   <span class=s1>&#39;sources&#39;</span>: [{<span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;buffer&#39;</span>}]<span class=p>,</span><span class=err>
+</span><span class=ln id=120><a style=outline:none;text-decoration:none;color:inherit href=#120>120</a></span><span class=err></span>\   <span class=s1>&#39;uiParams&#39;</span>: {<span class=err>
+</span><span class=ln id=121><a style=outline:none;text-decoration:none;color:inherit href=#121>121</a></span><span class=err></span>\     <span class=s1>&#39;ff&#39;</span>: {<span class=err>
+</span><span class=ln id=122><a style=outline:none;text-decoration:none;color:inherit href=#122>122</a></span><span class=err></span>\       <span class=s1>&#39;split&#39;</span>: <span class=s1>&#39;floating&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=123><a style=outline:none;text-decoration:none;color:inherit href=#123>123</a></span><span class=err></span>\     }<span class=err>
+</span><span class=ln id=124><a style=outline:none;text-decoration:none;color:inherit href=#124>124</a></span><span class=err></span>\   }<span class=p>,</span><span class=err>
+</span><span class=ln id=125><a style=outline:none;text-decoration:none;color:inherit href=#125>125</a></span><span class=err></span>\ }<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=126><a style=outline:none;text-decoration:none;color:inherit href=#126>126</a></span><span class=err></span><span class=c>
+</span><span class=ln id=127><a style=outline:none;text-decoration:none;color:inherit href=#127>127</a></span><span class=c>&#34; `;c` でコマンドリストを表示する</span><span class=err>
+</span><span class=ln id=128><a style=outline:none;text-decoration:none;color:inherit href=#128>128</a></span><span class=err></span><span class=nx>nmap</span> <span class=p>&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> ;<span class=nx>c</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>ddu</span>#<span class=nx>start</span><span class=p>(</span>{<span class=err>
+</span><span class=ln id=129><a style=outline:none;text-decoration:none;color:inherit href=#129>129</a></span><span class=err></span>\   <span class=s1>&#39;ui&#39;</span>: <span class=s1>&#39;ff&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=130><a style=outline:none;text-decoration:none;color:inherit href=#130>130</a></span><span class=err></span>\   <span class=s1>&#39;sources&#39;</span>: [<span class=err>
+</span><span class=ln id=131><a style=outline:none;text-decoration:none;color:inherit href=#131>131</a></span><span class=err></span>\     {<span class=err>
+</span><span class=ln id=132><a style=outline:none;text-decoration:none;color:inherit href=#132>132</a></span><span class=err></span>\       <span class=s1>&#39;name&#39;</span>: <span class=s1>&#39;command_history&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=133><a style=outline:none;text-decoration:none;color:inherit href=#133>133</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=134><a style=outline:none;text-decoration:none;color:inherit href=#134>134</a></span><span class=err></span>\   ]<span class=p>,</span><span class=err>
+</span><span class=ln id=135><a style=outline:none;text-decoration:none;color:inherit href=#135>135</a></span><span class=err></span>\   <span class=s1>&#39;uiParams&#39;</span>: {<span class=err>
+</span><span class=ln id=136><a style=outline:none;text-decoration:none;color:inherit href=#136>136</a></span><span class=err></span>\     <span class=s1>&#39;ff&#39;</span>: {<span class=err>
+</span><span class=ln id=137><a style=outline:none;text-decoration:none;color:inherit href=#137>137</a></span><span class=err></span>\       <span class=s1>&#39;split&#39;</span>: <span class=s1>&#39;floating&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=138><a style=outline:none;text-decoration:none;color:inherit href=#138>138</a></span><span class=err></span>\     }<span class=p>,</span><span class=err>
+</span><span class=ln id=139><a style=outline:none;text-decoration:none;color:inherit href=#139>139</a></span><span class=err></span>\   }<span class=p>,</span><span class=err>
+</span><span class=ln id=140><a style=outline:none;text-decoration:none;color:inherit href=#140>140</a></span><span class=err></span>\ }<span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span></code></pre></div><p>ファイルリストなどの実際の表示は次のとおりです。</p>
+<p><figure class="figure bsimage">
+<img src=dduFiler.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">ファイラーを表示</figcaption>
+</figure>
+<figure class="figure bsimage">
+<img src=dduBufferList.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">バッファリストを表示</figcaption>
+</figure>
+<figure class="figure bsimage">
+<img src=dduCommandHistoryList.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">コマンド履歴を表示</figcaption>
+</figure></p>
+<h2 id=ddcvim-の導入 data-numberify>ddc.vim の導入<a class="anchor ms-1 d-none" href=#ddcvim-の導入>#</a></h2>
+<p>自動補完機能を強化するため、上記の ddu.vim と同じ方が作成してる自動補完プラグインの <a href=https://zenn.dev/shougo/articles/ddc-vim-beta target=_blank rel="noopener noreferrer">新世代の自動補完プラグイン ddc.vim<i class="fas fa-external-link-square-alt ms-1"></i></a> を導入しました。合わせて、自動補完をコマンドラインバッファでも有効にするため、<a href=https://zenn.dev/shougo/articles/ddc-vim-pum-vim target=_blank rel="noopener noreferrer">自動補完プラグイン ddc.vim + pum.vim<i class="fas fa-external-link-square-alt ms-1"></i></a> も導入しました。こちらも導入は悪戦苦闘の連続でしたが、何とか自動補完ができるようになりました。</p>
+<p>過去に入力したコマンドであれば、上記の ddu.vim のコマンド履歴表示でも対応可能なのですが、新規のコマンドはコマンドラインバッファで入力しないといけないですし、コマンド履歴表示は若干タイムラグがあるので、コマンドラインバッファでの自動補完は便利です。また、通常のファイル編集でも2文字入力すれば補完機能が発動しますので、便利に使っています。ただし、プログラミングで必須の LSP 周りの設定は全くできていないため、次はここに挑戦します。</p>
+<p>なお、こちらも ddu.vim と同じく解説を書くと記事が一本書けそうな感じなので、ここでは実際のコードのみ掲載します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c>&#34;=======================================================================================</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span><span class=c>&#34; ddc.nvim の設定</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err></span><span class=c>&#34;=======================================================================================</span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span><span class=c>&#34;</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span><span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>patch_global</span><span class=p>(</span><span class=s1>&#39;sources&#39;</span><span class=p>,</span> [<span class=s1>&#39;around&#39;</span>]<span class=p>)</span><span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span><span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>patch_global</span><span class=p>(</span><span class=s1>&#39;sourceOptions&#39;</span><span class=p>,</span> {<span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err></span>      \ <span class=s1>&#39;_&#39;</span>: {<span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span>      \   <span class=s1>&#39;matchers&#39;</span>: [<span class=s1>&#39;matcher_head&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span>      \   <span class=s1>&#39;sorters&#39;</span>: [<span class=s1>&#39;sorter_rank&#39;</span>]<span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err></span>      \ }<span class=p>,</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span>      \ <span class=s1>&#39;around&#39;</span>: {<span class=err>
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=err></span>      \   <span class=s1>&#39;mark&#39;</span>: <span class=s1>&#39;around&#39;</span><span class=err>
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=err></span>      \ }<span class=p>,</span><span class=err>
+</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span><span class=err></span>      \}<span class=p>)</span><span class=err>
+</span><span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span><span class=err></span><span class=c>
+</span><span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span><span class=c>
+</span><span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=c>&#34;=======================================================================================</span><span class=err>
+</span><span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span><span class=err></span><span class=c>&#34; pum.nvim の設定</span><span class=err>
+</span><span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span><span class=err></span><span class=c>&#34;=======================================================================================</span><span class=err>
+</span><span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span><span class=err></span><span class=c>&#34;</span><span class=err>
+</span><span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span><span class=err></span><span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>patch_global</span><span class=p>(</span><span class=s1>&#39;cmdlineSources&#39;</span><span class=p>,</span> {<span class=err>
+</span><span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span><span class=err></span>    \ <span class=s1>&#39;:&#39;</span>: [<span class=s1>&#39;cmdline-history&#39;</span><span class=p>,</span> <span class=s1>&#39;cmdline&#39;</span><span class=p>,</span> <span class=s1>&#39;around&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span><span class=err></span>    \ <span class=s1>&#39;@&#39;</span>: [<span class=s1>&#39;cmdline-history&#39;</span><span class=p>,</span> <span class=s1>&#39;input&#39;</span><span class=p>,</span> <span class=s1>&#39;file&#39;</span><span class=p>,</span> <span class=s1>&#39;around&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span><span class=err></span>    \ <span class=s1>&#39;&gt;&#39;</span>: [<span class=s1>&#39;cmdline-history&#39;</span><span class=p>,</span> <span class=s1>&#39;input&#39;</span><span class=p>,</span> <span class=s1>&#39;file&#39;</span><span class=p>,</span> <span class=s1>&#39;around&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25>25</a></span><span class=err></span>    \ <span class=s1>&#39;/&#39;</span>: [<span class=s1>&#39;around&#39;</span><span class=p>,</span> <span class=s1>&#39;line&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26>26</a></span><span class=err></span>    \ <span class=s1>&#39;?&#39;</span>: [<span class=s1>&#39;around&#39;</span><span class=p>,</span> <span class=s1>&#39;line&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27>27</a></span><span class=err></span>    \ <span class=s1>&#39;-&#39;</span>: [<span class=s1>&#39;around&#39;</span><span class=p>,</span> <span class=s1>&#39;line&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28>28</a></span><span class=err></span>    \ <span class=s1>&#39;=&#39;</span>: [<span class=s1>&#39;input&#39;</span>]<span class=p>,</span><span class=err>
+</span><span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29>29</a></span><span class=err></span>    \ }<span class=p>)</span><span class=err>
+</span><span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30>30</a></span><span class=err>
+</span><span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31>31</a></span><span class=err></span><span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>patch_global</span><span class=p>(</span><span class=s1>&#39;ui&#39;</span><span class=p>,</span> <span class=s1>&#39;pum&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32>32</a></span><span class=err></span><span class=c>&#34;call ddc#custom#patch_global(&#39;completionMenu&#39;, &#39;pum.vim&#39;)</span><span class=err>
+</span><span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33>33</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>silent</span><span class=p>&gt;&lt;</span><span class=nx>expr</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>TAB</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=34><a style=outline:none;text-decoration:none;color:inherit href=#34>34</a></span><span class=err></span>      \ <span class=nx>pum</span>#<span class=nx>visible</span><span class=p>()</span> ? <span class=s1>&#39;&lt;Cmd&gt;call pum#map#insert_relative(+1)&lt;CR&gt;&#39;</span> :<span class=err>
+</span><span class=ln id=35><a style=outline:none;text-decoration:none;color:inherit href=#35>35</a></span><span class=err></span>      \ <span class=p>(</span><span class=nx>col</span><span class=p>(</span><span class=s1>&#39;.&#39;</span><span class=p>)</span> <span class=p>&lt;=</span> <span class=m>1</span> <span class=p>&lt;</span><span class=nx>Bar</span><span class=p>&gt;&lt;</span><span class=nx>Bar</span><span class=p>&gt;</span> <span class=nx>getline</span><span class=p>(</span><span class=s1>&#39;.&#39;</span><span class=p>)</span>[<span class=nx>col</span><span class=p>(</span><span class=s1>&#39;.&#39;</span><span class=p>)</span> <span class=p>-</span> <span class=m>2</span>] <span class=p>=~</span># <span class=s1>&#39;\s&#39;</span><span class=p>)</span> ?<span class=err>
+</span><span class=ln id=36><a style=outline:none;text-decoration:none;color:inherit href=#36>36</a></span><span class=err></span>      \ <span class=s1>&#39;&lt;TAB&gt;&#39;</span> : <span class=nx>ddc</span>#<span class=nx>manual_complete</span><span class=p>()</span><span class=err>
+</span><span class=ln id=37><a style=outline:none;text-decoration:none;color:inherit href=#37>37</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>S</span><span class=p>-</span><span class=nx>Tab</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>insert_relative</span><span class=p>(</span><span class=m>-1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=38><a style=outline:none;text-decoration:none;color:inherit href=#38>38</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>n</span><span class=p>&gt;</span>   <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>select_relative</span><span class=p>(+</span><span class=m>1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=39><a style=outline:none;text-decoration:none;color:inherit href=#39>39</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>p</span><span class=p>&gt;</span>   <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>select_relative</span><span class=p>(</span><span class=m>-1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=40><a style=outline:none;text-decoration:none;color:inherit href=#40>40</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>y</span><span class=p>&gt;</span>   <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>confirm</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=41><a style=outline:none;text-decoration:none;color:inherit href=#41>41</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>e</span><span class=p>&gt;</span>   <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>cancel</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=42><a style=outline:none;text-decoration:none;color:inherit href=#42>42</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>PageDown</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>insert_relative_page</span><span class=p>(+</span><span class=m>1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=43><a style=outline:none;text-decoration:none;color:inherit href=#43>43</a></span><span class=err></span><span class=nx>inoremap</span> <span class=p>&lt;</span><span class=nx>PageUp</span><span class=p>&gt;</span>   <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>insert_relative_page</span><span class=p>(</span><span class=m>-1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=44><a style=outline:none;text-decoration:none;color:inherit href=#44>44</a></span><span class=err>
+</span><span class=ln id=45><a style=outline:none;text-decoration:none;color:inherit href=#45>45</a></span><span class=err></span><span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>patch_global</span><span class=p>(</span><span class=s1>&#39;autoCompleteEvents&#39;</span><span class=p>,</span> [<span class=err>
+</span><span class=ln id=46><a style=outline:none;text-decoration:none;color:inherit href=#46>46</a></span><span class=err></span>    \ <span class=s1>&#39;InsertEnter&#39;</span><span class=p>,</span> <span class=s1>&#39;TextChangedI&#39;</span><span class=p>,</span> <span class=s1>&#39;TextChangedP&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=47><a style=outline:none;text-decoration:none;color:inherit href=#47>47</a></span><span class=err></span>    \ <span class=s1>&#39;CmdlineEnter&#39;</span><span class=p>,</span> <span class=s1>&#39;CmdlineChanged&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=48><a style=outline:none;text-decoration:none;color:inherit href=#48>48</a></span><span class=err></span>    \ ]<span class=p>)</span><span class=err>
+</span><span class=ln id=49><a style=outline:none;text-decoration:none;color:inherit href=#49>49</a></span><span class=err>
+</span><span class=ln id=50><a style=outline:none;text-decoration:none;color:inherit href=#50>50</a></span><span class=err></span><span class=nx>nnoremap</span> :  <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>CommandlinePre</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;</span>:<span class=err>
+</span><span class=ln id=51><a style=outline:none;text-decoration:none;color:inherit href=#51>51</a></span><span class=err></span><span class=nx>nnoremap</span> ;; <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>CommandlinePre</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;</span>:<span class=err>
+</span><span class=ln id=52><a style=outline:none;text-decoration:none;color:inherit href=#52>52</a></span><span class=err>
+</span><span class=ln id=53><a style=outline:none;text-decoration:none;color:inherit href=#53>53</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>CommandlinePre</span><span class=p>()</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=54><a style=outline:none;text-decoration:none;color:inherit href=#54>54</a></span><span class=err></span><span class=c>  &#34; Note: It disables default command line completion!</span><span class=err>
+</span><span class=ln id=55><a style=outline:none;text-decoration:none;color:inherit href=#55>55</a></span><span class=err></span>  <span class=nx>cnoremap</span> <span class=p>&lt;</span><span class=nx>Tab</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>insert_relative</span><span class=p>(+</span><span class=m>1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=56><a style=outline:none;text-decoration:none;color:inherit href=#56>56</a></span><span class=err></span>  <span class=nx>cnoremap</span> <span class=p>&lt;</span><span class=nx>S</span><span class=p>-</span><span class=nx>Tab</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>insert_relative</span><span class=p>(</span><span class=m>-1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=57><a style=outline:none;text-decoration:none;color:inherit href=#57>57</a></span><span class=err></span>  <span class=nx>cnoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>n</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>insert_relative</span><span class=p>(+</span><span class=m>1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=58><a style=outline:none;text-decoration:none;color:inherit href=#58>58</a></span><span class=err></span>  <span class=nx>cnoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>p</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>insert_relative</span><span class=p>(</span><span class=m>-1</span><span class=p>)&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=59><a style=outline:none;text-decoration:none;color:inherit href=#59>59</a></span><span class=err></span>  <span class=nx>cnoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>y</span><span class=p>&gt;</span>   <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>confirm</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=60><a style=outline:none;text-decoration:none;color:inherit href=#60>60</a></span><span class=err></span>  <span class=nx>cnoremap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>e</span><span class=p>&gt;</span>   <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>pum</span>#<span class=nx>map</span>#<span class=nx>cancel</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=61><a style=outline:none;text-decoration:none;color:inherit href=#61>61</a></span><span class=err></span><span class=c>
+</span><span class=ln id=62><a style=outline:none;text-decoration:none;color:inherit href=#62>62</a></span><span class=c>  &#34; Overwrite sources</span><span class=err>
+</span><span class=ln id=63><a style=outline:none;text-decoration:none;color:inherit href=#63>63</a></span><span class=err></span>  <span class=k>if</span> <span class=p>!</span><span class=nx>exists</span><span class=p>(</span><span class=s1>&#39;b:prev_buffer_config&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=64><a style=outline:none;text-decoration:none;color:inherit href=#64>64</a></span><span class=err></span>    <span class=k>let</span> <span class=nx>b</span>:<span class=nx>prev_buffer_config</span> <span class=p>=</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>get_buffer</span><span class=p>()</span><span class=err>
+</span><span class=ln id=65><a style=outline:none;text-decoration:none;color:inherit href=#65>65</a></span><span class=err></span>  <span class=k>endif</span><span class=err>
+</span><span class=ln id=66><a style=outline:none;text-decoration:none;color:inherit href=#66>66</a></span><span class=err></span>  <span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>patch_buffer</span><span class=p>(</span><span class=s1>&#39;cmdlinesources&#39;</span><span class=p>,</span><span class=err>
+</span><span class=ln id=67><a style=outline:none;text-decoration:none;color:inherit href=#67>67</a></span><span class=err></span>          \ [<span class=s1>&#39;neovim&#39;</span><span class=p>,</span> <span class=s1>&#39;around&#39;</span>]<span class=p>)</span><span class=err>
+</span><span class=ln id=68><a style=outline:none;text-decoration:none;color:inherit href=#68>68</a></span><span class=err>
+</span><span class=ln id=69><a style=outline:none;text-decoration:none;color:inherit href=#69>69</a></span><span class=err></span>  <span class=nx>autocmd</span> <span class=nx>User</span> <span class=nx>DDCCmdlineLeave</span> <span class=p>++</span><span class=nx>once</span> <span class=nx>call</span> <span class=nx>CommandlinePost</span><span class=p>()</span><span class=err>
+</span><span class=ln id=70><a style=outline:none;text-decoration:none;color:inherit href=#70>70</a></span><span class=err></span>  <span class=nx>autocmd</span> <span class=nx>InsertEnter</span> <span class=p>&lt;</span><span class=nx>buffer</span><span class=p>&gt;</span> <span class=p>++</span><span class=nx>once</span> <span class=nx>call</span> <span class=nx>CommandlinePost</span><span class=p>()</span><span class=err>
+</span><span class=ln id=71><a style=outline:none;text-decoration:none;color:inherit href=#71>71</a></span><span class=err></span><span class=c>
+</span><span class=ln id=72><a style=outline:none;text-decoration:none;color:inherit href=#72>72</a></span><span class=c>  &#34; Enable command line completion</span><span class=err>
+</span><span class=ln id=73><a style=outline:none;text-decoration:none;color:inherit href=#73>73</a></span><span class=err></span>  <span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>enable_cmdline_completion</span><span class=p>()</span><span class=err>
+</span><span class=ln id=74><a style=outline:none;text-decoration:none;color:inherit href=#74>74</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=75><a style=outline:none;text-decoration:none;color:inherit href=#75>75</a></span><span class=err>
+</span><span class=ln id=76><a style=outline:none;text-decoration:none;color:inherit href=#76>76</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>CommandlinePost</span><span class=p>()</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=77><a style=outline:none;text-decoration:none;color:inherit href=#77>77</a></span><span class=err></span>  <span class=nx>silent</span><span class=p>!</span> <span class=nx>cunmap</span> <span class=p>&lt;</span><span class=nx>Tab</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=78><a style=outline:none;text-decoration:none;color:inherit href=#78>78</a></span><span class=err></span>  <span class=nx>silent</span><span class=p>!</span> <span class=nx>cunmap</span> <span class=p>&lt;</span><span class=nx>S</span><span class=p>-</span><span class=nx>Tab</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=79><a style=outline:none;text-decoration:none;color:inherit href=#79>79</a></span><span class=err></span>  <span class=nx>silent</span><span class=p>!</span> <span class=nx>cunmap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>n</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=80><a style=outline:none;text-decoration:none;color:inherit href=#80>80</a></span><span class=err></span>  <span class=nx>silent</span><span class=p>!</span> <span class=nx>cunmap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>p</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=81><a style=outline:none;text-decoration:none;color:inherit href=#81>81</a></span><span class=err></span>  <span class=nx>silent</span><span class=p>!</span> <span class=nx>cunmap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>y</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=82><a style=outline:none;text-decoration:none;color:inherit href=#82>82</a></span><span class=err></span>  <span class=nx>silent</span><span class=p>!</span> <span class=nx>cunmap</span> <span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>e</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=83><a style=outline:none;text-decoration:none;color:inherit href=#83>83</a></span><span class=err></span><span class=c>
+</span><span class=ln id=84><a style=outline:none;text-decoration:none;color:inherit href=#84>84</a></span><span class=c>  &#34; Restore sources</span><span class=err>
+</span><span class=ln id=85><a style=outline:none;text-decoration:none;color:inherit href=#85>85</a></span><span class=err></span>  <span class=k>if</span> <span class=nx>exists</span><span class=p>(</span><span class=s1>&#39;b:prev_buffer_config&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=86><a style=outline:none;text-decoration:none;color:inherit href=#86>86</a></span><span class=err></span>    <span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>set_buffer</span><span class=p>(</span><span class=nx>b</span>:<span class=nx>prev_buffer_config</span><span class=p>)</span><span class=err>
+</span><span class=ln id=87><a style=outline:none;text-decoration:none;color:inherit href=#87>87</a></span><span class=err></span>    <span class=nx>unlet</span> <span class=nx>b</span>:<span class=nx>prev_buffer_config</span><span class=err>
+</span><span class=ln id=88><a style=outline:none;text-decoration:none;color:inherit href=#88>88</a></span><span class=err></span>  <span class=k>else</span><span class=err>
+</span><span class=ln id=89><a style=outline:none;text-decoration:none;color:inherit href=#89>89</a></span><span class=err></span>    <span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>custom</span>#<span class=nx>set_buffer</span><span class=p>(</span>{}<span class=p>)</span><span class=err>
+</span><span class=ln id=90><a style=outline:none;text-decoration:none;color:inherit href=#90>90</a></span><span class=err></span>  <span class=k>endif</span><span class=err>
+</span><span class=ln id=91><a style=outline:none;text-decoration:none;color:inherit href=#91>91</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=92><a style=outline:none;text-decoration:none;color:inherit href=#92>92</a></span><span class=err>
+</span><span class=ln id=93><a style=outline:none;text-decoration:none;color:inherit href=#93>93</a></span><span class=err></span><span class=nx>call</span> <span class=nx>ddc</span>#<span class=nx>enable</span><span class=p>()</span><span class=err>
+</span></code></pre></div><p>実際の自動補完の様子は次のとおりです。</p>
+<p><figure class="figure bsimage">
+<img src=ddcCommandLine.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">コマンドラインバッファでの補完表示</figcaption>
+</figure>
+<figure class="figure bsimage">
+<img src=ddcInputMode.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">インプットモードでの補完表示</figcaption>
+</figure></p>
+<h2 id=lualinenvim-の導入 data-numberify>lualine.nvim の導入<a class="anchor ms-1 d-none" href=#lualinenvim-の導入>#</a></h2>
+<p>ステータスバーにもっと多くの情報を表示するため、<a href=https://github.com/nvim-lualine/lualine.nvim target=_blank rel="noopener noreferrer">nvim-lualine/lualine.nvim: A blazing fast and easy to configure neovim statusline plugin written in pure lua.<i class="fas fa-external-link-square-alt ms-1"></i></a> を導入しました。</p>
+<p>設定は公式リポジトリの「Default configuration」とほぼ同じですが、右側の表示のセパレータを <code></code> から <code>|</code> に変更し、また、ファイル名の表示をフルパス表示に変更しています。</p>
+<p>IMEの状態を右側に表示しようとしましたが、カーソルを上下移動するたびに画面がちらつくうえ、動作が明らかに重くなったため断念しました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-lua data-lang=lua><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=n>lua</span> <span class=o>&lt;&lt;</span> <span class=n>END</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>  <span class=n>require</span><span class=p>(</span><span class=s1>&#39;lualine&#39;</span><span class=p>).</span><span class=n>setup</span> <span class=p>{</span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>    <span class=n>options</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>      <span class=n>icons_enabled</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>      <span class=n>theme</span> <span class=o>=</span> <span class=s1>&#39;nord&#39;</span><span class=p>,</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>      <span class=n>component_separators</span> <span class=o>=</span> <span class=p>{</span> <span class=n>left</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=p>,</span> <span class=n>right</span> <span class=o>=</span> <span class=s1>&#39;|&#39;</span><span class=p>},</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>      <span class=n>section_separators</span> <span class=o>=</span> <span class=p>{</span> <span class=n>left</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=p>,</span> <span class=n>right</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=p>},</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>      <span class=n>disabled_filetypes</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>        <span class=n>statusline</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>        <span class=n>winbar</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>      <span class=p>},</span>
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>      <span class=n>ignore_focus</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>      <span class=n>always_divide_middle</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span>
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>      <span class=n>globalstatus</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span>
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>      <span class=n>refresh</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>        <span class=n>statusline</span> <span class=o>=</span> <span class=mi>1000</span><span class=p>,</span>
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span>        <span class=n>tabline</span> <span class=o>=</span> <span class=mi>1000</span><span class=p>,</span>
+<span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span>        <span class=n>winbar</span> <span class=o>=</span> <span class=mi>1000</span><span class=p>,</span>
+<span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span>      <span class=p>}</span>
+<span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span>    <span class=p>},</span>
+<span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span>    <span class=n>sections</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span>      <span class=n>lualine_a</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;mode&#39;</span><span class=p>},</span>
+<span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span>      <span class=n>lualine_b</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;branch&#39;</span><span class=p>,</span> <span class=s1>&#39;diff&#39;</span><span class=p>,</span> <span class=s1>&#39;diagnostics&#39;</span><span class=p>},</span>
+<span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span>      <span class=n>lualine_c</span> <span class=o>=</span> <span class=p>{{</span> <span class=s1>&#39;filename&#39;</span><span class=p>,</span> <span class=n>file_status</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span> <span class=n>path</span> <span class=o>=</span> <span class=mi>3</span> <span class=p>}},</span>
+<span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25>25</a></span>      <span class=n>lualine_x</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;encoding&#39;</span><span class=p>,</span> <span class=s1>&#39;fileformat&#39;</span><span class=p>,</span> <span class=s1>&#39;filetype&#39;</span><span class=p>},</span>
+<span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26>26</a></span>      <span class=n>lualine_y</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;progress&#39;</span><span class=p>},</span>
+<span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27>27</a></span>      <span class=n>lualine_z</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;location&#39;</span><span class=p>}</span>
+<span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28>28</a></span>    <span class=p>},</span>
+<span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29>29</a></span>    <span class=n>inactive_sections</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30>30</a></span>      <span class=n>lualine_a</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31>31</a></span>      <span class=n>lualine_b</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32>32</a></span>      <span class=n>lualine_c</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;filename&#39;</span><span class=p>},</span>
+<span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33>33</a></span>      <span class=n>lualine_x</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;location&#39;</span><span class=p>},</span>
+<span class=ln id=34><a style=outline:none;text-decoration:none;color:inherit href=#34>34</a></span>      <span class=n>lualine_y</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=35><a style=outline:none;text-decoration:none;color:inherit href=#35>35</a></span>      <span class=n>lualine_z</span> <span class=o>=</span> <span class=p>{}</span>
+<span class=ln id=36><a style=outline:none;text-decoration:none;color:inherit href=#36>36</a></span>    <span class=p>},</span>
+<span class=ln id=37><a style=outline:none;text-decoration:none;color:inherit href=#37>37</a></span>    <span class=n>tabline</span> <span class=o>=</span> <span class=p>{},</span><span class=n>ftjpnの動作状況</span>
+<span class=ln id=38><a style=outline:none;text-decoration:none;color:inherit href=#38>38</a></span>
+<span class=ln id=39><a style=outline:none;text-decoration:none;color:inherit href=#39>39</a></span>    <span class=n>winbar</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=40><a style=outline:none;text-decoration:none;color:inherit href=#40>40</a></span>    <span class=n>inactive_winbar</span> <span class=o>=</span> <span class=p>{},</span>
+<span class=ln id=41><a style=outline:none;text-decoration:none;color:inherit href=#41>41</a></span>    <span class=n>extensions</span> <span class=o>=</span> <span class=p>{}</span>
+<span class=ln id=42><a style=outline:none;text-decoration:none;color:inherit href=#42>42</a></span>  <span class=p>}</span>
+<span class=ln id=43><a style=outline:none;text-decoration:none;color:inherit href=#43>43</a></span><span class=n>END</span>
+<span class=ln id=44><a style=outline:none;text-decoration:none;color:inherit href=#44>44</a></span>
+<span class=ln id=45><a style=outline:none;text-decoration:none;color:inherit href=#45>45</a></span><span class=s2>&#34; IMEの状態を取得する関数。動作に支障が出るくらい遅くなるため未使用
+</span><span class=ln id=46><a style=outline:none;text-decoration:none;color:inherit href=#46>46</a></span><span class=s2>function! Get_ime_status()
+</span><span class=ln id=47><a style=outline:none;text-decoration:none;color:inherit href=#47>47</a></span><span class=s2>  let b:ime_status=system(&#39;spzenhan.exe&#39;)
+</span><span class=ln id=48><a style=outline:none;text-decoration:none;color:inherit href=#48>48</a></span><span class=s2>  if b:ime_status==1
+</span><span class=ln id=49><a style=outline:none;text-decoration:none;color:inherit href=#49>49</a></span><span class=s2>    return &#39;IME ON&#39;
+</span><span class=ln id=50><a style=outline:none;text-decoration:none;color:inherit href=#50>50</a></span><span class=s2>  else
+</span><span class=ln id=51><a style=outline:none;text-decoration:none;color:inherit href=#51>51</a></span><span class=s2>    return &#39;IME OFF&#39;
+</span><span class=ln id=52><a style=outline:none;text-decoration:none;color:inherit href=#52>52</a></span><span class=s2>  endif
+</span><span class=ln id=53><a style=outline:none;text-decoration:none;color:inherit href=#53>53</a></span><span class=s2>endfunction
+</span></code></pre></div><p>また、lualine.nvim の導入と合わせて、画面を縦分割してもステータスバーを分割しないという設定も行っています。この設定は、設定ファイルに次の設定を追加すれば可能です。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=nx>set</span> <span class=nx>laststatus</span><span class=p>=</span><span class=m>3</span><span class=err>
+</span></code></pre></div><p>設定の結果は次のとおりです。</p>
+<figure class="figure bsimage">
+<img src=lualine.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">設定後の lualine.nvim の表示</figcaption>
+</figure>
+<h2 id=キーバインド変更 data-numberify>キーバインド変更<a class="anchor ms-1 d-none" href=#キーバインド変更>#</a></h2>
+<p>上書き保存などを少しでも簡単にできるようにするため、いくつかのキーバインドを設定しました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c>&#34; 大文字Ｋでカーソル上のヘルプが見られる設定</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span><span class=c>&#34; 日本語ヘルプがあれば日本語版を、無ければ英語版を表示します。</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err></span><span class=c>&#34; 事前に &#39;vim-jp/vimdoc-ja&#39; をインストールする必要があります。</span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span><span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> <span class=nx>K</span> :<span class=p>&lt;</span><span class=nx>C</span><span class=p>-</span><span class=nx>u</span><span class=p>&gt;</span><span class=nx>call</span> <span class=p>&lt;</span><span class=nx>SID</span><span class=p>&gt;</span><span class=nx>show_documentation</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>s</span>:<span class=nx>show_documentation</span><span class=p>()</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span>  <span class=k>if</span> <span class=nx>index</span><span class=p>(</span>[<span class=s1>&#39;vim&#39;</span><span class=p>,</span><span class=s1>&#39;help&#39;</span>]<span class=p>,</span> &amp;<span class=nx>filetype</span><span class=p>)</span> <span class=p>&gt;=</span> <span class=m>0</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err></span>  <span class=nx>try</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span>    <span class=nx>execute</span> <span class=s1>&#39;h &#39;</span> . <span class=nx>expand</span><span class=p>(</span><span class=s1>&#39;&lt;cword&gt;&#39;</span><span class=p>)</span> .. <span class=s2>&#34;@ja&#34;</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span>  <span class=nx>catch</span> <span class=sr>/^Vim\%((\a\+)\)\=:E661:/</span><span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err></span>    <span class=nx>execute</span> <span class=s1>&#39;h &#39;</span> . <span class=nx>expand</span><span class=p>(</span><span class=s1>&#39;&lt;cword&gt;&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span>  <span class=nx>endtry</span><span class=err>
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=err></span>  <span class=k>endif</span><span class=err>
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span><span class=err></span><span class=c>
+</span><span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span><span class=c>&#34; qa で全てのバッファを閉じる</span><span class=err>
+</span><span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span><span class=err></span><span class=nx>nnoremap</span> <span class=nx>qa</span> <span class=nx>qall</span><span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=err></span><span class=c>
+</span><span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span><span class=c>&#34; ;w で保存</span><span class=err>
+</span><span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span><span class=err></span><span class=nx>nnoremap</span> ;<span class=nx>w</span> <span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>update</span><span class=p>&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span><span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span><span class=err></span><span class=c>
+</span><span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span><span class=c>&#34; ; 2連打でコマンドラインに移動</span><span class=err>
+</span><span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span><span class=err></span><span class=nx>nnoremap</span> ;; :<span class=err>
+</span><span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span><span class=err></span><span class=c>
+</span><span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span><span class=c>&#34; ノーマルモードで BackSpace による削除を可能にする</span><span class=err>
+</span><span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25>25</a></span><span class=err></span><span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>BS</span><span class=p>&gt;</span> <span class=nx>X</span><span class=err>
+</span></code></pre></div><h2 id=設定ファイル分割 data-numberify>設定ファイル分割<a class="anchor ms-1 d-none" href=#設定ファイル分割>#</a></h2>
+<p>最初は <code>init.vim</code> に全ての設定を書いていましたが、可読性に欠けるので次のような形で分割することにしました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>nvim
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>├── filetype.vim
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>├── ftplugin
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>│   └── review.vim
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>├── init.vim
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>├── init.vim.backup
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>├── minimal.lua
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>└── config_files
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>    ├── init
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>    │   ├── basic.vim
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>    │   ├── clipboard.vim
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>    │   ├── IME.vim
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>    │   ├── jetpack.vim
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>    │   ├── keymapping.vim
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>    │   ├── lsp.vim
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>    │   └── user_interface.vim
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span>    └── plugin
+<span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span>        ├── ddc.vim
+<span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span>        ├── ddu.vim
+<span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span>        ├── ftpjn.vim
+<span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span>        └── lualine.vim
+</code></pre></div><p>そして、この分割したファイルを <code>init.vim</code> の先頭で読み込んでいます。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>init</span>/<span class=nx>jetpack</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>init</span>/<span class=nx>basic</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>init</span>/<span class=nx>IME</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>init</span>/<span class=nx>clipboard</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>init</span>/<span class=nx>user_interface</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>init</span>/<span class=nx>keymapping</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>init</span>/<span class=nx>lsp</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>plugin</span>/<span class=nx>ddu</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>plugin</span>/<span class=nx>ddc</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>plugin</span>/<span class=nx>ftpjn</span>.<span class=nx>vim</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span><span class=nx>source</span> $<span class=nx>HOME</span><span class=sr>/.config/</span><span class=nx>nvim</span><span class=sr>/config_files/</span><span class=nx>plugin</span>/<span class=nx>lualine</span>.<span class=nx>vim</span><span class=err>
+</span></code></pre></div><p>なお、<code>runtime! config_files/init/*.vim</code>、<code>runtime! config_files/plugins/*.vim</code> の2行を <code>init.vim</code> の先頭に書いて自動的に設定ファイルを読み込む方法を紹介しているサイトがあり、私もその方法を一度採用しましたが、プラグインが機能しなかったため、上記のように愚直に設定ファイルを読み込む方法に変えました。</p>
+<h2 id=reviewのシンタックスハイライト data-numberify>Re:VIEWのシンタックスハイライト<a class="anchor ms-1 d-none" href=#reviewのシンタックスハイライト>#</a></h2>
+<p>Re:VIEW は Neovim にデフォルトで登録されているファイルタイプではないため、当然シンタックスハイライトも用意されていません。そのため、シンタックスハイライトは手動で設定する必要があります。</p>
+<p>とはいえ、シンタックスハイライトの設定を公開（<a href=https://github.com/tokorom/vim-review target=_blank rel="noopener noreferrer">tokorom/vim-review: Vim syntax for Re:VIEW<i class="fas fa-external-link-square-alt ms-1"></i></a>）してくださっている方がいますので、その方の設定を拝借することにしました。</p>
+<p>手順は次のとおりです。なお、Re:VIEW のファイルタイプ判定は、上記の「アウトラインバッファの作成」を参照してください。</p>
+<p>まず、<code>.config/nvim/ftplugin/review.vim</code> を作成して、次のコードを記述します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c>&#34; .config/nvim/ftplugin/review.vim</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span><span class=nx>setl</span> <span class=nx>commentstring</span><span class=p>=</span>#@#\ %<span class=nx>s</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span><span class=k>if</span> <span class=p>!</span><span class=nx>exists</span><span class=p>(</span><span class=s1>&#39;g:vim_review#include_filetypes&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span>  <span class=k>let</span> <span class=nx>g</span>:<span class=nx>vim_review</span>#<span class=nx>include_filetypes</span> <span class=p>=</span> []<span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span><span class=k>endif</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span><span class=k>if</span> <span class=p>!</span><span class=nx>exists</span><span class=p>(</span><span class=s1>&#39;g:vim_review#include_grouplists&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span>  <span class=k>let</span> <span class=nx>g</span>:<span class=nx>vim_review</span>#<span class=nx>include_grouplists</span> <span class=p>=</span> {}<span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err></span>  <span class=nx>for</span> <span class=nx>ft</span> <span class=nx>in</span> <span class=nx>g</span>:<span class=nx>vim_review</span>#<span class=nx>include_filetypes</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span>    <span class=k>let</span> <span class=nx>g</span>:<span class=nx>vim_review</span>#<span class=nx>include_grouplists</span>[<span class=nx>ft</span>] <span class=p>=</span> <span class=s1>&#39;syntax/&#39;</span> . <span class=nx>ft</span> . <span class=s1>&#39;.vim&#39;</span><span class=err>
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=err></span>  <span class=nx>endfor</span><span class=err>
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=err></span><span class=k>endif</span><span class=err>
+</span></code></pre></div><p>それから、<code>.config/nvim/syntax/review.vim</code> を作成して次のコードを記述します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>  1</a></span><span class=c>&#34; .config/nvim/syntax/review.vim</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>  2</a></span><span class=err></span><span class=c>&#34; Vim syntax file</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>  3</a></span><span class=err></span><span class=c>&#34; Language: Re:VIEW</span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>  4</a></span><span class=err></span><span class=c>&#34; Maintainer: Yuta Tokoro &lt;tokorom@gmail.com&gt;</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>  5</a></span><span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>  6</a></span><span class=err></span><span class=k>if</span> <span class=nx>exists</span><span class=p>(</span><span class=s2>&#34;b:current_syntax&#34;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>  7</a></span><span class=err></span>    <span class=nx>finish</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>  8</a></span><span class=err></span><span class=k>endif</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9>  9</a></span><span class=err></span><span class=c>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10> 10</a></span><span class=c>&#34; ----------</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11> 11</a></span><span class=err></span><span class=c>&#34; syntax</span><span class=err>
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12> 12</a></span><span class=err>
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13> 13</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>case</span> <span class=nx>match</span><span class=err>
+</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14> 14</a></span><span class=err>
+</span><span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15> 15</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>match</span> <span class=nx>reviewHeading</span> <span class=nx>contains</span><span class=p>=</span><span class=nx>reviewInlineCommand</span><span class=p>,</span><span class=nx>reviewInlineStyleCommand</span><span class=err>
+</span><span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16> 16</a></span><span class=err></span>      \ <span class=s2>&#34;^=\+\%(\s\+\|{\|\[\).*&#34;</span><span class=err>
+</span><span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17> 17</a></span><span class=err>
+</span><span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18> 18</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewInlineCommand</span> <span class=nx>oneline</span><span class=err>
+</span><span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19> 19</a></span><span class=err></span>      \ <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;@&lt;\w\+&gt;{&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;}&#34;</span><span class=err>
+</span><span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20> 20</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewInlineStyleCommand</span> <span class=nx>transparent</span> <span class=nx>oneline</span><span class=err>
+</span><span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21> 21</a></span><span class=err></span>      \ <span class=nx>matchgroup</span><span class=p>=</span><span class=nx>reviewInlineCommand</span><span class=err>
+</span><span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22> 22</a></span><span class=err></span>      \ <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;@&lt;\%\(kw\|bou\|ami\|u\|b\|i\|strong\|em\|tt\|tti\|ttb\|code\|tcy\)&gt;{&#34;</span><span class=err>
+</span><span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23> 23</a></span><span class=err></span>      \ <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;}&#34;</span><span class=err>
+</span><span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24> 24</a></span><span class=err>
+</span><span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25> 25</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewBlockCommand</span> <span class=nx>transparent</span> <span class=nx>keepend</span><span class=err>
+</span><span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26> 26</a></span><span class=err></span>      \ <span class=nx>matchgroup</span><span class=p>=</span><span class=nx>reviewBlockDeclaration</span> <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;^//\w\+\[\?.*{\s*$&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;^//}\s*$&#34;</span><span class=err>
+</span><span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27> 27</a></span><span class=err>
+</span><span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28> 28</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>match</span> <span class=nx>reviewBlockCommandWithoutContent</span><span class=err>
+</span><span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29> 29</a></span><span class=err></span>      \ <span class=s2>&#34;^//\w\+\[.*[^{]\s*$&#34;</span><span class=err>
+</span><span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30> 30</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>match</span> <span class=nx>reviewControlCommand</span><span class=err>
+</span><span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31> 31</a></span><span class=err></span>      \ <span class=s2>&#34;^//\&lt;\%\(noindent\|blankline\|linebreak\|pagebreak\)\&gt;\s*$&#34;</span><span class=err>
+</span><span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32> 32</a></span><span class=err>
+</span><span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33> 33</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewItemize</span> <span class=nx>transparent</span> <span class=nx>oneline</span><span class=err>
+</span><span class=ln id=34><a style=outline:none;text-decoration:none;color:inherit href=#34> 34</a></span><span class=err></span>      \ <span class=nx>matchgroup</span><span class=p>=</span><span class=nx>reviewItemizePrefix</span> <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;^\s\+\*\+\s\+&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;$&#34;</span><span class=err>
+</span><span class=ln id=35><a style=outline:none;text-decoration:none;color:inherit href=#35> 35</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewOrderedItemize</span> <span class=nx>transparent</span> <span class=nx>oneline</span><span class=err>
+</span><span class=ln id=36><a style=outline:none;text-decoration:none;color:inherit href=#36> 36</a></span><span class=err></span>      \ <span class=nx>matchgroup</span><span class=p>=</span><span class=nx>reviewItemizePrefix</span> <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;^\s\+[0-9]\+\.\s\+&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;$&#34;</span><span class=err>
+</span><span class=ln id=37><a style=outline:none;text-decoration:none;color:inherit href=#37> 37</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewDefinitionList</span> <span class=nx>transparent</span> <span class=nx>oneline</span><span class=err>
+</span><span class=ln id=38><a style=outline:none;text-decoration:none;color:inherit href=#38> 38</a></span><span class=err></span>      \ <span class=nx>matchgroup</span><span class=p>=</span><span class=nx>reviewItemizePrefix</span> <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;^\s\+\:\s\+&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;$&#34;</span><span class=err>
+</span><span class=ln id=39><a style=outline:none;text-decoration:none;color:inherit href=#39> 39</a></span><span class=err>
+</span><span class=ln id=40><a style=outline:none;text-decoration:none;color:inherit href=#40> 40</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>match</span> <span class=nx>reviewComment</span> <span class=nx>contains</span><span class=p>=</span><span class=nx>reviewTodo</span><span class=err>
+</span><span class=ln id=41><a style=outline:none;text-decoration:none;color:inherit href=#41> 41</a></span><span class=err></span>      \ <span class=s2>&#34;^#@.*&#34;</span><span class=err>
+</span><span class=ln id=42><a style=outline:none;text-decoration:none;color:inherit href=#42> 42</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewCommentBlock</span> <span class=nx>keepend</span> <span class=nx>contains</span><span class=p>=</span><span class=nx>reviewTodo</span><span class=err>
+</span><span class=ln id=43><a style=outline:none;text-decoration:none;color:inherit href=#43> 43</a></span><span class=err></span>      \ <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;^//\&lt;comment\&gt;\[\?.*{\s*&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;^//}\s*$&#34;</span><span class=err>
+</span><span class=ln id=44><a style=outline:none;text-decoration:none;color:inherit href=#44> 44</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewCommentInline</span> <span class=nx>oneline</span> <span class=nx>contains</span><span class=p>=</span><span class=nx>reviewTodo</span><span class=err>
+</span><span class=ln id=45><a style=outline:none;text-decoration:none;color:inherit href=#45> 45</a></span><span class=err></span>      \ <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;@&lt;comment&gt;{&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;}&#34;</span><span class=err>
+</span><span class=ln id=46><a style=outline:none;text-decoration:none;color:inherit href=#46> 46</a></span><span class=err>
+</span><span class=ln id=47><a style=outline:none;text-decoration:none;color:inherit href=#47> 47</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>match</span> <span class=nx>reviewPreProcCommand</span><span class=err>
+</span><span class=ln id=48><a style=outline:none;text-decoration:none;color:inherit href=#48> 48</a></span><span class=err></span>      \ <span class=s2>&#34;^#@\&lt;\%\(require\|provide\)\&gt;\s\+.*&#34;</span><span class=err>
+</span><span class=ln id=49><a style=outline:none;text-decoration:none;color:inherit href=#49> 49</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewPreProcBlockCommand</span> <span class=nx>keepend</span><span class=err>
+</span><span class=ln id=50><a style=outline:none;text-decoration:none;color:inherit href=#50> 50</a></span><span class=err></span>      \ <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;^#@\&lt;\%\(mapfile\|maprange\|mapoutput\)\&gt;(.*).*&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;^#@end\s*$&#34;</span><span class=err>
+</span><span class=ln id=51><a style=outline:none;text-decoration:none;color:inherit href=#51> 51</a></span><span class=err>
+</span><span class=ln id=52><a style=outline:none;text-decoration:none;color:inherit href=#52> 52</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>region</span> <span class=nx>reviewWarning</span> <span class=nx>oneline</span><span class=err>
+</span><span class=ln id=53><a style=outline:none;text-decoration:none;color:inherit href=#53> 53</a></span><span class=err></span>      \ <span class=nx>matchgroup</span><span class=p>=</span><span class=nx>reviewPreProcCommand</span> <span class=nx>start</span><span class=p>=</span><span class=s2>&#34;^#@warn(&#34;</span> <span class=nx>end</span><span class=p>=</span><span class=s2>&#34;).*$&#34;</span><span class=err>
+</span><span class=ln id=54><a style=outline:none;text-decoration:none;color:inherit href=#54> 54</a></span><span class=err>
+</span><span class=ln id=55><a style=outline:none;text-decoration:none;color:inherit href=#55> 55</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>case</span> <span class=nx>ignore</span><span class=err>
+</span><span class=ln id=56><a style=outline:none;text-decoration:none;color:inherit href=#56> 56</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>keyword</span> <span class=nx>reviewTodo</span> <span class=nx>MARK</span> <span class=nx>TODO</span> <span class=nx>FIXME</span> <span class=nx>contained</span><span class=err>
+</span><span class=ln id=57><a style=outline:none;text-decoration:none;color:inherit href=#57> 57</a></span><span class=err></span><span class=nx>syn</span> <span class=nx>case</span> <span class=nx>match</span><span class=err>
+</span><span class=ln id=58><a style=outline:none;text-decoration:none;color:inherit href=#58> 58</a></span><span class=err></span><span class=c>
+</span><span class=ln id=59><a style=outline:none;text-decoration:none;color:inherit href=#59> 59</a></span><span class=c>&#34; ----------</span><span class=err>
+</span><span class=ln id=60><a style=outline:none;text-decoration:none;color:inherit href=#60> 60</a></span><span class=err></span><span class=c>&#34; include other languages</span><span class=err>
+</span><span class=ln id=61><a style=outline:none;text-decoration:none;color:inherit href=#61> 61</a></span><span class=err>
+</span><span class=ln id=62><a style=outline:none;text-decoration:none;color:inherit href=#62> 62</a></span><span class=err></span><span class=k>if</span> <span class=nx>exists</span><span class=p>(</span><span class=s1>&#39;g:vim_review#include_grouplists&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=63><a style=outline:none;text-decoration:none;color:inherit href=#63> 63</a></span><span class=err></span>  <span class=k>let</span> <span class=nx>include_grouplists</span> <span class=p>=</span> <span class=nx>g</span>:<span class=nx>vim_review</span>#<span class=nx>include_grouplists</span><span class=err>
+</span><span class=ln id=64><a style=outline:none;text-decoration:none;color:inherit href=#64> 64</a></span><span class=err></span>  <span class=k>let</span> <span class=nx>operations</span> <span class=p>=</span> <span class=s1>&#39;\&lt;\%\(list\|listnum\|emlist\|emlistnum\)\&gt;&#39;</span><span class=err>
+</span><span class=ln id=65><a style=outline:none;text-decoration:none;color:inherit href=#65> 65</a></span><span class=err>
+</span><span class=ln id=66><a style=outline:none;text-decoration:none;color:inherit href=#66> 66</a></span><span class=err></span>  <span class=nx>for</span> <span class=nx>ft</span> <span class=nx>in</span> <span class=nx>keys</span><span class=p>(</span><span class=nx>include_grouplists</span><span class=p>)</span><span class=err>
+</span><span class=ln id=67><a style=outline:none;text-decoration:none;color:inherit href=#67> 67</a></span><span class=err></span>    <span class=k>let</span> <span class=nx>syntaxfile</span> <span class=p>=</span> <span class=nx>include_grouplists</span>[<span class=nx>ft</span>]<span class=err>
+</span><span class=ln id=68><a style=outline:none;text-decoration:none;color:inherit href=#68> 68</a></span><span class=err></span>    <span class=nx>execute</span> <span class=s1>&#39;syn include @&#39;</span> . <span class=nx>ft</span> . <span class=s1>&#39; &#39;</span> . <span class=nx>syntaxfile</span><span class=err>
+</span><span class=ln id=69><a style=outline:none;text-decoration:none;color:inherit href=#69> 69</a></span><span class=err></span>    <span class=k>let</span> <span class=nx>code_block_region</span> <span class=p>=</span> <span class=s1>&#39;start=&#34;^//&#39;</span> . <span class=nx>operations</span> . <span class=s1>&#39;\[.*\[&#39;</span> . <span class=nx>ft</span> . <span class=s1>&#39;\]{\s*$&#34;&#39;</span><span class=err>
+</span><span class=ln id=70><a style=outline:none;text-decoration:none;color:inherit href=#70> 70</a></span><span class=err></span>          \ . <span class=s1>&#39; end=&#34;^//}\s*$&#34;&#39;</span><span class=err>
+</span><span class=ln id=71><a style=outline:none;text-decoration:none;color:inherit href=#71> 71</a></span><span class=err></span>    <span class=k>let</span> <span class=nx>groupname</span> <span class=p>=</span> <span class=s1>&#39;reviewCodeBlock_&#39;</span> . <span class=nx>ft</span><span class=err>
+</span><span class=ln id=72><a style=outline:none;text-decoration:none;color:inherit href=#72> 72</a></span><span class=err></span>    <span class=nx>execute</span> <span class=s1>&#39;syn region &#39;</span> . <span class=nx>groupname</span> . <span class=s1>&#39; keepend contains=@&#39;</span> . <span class=nx>ft</span><span class=err>
+</span><span class=ln id=73><a style=outline:none;text-decoration:none;color:inherit href=#73> 73</a></span><span class=err></span>          \ . <span class=s1>&#39; matchgroup=reviewBlockDeclaration&#39;</span><span class=err>
+</span><span class=ln id=74><a style=outline:none;text-decoration:none;color:inherit href=#74> 74</a></span><span class=err></span>          \ . <span class=s1>&#39; &#39;</span> . <span class=nx>code_block_region</span><span class=err>
+</span><span class=ln id=75><a style=outline:none;text-decoration:none;color:inherit href=#75> 75</a></span><span class=err>
+</span><span class=ln id=76><a style=outline:none;text-decoration:none;color:inherit href=#76> 76</a></span><span class=err></span>    <span class=k>if</span> <span class=nx>exists</span><span class=p>(</span><span class=s1>&#39;b:current_syntax&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=77><a style=outline:none;text-decoration:none;color:inherit href=#77> 77</a></span><span class=err></span>      <span class=nx>unlet</span> <span class=nx>b</span>:<span class=nx>current_syntax</span><span class=err>
+</span><span class=ln id=78><a style=outline:none;text-decoration:none;color:inherit href=#78> 78</a></span><span class=err></span>    <span class=k>endif</span><span class=err>
+</span><span class=ln id=79><a style=outline:none;text-decoration:none;color:inherit href=#79> 79</a></span><span class=err></span>  <span class=nx>endfor</span><span class=err>
+</span><span class=ln id=80><a style=outline:none;text-decoration:none;color:inherit href=#80> 80</a></span><span class=err></span><span class=k>endif</span><span class=err>
+</span><span class=ln id=81><a style=outline:none;text-decoration:none;color:inherit href=#81> 81</a></span><span class=err></span><span class=c>
+</span><span class=ln id=82><a style=outline:none;text-decoration:none;color:inherit href=#82> 82</a></span><span class=c>&#34; ----------</span><span class=err>
+</span><span class=ln id=83><a style=outline:none;text-decoration:none;color:inherit href=#83> 83</a></span><span class=err></span><span class=c>&#34; highlight</span><span class=err>
+</span><span class=ln id=84><a style=outline:none;text-decoration:none;color:inherit href=#84> 84</a></span><span class=err>
+</span><span class=ln id=85><a style=outline:none;text-decoration:none;color:inherit href=#85> 85</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewHeading</span> <span class=nx>Conditional</span><span class=err>
+</span><span class=ln id=86><a style=outline:none;text-decoration:none;color:inherit href=#86> 86</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewInlineCommand</span> <span class=nx>Function</span><span class=err>
+</span><span class=ln id=87><a style=outline:none;text-decoration:none;color:inherit href=#87> 87</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewBlockDeclaration</span> <span class=nx>Identifier</span><span class=err>
+</span><span class=ln id=88><a style=outline:none;text-decoration:none;color:inherit href=#88> 88</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewBlockCommandWithoutContent</span> <span class=nx>Identifier</span><span class=err>
+</span><span class=ln id=89><a style=outline:none;text-decoration:none;color:inherit href=#89> 89</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewControlCommand</span> <span class=nx>Identifier</span><span class=err>
+</span><span class=ln id=90><a style=outline:none;text-decoration:none;color:inherit href=#90> 90</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewItemizePrefix</span> <span class=nx>Special</span><span class=err>
+</span><span class=ln id=91><a style=outline:none;text-decoration:none;color:inherit href=#91> 91</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewComment</span> <span class=nx>Comment</span><span class=err>
+</span><span class=ln id=92><a style=outline:none;text-decoration:none;color:inherit href=#92> 92</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewCommentBlock</span> <span class=nx>Comment</span><span class=err>
+</span><span class=ln id=93><a style=outline:none;text-decoration:none;color:inherit href=#93> 93</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewCommentInline</span> <span class=nx>Comment</span><span class=err>
+</span><span class=ln id=94><a style=outline:none;text-decoration:none;color:inherit href=#94> 94</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewPreProcCommand</span> <span class=nx>PreProc</span><span class=err>
+</span><span class=ln id=95><a style=outline:none;text-decoration:none;color:inherit href=#95> 95</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewPreProcBlockCommand</span> <span class=nx>PreProc</span><span class=err>
+</span><span class=ln id=96><a style=outline:none;text-decoration:none;color:inherit href=#96> 96</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewWarning</span> <span class=nx>Underlined</span><span class=err>
+</span><span class=ln id=97><a style=outline:none;text-decoration:none;color:inherit href=#97> 97</a></span><span class=err></span><span class=nx>hi</span> <span class=nx>def</span> <span class=nx>link</span> <span class=nx>reviewTodo</span> <span class=nx>Todo</span><span class=err>
+</span><span class=ln id=98><a style=outline:none;text-decoration:none;color:inherit href=#98> 98</a></span><span class=err></span><span class=c>
+</span><span class=ln id=99><a style=outline:none;text-decoration:none;color:inherit href=#99> 99</a></span><span class=c>&#34; ----------</span><span class=err>
+</span><span class=ln id=100><a style=outline:none;text-decoration:none;color:inherit href=#100>100</a></span><span class=err>
+</span><span class=ln id=101><a style=outline:none;text-decoration:none;color:inherit href=#101>101</a></span><span class=err></span><span class=k>let</span> <span class=nx>b</span>:<span class=nx>current_syntax</span> <span class=p>=</span> <span class=s2>&#34;review&#34;</span><span class=err>
+</span></code></pre></div><p>なお、シンタックスハイライトを設定したのに一部のキーワードがハイライトされない場合、テーマの色とバッティングしている可能性があります。私も <a href=https://github.com/shaunsingh/nord.nvim target=_blank rel="noopener noreferrer">shaunsingh/nord.nvim: Neovim theme based off of the Nord Color Palette, written in lua with tree sitter support<i class="fas fa-external-link-square-alt ms-1"></i></a> テーマを設定していたところ、一部のキーワードがハイライトされなかったので、テーマの色が邪魔をしているのではないかと疑って別のテーマにしたら全てのキーワードがハイライトされました。</p>
+<p>ちなみに、変更後のテーマは <a href=https://github.com/protesilaos/tempus-themes target=_blank rel="noopener noreferrer">protesilaos/tempus-themes: [Mirror] Tempus is a collection of themes for Vim, text editors, and terminal emulators that are compliant at the very least with the WCAG AA accessibility standard for colour contrast<i class="fas fa-external-link-square-alt ms-1"></i></a> の tempus_classic です。</p>
+<h2 id=noicenvim-の導入 data-numberify>noice.nvim の導入<a class="anchor ms-1 d-none" href=#noicenvim-の導入>#</a></h2>
+<p>Neovim だとコマンドラインバッファがエディタの下の端にありますが、VSCode だとコマンドパレットがエディタの上半分の区域のちょうど良い場所にポップアップするので、Neovim でも同じような機能が欲しいと思って <a href=https://github.com/folke/noice.nvim/ target=_blank rel="noopener noreferrer">folke/noice.nvim: 💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.<i class="fas fa-external-link-square-alt ms-1"></i></a> を導入してみました。</p>
+<p>ddc.vim も設定してコマンドライン補完もできるようにしたのですが、入力カーソルが表示されないという問題が発生し、公式リポジトリの Issues にも同じ症状が投稿（<a href=https://github.com/folke/noice.nvim/issues/251 target=_blank rel="noopener noreferrer">Invisible cursor in cmdline popup · Issue #251 · folke/noice.nvim<i class="fas fa-external-link-square-alt ms-1"></i></a>）されていましたので、問題が解消されるまで様子見かなと思い、この後に紹介する <a href=https://github.com/VonHeikemen/fine-cmdline.nvim target=_blank rel="noopener noreferrer">VonHeikemen/fine-cmdline.nvim: Enter ex-commands in a nice floating input.<i class="fas fa-external-link-square-alt ms-1"></i></a> に切り替えました。</p>
+<p>ところが、作者が「その問題はカラースキーマがカーソルのカラーを提供しないことが原因だ」と<a href=https://github.com/folke/noice.nvim/issues/251#issuecomment-1367776788 target=_blank rel="noopener noreferrer">コメント<i class="fas fa-external-link-square-alt ms-1"></i></a>したのを見て、カラースキーマを変えた今なら問題が解消されているかもと思ってプラグインを再び有効化したところ、問題なく入力カーソルが表示されました。そのため、本プラグインを引き続き利用することにしました。</p>
+<p>現在の設定は次のとおりです。公式リポジトリの設定例などを継ぎ接ぎしたもので詳細は勉強中です。<code>noice.vim</code> ファイルで設定しているため、先頭に <code>lua &lt;&lt; END</code> を追加し、末尾に <code>END</code> を追加しています。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-lua data-lang=lua><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=n>lua</span> <span class=o>&lt;&lt;</span> <span class=n>END</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=n>require</span><span class=p>(</span><span class=s2>&#34;noice&#34;</span><span class=p>).</span><span class=n>setup</span><span class=p>({</span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>  <span class=c1>-- you can enable a preset for easier configuration</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>  <span class=n>presets</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>    <span class=n>bottom_search</span> <span class=o>=</span> <span class=kc>false</span><span class=p>,</span> <span class=c1>-- use a classic bottom cmdline for search</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>    <span class=n>command_palette</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span> <span class=c1>-- position the cmdline and popupmenu together</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>    <span class=n>long_message_to_split</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span> <span class=c1>-- long messages will be sent to a split</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>    <span class=n>inc_rename</span> <span class=o>=</span> <span class=kc>false</span><span class=p>,</span> <span class=c1>-- enables an input dialog for inc-rename.nvim</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>    <span class=n>lsp_doc_border</span> <span class=o>=</span> <span class=kc>false</span><span class=p>,</span> <span class=c1>-- add a border to hover docs and signature help</span>
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>  <span class=p>},</span>
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>  <span class=n>messages</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>    <span class=n>view_search</span> <span class=o>=</span> <span class=s1>&#39;notify&#39;</span><span class=p>,</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>  <span class=p>},</span>
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>  <span class=n>routes</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>    <span class=p>{</span>
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>      <span class=n>view</span> <span class=o>=</span> <span class=s2>&#34;notify&#34;</span><span class=p>,</span>
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span>      <span class=n>filter</span> <span class=o>=</span> <span class=p>{</span> <span class=n>event</span> <span class=o>=</span> <span class=s2>&#34;msg_showmode&#34;</span> <span class=p>},</span>
+<span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span>    <span class=p>},</span>
+<span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span>    <span class=p>{</span>
+<span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span>      <span class=n>filter</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span>        <span class=n>event</span> <span class=o>=</span> <span class=s2>&#34;notify&#34;</span><span class=p>,</span>
+<span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span>        <span class=n>warning</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span>
+<span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span>        <span class=n>find</span> <span class=o>=</span> <span class=s2>&#34;failed to run generator.*is not executable&#34;</span><span class=p>,</span>
+<span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span>      <span class=p>},</span>
+<span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25>25</a></span>      <span class=n>opts</span> <span class=o>=</span> <span class=p>{</span> <span class=n>skip</span> <span class=o>=</span> <span class=kc>true</span> <span class=p>},</span>
+<span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26>26</a></span>    <span class=p>},</span>
+<span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27>27</a></span>  <span class=p>},</span>
+<span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28>28</a></span>  <span class=n>cmdline</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29>29</a></span>    <span class=n>enabled</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span>
+<span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30>30</a></span>    <span class=n>menu</span> <span class=o>=</span> <span class=s1>&#39;popup&#39;</span><span class=p>,</span>
+<span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31>31</a></span>  <span class=p>},</span>
+<span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32>32</a></span>  <span class=n>views</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33>33</a></span>    <span class=n>cmdline_popup</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=34><a style=outline:none;text-decoration:none;color:inherit href=#34>34</a></span>      <span class=n>position</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=35><a style=outline:none;text-decoration:none;color:inherit href=#35>35</a></span>        <span class=n>row</span> <span class=o>=</span> <span class=mi>5</span><span class=p>,</span>
+<span class=ln id=36><a style=outline:none;text-decoration:none;color:inherit href=#36>36</a></span>        <span class=n>col</span> <span class=o>=</span> <span class=s2>&#34;50%&#34;</span><span class=p>,</span>
+<span class=ln id=37><a style=outline:none;text-decoration:none;color:inherit href=#37>37</a></span>      <span class=p>},</span>
+<span class=ln id=38><a style=outline:none;text-decoration:none;color:inherit href=#38>38</a></span>      <span class=n>size</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=39><a style=outline:none;text-decoration:none;color:inherit href=#39>39</a></span>        <span class=n>width</span> <span class=o>=</span> <span class=mi>60</span><span class=p>,</span>
+<span class=ln id=40><a style=outline:none;text-decoration:none;color:inherit href=#40>40</a></span>        <span class=n>height</span> <span class=o>=</span> <span class=s2>&#34;auto&#34;</span><span class=p>,</span>
+<span class=ln id=41><a style=outline:none;text-decoration:none;color:inherit href=#41>41</a></span>      <span class=p>},</span>
+<span class=ln id=42><a style=outline:none;text-decoration:none;color:inherit href=#42>42</a></span>    <span class=p>},</span>
+<span class=ln id=43><a style=outline:none;text-decoration:none;color:inherit href=#43>43</a></span>    <span class=n>popupmenu</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=44><a style=outline:none;text-decoration:none;color:inherit href=#44>44</a></span>      <span class=n>relative</span> <span class=o>=</span> <span class=s2>&#34;editor&#34;</span><span class=p>,</span>
+<span class=ln id=45><a style=outline:none;text-decoration:none;color:inherit href=#45>45</a></span>      <span class=n>position</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=46><a style=outline:none;text-decoration:none;color:inherit href=#46>46</a></span>        <span class=n>row</span> <span class=o>=</span> <span class=mi>8</span><span class=p>,</span>
+<span class=ln id=47><a style=outline:none;text-decoration:none;color:inherit href=#47>47</a></span>        <span class=n>col</span> <span class=o>=</span> <span class=s2>&#34;50%&#34;</span><span class=p>,</span>
+<span class=ln id=48><a style=outline:none;text-decoration:none;color:inherit href=#48>48</a></span>      <span class=p>},</span>
+<span class=ln id=49><a style=outline:none;text-decoration:none;color:inherit href=#49>49</a></span>      <span class=n>size</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=50><a style=outline:none;text-decoration:none;color:inherit href=#50>50</a></span>        <span class=n>width</span> <span class=o>=</span> <span class=mi>60</span><span class=p>,</span>
+<span class=ln id=51><a style=outline:none;text-decoration:none;color:inherit href=#51>51</a></span>        <span class=n>height</span> <span class=o>=</span> <span class=mi>10</span><span class=p>,</span>
+<span class=ln id=52><a style=outline:none;text-decoration:none;color:inherit href=#52>52</a></span>      <span class=p>},</span>
+<span class=ln id=53><a style=outline:none;text-decoration:none;color:inherit href=#53>53</a></span>      <span class=n>border</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=54><a style=outline:none;text-decoration:none;color:inherit href=#54>54</a></span>        <span class=n>style</span> <span class=o>=</span> <span class=s2>&#34;rounded&#34;</span><span class=p>,</span>
+<span class=ln id=55><a style=outline:none;text-decoration:none;color:inherit href=#55>55</a></span>        <span class=n>padding</span> <span class=o>=</span> <span class=p>{</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span> <span class=p>},</span>
+<span class=ln id=56><a style=outline:none;text-decoration:none;color:inherit href=#56>56</a></span>      <span class=p>},</span>
+<span class=ln id=57><a style=outline:none;text-decoration:none;color:inherit href=#57>57</a></span>      <span class=n>win_options</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln id=58><a style=outline:none;text-decoration:none;color:inherit href=#58>58</a></span>        <span class=n>cursorline</span> <span class=o>=</span> <span class=kc>true</span><span class=p>,</span>
+<span class=ln id=59><a style=outline:none;text-decoration:none;color:inherit href=#59>59</a></span>        <span class=n>cursorlineopt</span> <span class=o>=</span> <span class=s1>&#39;line&#39;</span><span class=p>,</span>
+<span class=ln id=60><a style=outline:none;text-decoration:none;color:inherit href=#60>60</a></span>        <span class=n>winhighlight</span> <span class=o>=</span> <span class=p>{</span> <span class=n>Normal</span> <span class=o>=</span> <span class=s2>&#34;Normal&#34;</span><span class=p>,</span> <span class=n>FloatBorder</span> <span class=o>=</span> <span class=s2>&#34;DiagnosticInfo&#34;</span> <span class=p>},</span>
+<span class=ln id=61><a style=outline:none;text-decoration:none;color:inherit href=#61>61</a></span>      <span class=p>},</span>
+<span class=ln id=62><a style=outline:none;text-decoration:none;color:inherit href=#62>62</a></span>    <span class=p>},</span>
+<span class=ln id=63><a style=outline:none;text-decoration:none;color:inherit href=#63>63</a></span>  <span class=p>},</span>
+<span class=ln id=64><a style=outline:none;text-decoration:none;color:inherit href=#64>64</a></span><span class=p>})</span>
+<span class=ln id=65><a style=outline:none;text-decoration:none;color:inherit href=#65>65</a></span><span class=n>END</span>
+</code></pre></div><h2 id=導入したものの廃止したもの data-numberify>導入したものの廃止したもの<a class="anchor ms-1 d-none" href=#導入したものの廃止したもの>#</a></h2>
+<h3 id=fine-cmdlinenvim data-numberify>fine-cmdline.nvim<a class="anchor ms-1 d-none" href=#fine-cmdlinenvim>#</a></h3>
+<p>noice.nvim の使用を一度断念した後、同様の機能を持つプラグインである <a href=https://github.com/VonHeikemen/fine-cmdline.nvim target=_blank rel="noopener noreferrer">VonHeikemen/fine-cmdline.nvim: Enter ex-commands in a nice floating input.<i class="fas fa-external-link-square-alt ms-1"></i></a> を使ってみました。</p>
+<p>こちらは入力カーソルが消失するような不具合が無く、ddc.vim による補完もできるのですが、上下キーで履歴を移動する度に画面がちらつく上、動作もキビキビしているとは言い難かったため使用を断念しました。</p>
+<h2 id=参考にしたサイト情報 data-numberify>参考にしたサイト・情報<a class="anchor ms-1 d-none" href=#参考にしたサイト情報>#</a></h2>
+<ul>
+<li><a href=https://qiita.com/yuku_t/items/0c1aff03949cb1b8fe6b target=_blank rel="noopener noreferrer">vimgrepとQuickfix知らないVimmerはちょっとこっち来い - Qiita<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://alpacat.com/blog/ddu-ui-filer target=_blank rel="noopener noreferrer">Vimファイラの決定版「ddu-ui-filer」設定例を紹介 - アルパカログ<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://spinners.work/posts/vim-review/ target=_blank rel="noopener noreferrer">Vimで技術書を執筆する環境 with Re:VIEW + RedPen + prh | Spinners Inc.<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://wed.dev/blog/posts/neovim-statuline target=_blank rel="noopener noreferrer">とある PR のおかげで Neovim がもはや VSCode な件について<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://original-game.com/how-to-use-ddc-vim/ target=_blank rel="noopener noreferrer">Vimの自動補完プラグイン「ddc.vim」の使い方<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://ja.stackoverflow.com/questions/1685/vim%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%AB%E3%82%A6%E3%82%A3%E3%83%B3%E3%83%89%E3%82%A6%E7%B8%A6%E5%88%86%E5%89%B2%E2%86%92%E5%8F%B3%E5%81%B4%E3%81%AB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%96%8B%E3%81%8F%E6%96%B9%E6%B3%95 target=_blank rel="noopener noreferrer">vim - Vim起動時にウィンドウ縦分割→右側にファイルを開く方法 - スタック・オーバーフロー<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://zenn.dev/shougo/articles/ddu-vim-beta#ddu.vim-%E3%81%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95 target=_blank rel="noopener noreferrer">新世代の UI 作成プラグイン ddu.vim<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://zenn.dev/shougo/articles/ddc-vim-pum-vim target=_blank rel="noopener noreferrer">自動補完プラグイン ddc.vim + pum.vim<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://zenn.dev/shougo/articles/ddu-vim-beta target=_blank rel="noopener noreferrer">新世代の UI 作成プラグイン ddu.vim<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://zenn.dev/shougo/articles/ddu-ui-filer#ddu-ui-filer-%E3%81%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95 target=_blank rel="noopener noreferrer">新世代のファイラー UI ddu-ui-filer<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://zenn.dev/shougo/articles/set-cmdheight-0 target=_blank rel="noopener noreferrer">cmdheight=0 in neovim<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://ntsk.jp/blog/ddc-vim/ target=_blank rel="noopener noreferrer">Neovimの補完をddc.vim + Built-in LSP へ移行した | ntsk<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://alpacat.com/blog/ddu-ui-filer target=_blank rel="noopener noreferrer">Vimファイラの決定版「ddu-ui-filer」設定例を紹介 - アルパカログ<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://dev.classmethod.jp/articles/eetann-noice-nvim-beginner/ target=_blank rel="noopener noreferrer">Neovimのコマンドラインや通知がリッチになるnoice.nvim使ってみた | DevelopersIO<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li>Vim のヘルプファイル</li>
+</ul>
+</div></div><div class=card-footer>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+<i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
+<a href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim + VSCode でクリップボードを共有する方法</a>
+</div></div>
+</div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
+<div class=card-header>
+<h2 class="card-title fs-4 my-2 text-surface">Copyright</h2>
+</div>
+<div class=card-body><a class="d-flex align-items-center flex-column" target=_blank rel="license noopener noreferrer" href=https://creativecommons.org/licenses/by/4.0/deed.en>
+<span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
+CC BY 4.0
+</a>
+</div>
+</div><section class="related-posts row card component">
+<div class=card-header>
+<h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2>
+</div>
+<div class=card-body>
+<ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-12/>
+WSL2 + Neovim + VSCode でクリップボードを共有する方法
+</a>
+<span class="post-meta post-date float-end">2022-12-12
+</span>
+<div class="post-summary my-3"><p>前置き# 昨日の WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ に続いて WSL2 + Neovim の設定についてメモしていきます。
+今回は、Neovim でヤンクした内容を OS のクリップボードに共有する方法と、OS のクリップボードの内容を Neovim に貼り付ける方法の模索です。
+ちなみに、先に申し上げておきますと、今回ご紹介する方法は「現時点では動いている」というものです。色々調べて現在の設定に至っていますが、ある人にとって上手くいく方法が別の人では上手くいかなかったりしているようですので、これからご紹介する方法を真似しても上手くいかないかもしれません。
+方法#...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-12-12/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-12-11/>
+WSL2 + Neovim + VSCode でIME の状態を制御する方法
+</a>
+<span class="post-meta post-date float-end">2022-12-11
+</span>
+<div class="post-summary my-3"><p>前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているため、思い切って Neovim を使ってみることにしました。
+ただ、必要に応じて VSCode も使えるようにしたいので、VSCode のプラグインの vscode-neovim/vscode-neovim: Vim-mode for VS Code using embedded Neovim もインストールして、VSCode と Neovim を統合することにしました。
+そのために現在進行形で色々と設定していますので、備忘録として設定内容をメモしていきます。
+今回実現したいこと# イ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-12-11/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-11-20/>
+WSL2 で生成した SSH の鍵を Windows11 で使う方法
+</a>
+<span class="post-meta post-date float-end">2022-11-20
+</span>
+<div class="post-summary my-3"><p>前置き# Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。
+しかし、WSL2 だけではなく Windows11 でも Github にアクセスする必要が出てきたので、WSL2 で生成した鍵のペアを Windows11 でも使えるようにしました。
+Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする方法はいくつか見つかりましたが、その反対の方法を解説したページが見つからなかったため、手順を備忘録として公開します。
+環境# OS: Windows11 Pro...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-11-20/>もっと読む</a></div></div>
+</li></ul>
+</div>
+</section><div class="card component row post-comments" id=post-comments>
+<div class=card-header>
+<h2 class="card-title my-2 fs-4 text-surface">コメント</h2>
+</div>
+<div class=card-body><script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script>
+</div>
+</div></div>
+</div>
+</div>
+</main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex=-1 id=offcanvasActionsPanel aria-labelledby=offcanvasActionsPanelLabel>
+<div class=offcanvas-header>
+<h5 class="offcanvas-title fs-4" id=offcanvasActionsPanelLabel>
+<i class="fas fa-fw fa-th-large me-1"></i>
+Actions
+</h5>
+<button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
+</div>
+<div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Neovim%20%e3%81%ae%e8%a8%ad%e5%ae%9a%e9%9b%86%ef%bc%882022%e5%b9%b412%e6%9c%8829%e6%99%82%e7%82%b9%ef%bc%89&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-12-25%2f">
+<i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+</a>
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-12-25%2f">
+<i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+</a>
+</div>
+<hr class=mb-4><div class="actions d-flex overflow-auto align-items-center">
+<a role=button class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+<span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform=rotate-90></i></span> 戻る
+</a>
+<a role=button class="action action-reload-page d-flex flex-column align-items-center me-3">
+<span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 再表示
+</a>
+<a role=button class="action action-copy-url d-flex flex-column align-items-center me-3">
+<span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> URLをコピー
+</a>
+</div>
+</div>
+</div>
+<nav class="social-links nav justify-content-center mb-2">
+<a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
+<i class="fas fa-fw fa-2x fa-envelope"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://github.com/s-show/s-show.github.io title=GitHub rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-github"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://www.reddit.com/user/s-show title=Reddit rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-reddit"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer">
+<i class="fa-fw fa-2x fab fa-twitter"></i>
+</a>
+<a class="nav-link social-link" target=_blank href=https://kankodori-blog.com/index.xml title=RSS rel="noopener noreferrer">
+<i class="fas fa-fw fa-2x fa-rss"></i>
+</a>
+</nav>
+<div class="copyright mb-2">
+Copyright © 2021-2022 s-show. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+Powered by <a class=text-primary href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a class=text-primary href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">HBS</a> theme.
+</div></footer>
+<script data-precache src=https://kankodori-blog.com/assets/main/bundle.min.d9138c59d3736746bbc5d2f02394cffd6d498fa2e3cf23d86e1dd41451aa0865.js integrity="sha256-2ROMWdNzZ0a7xdLwI5TP/W1Jj6LjzyPYbh3UFFGqCGU=" crossorigin=anonymous defer></script><script data-precache src=https://kankodori-blog.com/assets/icons/bundle.min.e463af86313483a41647b10fe3f6b7f5155673c4ee5feecfb9927075dbcc99f7.js integrity="sha256-5GOvhjE0g6QWR7EP4/a39RVWc8TuX+7PuZJwddvMmfc=" crossorigin=anonymous defer></script>
+<script data-precache src=https://kankodori-blog.com/assets/viewer/bundle.min.656553c767bb7b8c29a3d0bf77142fe671344d24fe46bc9df13b218f0ebb2f6f.js integrity="sha256-ZWVTx2e7e4wpo9C/dxQv5nE0TST+Rryd8Tshjw67L28=" crossorigin=anonymous defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-367F1P4JXZ',{anonymize_ip:!1})}</script>
+</body>
+</html>
