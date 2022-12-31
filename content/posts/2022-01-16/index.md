@@ -2,6 +2,10 @@
 title: "RClone を使って Klipper の設定をバックアップする方法"
 date: 2022-01-16T01:31:30+09:00
 draft: false
+toc: false
+comment: true
+tags: [備忘録, 3Dプリンタ, Klipper]
+images: []
 ---
 
 ## 前置き
@@ -12,8 +16,10 @@ Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定
 そこで、備忘録として実施した手順をメモします。
 
 ## 手順
-{{< alert " 手順の変更などに合わせて記事を修正 (2022/04/22)" >}}
 
+{{% alert info %}}
+手順の変更などに合わせて記事を修正 (2022/04/22)
+{{% /alert %}}
 
 ### RClone のインストール
 
@@ -150,10 +156,11 @@ Choose a number from below, or type in your own value.
 Storage> 16
 ```
 
-利用するオンラインストレージを聞かれるので、利用したいものを選択します。今回は Google Drive を使うので、 `16` を選択しています。
+利用するオンラインストレージを聞かれるので、利用したいものを選択します。今回は Google Drive を使うので、`16` を選択しています。
 
-{{< alert " RClone が対応するオンラインストレージが変更されると番号は変わります。2022年4年22月時点では、Google Drive は 17 になっています。" >}}
-
+{{% alert info %}}
+RClone が対応するオンラインストレージが変更されると番号は変わります。2022年4年22月時点では、Google Drive は 17 になっています。
+{{% /alert %}}
 
 ```bash
 Option client_id.
@@ -256,8 +263,9 @@ Enter a value.
 config_token> ***
 ```
 
-{{< alert " この手順は変更されていますので、2022年4月22日に修正しています。" warning >}}
-
+{{% alert warning %}}
+この手順は変更されていますので、2022年4月22日に修正しています。
+{{% /alert %}}
 
 ダイアログに「RClone が使える PC で以下のコードを実行して結果を貼り付けること（意訳）」と指示が表示されますので、指示に従って手元の PC で `rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"` を実行します。
 
