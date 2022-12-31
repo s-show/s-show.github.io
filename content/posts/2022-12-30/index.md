@@ -1,7 +1,7 @@
 ---
 # type: docs 
-title: Neovim の設定集（2022年12月29時点）
-date: 2022-12-25T16:48:00+09:00
+title: Neovim の設定集（2022年12月30時点）
+date: 2022-12-30T16:48:00+09:00
 featured: false
 draft: false
 toc: false
