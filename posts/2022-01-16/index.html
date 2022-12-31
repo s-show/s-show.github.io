@@ -24,11 +24,11 @@
 <meta itemprop=name content="RClone を使って Klipper の設定をバックアップする方法">
 <meta itemprop=description content="前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージ"><meta itemprop=datePublished content="2022-01-16T01:31:30+09:00">
 <meta itemprop=dateModified content="2022-01-16T01:31:30+09:00">
-<meta itemprop=wordCount content="2343">
-<meta itemprop=keywords content>
+<meta itemprop=wordCount content="2504">
+<meta itemprop=keywords content="備忘録,3Dプリンタ,Klipper,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
-<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.2f97cee03d63ba6cb667a87b185956f903bdc36c9ed2a8ff0dbac7c574a40975.css" integrity="sha256-L5fO4D1jumy2Z6h7GFlW+QO9w2ye0qj/DbrHxXSkCXU=" crossorigin=anonymous>
+<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.f9711cc646485ba06c1150309ebca6ef67329aa3ad94dca5f73292ab2b7f9bb2.css" integrity="sha256-+XEcxkZIW6BsEVAwnrym72cymqOtlNyl9zKSqyt/m7I=" crossorigin=anonymous>
 <link data-precache rel=stylesheet href=https://kankodori-blog.com/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
 </head>
 <body><header>
@@ -238,11 +238,11 @@
 <div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0>
 <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>
 備忘録
-<span class="badge badge-sm text-secondary bg-white ms-1">14</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">15</span>
 </a>
 <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>
 3Dプリンタ
-<span class="badge badge-sm text-secondary bg-white ms-1">10</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">11</span>
 </a>
 <a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=プログラミング>
 プログラミング
@@ -252,13 +252,13 @@
 自作キーボード
 <span class="badge badge-sm text-secondary bg-white ms-1">5</span>
 </a>
+<a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>
+Klipper
+<span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
 <a href=https://kankodori-blog.com/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=読書記録>
 読書記録
 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
-</a>
-<a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>
-Klipper
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
 </a>
 <a href=https://kankodori-blog.com/tags/mac/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mac>
 Mac
@@ -386,235 +386,224 @@ Karabiner-Elements
 <h1 class="card-title post-title my-2">RClone を使って Klipper の設定をバックアップする方法</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-01-15 16:31:30 +0000 UTC.">2022-01-16</span>
+<span class="post-date me-1 mb-1" title="公開: 2022-01-15 16:31:30 +0000 UTC.">2022-01-16</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Klipper</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
 </div>
 <div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
 <p>Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに定期的にバックアップするようにしまし
 た。</p>
 <p>そこで、備忘録として実施した手順をメモします。</p>
 <h2 id=手順 data-numberify>手順<a class="anchor ms-1 d-none" href=#手順>#</a></h2>
-<div class="alert alert- 手順の変更などに合わせて記事を修正 (2022/04/22)" role=alert>
-### RClone のインストール
-1. ホストPCから Raspberry Pi に SSH 接続する
-1. `sudo ls` を実行して root ユーザのパスワードを入力しておく
-1. `curl https://rclone.org/install.sh | sudo bash` でインストール用スクリプトをダウンロードして実行する
-### RClone の設定
-RClone をインストールしたら、`rclone config` を実行して設定ダイアログを起動します。
-なお、ここでは過去に行った設定（ `Fuliddpi_backup` ）が表示されています。
-```bash
-Current remotes:
-Name Type
-==== ====
-Fluiddpi_backup drive ← 過去に行った設定
-e) Edit existing remote
-n) New remote
-d) Delete remote
-r) Rename remote
-c) Copy remote
-s) Set configuration password
-q) Quit config
-e/n/d/r/c/s/q> n
-```
-`n` を選択して新しい設定を開始します。
-```bash
-name> test
-```
-設定の名前を入力します。名前は任意のものを設定します。
-```bash
-Option Storage.
-Type of storage to configure.
-Enter a string value. Press Enter for the default ("").
-Choose a number from below, or type in your own value.
-1 / 1Fichier
-\ "fichier"
-2 / Alias for an existing remote
-\ "alias"
-3 / Amazon Drive
-\ "amazon cloud drive"
-4 / Amazon S3 Compliant Storage Providers including AWS, Alibaba, Ceph, Digital Ocean, Dreamhost, IBM COS, Minio, SeaweedFS, and Tencent COS
-\ "s3"
-5 / Backblaze B2
-\ "b2"
-6 / Better checksums for other remotes
-\ "hasher"
-7 / Box
-\ "box"
-8 / Cache a remote
-\ "cache"
-9 / Citrix Sharefile
-\ "sharefile"
-10 / Compress a remote
-\ "compress"
-11 / Dropbox
-\ "dropbox"
-12 / Encrypt/Decrypt a remote
-\ "crypt"
-13 / Enterprise File Fabric
-\ "filefabric"
-14 / FTP Connection
-\ "ftp"
-15 / Google Cloud Storage (this is not Google Drive)
-\ "google cloud storage"
-16 / Google Drive
-\ "drive"
-17 / Google Photos
-\ "google photos"
-18 / Hadoop distributed file system
-\ "hdfs"
-19 / Hubic
-\ "hubic"
-20 / In memory object storage system.
-\ "memory"
-21 / Jottacloud
-\ "jottacloud"
-22 / Koofr
-\ "koofr"
-23 / Local Disk
-\ "local"
-24 / Mail.ru Cloud
-\ "mailru"
-25 / Mega
-\ "mega"
-26 / Microsoft Azure Blob Storage
-\ "azureblob"
-27 / Microsoft OneDrive
-\ "onedrive"
-28 / OpenDrive
-\ "opendrive"
-29 / OpenStack Swift (Rackspace Cloud Files, Memset Memstore, OVH)
-\ "swift"
-30 / Pcloud
-\ "pcloud"
-31 / Put.io
-\ "putio"
-32 / QingCloud Object Storage
-\ "qingstor"
-33 / SSH/SFTP Connection
-\ "sftp"
-34 / Sia Decentralized Cloud
-\ "sia"
-35 / Sugarsync
-\ "sugarsync"
-36 / Tardigrade Decentralized Cloud Storage
-\ "tardigrade"
-37 / Transparently chunk/split large files
-\ "chunker"
-38 / Union merges the contents of several upstream fs
-\ "union"
-39 / Uptobox
-\ "uptobox"
-40 / Webdav
-\ "webdav"
-41 / Yandex Disk
-\ "yandex"
-42 / Zoho
-\ "zoho"
-43 / http Connection
-\ "http"
-44 / premiumize.me
-\ "premiumizeme"
-45 / seafile
-\ "seafile"
-Storage> 16
-```
-利用するオンラインストレージを聞かれるので、利用したいものを選択します。今回は Google Drive を使うので、 `16` を選択しています。
-<div class="alert alert- RClone が対応するオンラインストレージが変更されると番号は変わります。2022年4年22月時点では、Google Drive は 17 になっています。" role=alert>
-```bash
-Option client_id.
-Google Application Client Id
-Setting your own is recommended.
-See https://rclone.org/drive/#making-your-own-client-id for how to create your own.
-If you leave this blank, it will use an internal key which is low performance.
-Enter a string value. Press Enter for the default ("").
-client_id>
-Option client_secret.
-OAuth Client Secret.
-Leave blank normally.
-Enter a string value. Press Enter for the default ("").
-client_secret>
-```
-`client_id` と `client_secret` を聞かれますが、空欄でOKです。
-```bash
-Option scope.
-Scope that rclone should use when requesting access from drive.
-Enter a string value. Press Enter for the default ("").
-Choose a number from below, or type in your own value.
-1 / Full access all files, excluding Application Data Folder.
-\ "drive"
-2 / Read-only access to file metadata and file contents.
-\ "drive.readonly"
-/ Access to files created by rclone only.
-3 | These are visible in the drive website.
-| File authorization is revoked when the user deauthorizes the app.
-\ "drive.file"
-/ Allows read and write access to the Application Data folder.
-4 | This is not visible in the drive website.
-\ "drive.appfolder"
-/ Allows read-only access to file metadata but
-5 | does not allow any access to read or download file content.
-\ "drive.metadata.readonly"
-scope> 1
-```
-どのスコープ範囲を適用するか聞かれるので、フルアクセス可能な `1` を選択します。
-（書き込みオンリーの権限がないため、止むを得ずフルアクセスを選択しています。）
-```bash
-Option root_folder_id.
-ID of the root folder.
-Leave blank normally.
-Fill in to access "Computers" folders (see docs), or for rclone to use
-a non root folder as its starting point.
-Enter a string value. Press Enter for the default ("").
-root_folder_id>
-```
-`root_folder_id` を聞かれますが、空欄のままでOKです。
-```bash
-Option service_account_file.
-Service Account Credentials JSON file path.
-Leave blank normally.
-Needed only if you want use SA instead of interactive login.
-Leading `~` will be expanded in the file name as will environment variables such as `${RCLONE_CONFIG_DIR}`.
-Enter a string value. Press Enter for the default ("").
-service_account_file>
-```
-`service_account_file` について聞かれますが、こちらも空欄でOKです。
-```bash
-Edit advanced config?
-y) Yes
-n) No (default)
-y/n> n
-```
-アドバンスト設定を行うか聞かれますので、 `n` を入力してアドバンスト設定を行わず先に進みます。
-```bash
-Use auto config?
-* Say Y if not sure
-* Say N if you are working on a remote or headless machine
-y) Yes (default)
-n) No
-y/n> n
-```
-オート設定を行うか聞かれますが、SSH 接続で設定しているので `n` を選択します。
-```bash
-Option config_token.
-For this to work, you will need rclone available on a machine that has
-a web browser available.
-For more help and alternate methods see: https://rclone.org/remote_setup/
-Execute the following on the machine with the web browser (same rclone
-version recommended):
-rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"
-Then paste the result.
-Enter a value.
-config_token> ***
-```
-<div class="alert alert- この手順は変更されていますので、2022年4月22日に修正しています。" role=alert><i class="alert-icon fas fa-fw fa-info-circle me-1"></i>
-ダイアログに「RClone が使える PC で以下のコードを実行して結果を貼り付けること（意訳）」と指示が表示されますので、指示に従って手元の PC で `rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"` を実行します。
-すると、起動したローカルサーバの URL が表示されますので、その URL にアクセスすると Google のアクセス権限設定ページにジャンプします。
-```bash
-2022/04/19 13:09:19 NOTICE: Config file "/home/***/.config/rclone/rclone.conf" not found - using defaults
-2022/04/19 13:09:19 NOTICE: If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=hogehoge
-2022/04/19 13:09:19 NOTICE: Log in and authorize rclone for access
-2022/04/19 13:09:19 NOTICE: Waiting for code...
-```
-<figure class="figure bsimage">
+<div class="alert alert-info" role=alert><i class="alert-icon fas fa-fw fa-info-circle me-1"></i>
+<p>手順の変更などに合わせて記事を修正 (2022/04/22)</p>
+</div>
+<h3 id=rclone-のインストール data-numberify>RClone のインストール<a class="anchor ms-1 d-none" href=#rclone-のインストール>#</a></h3>
+<ol>
+<li>ホストPCから Raspberry Pi に SSH 接続する</li>
+<li><code>sudo ls</code> を実行して root ユーザのパスワードを入力しておく</li>
+<li><code>curl https://rclone.org/install.sh | sudo bash</code> でインストール用スクリプトをダウンロードして実行する</li>
+</ol>
+<h3 id=rclone-の設定 data-numberify>RClone の設定<a class="anchor ms-1 d-none" href=#rclone-の設定>#</a></h3>
+<p>RClone をインストールしたら、<code>rclone config</code> を実行して設定ダイアログを起動します。</p>
+<p>なお、ここでは過去に行った設定（ <code>Fuliddpi_backup</code> ）が表示されています。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>Current remotes:
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>Name                 <span class=nv>Type</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=o>====</span>                 <span class=o>====</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>Fluiddpi_backup      drive ← 過去に行った設定
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>e<span class=o>)</span> Edit existing remote
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>n<span class=o>)</span> New remote
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>d<span class=o>)</span> Delete remote
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>r<span class=o>)</span> Rename remote
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>c<span class=o>)</span> Copy remote
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>s<span class=o>)</span> Set configuration password
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>q<span class=o>)</span> Quit config
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>e/n/d/r/c/s/q&gt; n
+</code></pre></div><p><code>n</code> を選択して新しい設定を開始します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>name&gt; <span class=nb>test</span>
+</code></pre></div><p>設定の名前を入力します。名前は任意のものを設定します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>Option Storage.
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>Type of storage to configure.
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>Enter a string value. Press Enter <span class=k>for</span> the default <span class=o>(</span><span class=s2>&#34;&#34;</span><span class=o>)</span>.
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>Choose a number from below, or <span class=nb>type</span> in your own value.
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span> <span class=m>1</span> / 1Fichier
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>   <span class=se>\ </span><span class=s2>&#34;fichier&#34;</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span> <span class=m>2</span> / Alias <span class=k>for</span> an existing remote
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>   <span class=se>\ </span><span class=s2>&#34;alias&#34;</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span> <span class=m>3</span> / Amazon Drive
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>   <span class=se>\ </span><span class=s2>&#34;amazon cloud drive&#34;</span>
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span> <span class=m>4</span> / Amazon S3 Compliant Storage Providers including AWS, Alibaba, Ceph, Digital Ocean, Dreamhost, IBM COS, Minio, SeaweedFS, and Tencent COS
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>   <span class=se>\ </span><span class=s2>&#34;s3&#34;</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span> <span class=m>5</span> / Backblaze B2
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>   <span class=se>\ </span><span class=s2>&#34;b2&#34;</span>
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span> <span class=m>6</span> / Better checksums <span class=k>for</span> other remotes
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>   <span class=se>\ </span><span class=s2>&#34;hasher&#34;</span>
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span> <span class=m>7</span> / Box
+<span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span>   <span class=se>\ </span><span class=s2>&#34;box&#34;</span>
+<span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span> <span class=m>8</span> / Cache a remote
+<span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span>   <span class=se>\ </span><span class=s2>&#34;cache&#34;</span>
+<span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span> <span class=m>9</span> / Citrix Sharefile
+<span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span>   <span class=se>\ </span><span class=s2>&#34;sharefile&#34;</span>
+<span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span><span class=m>10</span> / Compress a remote
+<span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span>   <span class=se>\ </span><span class=s2>&#34;compress&#34;</span>
+<span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25>25</a></span><span class=m>11</span> / Dropbox
+<span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26>26</a></span>   <span class=se>\ </span><span class=s2>&#34;dropbox&#34;</span>
+<span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27>27</a></span><span class=m>12</span> / Encrypt/Decrypt a remote
+<span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28>28</a></span>   <span class=se>\ </span><span class=s2>&#34;crypt&#34;</span>
+<span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29>29</a></span><span class=m>13</span> / Enterprise File Fabric
+<span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30>30</a></span>   <span class=se>\ </span><span class=s2>&#34;filefabric&#34;</span>
+<span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31>31</a></span><span class=m>14</span> / FTP Connection
+<span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32>32</a></span>   <span class=se>\ </span><span class=s2>&#34;ftp&#34;</span>
+<span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33>33</a></span><span class=m>15</span> / Google Cloud Storage <span class=o>(</span>this is not Google Drive<span class=o>)</span>
+<span class=ln id=34><a style=outline:none;text-decoration:none;color:inherit href=#34>34</a></span>   <span class=se>\ </span><span class=s2>&#34;google cloud storage&#34;</span>
+<span class=ln id=35><a style=outline:none;text-decoration:none;color:inherit href=#35>35</a></span><span class=m>16</span> / Google Drive
+<span class=ln id=36><a style=outline:none;text-decoration:none;color:inherit href=#36>36</a></span>   <span class=se>\ </span><span class=s2>&#34;drive&#34;</span>
+<span class=ln id=37><a style=outline:none;text-decoration:none;color:inherit href=#37>37</a></span><span class=m>17</span> / Google Photos
+<span class=ln id=38><a style=outline:none;text-decoration:none;color:inherit href=#38>38</a></span>   <span class=se>\ </span><span class=s2>&#34;google photos&#34;</span>
+<span class=ln id=39><a style=outline:none;text-decoration:none;color:inherit href=#39>39</a></span><span class=m>18</span> / Hadoop distributed file system
+<span class=ln id=40><a style=outline:none;text-decoration:none;color:inherit href=#40>40</a></span>   <span class=se>\ </span><span class=s2>&#34;hdfs&#34;</span>
+<span class=ln id=41><a style=outline:none;text-decoration:none;color:inherit href=#41>41</a></span><span class=m>19</span> / Hubic
+<span class=ln id=42><a style=outline:none;text-decoration:none;color:inherit href=#42>42</a></span>   <span class=se>\ </span><span class=s2>&#34;hubic&#34;</span>
+<span class=ln id=43><a style=outline:none;text-decoration:none;color:inherit href=#43>43</a></span><span class=m>20</span> / In memory object storage system.
+<span class=ln id=44><a style=outline:none;text-decoration:none;color:inherit href=#44>44</a></span>   <span class=se>\ </span><span class=s2>&#34;memory&#34;</span>
+<span class=ln id=45><a style=outline:none;text-decoration:none;color:inherit href=#45>45</a></span><span class=m>21</span> / Jottacloud
+<span class=ln id=46><a style=outline:none;text-decoration:none;color:inherit href=#46>46</a></span>   <span class=se>\ </span><span class=s2>&#34;jottacloud&#34;</span>
+<span class=ln id=47><a style=outline:none;text-decoration:none;color:inherit href=#47>47</a></span><span class=m>22</span> / Koofr
+<span class=ln id=48><a style=outline:none;text-decoration:none;color:inherit href=#48>48</a></span>   <span class=se>\ </span><span class=s2>&#34;koofr&#34;</span>
+<span class=ln id=49><a style=outline:none;text-decoration:none;color:inherit href=#49>49</a></span><span class=m>23</span> / Local Disk
+<span class=ln id=50><a style=outline:none;text-decoration:none;color:inherit href=#50>50</a></span>   <span class=se>\ </span><span class=s2>&#34;local&#34;</span>
+<span class=ln id=51><a style=outline:none;text-decoration:none;color:inherit href=#51>51</a></span><span class=m>24</span> / Mail.ru Cloud
+<span class=ln id=52><a style=outline:none;text-decoration:none;color:inherit href=#52>52</a></span>   <span class=se>\ </span><span class=s2>&#34;mailru&#34;</span>
+<span class=ln id=53><a style=outline:none;text-decoration:none;color:inherit href=#53>53</a></span><span class=m>25</span> / Mega
+<span class=ln id=54><a style=outline:none;text-decoration:none;color:inherit href=#54>54</a></span>   <span class=se>\ </span><span class=s2>&#34;mega&#34;</span>
+<span class=ln id=55><a style=outline:none;text-decoration:none;color:inherit href=#55>55</a></span><span class=m>26</span> / Microsoft Azure Blob Storage
+<span class=ln id=56><a style=outline:none;text-decoration:none;color:inherit href=#56>56</a></span>   <span class=se>\ </span><span class=s2>&#34;azureblob&#34;</span>
+<span class=ln id=57><a style=outline:none;text-decoration:none;color:inherit href=#57>57</a></span><span class=m>27</span> / Microsoft OneDrive
+<span class=ln id=58><a style=outline:none;text-decoration:none;color:inherit href=#58>58</a></span>   <span class=se>\ </span><span class=s2>&#34;onedrive&#34;</span>
+<span class=ln id=59><a style=outline:none;text-decoration:none;color:inherit href=#59>59</a></span><span class=m>28</span> / OpenDrive
+<span class=ln id=60><a style=outline:none;text-decoration:none;color:inherit href=#60>60</a></span>   <span class=se>\ </span><span class=s2>&#34;opendrive&#34;</span>
+<span class=ln id=61><a style=outline:none;text-decoration:none;color:inherit href=#61>61</a></span><span class=m>29</span> / OpenStack Swift <span class=o>(</span>Rackspace Cloud Files, Memset Memstore, OVH<span class=o>)</span>
+<span class=ln id=62><a style=outline:none;text-decoration:none;color:inherit href=#62>62</a></span>   <span class=se>\ </span><span class=s2>&#34;swift&#34;</span>
+<span class=ln id=63><a style=outline:none;text-decoration:none;color:inherit href=#63>63</a></span><span class=m>30</span> / Pcloud
+<span class=ln id=64><a style=outline:none;text-decoration:none;color:inherit href=#64>64</a></span>   <span class=se>\ </span><span class=s2>&#34;pcloud&#34;</span>
+<span class=ln id=65><a style=outline:none;text-decoration:none;color:inherit href=#65>65</a></span><span class=m>31</span> / Put.io
+<span class=ln id=66><a style=outline:none;text-decoration:none;color:inherit href=#66>66</a></span>   <span class=se>\ </span><span class=s2>&#34;putio&#34;</span>
+<span class=ln id=67><a style=outline:none;text-decoration:none;color:inherit href=#67>67</a></span><span class=m>32</span> / QingCloud Object Storage
+<span class=ln id=68><a style=outline:none;text-decoration:none;color:inherit href=#68>68</a></span>   <span class=se>\ </span><span class=s2>&#34;qingstor&#34;</span>
+<span class=ln id=69><a style=outline:none;text-decoration:none;color:inherit href=#69>69</a></span><span class=m>33</span> / SSH/SFTP Connection
+<span class=ln id=70><a style=outline:none;text-decoration:none;color:inherit href=#70>70</a></span>   <span class=se>\ </span><span class=s2>&#34;sftp&#34;</span>
+<span class=ln id=71><a style=outline:none;text-decoration:none;color:inherit href=#71>71</a></span><span class=m>34</span> / Sia Decentralized Cloud
+<span class=ln id=72><a style=outline:none;text-decoration:none;color:inherit href=#72>72</a></span>   <span class=se>\ </span><span class=s2>&#34;sia&#34;</span>
+<span class=ln id=73><a style=outline:none;text-decoration:none;color:inherit href=#73>73</a></span><span class=m>35</span> / Sugarsync
+<span class=ln id=74><a style=outline:none;text-decoration:none;color:inherit href=#74>74</a></span>   <span class=se>\ </span><span class=s2>&#34;sugarsync&#34;</span>
+<span class=ln id=75><a style=outline:none;text-decoration:none;color:inherit href=#75>75</a></span><span class=m>36</span> / Tardigrade Decentralized Cloud Storage
+<span class=ln id=76><a style=outline:none;text-decoration:none;color:inherit href=#76>76</a></span>   <span class=se>\ </span><span class=s2>&#34;tardigrade&#34;</span>
+<span class=ln id=77><a style=outline:none;text-decoration:none;color:inherit href=#77>77</a></span><span class=m>37</span> / Transparently chunk/split large files
+<span class=ln id=78><a style=outline:none;text-decoration:none;color:inherit href=#78>78</a></span>   <span class=se>\ </span><span class=s2>&#34;chunker&#34;</span>
+<span class=ln id=79><a style=outline:none;text-decoration:none;color:inherit href=#79>79</a></span><span class=m>38</span> / Union merges the contents of several upstream fs
+<span class=ln id=80><a style=outline:none;text-decoration:none;color:inherit href=#80>80</a></span>   <span class=se>\ </span><span class=s2>&#34;union&#34;</span>
+<span class=ln id=81><a style=outline:none;text-decoration:none;color:inherit href=#81>81</a></span><span class=m>39</span> / Uptobox
+<span class=ln id=82><a style=outline:none;text-decoration:none;color:inherit href=#82>82</a></span>   <span class=se>\ </span><span class=s2>&#34;uptobox&#34;</span>
+<span class=ln id=83><a style=outline:none;text-decoration:none;color:inherit href=#83>83</a></span><span class=m>40</span> / Webdav
+<span class=ln id=84><a style=outline:none;text-decoration:none;color:inherit href=#84>84</a></span>   <span class=se>\ </span><span class=s2>&#34;webdav&#34;</span>
+<span class=ln id=85><a style=outline:none;text-decoration:none;color:inherit href=#85>85</a></span><span class=m>41</span> / Yandex Disk
+<span class=ln id=86><a style=outline:none;text-decoration:none;color:inherit href=#86>86</a></span>   <span class=se>\ </span><span class=s2>&#34;yandex&#34;</span>
+<span class=ln id=87><a style=outline:none;text-decoration:none;color:inherit href=#87>87</a></span><span class=m>42</span> / Zoho
+<span class=ln id=88><a style=outline:none;text-decoration:none;color:inherit href=#88>88</a></span>   <span class=se>\ </span><span class=s2>&#34;zoho&#34;</span>
+<span class=ln id=89><a style=outline:none;text-decoration:none;color:inherit href=#89>89</a></span><span class=m>43</span> / http Connection
+<span class=ln id=90><a style=outline:none;text-decoration:none;color:inherit href=#90>90</a></span>   <span class=se>\ </span><span class=s2>&#34;http&#34;</span>
+<span class=ln id=91><a style=outline:none;text-decoration:none;color:inherit href=#91>91</a></span><span class=m>44</span> / premiumize.me
+<span class=ln id=92><a style=outline:none;text-decoration:none;color:inherit href=#92>92</a></span>   <span class=se>\ </span><span class=s2>&#34;premiumizeme&#34;</span>
+<span class=ln id=93><a style=outline:none;text-decoration:none;color:inherit href=#93>93</a></span><span class=m>45</span> / seafile
+<span class=ln id=94><a style=outline:none;text-decoration:none;color:inherit href=#94>94</a></span>   <span class=se>\ </span><span class=s2>&#34;seafile&#34;</span>
+<span class=ln id=95><a style=outline:none;text-decoration:none;color:inherit href=#95>95</a></span>Storage&gt; <span class=m>16</span>
+</code></pre></div><p>利用するオンラインストレージを聞かれるので、利用したいものを選択します。今回は Google Drive を使うので、<code>16</code> を選択しています。</p>
+<div class="alert alert-info" role=alert><i class="alert-icon fas fa-fw fa-info-circle me-1"></i>
+<p>RClone が対応するオンラインストレージが変更されると番号は変わります。2022年4年22月時点では、Google Drive は 17 になっています。</p>
+</div>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>Option client_id.
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>Google Application Client Id
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>Setting your own is recommended.
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>See https://rclone.org/drive/#making-your-own-client-id <span class=k>for</span> how to create your own.
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>If you leave this blank, it will use an internal key which is low performance.
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>Enter a string value. Press Enter <span class=k>for</span> the default <span class=o>(</span><span class=s2>&#34;&#34;</span><span class=o>)</span>.
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>client_id&gt;
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>Option client_secret.
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>OAuth Client Secret.
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>Leave blank normally.
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>Enter a string value. Press Enter <span class=k>for</span> the default <span class=o>(</span><span class=s2>&#34;&#34;</span><span class=o>)</span>.
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>client_secret&gt;
+</code></pre></div><p><code>client_id</code> と <code>client_secret</code> を聞かれますが、空欄でOKです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>Option scope.
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>Scope that rclone should use when requesting access from drive.
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>Enter a string value. Press Enter <span class=k>for</span> the default <span class=o>(</span><span class=s2>&#34;&#34;</span><span class=o>)</span>.
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>Choose a number from below, or <span class=nb>type</span> in your own value.
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span> <span class=m>1</span> / Full access all files, excluding Application Data Folder.
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>   <span class=se>\ </span><span class=s2>&#34;drive&#34;</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span> <span class=m>2</span> / Read-only access to file metadata and file contents.
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>   <span class=se>\ </span><span class=s2>&#34;drive.readonly&#34;</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>   / Access to files created by rclone only.
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span> <span class=m>3</span> <span class=p>|</span> These are visible in the drive website.
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>   <span class=p>|</span> File authorization is revoked when the user deauthorizes the app.
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>   <span class=se>\ </span><span class=s2>&#34;drive.file&#34;</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>   / Allows <span class=nb>read</span> and write access to the Application Data folder.
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span> <span class=m>4</span> <span class=p>|</span> This is not visible in the drive website.
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>   <span class=se>\ </span><span class=s2>&#34;drive.appfolder&#34;</span>
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>   / Allows read-only access to file metadata but
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span> <span class=m>5</span> <span class=p>|</span> does not allow any access to <span class=nb>read</span> or download file content.
+<span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span>   <span class=se>\ </span><span class=s2>&#34;drive.metadata.readonly&#34;</span>
+<span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span>scope&gt; <span class=m>1</span>
+</code></pre></div><p>どのスコープ範囲を適用するか聞かれるので、フルアクセス可能な <code>1</code> を選択します。</p>
+<p>（書き込みオンリーの権限がないため、止むを得ずフルアクセスを選択しています。）</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>Option root_folder_id.
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>ID of the root folder.
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>Leave blank normally.
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>Fill in to access <span class=s2>&#34;Computers&#34;</span> folders <span class=o>(</span>see docs<span class=o>)</span>, or <span class=k>for</span> rclone to use
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>a non root folder as its starting point.
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>Enter a string value. Press Enter <span class=k>for</span> the default <span class=o>(</span><span class=s2>&#34;&#34;</span><span class=o>)</span>.
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>root_folder_id&gt;
+</code></pre></div><p><code>root_folder_id</code> を聞かれますが、空欄のままでOKです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>Option service_account_file.
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>Service Account Credentials JSON file path.
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>Leave blank normally.
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>Needed only <span class=k>if</span> you want use SA instead of interactive login.
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>Leading <span class=sb>`</span>~<span class=sb>`</span> will be expanded in the file name as will environment variables such as <span class=sb>`</span><span class=si>${</span><span class=nv>RCLONE_CONFIG_DIR</span><span class=si>}</span><span class=sb>`</span>.
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>Enter a string value. Press Enter <span class=k>for</span> the default <span class=o>(</span><span class=s2>&#34;&#34;</span><span class=o>)</span>.
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>service_account_file&gt;
+</code></pre></div><p><code>service_account_file</code> について聞かれますが、こちらも空欄でOKです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>Edit advanced config?
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>y<span class=o>)</span> Yes
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>n<span class=o>)</span> No <span class=o>(</span>default<span class=o>)</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>y/n&gt; n
+</code></pre></div><p>アドバンスト設定を行うか聞かれますので、 <code>n</code> を入力してアドバンスト設定を行わず先に進みます。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>Use auto config?
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span> * Say Y <span class=k>if</span> not sure
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span> * Say N <span class=k>if</span> you are working on a remote or headless machine
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>y<span class=o>)</span> Yes <span class=o>(</span>default<span class=o>)</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>n<span class=o>)</span> No
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>y/n&gt; n
+</code></pre></div><p>オート設定を行うか聞かれますが、SSH 接続で設定しているので <code>n</code> を選択します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>Option config_token.
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>For this to work, you will need rclone available on a machine that has
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>a web browser available.
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>For more <span class=nb>help</span> and alternate methods see: https://rclone.org/remote_setup/
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>Execute the following on the machine with the web browser <span class=o>(</span>same rclone
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>version recommended<span class=o>)</span>:
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>        rclone authorize <span class=s2>&#34;drive&#34;</span> <span class=s2>&#34;eyJzY29wZSI6ImRyaXZlIn0&#34;</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>Then paste the result.
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>Enter a value.
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>config_token&gt; ***
+</code></pre></div><div class="alert alert-warning" role=alert><i class="alert-icon fas fa-fw fa-exclamation-triangle me-1"></i>
+<p>この手順は変更されていますので、2022年4月22日に修正しています。</p>
+</div>
+<p>ダイアログに「RClone が使える PC で以下のコードを実行して結果を貼り付けること（意訳）」と指示が表示されますので、指示に従って手元の PC で <code>rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"</code> を実行します。</p>
+<p>すると、起動したローカルサーバの URL が表示されますので、その URL にアクセスすると Google のアクセス権限設定ページにジャンプします。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>2022/04/19 13:09:19 NOTICE: Config file <span class=s2>&#34;/home/***/.config/rclone/rclone.conf&#34;</span> not found - using defaults
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>2022/04/19 13:09:19 NOTICE: If your browser doesn<span class=err>&#39;</span>t open automatically go to the following link: http://127.0.0.1:53682/auth?state<span class=o>=</span>hogehoge
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>2022/04/19 13:09:19 NOTICE: Log in and authorize rclone <span class=k>for</span> access
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>2022/04/19 13:09:19 NOTICE: Waiting <span class=k>for</span> code...
+</code></pre></div><p><figure class="figure bsimage">
 <img src=Google%e8%a8%ad%e5%ae%9a%e7%94%bb%e9%9d%a21.png class="figure-img img-fluid">
 <figcaption class="figure-caption fw-light text-center">使用するアカウントを選択</figcaption>
 </figure>
@@ -625,91 +614,79 @@ config_token> ***
 <figure class="figure bsimage">
 <img src=Google%e8%a8%ad%e5%ae%9a%e7%94%bb%e9%9d%a23.png class="figure-img img-fluid">
 <figcaption class="figure-caption fw-light text-center">RClone で使うコードをコピー</figcaption>
-</figure>
-```bash
-Configure this as a Shared Drive (Team Drive)?
-y) Yes
-n) No (default)
-y/n> n
-```
-今回使う Google Drive がチームで使うものか聞かれますが、私の Google Drive は個人用なので `n` を選択します。
-```bash
---------------------
-[test]
-type = drive
-scope = drive
-token = {"access_token":"***",...}
-team_drive =
---------------------
-y) Yes this is OK (default)
-e) Edit this remote
-d) Delete this remote
-y/e/d> y
-```
-これまでの選択に基づいた設定結果が表示されますので、問題がなれば `y` を選択します。
-```bash
-Current remotes:
-Name Type
-==== ====
-Fluiddpi_backup drive
-test drive
-e) Edit existing remote
-n) New remote
-d) Delete remote
-r) Rename remote
-c) Copy remote
-s) Set configuration password
-q) Quit config
-e/n/d/r/c/s/q>
-```
-設定完了後のリモートドライブの一覧が表示されます。
-設定が上手くできたか確認するため、 `rclone ls Fluiddpi_backup:` を実行してリモートドライブの内容が表示されるか確認します。きちんと設定できていれば、Google Drive に保存しているファイルがリストアップされます。
-```bash
-pi@fluiddpiender3:~ $ rclone ls Fluiddpi_backup:
-10138 FluiddPi_Prusa/klipper_config/printer.cfg
-10138 FluiddPi_Prusa/klipper_config/printer-20220110_020804.cfg
-10152 FluiddPi_Prusa/klipper_config/printer-20220110_020020.cfg
-...
-```
-続いて、Cron で定期的に実行するバックアップスクリプトを作成します。スクリプトは `~/klipper_backup.sh` としました。
-なお、バックアップ先の Google Drive には、あらかじめ `FluiddPi_Ender3` という名前でディレクトリを作成しています。
-```bash
-#!/bin/bash
-rclone copy klipper_config/ Fluiddpi_backup:FluiddPi_Ender3/klipper_config
-rclone copy -L klipper_logs/ Fluiddpi_backup:FluiddPi_Ender3/klipper_logs
-```
-スクリプトを作成したら、 `chmod 777 ~/klipper_backup.sh` コマンドでスクリプトに実行権限を与えます。
-それから `crontab -e` で Cron の設定ファイルを開き、バックアップスクリプトを実行する日時を設定します。ここでは、毎日夜中の2時15分にバックアップを実行する設定にしています。
-```bash
-# Edit this file to introduce tasks to be run by cron.
-#
-# Each task to run has to be defined through a single line
-# indicating with different fields when the task will be run
-# and what command to run for the task
-#
-# To define the time you can provide concrete values for
-# minute (m), hour (h), day of month (dom), month (mon),
-# and day of week (dow) or use '*' in these fields (for 'any').
-#
-# Notice that tasks will be started based on the cron's system
-# daemon's notion of time and timezones.
-#
-# Output of the crontab jobs (including errors) is sent through
-# email to the user the crontab file belongs to (unless redirected).
-#
-# For example, you can run a backup of all your user accounts
-# at 5 a.m every week with:
-# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
-#
-# For more information see the manual pages of crontab(5) and cron(8)
-#
-# m h dom mon dow command
-15 2 * * * /home/pi/klipper_backup.sh
-```
-以上で設定完了です。これで毎日同じ時間にバックアップが実行されます。
-</div>
-</div>
-</div>
+</figure></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>Configure this as a Shared Drive <span class=o>(</span>Team Drive<span class=o>)</span>?
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>y<span class=o>)</span> Yes
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>n<span class=o>)</span> No <span class=o>(</span>default<span class=o>)</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>y/n&gt; n
+</code></pre></div><p>今回使う Google Drive がチームで使うものか聞かれますが、私の Google Drive は個人用なので <code>n</code> を選択します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>--------------------
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=o>[</span>test<span class=o>]</span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=nb>type</span> <span class=o>=</span> drive
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=nv>scope</span> <span class=o>=</span> drive
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=nv>token</span> <span class=o>=</span> <span class=o>{</span><span class=s2>&#34;access_token&#34;</span>:<span class=s2>&#34;***&#34;</span>,...<span class=o>}</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=nv>team_drive</span> <span class=o>=</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>--------------------
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>y<span class=o>)</span> Yes this is OK <span class=o>(</span>default<span class=o>)</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>e<span class=o>)</span> Edit this remote
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>d<span class=o>)</span> Delete this remote
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>y/e/d&gt; y
+</code></pre></div><p>これまでの選択に基づいた設定結果が表示されますので、問題がなれば <code>y</code> を選択します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span>Current remotes:
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span>Name                 <span class=nv>Type</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=o>====</span>                 <span class=o>====</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>Fluiddpi_backup      drive
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=nb>test</span>                 drive
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>e<span class=o>)</span> Edit existing remote
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span>n<span class=o>)</span> New remote
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span>d<span class=o>)</span> Delete remote
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>r<span class=o>)</span> Rename remote
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>c<span class=o>)</span> Copy remote
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>s<span class=o>)</span> Set configuration password
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>q<span class=o>)</span> Quit config
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>e/n/d/r/c/s/q&gt;
+</code></pre></div><p>設定完了後のリモートドライブの一覧が表示されます。</p>
+<p>設定が上手くできたか確認するため、 <code>rclone ls Fluiddpi_backup:</code> を実行してリモートドライブの内容が表示されるか確認します。きちんと設定できていれば、Google Drive に保存しているファイルがリストアップされます。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>pi@fluiddpiender3:~ $ rclone ls Fluiddpi_backup:
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span>    <span class=m>10138</span> FluiddPi_Prusa/klipper_config/printer.cfg
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>    <span class=m>10138</span> FluiddPi_Prusa/klipper_config/printer-20220110_020804.cfg
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>    <span class=m>10152</span> FluiddPi_Prusa/klipper_config/printer-20220110_020020.cfg
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>    ...
+</code></pre></div><p>続いて、Cron で定期的に実行するバックアップスクリプトを作成します。スクリプトは <code>~/klipper_backup.sh</code> としました。</p>
+<p>なお、バックアップ先の Google Drive には、あらかじめ <code>FluiddPi_Ender3</code> という名前でディレクトリを作成しています。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=cp>#!/bin/bash
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=cp></span>rclone copy klipper_config/ Fluiddpi_backup:FluiddPi_Ender3/klipper_config
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>rclone copy -L klipper_logs/ Fluiddpi_backup:FluiddPi_Ender3/klipper_logs
+</code></pre></div><p>スクリプトを作成したら、 <code>chmod 777 ~/klipper_backup.sh</code> コマンドでスクリプトに実行権限を与えます。</p>
+<p>それから <code>crontab -e</code> で Cron の設定ファイルを開き、バックアップスクリプトを実行する日時を設定します。ここでは、毎日夜中の2時15分にバックアップを実行する設定にしています。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c1># Edit this file to introduce tasks to be run by cron.</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=c1>#</span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=c1># Each task to run has to be defined through a single line</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=c1># indicating with different fields when the task will be run</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=c1># and what command to run for the task</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=c1>#</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=c1># To define the time you can provide concrete values for</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=c1># minute (m), hour (h), day of month (dom), month (mon),</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=c1># and day of week (dow) or use &#39;*&#39; in these fields (for &#39;any&#39;).</span>
+<span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=c1>#</span>
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=c1># Notice that tasks will be started based on the cron&#39;s system</span>
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=c1># daemon&#39;s notion of time and timezones.</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=c1>#</span>
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span><span class=c1># Output of the crontab jobs (including errors) is sent through</span>
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span><span class=c1># email to the user the crontab file belongs to (unless redirected).</span>
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span><span class=c1>#</span>
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=c1># For example, you can run a backup of all your user accounts</span>
+<span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span><span class=c1># at 5 a.m every week with:</span>
+<span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span><span class=c1># 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/</span>
+<span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span><span class=c1>#</span>
+<span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span><span class=c1># For more information see the manual pages of crontab(5) and cron(8)</span>
+<span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span><span class=c1>#</span>
+<span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span><span class=c1># m h  dom mon dow   command</span>
+<span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span><span class=m>15</span> <span class=m>2</span> * * * /home/pi/klipper_backup.sh
+</code></pre></div><p>以上で設定完了です。これで毎日同じ時間にバックアップが実行されます。</p>
 </div></div><div class=card-footer>
 <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
 <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
@@ -749,15 +726,14 @@ Klipper と FluiddPi の設定について
 </span>
 <div class="post-summary my-3"><p>目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド & インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマンドでファームウェアを再起動 Input Shaper スライサーと FluiddPi を繋ぐ方法 G-Code の問題 position_min の設定 BLTouch の使い方 プローブの Z-Offset の調整 Mesh Bed Leveling のトラブル その他のエラー対策 printer.cfg 等の設定ファイルの保存場所 前置き# 我が家の3Dプリンタ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-02/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2021-12-12/>
-QMK API を使ってキーボードのリストを取得する方法
+<a class=post-title href=https://kankodori-blog.com/posts/2019-12-20/>
+AnyCubic i3 Mega S に TMC2208 を導入する
 </a>
-<span class="post-meta post-date float-end">2021-12-12
+<span class="post-meta post-date float-end">2019-12-20
 </span>
-<div class="post-summary my-3"><p>前置き# 自作キーボードのトラブルシューティングのための問診票テンプレートを作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリストを取得する方法を発見していました。
-ネットを検索しても紹介されているページが見当たらないので、こちらで紹介します。
-方法# https://api.qmk.fm/v1/keyboards にアクセスするとキーボードのリストが JSON 形式で返ってきますので、使用目的に合わせてテキスト処理をして使います。
-1// コード例 2fetch('https://api.qmk.fm/v1/keyboards') 3 .then(response => { 4...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2021-12-12/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# AnyCubic 製の AnyCubic Mega S という3Dプリンタを使っていますが、動作中にモーター音に加えて結構な大きさの電子音が鳴ってうるさいので、モータードライバを工場出荷時の A4988 から TMC2208 に交換しました。ただ、手順を紹介した記事が少なくて苦労しましたので、備忘録代わりに手順をまとめてみました。
+なお、この記事の前提は次のとおりです。
+プリンタの機種 AnyCubic Mega S マザーボード Trigorilla Mega2560+ramps 1.4 作業PC Windows10 必要なもの# TMC2208# Amazon や Aliexpress で「TMC2208」を検索す...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2019-12-20/>もっと読む</a></div></div>
 </li></ul>
 </div>
 </section><div class="card component row post-comments" id=post-comments>

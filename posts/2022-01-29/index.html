@@ -28,7 +28,7 @@
 <meta itemprop=keywords content="3Dプリンタ,備忘録,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
-<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.2f97cee03d63ba6cb667a87b185956f903bdc36c9ed2a8ff0dbac7c574a40975.css" integrity="sha256-L5fO4D1jumy2Z6h7GFlW+QO9w2ye0qj/DbrHxXSkCXU=" crossorigin=anonymous>
+<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.f9711cc646485ba06c1150309ebca6ef67329aa3ad94dca5f73292ab2b7f9bb2.css" integrity="sha256-+XEcxkZIW6BsEVAwnrym72cymqOtlNyl9zKSqyt/m7I=" crossorigin=anonymous>
 <link data-precache rel=stylesheet href=https://kankodori-blog.com/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
 </head>
 <body><header>
@@ -238,11 +238,11 @@
 <div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0>
 <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>
 備忘録
-<span class="badge badge-sm text-secondary bg-white ms-1">14</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">15</span>
 </a>
 <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>
 3Dプリンタ
-<span class="badge badge-sm text-secondary bg-white ms-1">10</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">11</span>
 </a>
 <a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=プログラミング>
 プログラミング
@@ -252,13 +252,13 @@
 自作キーボード
 <span class="badge badge-sm text-secondary bg-white ms-1">5</span>
 </a>
+<a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>
+Klipper
+<span class="badge badge-sm text-secondary bg-white ms-1">3</span>
+</a>
 <a href=https://kankodori-blog.com/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=読書記録>
 読書記録
 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
-</a>
-<a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>
-Klipper
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
 </a>
 <a href=https://kankodori-blog.com/tags/mac/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mac>
 Mac
@@ -526,6 +526,16 @@ CC BY 4.0
 </div>
 <div class=card-body>
 <ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-01-16/>
+RClone を使って Klipper の設定をバックアップする方法
+</a>
+<span class="post-meta post-date float-end">2022-01-16
+</span>
+<div class="post-summary my-3"><p>前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに定期的にバックアップするようにしまし た。
+そこで、備忘録として実施した手順をメモします。
+手順# 手順の変更などに合わせて記事を修正 (2022/04/22)
+RClone のインストール# ホストPCから Raspberry Pi に SSH 接続する sudo ls を実行して root ユーザのパスワードを入力しておく curl https://rclone.org/install.sh | sudo bash でインス...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-16/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
 <a class=post-title href=https://kankodori-blog.com/posts/2022-01-07/>
 PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法
 </a>
@@ -541,15 +551,6 @@ Klipper と FluiddPi の設定について
 <span class="post-meta post-date float-end">2022-01-02
 </span>
 <div class="post-summary my-3"><p>目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド & インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマンドでファームウェアを再起動 Input Shaper スライサーと FluiddPi を繋ぐ方法 G-Code の問題 position_min の設定 BLTouch の使い方 プローブの Z-Offset の調整 Mesh Bed Leveling のトラブル その他のエラー対策 printer.cfg 等の設定ファイルの保存場所 前置き# 我が家の3Dプリンタ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-02/>もっと読む</a></div></div>
-</li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2019-12-20/>
-AnyCubic i3 Mega S に TMC2208 を導入する
-</a>
-<span class="post-meta post-date float-end">2019-12-20
-</span>
-<div class="post-summary my-3"><p>前置き# AnyCubic 製の AnyCubic Mega S という3Dプリンタを使っていますが、動作中にモーター音に加えて結構な大きさの電子音が鳴ってうるさいので、モータードライバを工場出荷時の A4988 から TMC2208 に交換しました。ただ、手順を紹介した記事が少なくて苦労しましたので、備忘録代わりに手順をまとめてみました。
-なお、この記事の前提は次のとおりです。
-プリンタの機種 AnyCubic Mega S マザーボード Trigorilla Mega2560+ramps 1.4 作業PC Windows10 必要なもの# TMC2208# Amazon や Aliexpress で「TMC2208」を検索す...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2019-12-20/>もっと読む</a></div></div>
 </li></ul>
 </div>
 </section><div class="card component row post-comments" id=post-comments>
