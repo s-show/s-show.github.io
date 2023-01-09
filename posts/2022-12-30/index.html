@@ -10,25 +10,25 @@
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
 <link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
 <meta name=keywords content>
-<meta name=description content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ">
+<meta name=description content="目次 前置き アウトラインバッファの作成 2022年1月10日追記 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイ">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
 <meta name=twitter:title content="Neovim の設定集（2022年12月30時点）">
-<meta name=twitter:description content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ">
+<meta name=twitter:description content="目次 前置き アウトラインバッファの作成 2022年1月10日追記 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイ">
 <meta name=twitter:site content="@s_show_0000">
 <meta property="og:title" content="Neovim の設定集（2022年12月30時点）">
-<meta property="og:description" content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ">
+<meta property="og:description" content="目次 前置き アウトラインバッファの作成 2022年1月10日追記 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイ">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://kankodori-blog.com/posts/2022-12-30/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2022-12-30T16:48:00+09:00">
 <meta property="article:modified_time" content="2022-12-30T16:48:00+09:00">
 <meta itemprop=name content="Neovim の設定集（2022年12月30時点）">
-<meta itemprop=description content="目次 前置き アウトラインバッファの作成 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシ"><meta itemprop=datePublished content="2022-12-30T16:48:00+09:00">
+<meta itemprop=description content="目次 前置き アウトラインバッファの作成 2022年1月10日追記 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイ"><meta itemprop=datePublished content="2022-12-30T16:48:00+09:00">
 <meta itemprop=dateModified content="2022-12-30T16:48:00+09:00">
-<meta itemprop=wordCount content="7123">
+<meta itemprop=wordCount content="8147">
 <meta itemprop=keywords content="備忘録,Neovim,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
-<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.f9711cc646485ba06c1150309ebca6ef67329aa3ad94dca5f73292ab2b7f9bb2.css" integrity="sha256-+XEcxkZIW6BsEVAwnrym72cymqOtlNyl9zKSqyt/m7I=" crossorigin=anonymous>
+<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.31b669653e30c6f9358978399830984e8be166ff4088dfe1d1a3a692bb23fda5.css" integrity="sha256-MbZpZT4wxvk1iXg5mDCYTovhZv9AiN/h0aOmkrsj/aU=" crossorigin=anonymous>
 <link data-precache rel=stylesheet href=https://kankodori-blog.com/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
 </head>
 <body><header>
@@ -394,7 +394,11 @@ Karabiner-Elements
 <nav id=TableOfContents>
 <ul>
 <li><a href=#前置き>前置き</a></li>
-<li><a href=#アウトラインバッファの作成>アウトラインバッファの作成</a></li>
+<li><a href=#アウトラインバッファの作成>アウトラインバッファの作成</a>
+<ul>
+<li><a href=#2022年1月10日追記>2022年1月10日追記</a></li>
+</ul>
+</li>
 <li><a href=#日本語テキストでの移動の効率化>日本語テキストでの移動の効率化</a></li>
 <li><a href=#dduvim-の導入>ddu.vim の導入</a></li>
 <li><a href=#ddcvim-の導入>ddc.vim の導入</a></li>
@@ -417,6 +421,9 @@ Karabiner-Elements
 <p>WSL2 + Neovim + VSCode で使っていく予定だったのですが、Neovim をあれこれカスタマイズしていると Neovim が使いやすくなってきてメインエディタになりそうなので、これまでの設定をまとめてみようと思います。</p>
 <p>順不同で色々なネタを扱っていて記事が長いですので、上記の目次で必要な個所を拾い読みしてください。</p>
 <h2 id=アウトラインバッファの作成 data-numberify>アウトラインバッファの作成<a class="anchor ms-1 d-none" href=#アウトラインバッファの作成>#</a></h2>
+<div class="alert alert-info" role=alert><i class="alert-icon fas fa-fw fa-info-circle me-1"></i>
+<p>2022年1月10日追記</p>
+</div>
 <p>このブログは、Go言語 で書かれた静的サイトジェネレーターの <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer">The world’s fastest framework for building websites |Hugo<i class="fas fa-external-link-square-alt ms-1"></i></a> で構築しており、記事は Markdown で書いています。また、職場で細々と行っている勉強会の資料は、書籍制作向けのテキストマークアップ言語仕様、およびその変換システムである <a href=https://reviewml.org/ target=_blank rel="noopener noreferrer">Re:VIEW - Digital Publishing System for Books and eBooks<i class="fas fa-external-link-square-alt ms-1"></i></a> で作成しています。</p>
 <p>どちらもそこそこ長い記事を書くことがあるのでアウトライン機能が欲しいのですが、プラグインはできる限り少なくしたいため、プラグイン無しでできるか挑戦したところ上手くいきましたので、方法を紹介します。</p>
 <p>処理の大まかな流れは、<code>;o</code> キーをタイプしたらファイルタイプ毎の検索条件を用いて Vimgrep と Quickfix を実行し、その結果をカレントバッファの右半分に表示するというものです。</p>
@@ -458,6 +465,63 @@ to support it.
 <div class="alert alert-info" role=alert><i class="alert-icon fas fa-fw fa-info-circle me-1"></i>
 <p>ちなみに、このアウトラインバッファは、今は開発が終了した Github 製エディタのプラグインの <a href=https://github.com/t9md/atom-narrow target=_blank rel="noopener noreferrer">t9md/atom-narrow: narrow something<i class="fas fa-external-link-square-alt ms-1"></i></a> の見た目を模して設定しました。私はこのプラグインがお気に入りでしたので、見た目だけでも同じようにしたかったものです。</p>
 </div>
+<h3 id=2022年1月10日追記 data-numberify>2022年1月10日追記<a class="anchor ms-1 d-none" href=#2022年1月10日追記>#</a></h3>
+<p>上記のコードには欠陥があり、次のウィンドウ配置で編集しているときにアウトラインを更新するために <code>;f</code> キーバインドをタイプすると画面配置が変わってしまいます。</p>
+<pre tabindex=0><code>アウトライン更新前
++────────────+────────────+
+| Window A   | Window B   |
+| (Doc)      | (Outline)  |
+|            +────────────+
+|            | Window C   |
+|            | (Terminal) |
++────────────+────────────+
+</code></pre><pre tabindex=0><code>アウトライン更新後
++───────+────────+────────+
+| Win A | Win C  | Win B  |
+|       |        |        |
+|       |        |        |
+|       |        |        |
+|       |        |        |
++───────+────────+────────+
+</code></pre><p>この問題を解決するため、<code>;f</code> キーバインドをタイプしたときに Quickfix ウィンドウが存在しているか調査し、存在していればその時点のウィンドウ配置をいったん保存してからアウトラインを更新してウィンドウ配置を元に戻す方法に変更しました。</p>
+<p>具体的なコードは次のとおりです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vim data-lang=vim><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=k>function</span><span class=p>!</span> <span class=nx>CreateOutlineBuffer</span><span class=p>()</span><span class=err>
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=err></span>  <span class=k>let</span> <span class=nx>QuickfixWindowExists</span> <span class=p>=</span> <span class=nx>QuickfixWindowExists</span><span class=p>()</span><span class=err>
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=err></span>  <span class=k>if</span> <span class=nx>QuickfixWindowExists</span> <span class=p>==</span> <span class=s2>&#34;true&#34;</span><span class=err>
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span><span class=err></span>    <span class=k>let</span> <span class=nx>windowLayout</span> <span class=p>=</span> <span class=nx>winsaveview</span><span class=p>()</span><span class=err>
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span><span class=err></span>    <span class=nx>call</span> <span class=nx>DoVimgrep</span><span class=p>(</span>&amp;<span class=nx>filetype</span><span class=p>)</span><span class=err>
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span><span class=err></span>    <span class=nx>copen</span><span class=err>
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span><span class=err></span>    <span class=nx>execute</span> <span class=nx>winrestview</span><span class=p>(</span><span class=nx>windowLayout</span><span class=p>)</span><span class=err>
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span><span class=err></span>  <span class=k>else</span><span class=err>
+</span><span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=err></span>    <span class=nx>call</span> <span class=nx>DoVimgrep</span><span class=p>(</span>&amp;<span class=nx>filetype</span><span class=p>)</span><span class=err>
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=err></span>    <span class=nx>copen</span><span class=err>
+</span><span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span><span class=err></span>    <span class=nx>wincmd</span> <span class=nx>L</span><span class=err>
+</span><span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span><span class=err></span>  <span class=k>endif</span><span class=err>
+</span><span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span><span class=err>
+</span><span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>QuickfixWindowExists</span><span class=p>()</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span><span class=err></span>  <span class=k>let</span> <span class=nx>bufferNoList</span> <span class=p>=</span> <span class=nx>tabpagebuflist</span><span class=p>()</span><span class=err>
+</span><span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=err></span>  <span class=nx>for</span> <span class=nx>bufferNo</span> <span class=nx>in</span> <span class=nx>bufferNoList</span><span class=err>
+</span><span class=ln id=18><a style=outline:none;text-decoration:none;color:inherit href=#18>18</a></span><span class=err></span>    <span class=k>if</span> <span class=nx>getwininfo</span><span class=p>(</span><span class=nx>bufwinid</span><span class=p>(</span><span class=nx>bufferNo</span><span class=p>))</span>[<span class=s1>&#39;variables&#39;</span>][<span class=s1>&#39;quickfix&#39;</span>] <span class=p>==</span> <span class=m>1</span><span class=err>
+</span><span class=ln id=19><a style=outline:none;text-decoration:none;color:inherit href=#19>19</a></span><span class=err></span>      <span class=nx>return</span> <span class=s2>&#34;true&#34;</span><span class=err>
+</span><span class=ln id=20><a style=outline:none;text-decoration:none;color:inherit href=#20>20</a></span><span class=err></span>    <span class=k>endif</span><span class=err>
+</span><span class=ln id=21><a style=outline:none;text-decoration:none;color:inherit href=#21>21</a></span><span class=err></span>  <span class=nx>endfor</span><span class=err>
+</span><span class=ln id=22><a style=outline:none;text-decoration:none;color:inherit href=#22>22</a></span><span class=err></span>  <span class=nx>return</span> <span class=s2>&#34;false&#34;</span><span class=err>
+</span><span class=ln id=23><a style=outline:none;text-decoration:none;color:inherit href=#23>23</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=24><a style=outline:none;text-decoration:none;color:inherit href=#24>24</a></span><span class=err>
+</span><span class=ln id=25><a style=outline:none;text-decoration:none;color:inherit href=#25>25</a></span><span class=err></span><span class=k>function</span><span class=p>!</span> <span class=nx>DoVimgrep</span><span class=p>(</span><span class=nx>filetype</span><span class=p>)</span> <span class=nx>abort</span><span class=err>
+</span><span class=ln id=26><a style=outline:none;text-decoration:none;color:inherit href=#26>26</a></span><span class=err></span>  <span class=k>if</span> <span class=p>(</span><span class=nx>a</span>:<span class=nx>filetype</span><span class=p>==</span><span class=s1>&#39;review&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=27><a style=outline:none;text-decoration:none;color:inherit href=#27>27</a></span><span class=err></span>    <span class=nx>vimgrep</span> <span class=sr>/^=\+ /</span> %<span class=err>
+</span><span class=ln id=28><a style=outline:none;text-decoration:none;color:inherit href=#28>28</a></span><span class=err></span>  <span class=k>elseif</span> <span class=p>(</span><span class=nx>a</span>:<span class=nx>filetype</span><span class=p>==</span><span class=s1>&#39;markdown&#39;</span><span class=p>)</span><span class=err>
+</span><span class=ln id=29><a style=outline:none;text-decoration:none;color:inherit href=#29>29</a></span><span class=err></span>    <span class=nx>vimgrep</span> <span class=sr>/^#\+ /</span> %<span class=err>
+</span><span class=ln id=30><a style=outline:none;text-decoration:none;color:inherit href=#30>30</a></span><span class=err></span>  <span class=k>endif</span><span class=err>
+</span><span class=ln id=31><a style=outline:none;text-decoration:none;color:inherit href=#31>31</a></span><span class=err></span><span class=k>endfunction</span><span class=err>
+</span><span class=ln id=32><a style=outline:none;text-decoration:none;color:inherit href=#32>32</a></span><span class=err>
+</span><span class=ln id=33><a style=outline:none;text-decoration:none;color:inherit href=#33>33</a></span><span class=err></span><span class=nx>nnoremap</span> <span class=p>&lt;</span><span class=nx>silent</span><span class=p>&gt;</span> ;<span class=nx>o</span> :<span class=p>&lt;</span><span class=nx>Cmd</span><span class=p>&gt;</span><span class=nx>call</span> <span class=nx>CreateOutlineBuffer</span><span class=p>()&lt;</span><span class=nx>CR</span><span class=p>&gt;&lt;</span><span class=nx>CR</span><span class=p>&gt;</span><span class=err>
+</span></code></pre></div><p>Quickfix ウィンドウの存在確認は <code>QuickfixWindowExists()</code> 関数で行っています。</p>
+<p>まず、<code>tabpagebuflist()</code> 関数で編集中のタブにあるバッファの番号リストを取得します。そうしたら、その番号リストを <code>for</code> 文で順番に <code>bufwinid()</code> 関数に渡してウィンドウID を取得し、その ID を <code>getwininfo()</code> 関数に渡してウィンドウ情報を辞書のリストとして取得します。ウィンドウ情報にはそのウィンドウが Quickfix/Location ウィンドウかどうかを示す項目がありますので、その項目を <code>if</code> 文の条件に用いています。Quickfix ウィンドウは1つしか開くことができませんので、Quickfix ウィンドウが1つ見つかった時点で <code>"true"</code> を返して関数を終了します。</p>
+<p>あとは、<code>QuickfixWindowExists()</code> 関数の返り値が <code>"true"</code> なら Quickfix ウィンドウが存在するので <code>winsaveview()</code> 関数を実行してウィンドウ配置の情報を取得して変数に格納します。それからアウトライン表示の <code>DoVimgrep()</code> 関数を実行してアウトラインを更新し、Ex コマンドの <code>winrestview</code> に先ほど格納したウィンドウ配置の情報を渡してウィンドウ配置を復元します。</p>
+<p>なお、<code>cbuffer</code> コマンドを実行してアウトラインを更新する方法も試しましたが、行頭に <code>||</code> が追加されて Enter キーを押しても該当箇所にジャンプできなくなる症状を解消できなかったため、断念して上記の方法に切り替えました。</p>
 <h2 id=日本語テキストでの移動の効率化 data-numberify>日本語テキストでの移動の効率化<a class="anchor ms-1 d-none" href=#日本語テキストでの移動の効率化>#</a></h2>
 <p>Vim の <code>f{char}</code> コマンドを日本語で使う場合、<code>f</code> キーをタイプしてから IME をオンにして検索文字を入力する必要があり、非常に面倒くさいです。</p>
 <p>そこで、<a href=https://sasasa.org/vim/ftjpn/ target=_blank rel="noopener noreferrer">Vimで日本語編集時の f, t の移動や操作を楽にするプラグイン ftjpn を作りました<i class="fas fa-external-link-square-alt ms-1"></i></a> をインストールして、<code>f,</code> や <code>f.</code> や <code>fg</code> のキーバインドで <code>、</code> や <code>。</code> や <code>が</code> に移動できるようにしました。</p>
@@ -1186,7 +1250,7 @@ Actions
 </a>
 </nav>
 <div class="copyright mb-2">
-Copyright © 2021-2022 s-show. All Rights Reserved.
+Copyright © 2021-2023 s-show. All Rights Reserved.
 </div>
 <div class="powered-by mb-2">
 Powered by <a class=text-primary href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a class=text-primary href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">HBS</a> theme.
