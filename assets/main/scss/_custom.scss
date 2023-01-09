@@ -140,3 +140,9 @@ h4 {
   padding: .25em 0 .25em .75em;
   border-left: 6px solid #ccc;
 }
+
+/* 埋め込み動画用の設定 */
+.video-shortcode {
+  max-width: 100%;
+  height: auto;
+}
