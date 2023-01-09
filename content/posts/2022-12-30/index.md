@@ -21,6 +21,10 @@ WSL2 + Neovim + VSCode で使っていく予定だったのですが、Neovim �
 
 ## アウトラインバッファの作成
 
+{{% alert info %}}
+2022年1月10日追記
+{{% /alert %}}
+
 このブログは、Go言語 で書かれた静的サイトジェネレーターの [The world’s fastest framework for building websites |Hugo](https://gohugo.io/) で構築しており、記事は Markdown で書いています。また、職場で細々と行っている勉強会の資料は、書籍制作向けのテキストマークアップ言語仕様、およびその変換システムである [Re:VIEW - Digital Publishing System for Books and eBooks](https://reviewml.org/) で作成しています。
 
 どちらもそこそこ長い記事を書くことがあるのでアウトライン機能が欲しいのですが、プラグインはできる限り少なくしたいため、プラグイン無しでできるか挑戦したところ上手くいきましたので、方法を紹介します。
@@ -72,6 +76,79 @@ nnoremap <silent> ;o :<Cmd>call CreateOutlineBuffer()<CR><CR>
 ちなみに、このアウトラインバッファは、今は開発が終了した Github 製エディタのプラグインの [t9md/atom-narrow: narrow something](https://github.com/t9md/atom-narrow) の見た目を模して設定しました。私はこのプラグインがお気に入りでしたので、見た目だけでも同じようにしたかったものです。
 {{% /alert %}}
 
+### 2022年1月10日追記
+
+上記のコードには欠陥があり、次のウィンドウ配置で編集しているときにアウトラインを更新するために `;f` キーバインドをタイプすると画面配置が変わってしまいます。
+
+```
+アウトライン更新前
++────────────+────────────+
+| Window A   | Window B   |
+| (Doc)      | (Outline)  |
+|            +────────────+
+|            | Window C   |
+|            | (Terminal) |
++────────────+────────────+
+```
+
+```
+アウトライン更新後
++───────+────────+────────+
+| Win A | Win C  | Win B  |
+|       |        |        |
+|       |        |        |
+|       |        |        |
+|       |        |        |
++───────+────────+────────+
+```
+
+この問題を解決するため、`;f` キーバインドをタイプしたときに Quickfix ウィンドウが存在しているか調査し、存在していればその時点のウィンドウ配置をいったん保存してからアウトラインを更新してウィンドウ配置を元に戻す方法に変更しました。
+
+具体的なコードは次のとおりです。
+
+```vim
+function! CreateOutlineBuffer()
+  let QuickfixWindowExists = QuickfixWindowExists()
+  if QuickfixWindowExists == "true"
+    let windowLayout = winsaveview()
+    call DoVimgrep(&filetype)
+    copen
+    execute winrestview(windowLayout)
+  else
+    call DoVimgrep(&filetype)
+    copen
+    wincmd L
+  endif
+endfunction
+
+function! QuickfixWindowExists() abort
+  let bufferNoList = tabpagebuflist()
+  for bufferNo in bufferNoList
+    if getwininfo(bufwinid(bufferNo))['variables']['quickfix'] == 1
+      return "true"
+    endif
+  endfor
+  return "false"
+endfunction
+
+function! DoVimgrep(filetype) abort
+  if (a:filetype=='review')
+    vimgrep /^=\+ / %
+  elseif (a:filetype=='markdown')
+    vimgrep /^#\+ / %
+  endif
+endfunction
+
+nnoremap <silent> ;o :<Cmd>call CreateOutlineBuffer()<CR><CR>
+```
+
+Quickfix ウィンドウの存在確認は `QuickfixWindowExists()` 関数で行っています。
+
+まず、`tabpagebuflist()` 関数で編集中のタブにあるバッファの番号リストを取得します。そうしたら、その番号リストを `for` 文で順番に `bufwinid()` 関数に渡してウィンドウID を取得し、その ID を `getwininfo()` 関数に渡してウィンドウ情報を辞書のリストとして取得します。ウィンドウ情報にはそのウィンドウが Quickfix/Location ウィンドウかどうかを示す項目がありますので、その項目を `if` 文の条件に用いています。Quickfix ウィンドウは1つしか開くことができませんので、Quickfix ウィンドウが1つ見つかった時点で `"true"` を返して関数を終了します。
+
+あとは、`QuickfixWindowExists()` 関数の返り値が `"true"` なら Quickfix ウィンドウが存在するので `winsaveview()` 関数を実行してウィンドウ配置の情報を取得して変数に格納します。それからアウトライン表示の `DoVimgrep()` 関数を実行してアウトラインを更新し、Ex コマンドの `winrestview` に先ほど格納したウィンドウ配置の情報を渡してウィンドウ配置を復元します。
+
+なお、`cbuffer` コマンドを実行してアウトラインを更新する方法も試しましたが、行頭に `||` が追加されて Enter キーを押しても該当箇所にジャンプできなくなる症状を解消できなかったため、断念して上記の方法に切り替えました。
 
 ## 日本語テキストでの移動の効率化
 
