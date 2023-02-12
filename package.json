@@ -65,7 +65,7 @@
     "mermaid": "^9.1.6",
     "mustache": "^4.2.0",
     "onchange": "^7.1.0",
-    "open-graph-scraper": "^4.11.0",
+    "open-graph-scraper": "^5.0.5",
     "postcss-cli": "^9.1.0",
     "rtlcss": "^3.5.0",
     "viewerjs": "^1.10.4",
