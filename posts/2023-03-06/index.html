@@ -1,37 +1,40 @@
 <!doctype html><html class=position-relative itemscope itemtype=http://schema.org/WebPage lang=ja data-bs-theme=dark data-palette=indigo>
-<head>
-<meta name=generator content="Hugo 0.91.2"><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
+<head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>閑古鳥ブログ ページ 2</title>
+<title>RP2040 で QMK Firmware を使うメモ - 閑古鳥ブログ</title>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
 <link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_150x150_resize_box_3.png sizes=150x150 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
 <link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
-<meta name=keywords content="Hugo,Bootstrap,Blog Theme">
-<meta name=description content="An extreme fast, responsive and feature-rich blog theme for Hugo">
+<meta name=keywords content>
+<meta name=description content="前置き# 天下一キーボードわいわい会 Vol.4 - connpass にキーボードを出展するためにケースを新規作成しましたが、それに合わせて、以前から実現したかった USB Type-C 化">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="閑古鳥ブログ">
-<meta name=twitter:description content="An extreme fast, responsive and feature-rich blog theme for Hugo">
+<meta name=twitter:title content="RP2040 で QMK Firmware を使うメモ">
+<meta name=twitter:description content="前置き# 天下一キーボードわいわい会 Vol.4 - connpass にキーボードを出展するためにケースを新規作成しましたが、それに合わせて、以前から実現したかった USB Type-C 化">
 <meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="閑古鳥ブログ">
-<meta property="og:description" content="An extreme fast, responsive and feature-rich blog theme for Hugo">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://kankodori-blog.com/">
-<meta itemprop=name content="閑古鳥ブログ">
-<meta itemprop=description content="An extreme fast, responsive and feature-rich blog theme for Hugo">
+<meta property="og:title" content="RP2040 で QMK Firmware を使うメモ">
+<meta property="og:description" content="前置き# 天下一キーボードわいわい会 Vol.4 - connpass にキーボードを出展するためにケースを新規作成しましたが、それに合わせて、以前から実現したかった USB Type-C 化">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kankodori-blog.com/posts/2023-03-06/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-03-06T22:39:17+09:00">
+<meta property="article:modified_time" content="2023-03-06T22:39:17+09:00">
+<meta itemprop=name content="RP2040 で QMK Firmware を使うメモ">
+<meta itemprop=description content="前置き# 天下一キーボードわいわい会 Vol.4 - connpass にキーボードを出展するためにケースを新規作成しましたが、それに合わせて、以前から実現したかった USB Type-C 化"><meta itemprop=datePublished content="2023-03-06T22:39:17+09:00">
+<meta itemprop=dateModified content="2023-03-06T22:39:17+09:00">
+<meta itemprop=wordCount content="1182">
+<meta itemprop=keywords content="自作キーボード,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
-<link rel=alternate type=application/rss+xml href=https://kankodori-blog.com/index.xml title=閑古鳥ブログ>
 <link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.1cf40b4f892e02af140ba04bf2d5fc41fbaac32b68862d822b83281ba2b8afc4.css" integrity="sha256-HPQLT4kuAq8UC6BL8tX8Qfuqwytohi2CK4MoG6K4r8Q=" crossorigin=anonymous>
 <link data-precache rel=stylesheet href=https://kankodori-blog.com/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
 </head>
 <body><header>
 <nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top">
 <div class=container>
-<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2 active" href=https://kankodori-blog.com/>
+<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href=https://kankodori-blog.com/>
 <picture><img class=logo alt=Logo src=https://kankodori-blog.com/images/logo.webp loading=lazy width=1024 height=1024>
 </picture>閑古鳥ブログ
 </a>
@@ -362,185 +365,175 @@ Karabiner-Elements
 </div>
 </aside>
 <div class=col-lg-8>
-<div class=container>
-<div class="posts mb-4"><article class="row card post component">
+<div class=container><nav class="row card component" aria-label=breadcrumb>
+<div class="card-body pb-0">
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">RP2040 で QMK Firmware を使うメモ</li></ol>
+</div>
+</nav><div class="post-panel-wrapper position-sticky">
+<div class="d-flex flex-column component rounded post-panel position-absolute border">
+<a class="action action-panel-toggler" role=button title="Panel toggler">
+<i class="fas fa-fw fa-chevron-circle-down"></i>
+</a>
+<a id=sidebarToggler class="action d-none d-lg-block" role=button title="Sidebar toggler">
+<i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i>
+</a>
+<a class=action href=#post-copyright role=button aria-label=Copyright title=Copyright>
+<i class="fas fa-fw fa-copyright"></i>
+</a>
+<a class=action href=#post-comments role=button aria-label=Comments title=Comments>
+<i class="fas fa-fw fa-comments"></i>
+</a>
+</div>
+</div><article class="row card component mb-4 post">
 <div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-08-20/>Mainsail から rotation_distance を確認・変更する方法</a>
-</h2>
+<h1 class="card-title post-title my-2">RP2040 で QMK Firmware を使うメモ</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-08-19 14:58:35 +0000 UTC.">2022-08-19</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Klipper</a><a href=https://kankodori-blog.com/tags/mainsail/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Mainsail</a>
+<span class="post-date me-1 mb-1" title="公開: 2023-03-06 13:39:17 +0000 UTC.">2023-03-06</span><a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">自作キーボード</a>
 </div>
-<div class=post-summary><p>追記事項（2022年9月30日）# この記事を公開した時に、
-そこで rotation_distance の設定値を引数として渡すと printer.cfg の設定値を変更するシェルスクリプトは作成したのですが、これを Mainsail の CONSOLE から実行する方法が分からないため、この点は現在保留中です。正確に言うと、Mainsail の CONSOLE で複数の引数を渡す方法が分からない（できない？）ため、保留にしています。
-と書いていましたが、このたび、Mainsail の Console から rotation_distance の設定値を変更することに成功しましたので、その方法を末尾にまとめました。
-前置き#...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-08-20/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<p><a href=https://tenkey.connpass.com/event/273910/ target=_blank rel="noopener noreferrer">天下一キーボードわいわい会 Vol.4 - connpass<i class="fas fa-external-link-square-alt ms-1"></i></a> にキーボードを出展するためにケースを新規作成しましたが、それに合わせて、以前から実現したかった USB Type-C 化を実現するため、以前購入して上手く使えなかった <a href=https://github.com/sekigon-gonnoc/pico-micro target=_blank rel="noopener noreferrer">sekigon-gonnoc/pico-micro: A Pro Micro compatible board with RP2040 and mid-mount USB-C receptacle<i class="fas fa-external-link-square-alt ms-1"></i></a> を使いました。RP2040 で QMK Firmware を動かすのは初めてで、使えるようになるまで多少の試行錯誤がありましたので、備忘録として必要な作業をまとめました。</p>
+<p>なお、RP2040 を使う前は Pro Micro を使っており、その時の設定ファイルは <a href=https://github.com/s-show/qmk_firmware/tree/yamanami_keyboard/keyboards/yamanami target=_blank rel="noopener noreferrer">qmk_firmware/keyboards/yamanami at yamanami_keyboard · s-show/qmk_firmware · GitHub<i class="fas fa-external-link-square-alt ms-1"></i></a> のとおりで、RP2040 を使う場合の設定ファイルは <a href=https://github.com/s-show/qmk_firmware/tree/yamanami_keyboard/keyboards/yamanami_rp2040 target=_blank rel="noopener noreferrer">qmk_firmware/keyboards/yamanami_rp2040 at yamanami_keyboard · s-show/qmk_firmware · GitHub<i class="fas fa-external-link-square-alt ms-1"></i></a> のとおりです。</p>
+<h2 id=ボードと-mcu-の変更 data-numberify>ボードと MCU の変更<a class="anchor ms-1 d-none" href=#ボードと-mcu-の変更>#</a></h2>
+<p>まず、マイコンボードを Pro Micro から PICO Micro に切り替えるため、MCU とブートローダーの設定を次のとおり変更しました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=gd>- MCU = atmega32u4
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gd></span><span class=gi>+ MCU = RP2040
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gi></span><span class=gd>- BOOTLOADER = caterina
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+ BOOTLOADER = rp2040
+</span></code></pre></div><h2 id=ピン指定の変更 data-numberify>ピン指定の変更<a class="anchor ms-1 d-none" href=#ピン指定の変更>#</a></h2>
+<p>PICO Micro は Pro Micro との間でフットプリントとピン配置に互換性がありますが、RP2040 を使う時はピンの指定を GPIO の番号で指定する必要があるため、以下の対応表を作成してピンの指定を修正しました。</p>
+<table>
+<caption>Pro Micro と PICO Micro のピンの対応表</caption>
+<thead>
+<tr>
+<th class=thead scope=col>Pro Micro</th>
+<th class=thead scope=col>PICO Micro</th>
+<th class=thead scope=col>Pro Micro</th>
+<th class=thead scope=col>PICO Micro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D3</td> <td>GP0</td> <td>B5</td> <td>GP9</td>
+</tr>
+<tr>
+<td>D2</td> <td>GP1</td> <td>F4</td> <td>GP29</td>
+</tr>
+<tr>
+<td>D1</td> <td>GP2</td> <td>F5</td> <td>GP28</td>
+</tr>
+<tr>
+<td>D0</td> <td>GP3</td> <td>F6</td> <td>GP27</td>
+</tr>
+<tr>
+<td>D4</td> <td>GP4</td> <td>F7</td> <td>GP26</td>
+</tr>
+<tr>
+<td>C6</td> <td>GP5</td> <td>B1</td> <td>GP22</td>
+</tr>
+<tr>
+<td>D7</td> <td>GP6</td> <td>B3</td> <td>GP20</td>
+</tr>
+<tr>
+<td>E6</td> <td>GP7</td> <td>B2</td> <td>GP23</td>
+</tr>
+<tr>
+<td>B4</td> <td>GP8</td> <td>B6</td> <td>GP21</td>
+</tr>
+</tbody>
+</table>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=gd>- #define MATRIX_ROW_PINS { F4, C6, D7, E6 }
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gd></span><span class=gi>+ #define MATRIX_ROW_PINS { GP29, GP5, GP6, GP7 }
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span><span class=gi></span><span class=gd>- #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B6 }
+</span><span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span><span class=gd></span><span class=gi>+ #define MATRIX_COL_PINS { GP28, GP27, GP26, GP22, GP20, GP21 }
+</span><span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span><span class=gi></span><span class=gd>- #define MATRIX_ROW_PINS_RIGHT { F7, B1, B3, B2 }
+</span><span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span><span class=gd></span><span class=gi>+ #define MATRIX_ROW_PINS_RIGHT { GP26, GP22, GP20, GP23 }
+</span><span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span><span class=gi></span><span class=gd>- #define MATRIX_COL_PINS_RIGHT { D4, C6, D7, E6, B4, B5 }
+</span><span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>8</a></span><span class=gd></span><span class=gi>+ #define MATRIX_COL_PINS_RIGHT { GP4, GP5, GP6, GP7, GP8, GP9 }
+</span></code></pre></div><figure class="figure bsimage">
+<img src=PICO_Micro_PIN.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">PICO Micro のピン配置</figcaption>
+</figure>
+<h2 id=左右間のシリアル通信の設定 data-numberify>左右間のシリアル通信の設定<a class="anchor ms-1 d-none" href=#左右間のシリアル通信の設定>#</a></h2>
+<p>Pro Micro を使うときは <code>rules.mk</code> に <code>SPLIT_KEYBOARD = yes</code> を指定して <code>config.h</code> に <code>#define USE_SERIAL</code> と <code>#define SOFT_SERIAL_PIN D2</code> を追加すれば左右間のシリアル通信を設定できましたが、RP2040 では <code>SOFT_SERRIAL_PIN</code> が定義されていないため、次の順番で設定を修正しました。</p>
+<p>まず、公式リファレンスで「RP2040 を使う時は <code>SOFT_SERIAL_PIN</code> の代わりに <code>SERIAL_USART_TX_PIN</code> を使うこと」と指定されており、私の設計では Pro Micro の <code>D2</code> ピンでシリアル通信していましたので、<code>config.h</code> の <code>SOFT_SERIAL_PIN D2</code> を <code>#define SERIAL_USART_TX_PIN GP1</code> に修正しました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=gd>- #define SOFT_SERIAL_PIN D2
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gd></span><span class=gi>+ #define SERIAL_USART_TX_PIN GP1
+</span></code></pre></div><figure class="figure bsimage">
+<img src=My_Keyboard_Scheme.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">私のキーボードの回路図</figcaption>
+</figure>
+<p>それから、私のキーボードではシリアル通信に使える線が一本だけで全二重通信によるシリアル通信はできないため、半二重通信でシリアル通信するために <code>#define USE_SERIAL</code> を <code>#define SERIAL_USART_HALF_DUPLEX</code> に変更しました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=gd>- #define USE_SERIAL
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gd></span><span class=gi>+ #define SERIAL_USART_HALF_DUPLEX
+</span></code></pre></div><p>そして、<code>rules.mk</code> に <code>SERIAL_DRIVER = vendor</code> を追加すれば左右間のシリアル通信の設定は完了です。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span>SPLIT_KEYBOARD = yes
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gi>+ SERIAL_DRIVER = vendor
+</span></code></pre></div><h2 id=その他の設定 data-numberify>その他の設定<a class="anchor ms-1 d-none" href=#その他の設定>#</a></h2>
+<p>Pro Micro を使っているときはキーボードのリセットボタンを押せば Pro Micro がブートローダーモードになってファームウェアを更新できましたので、同じ機能を追加するため <code>config.h</code> に次の設定を追加しました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=gi>+ #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gi>+ #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
+</span></code></pre></div><p>これでキーボードのリセットボタンを2連打すれば PICO Micro がブートローダーモードになって <code>uf2</code> ファイルを書き込めるようになりますので、ファームウェア更新の手間を減らすため設定を追加した。</p>
+<h2 id=参考にしたウェブページ data-numberify>参考にしたウェブページ<a class="anchor ms-1 d-none" href=#参考にしたウェブページ>#</a></h2>
+<p><a href=https://docs.qmk.fm/#/serial_driver target=_blank rel="noopener noreferrer">‘serial’ Driver<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<p><a href=https://docs.qmk.fm/#/platformdev_rp2040 target=_blank rel="noopener noreferrer">Raspberry Pi RP2040<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<p><a href=https://github.com/sekigon-gonnoc/pico-micro target=_blank rel="noopener noreferrer">sekigon-gonnoc/pico-micro: A Pro Micro compatible board with RP2040 and mid-mount USB-C receptacle<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<p><a href=https://www.eisbahn.jp/yoichiro/2022/08/luankey_pico_qmk_firmware.html target=_blank rel="noopener noreferrer">Lunakey PicoでQMK Firmwareを動かしてみました<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</div></div><div class=card-footer>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+<i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
+<a href=https://kankodori-blog.com/posts/2023-02-05/>Raspberry pi pico と XIAO RP2040 を使って温度や Input Shaper を計測する方法</a>
+</div></div>
+</div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
 <div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-08-07/>OS のキーボード配列が JIS キーボードの時の QMK Firmware の設定について</a>
-</h2>
+<h2 class="card-title fs-4 my-2 text-surface">Copyright</h2>
 </div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-08-06 15:00:00 +0000 UTC.">2022-08-07</span>
+<div class=card-body><a class="d-flex align-items-center flex-column" target=_blank rel="license noopener noreferrer" href=https://creativecommons.org/licenses/by/4.0/deed.en>
+<span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
+CC BY 4.0
+</a>
 </div>
-<div class=post-summary><p>前置き# QMK Firmware は US 配列を前提にしたファームウェアなので、OS のキーボード配列を US キーボードにして US キーキャップを使う場合は、言語関係の問題は生じません。
-しかし、OS のキーボード配列を JIS キーボードに設定すると、途端に言語関係の問題が生じます。対応方法は、US キーキャップを使う場合と JIS キーキャップを使う場合でそれぞれ違いますので、それぞれのパターンについて紹介したいと思います。
-tl,dl# JIS キーキャップを使う場合 qmk_firmware/keymap_japanese.h at master · qmk/qmk_firmware を keymap.c...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-08-07/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
+</div><section class="related-posts row card component">
 <div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-06-11/>html-include の使い方</a>
-</h2>
+<h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2>
 </div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-06-11 07:09:50 +0000 UTC.">2022-06-11</span>
+<div class=card-body>
+<ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2022-09-05/>
+QMK Firmware で1つのキーに Hold/Double Tap を割り当てる方法
+</a>
+<span class="post-meta post-date float-end">2022-09-18
+</span>
+<div class="post-summary my-3"><p>長い前置き# 私はキー数が右手側・左手側 24 キーずつの合計 48 キーの自作キーボードを使っているのですが、IME の切り替えは、Windows の標準的なトグル式ではなく、Mac のように IME をオンにするキーとオフにするキーを別々に用意する形にしています。
+この IME 切り替えキーの置き場所にいつも悩んでいるのですが、一番の希望先は親指周りのキーで、左手側のキーボードには IME オフのキーを、右手側のキーボードには IME オンのキーを割り当てて左右対称のキーマップにして、キーマップを覚えやすくしたいと思っています。
+しかし、私のキーボードは親指周りに 8 キーありますが、ここに Win（左右）, Alt（左右）,...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-09-05/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2021-12-12/>
+QMK API を使ってキーボードのリストを取得する方法
+</a>
+<span class="post-meta post-date float-end">2021-12-12
+</span>
+<div class="post-summary my-3"><p>前置き# 自作キーボードのトラブルシューティングのための問診票テンプレートを作る時に、QMK Firmware リポジトリの keyboards ディレクトリにあるキーボードのリストを取得する方法を発見していました。
+ネットを検索しても紹介されているページが見当たらないので、こちらで紹介します。
+方法# https://api.qmk.fm/v1/keyboards にアクセスするとキーボードのリストが JSON 形式で返ってきますので、使用目的に合わせてテキスト処理をして使います。
+1// コード例 2fetch('https://api.qmk.fm/v1/keyboards') 3 .then(response => { 4...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2021-12-12/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2020-12-03/>
+自作キーボード活動2年目の振り返り
+</a>
+<span class="post-meta post-date float-end">2020-12-03
+</span>
+<div class="post-summary my-3"><p>前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに至った話」とか「小説家に営業した話」といったディープな話題は書けません。 なので、自作キーボード活動2年目を振り返る記事を書きたいと思いますが、2年目を簡単に振り返ると、オリジナルキーボードの製作が一番比重が大きく、QMK のドキュメント翻訳レビューがそれに続き、Discord の #mon-shin チャンネル用のダイアログページを作ったという1年間でした。なので、これらの活動について書いていきます。
+オリジナルキー...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2020-12-03/>もっと読む</a></div></div>
+</li></ul>
 </div>
-<div class=post-summary><p>前置き# 自作キーボードのコミュニティで使用している質問用フォームを管理していますが、1つのページに全ての質問を載せる形から、問題の内容に応じて質問を分けるようにしました。
-この改修により、管理するページ数が1から6に増え、そのうち5つのページでヘッダー等が共通していましたので、共通部分を切り出す方法を探したところ、html-includes - npm というプラグインがちょうど良かったため、早速使うことにしました。
-このプラグインの解説をした日本語ページが見当たらなかったので、備忘録を兼ねて簡単な使い方を説明します。
-プラグインの概要# あるHTMLファイルに別のHTMLファイルを挿入してくれるプラグインです。各ページに共通する...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-06-11/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
+</section><div class="card component row post-comments" id=post-comments>
 <div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-04-19/>sudo apt update で Fish のリポジトリキーが不正と表示される件について</a>
-</h2>
+<h2 class="card-title my-2 fs-4 text-surface">コメント</h2>
 </div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-04-18 15:15:04 +0000 UTC.">2022-04-19</span><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
+<div class=card-body><script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script>
 </div>
-<div class=post-summary><p>前置き# MainsailOS をインストールしている Raspberry Pi で sudo apt update を実行したら The following signatures were invalid: EXPKEYSIG 2CE2AC08D880C8E4 shells:fish OBS Project &lt;shells:fish@build.opensuse.org> と表示されるようになりました。
-1> sudo apt update 2Get:1 https://pkgs.tailscale.com/stable/raspbian buster InRelease 3Hit:2...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-04-19/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-04-04/>Mainsail でサイドバーにロゴを表示させる方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-03-31 15:15:04 +0000 UTC.">2022-04-01</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# 我が家では3台の3Dプリンタ（Prusa MK3S+、Ender 3 Pro、Voron V0.0）が稼動していて、これらを全て MainsailOS で制御しています。
-しかし、操作画面を取り違えることがありましたので、どのプリンタの制御画面を開いているのか一目で分かる目印を表示させたいと思いました。調べてみると Mainsail にはテーマ機能が用意されていましたので、この機能を使ってプリンタ毎に目印が表示されるようにしました。
-作業自体は簡単ですが、同じことをしている日本語記事が見当らないので、誰かの参考になればと思って記事にしました。
-TL,DL# W300 x H900...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-04-04/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-02-24/>Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-02-23 18:00:00 +0000 UTC.">2022-02-24</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>目次 前置き TL;DL 具体的な作業 Klipper と Moonraker の削除 Klipper のインストール Moonraker のインストール printer.cfg の編集 moonraker.conf の編集 タイムラプス動画撮影のスクリプトをインストール Webカメラの設定 FluiddPi の設定 前置き# 日本の3Dプリンタユーザーが集まっている Discord の 3D Printing Japan Comunity のメンバーの虎鉄悦夫さんがRaspberry pi1台で複数台のKlipper搭載３Dプリンタを制御する方法（KIAUH活用版）｜虎鉄悦夫｜noteという記事を執筆されたので、自...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-02-24/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-01-29/>Klipper & Moonraker & FluiddPi でタイムラプス動画を撮影する方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-01-28 15:50:00 +0000 UTC.">2022-01-29</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# Klipper & Moonraker & FluiddPi の組み合わせで 3Dプリンタの印刷の様子をタイムラプス動画にすることに成功しましたので、その方法をまとめます。
-なお、Klipper などのバージョンは次のとおりです。
-fluidd v1.16.2 klipper v0.10.0-208-g247cd753 moonraker v0.7.1-273-g0a541bb 手順の概要# 手順を簡単にまとめると次のとおりとなります。なお、カメラの設定は終わっている前提です。
-専用のスクリプトをインストールする Klipper と Moonraker の設定ファイルを編集する スライサーにカスタム G-Code を...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-29/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-01-16/>RClone を使って Klipper の設定をバックアップする方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-01-15 16:31:30 +0000 UTC.">2022-01-16</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Klipper</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに定期的にバックアップするようにしまし た。
-そこで、備忘録として実施した手順をメモします。
-手順# 手順の変更などに合わせて記事を修正 (2022/04/22)
-RClone のインストール# ホストPCから Raspberry Pi に SSH 接続する sudo ls を実行して root ユーザのパスワードを入力しておく curl https://rclone.org/install.sh | sudo bash でインス...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-16/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-01-07/>PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-01-07 12:41:06 +0000 UTC.">2022-01-07</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」という順番で調査すると時間がいくらあっても足りません。そのため、1回のプリントで様々な設定を試せると便利ということになります。
-幸い、スライサー側の機能を使うことで、レイヤー高に応じて設定を変更することが可能となりますので、その方法を紹介します。
-なお、スライサーによって設定方法だけでなくできることも違いますので、スライサー毎に説明します。ただし、結論を先取りしますと、PrusaSlicer/SuperSlicer よりも Cura の方が設定が簡単な上に出来ることも多いので、こういう処理を行...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-07/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-01-02/>Klipper と FluiddPi の設定について</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-01-02 04:21:51 +0000 UTC.">2022-01-02</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>目次 前置き 作業の順番 FluiddPi のインストール Kiuah のインストール Klipper ファームウェアのビルド & インストール Klipper の設定 移動距離の調整 PID チューニング Pressure advance の調整 コマンドでファームウェアを再起動 Input Shaper スライサーと FluiddPi を繋ぐ方法 G-Code の問題 position_min の設定 BLTouch の使い方 プローブの Z-Offset の調整 Mesh Bed Leveling のトラブル その他のエラー対策 printer.cfg 等の設定ファイルの保存場所 前置き# 我が家の3Dプリンタ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-02/>もっと読む</a></div>
-</div>
-</div>
-</article>
-</div><div class="row table-responsive mb-3">
-<ul class="pagination pagination-default">
-<li class=page-item>
-<a href=/ aria-label=First class=page-link role=button><span aria-hidden=true>&#171;&#171;</span></a>
-</li>
-<li class=page-item>
-<a href=/ aria-label=Previous class=page-link role=button><span aria-hidden=true>&#171;</span></a>
-</li>
-<li class=page-item>
-<a href=/ aria-label="Page 1" class=page-link role=button>1</a>
-</li>
-<li class="page-item active">
-<a aria-current=page aria-label="Page 2" class=page-link role=button>2</a>
-</li>
-<li class=page-item>
-<a href=/page/3/ aria-label="Page 3" class=page-link role=button>3</a>
-</li>
-<li class=page-item>
-<a href=/page/4/ aria-label="Page 4" class=page-link role=button>4</a>
-</li>
-<li class=page-item>
-<a href=/page/3/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
-</li>
-<li class=page-item>
-<a href=/page/4/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
-</li>
-</ul></div>
-</div>
+</div></div>
 </div>
 </div>
 </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex=-1 id=offcanvasActionsPanel aria-labelledby=offcanvasActionsPanelLabel>
@@ -552,10 +545,10 @@ Actions
 <button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
 </div>
 <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=%e9%96%91%e5%8f%a4%e9%b3%a5%e3%83%96%e3%83%ad%e3%82%b0&url=https%3a%2f%2fkankodori-blog.com%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=RP2040%20%e3%81%a7%20QMK%20Firmware%20%e3%82%92%e4%bd%bf%e3%81%86%e3%83%a1%e3%83%a2&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-03-06%2f">
 <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
 </a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-03-06%2f">
 <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
 </a>
 </div>
