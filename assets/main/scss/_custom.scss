@@ -146,3 +146,16 @@ h4 {
   max-width: 100%;
   height: auto;
 }
+
+/* 表のカスタマイズ */
+table {
+  text-align: left;
+}
+/*
+  table タグ に text-align: left; を加えておかないと、.thead クラスの text-align: center が無視されて
+  table タグの設定が承継されてしまう。
+ */
+.thead {
+  text-align: center;
+  font-weight: 600;
+}
