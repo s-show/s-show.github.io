@@ -5,7 +5,7 @@ date: 2023-03-13T21:34:03+09:00
 draft: false
 comment: true
 toc: true
-tags: []
+tags: [3Dプリンタ, 備忘録]
 ---
 
 ## 前置き
