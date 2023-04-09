@@ -2,7 +2,7 @@
 <head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>Klipper のマクロを使って Step by step 印刷を実現する方法 - 閑古鳥ブログ</title>
+<title>3Dプリンタのステッピングモーターの配線について - 閑古鳥ブログ</title>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
 <link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
@@ -10,22 +10,22 @@
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
 <link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
 <meta name=keywords content>
-<meta name=description content="前置き# 2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法は">
+<meta name=description content="前置き# Ender 3 Pro で Voron Trident の印刷パーツを印刷していたら突然印刷ができなくなり、原因を調べたらモーターがガタガタと振動して正常に回転していませんでし">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="Klipper のマクロを使って Step by step 印刷を実現する方法">
-<meta name=twitter:description content="前置き# 2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法は">
+<meta name=twitter:title content="3Dプリンタのステッピングモーターの配線について">
+<meta name=twitter:description content="前置き# Ender 3 Pro で Voron Trident の印刷パーツを印刷していたら突然印刷ができなくなり、原因を調べたらモーターがガタガタと振動して正常に回転していませんでし">
 <meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="Klipper のマクロを使って Step by step 印刷を実現する方法">
-<meta property="og:description" content="前置き# 2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法は">
+<meta property="og:title" content="3Dプリンタのステッピングモーターの配線について">
+<meta property="og:description" content="前置き# Ender 3 Pro で Voron Trident の印刷パーツを印刷していたら突然印刷ができなくなり、原因を調べたらモーターがガタガタと振動して正常に回転していませんでし">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://kankodori-blog.com/posts/2022-08-31/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2022-08-30T20:27:31+09:00">
-<meta property="article:modified_time" content="2022-08-30T20:27:31+09:00">
-<meta itemprop=name content="Klipper のマクロを使って Step by step 印刷を実現する方法">
-<meta itemprop=description content="前置き# 2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法は"><meta itemprop=datePublished content="2022-08-30T20:27:31+09:00">
-<meta itemprop=dateModified content="2022-08-30T20:27:31+09:00">
-<meta itemprop=wordCount content="2065">
-<meta itemprop=keywords content="3Dプリンタ,Klipper,Mainsail,">
+<meta property="og:url" content="https://kankodori-blog.com/posts/2023-04-08/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-04-07T22:13:07+09:00">
+<meta property="article:modified_time" content="2023-04-07T22:13:07+09:00">
+<meta itemprop=name content="3Dプリンタのステッピングモーターの配線について">
+<meta itemprop=description content="前置き# Ender 3 Pro で Voron Trident の印刷パーツを印刷していたら突然印刷ができなくなり、原因を調べたらモーターがガタガタと振動して正常に回転していませんでし"><meta itemprop=datePublished content="2023-04-07T22:13:07+09:00">
+<meta itemprop=dateModified content="2023-04-07T22:13:07+09:00">
+<meta itemprop=wordCount content="1251">
+<meta itemprop=keywords content="3Dプリンタ,備忘録,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
 <link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.1cf40b4f892e02af140ba04bf2d5fc41fbaac32b68862d822b83281ba2b8afc4.css" integrity="sha256-HPQLT4kuAq8UC6BL8tX8Qfuqwytohi2CK4MoG6K4r8Q=" crossorigin=anonymous>
@@ -367,7 +367,7 @@ Karabiner-Elements
 <div class=col-lg-8>
 <div class=container><nav class="row card component" aria-label=breadcrumb>
 <div class="card-body pb-0">
-<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">Klipper のマクロを使って Step by step 印刷を実現する方法</li></ol>
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">3Dプリンタのステッピングモーターの配線について</li></ol>
 </div>
 </nav><div class="post-panel-wrapper position-sticky">
 <div class="d-flex flex-column component rounded post-panel position-absolute border">
@@ -386,148 +386,67 @@ Karabiner-Elements
 </div>
 </div><article class="row card component mb-4 post">
 <div class=card-header>
-<h1 class="card-title post-title my-2">Klipper のマクロを使って Step by step 印刷を実現する方法</h1>
+<h1 class="card-title post-title my-2">3Dプリンタのステッピングモーターの配線について</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-08-30 11:27:31 +0000 UTC.">2022-08-30</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Klipper</a><a href=https://kankodori-blog.com/tags/mainsail/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Mainsail</a>
+<span class="post-date me-1 mb-1" title="公開: 2023-04-07 13:13:07 +0000 UTC.">2023-04-07</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
 </div>
-<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h1 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h1>
-<p>2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法はないか」という質問がありました。</p>
-<p>そこで、1行ずつ実行する方法を調べたのですが、その過程でレイヤー切り替え毎に手動で一時停止・印刷再開を行う方法を編み出せましたので、誰かの参考になればと思い方法をまとめました。</p>
-<h1 id=必要な手順の概要 data-numberify>必要な手順の概要<a class="anchor ms-1 d-none" href=#必要な手順の概要>#</a></h1>
-<ol>
-<li><code>printer.cfg</code> に <a href=https://www.klipper3d.org/Config_Reference.html#save_variables target=_blank rel="noopener noreferrer">save_variables<i class="fas fa-external-link-square-alt ms-1"></i></a> セクションを追加して一時停止フラグを格納するファイルのファイル名を指定する</li>
-<li><a href=https://www.klipper3d.org/G-Codes.html#save_variable target=_blank rel="noopener noreferrer">SAVE_VARIABLE<i class="fas fa-external-link-square-alt ms-1"></i></a> マクロを使って一時停止フラグのオン・オフを切り替えるマクロを <code>printer.cfg</code> に追加する</li>
-<li><code>PAUSE</code> マクロと <code>RESUME</code> マクロを定義する（定義済みならこの作業は不要）</li>
-<li>一時停止フラグの状態に応じて <code>PAUSE</code> マクロを実行するマクロを追加する</li>
-</ol>
-<h1 id=実際のコード data-numberify>実際のコード<a class="anchor ms-1 d-none" href=#実際のコード>#</a></h1>
-<pre tabindex=0><code>#printer.cfg
-
-[gcode_macro PAUSE]
-rename_existing: BASE_PAUSE
-gcode:
-  SAVE_GCODE_STATE NAME=PAUSE_state
-  BASE_PAUSE
-  G91
-  G1 E-0.5 F100
-  G1 Z5
-  G90
-  #G1 X{X} Y{Y} F6000
-
-[gcode_macro RESUME]
-rename_existing: BASE_RESUME
-gcode:
-  G91
-  G1 E0.5 F100
-  G90
-  RESTORE_GCODE_STATE NAME=PAUSE_state MOVE=1
-  BASE_RESUME
-
-[gcode_macro PAUSE_FLAG_OFF]
-gcode:
-  SAVE_VARIABLE VARIABLE=pause_flag VALUE=0
-
-[gcode_macro PAUSE_FLAG_ON]
-gcode:
-  SAVE_VARIABLE VARIABLE=pause_flag VALUE=1
-
-[gcode_macro ECHO_PAUSE_FLAG]
-gcode:
-  RESPOND MSG=&quot;PAUSE_FLAG is {printer.save_variables.variables.pause_flag}&quot;
-
-[gcode_macro STEP_BY_STEP_PRINT]
-description: Controls step-by-step printing, pausing at each layer
-gcode:
-  {% if printer.save_variables.variables.pause_flag == 1 %}
-  RESPOND TYPE=command MSG=&quot;PAUSE_FLAG ON&quot;
-  PAUSE
-  {% else %}
-  RESPOND TYPE=command MSG=&quot;PAUSE_FLAG OFF&quot;
-  {% endif %}
-
-[save_variables]
-filename: ~/variables.cfg
-</code></pre><h1 id=各処理の説明 data-numberify>各処理の説明<a class="anchor ms-1 d-none" href=#各処理の説明>#</a></h1>
-<h2 id=一時停止フラグの準備 data-numberify>一時停止フラグの準備<a class="anchor ms-1 d-none" href=#一時停止フラグの準備>#</a></h2>
-<h3 id=フラグの格納場所 data-numberify>フラグの格納場所<a class="anchor ms-1 d-none" href=#フラグの格納場所>#</a></h3>
-<p>スライサーで作成した GCode にグローバル変数を埋め込むことはできないので、一時停止フラグは、Raspberry Pi のローカルファイルに格納します。</p>
-<p>Klipper 独自の GCode には、変数をローカルファイルに書き込む<a href=https://www.klipper3d.org/G-Codes.html#save_variable target=_blank rel="noopener noreferrer">SAVE_VARIABLE<i class="fas fa-external-link-square-alt ms-1"></i></a> というマクロが用意されており、ここで格納した変数は <code>printer.save_variables.variables.変数名</code> で呼び出せます。</p>
-<p>このマクロを使うには、<code>printer.cfg</code> に<a href=https://www.klipper3d.org/Config_Reference.html#save_variables target=_blank rel="noopener noreferrer">save_variables<i class="fas fa-external-link-square-alt ms-1"></i></a> セクションを追加し、変数を書き込むファイルを <code>filename: ~/variables.cfg</code> と指定する必要があります（ファイル名は任意の名前でOKだと思います）。</p>
-<pre tabindex=0><code>[save_variables]
-filename: ~/variables.cfg
-</code></pre><h3 id=フラグの切り替え data-numberify>フラグの切り替え<a class="anchor ms-1 d-none" href=#フラグの切り替え>#</a></h3>
-<p>フラグを格納する場所を指定しましたので、次は <code>SAVE_VARIABLE</code> マクロを使ってフラグを立てるマクロとフラグを下ろすマクロを次のとおり作成します。なお、フラグの名前は <code>pause_flag</code> としています。</p>
-<pre tabindex=0><code>[gcode_macro PAUSE_FLAG_ON]
-gcode:
-  SAVE_VARIABLE VARIABLE=pause_flag VALUE=1
-
-[gcode_macro PAUSE_FLAG_OFF]
-gcode:
-  SAVE_VARIABLE VARIABLE=pause_flag VALUE=0
-</code></pre><p>また、現在のフラグの状態を表示するマクロがあると便利なので、そちらも用意します。</p>
-<pre tabindex=0><code>[gcode_macro ECHO_PAUSE_FLAG]
-gcode:
-  RESPOND MSG=&quot;PAUSE_FLAG is {printer.save_variables.variables.pause_flag}&quot;
-</code></pre><p>ここでは、引数で渡されたメッセージをコンソールに出力する<a href=https://www.klipper3d.org/G-Codes.html#respond_1 target=_blank rel="noopener noreferrer">RESPOND<i class="fas fa-external-link-square-alt ms-1"></i></a> マクロを使って現在のフラグの状態をコンソールに出力しています。現在のフラグの状態は <code>printer.save_variables.variables.pause_flag</code> で確認できますので、<code>{...}</code> で囲んでメッセージに埋め込んでいます。</p>
-<p>なお、変数を <code>{...}</code> で囲む理由は、<a href="https://www.klipper3d.org/Command_Templates.html?h=jinja2#template-expansion" target=_blank rel="noopener noreferrer">Klipper のドキュメント<i class="fas fa-external-link-square-alt ms-1"></i></a>で次のように説明されているためです。</p>
-<blockquote>
-<p>Template expansion</p>
-<p>The gcode_macro gcode: config section is evaluated using the Jinja2 template language. One can evaluate expressions at run-time by wrapping them in { } characters or use conditional statements wrapped in {% %}. See the Jinja2 documentation for further information on the syntax.</p>
-</blockquote>
-<p><a href=https://jinja.palletsprojects.com/en/2.10.x/ target=_blank rel="noopener noreferrer">jinja2<i class="fas fa-external-link-square-alt ms-1"></i></a> で変数展開するには <code>{...}</code> ではなく <code>{{...}}</code> で囲むはずなのですが、Klipper のマクロでは <code>{...}</code> で囲めば変数が展開されると書かれていますので、それに従ってコードを書いています。</p>
-<h3 id=一時停止フラグの状態に応じた条件分岐 data-numberify>一時停止フラグの状態に応じた条件分岐<a class="anchor ms-1 d-none" href=#一時停止フラグの状態に応じた条件分岐>#</a></h3>
-<p>これで一時停止フラグを切り替えられるようになりましたので、一時停止フラグの状態に応じて一時停止するか通常通り印刷するかの条件分岐を行うマクロを追加します。</p>
-<p>マクロの <code>gcode:</code> セクションで条件分岐する場合、<code>if</code> 文は <code>{% ... %}</code> で囲みますので、コードは次のとおりとなります。</p>
-<pre tabindex=0><code>[gcode_macro STEP_BY_STEP_PRINT]
-gcode:
-  {% if printer.save_variables.variables.pause_flag == 1 %}
-    RESPOND TYPE=command MSG=&quot;PAUSE_FLAG ON&quot;
-    PAUSE
-  {% else %}
-    RESPOND TYPE=command MSG=&quot;PAUSE_FLAG OFF&quot;
-  {% endif %}
-</code></pre><p><code>{% if printer.save_variables.variables.pause_flag == 1 %}</code> でフラグが立っているか確認し、フラグが立っていれば <code>PAUSE</code> マクロを実行しています。</p>
-<p>これで <code>printer.cfg</code> 側で行う準備は完了です。</p>
-<h1 id=スライサー側の設定 data-numberify>スライサー側の設定<a class="anchor ms-1 d-none" href=#スライサー側の設定>#</a></h1>
-<p>PrusaSlicer/SuperSlicer の「Printer Settings」の「Custom G-code」の「Before layer change g-code」に <code>PAUSE_FLAG_OFF</code> と <code>STEP_BY_STEP_PRINT</code> マクロを追加します。<code>PAUSE_FLAG_OFF</code> マクロも追加するのは、意図しない一時停止を発生させないためです。</p>
-<pre tabindex=0><code>;BEFORE_LAYER_CHANGE
-;[layer_z]
-PAUSE_FLAG_OFF
-STEP_BY_STEP_PRINT
-</code></pre><p>これで STL ファイルをスライスするだけでレイヤー切り替え直前に一時停止するかどうかの条件分岐が行われるようになりました。また、<code>printer.cfg</code> にマクロを設定したことにより、Mainsail の Macros タブに PAUSE_FLAG_ON、PAUSE_FLAG_OFF ボタンが追加されていますので、この2つのボタンでフラグを切り替えて印刷を制御します。</p>
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<p>Ender 3 Pro で Voron Trident の印刷パーツを印刷していたら突然印刷ができなくなり、原因を調べたらモーターがガタガタと振動して正常に回転していませんでした。</p>
+<p>そこでモーターを買い替えて交換したのですが、新しいモーターを動かすまでにあれこれ調べる必要に迫られたため、その時調べたことなどを備忘録として残します。</p>
+<h2 id=試行錯誤の経緯 data-numberify>試行錯誤の経緯<a class="anchor ms-1 d-none" href=#試行錯誤の経緯>#</a></h2>
+<h3 id=ステッピングモーターの結線 data-numberify>ステッピングモーターの結線<a class="anchor ms-1 d-none" href=#ステッピングモーターの結線>#</a></h3>
+<p>今回の購入したステッピングモーターは Amazon で購入したものですが、商品ページに結線情報は掲載されていませんでした。ネットで検索したら該当しそうな情報が見つかりましたが、結論から言うとその情報は間違っていました。</p>
+<p>そこでステッピングモーターについて調べ直したのですが、その過程で、ステッピングモーターの4本の配線は、以下の図のとおり2本ずつのペアで「A相、B相」を構成していることに気付きました。なお、以下の図は、オリエンタルモーター社の<a href=https://www.orientalmotor.co.jp/tech/technicalmanual/stepping/ target=_blank rel="noopener noreferrer">「テクニカルマニュアル ステッピングモーター編」<i class="fas fa-external-link-square-alt ms-1"></i></a>の50ページに掲載されていたものです。</p>
 <figure class="figure bsimage">
-<img src=image01.png class="figure-img img-fluid">
-<figcaption class="figure-caption fw-light text-center">Macros のボタン</figcaption>
+<img src=wiring_diagram_in_motor.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">ステッピングモーターの内部配線</figcaption>
 </figure>
-<p>この2つのボタンを使って印刷を制御している様子を動画にしていますので、よろしければご覧ください。</p>
-<div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden>
-<iframe src=https://www.youtube.com/embed/w3xLgyjXRJI style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe>
-</div>
-<p>以上で説明は完了です。</p>
-<h1 id=補足 data-numberify>補足<a class="anchor ms-1 d-none" href=#補足>#</a></h1>
-<p>フラグを立てる処理で <code>SAVE_VARIABLE VARIABLE=pause_flag VALUE=1</code> というコードを実行していますが、条件分岐では変数の値だけでなく型もチェックされているようですので、 <code>SAVE_VARIABLE VARIABLE=pause_flag VALUE=1</code> を実行してから次のマクロを実行した場合、コンソールには <code>PAUSE_FLAG is numeric 1</code> が表示されます。</p>
-<pre tabindex=0><code>[gcode_macro TEST]
-gcode:
-  {% if printer.save_variables.variables.pause_flag == '1' %}
-    RESPOND TYPE=command MSG=&quot;PAUSE_FLAG is string '1'&quot;
-  {% endif %}
-  {% if printer.save_variables.variables.pause_flag == 1 %}
-    RESPOND TYPE=command MSG=&quot;PAUSE_FLAG is numeric 1&quot;
-  {% endif %}
-</code></pre><p>また、 <code>SAVE_VARIABLE</code> マクロを使った変数のローカルファイルへの格納は、実行してから保存されるまで若干のタイムラグがあるようです。<code>pause_flag</code> の値が <code>0</code> の状態で次のコードを実行すると、コンソールに表示される値は <code>1</code> ではなく <code>0</code> になりました。</p>
-<pre tabindex=0><code>[gcode_macro PAUSE_FLAG_ON]
-gcode:
-  SAVE_VARIABLE VARIABLE=pause_flag VALUE=1
-  RESPOND MSG=&quot;PAUSE_FLAG is {printer.save_variables.variables.pause_flag}&quot;
-</code></pre><p>そのため、<code>SAVE_VARIABLE</code> マクロを実行した直後に条件分岐のコードを追加した場合、意図した動作にならない可能性があります。</p>
-</div></div><div class=card-footer>
+<p>そして、モーター内部で図のとおり繋がっているのであれば、テスターを順番に当てていけば内部で繋がっているピン同士を確認できることに気付きました。</p>
+<p>実施にテスターを当てて調べたところ、内部で繋がっているピンの組み合わせを以下の写真のとおり特定することができました。</p>
+<figure class="figure bsimage">
+<img src=wiring_diagram_photo.jpg class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">モーターの結線状況</figcaption>
+</figure>
+<h3 id=skr-3-ez-の結線 data-numberify>SKR 3 ez の結線<a class="anchor ms-1 d-none" href=#skr-3-ez-の結線>#</a></h3>
+<p>SKR 3 ez のハードウェア情報は <a href=https://github.com/bigtreetech/SKR-3/tree/master/Hardware%20%28SKR%203%20EZ%29 target=_blank rel="noopener noreferrer">SKR-3/Hardware (SKR 3 EZ) at master · bigtreetech/SKR-3<i class="fas fa-external-link-square-alt ms-1"></i></a> で公開されていますが、最初、<a href=https://github.com/bigtreetech/SKR-3/blob/master/Hardware%20%28SKR%203%20EZ%29/BIGTREETECH%20SKR%203%20EZ%20V1.0-PIN.pdf target=_blank rel="noopener noreferrer">ピンの配置図<i class="fas fa-external-link-square-alt ms-1"></i></a>に記載された「2B 2A 1A 1B」の組み合わせ方が分かりませんでした。</p>
+<figure class="figure bsimage">
+<img src=skr3ez_pinout.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">SKR 3 ez のピン配置図</figcaption>
+</figure>
+<p>「2B 1B」がB相に、「2A 1A」がA相になるのかと思いましたが違っており、「2B 2A」がA相に、「1A 1B」がB相になるという組み合わせでもありませんでした。組み合わせを間違えた場合、ガタガタと振動するだけならまだしも、場合によっては <code>ShortToGND_A!</code> というエラーが発生して強制シャットダウンされることもありました。</p>
+<p>そのため、あらためて SKR 3 ez の回路図を確認していると、ピンの配置図の「2B 2A 1A 1B」はモータードライバーの出力ピンの名称と一致していないことに気付きました。</p>
+<figure class="figure bsimage">
+<img src=skr3_ez_scheme.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">SKR 3 ez の回路図</figcaption>
+</figure>
+<p>これで正しい配線方法を特定することができるようになりましたので、以下の図のとおり配線して動かせるようになりました。なお、中継基板を挟んだ結線の線の色は、実際のケーブルの色に合わせています。</p>
+<figure class="figure bsimage">
+<img src=wiring_diagram.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">最終的な配線方法</figcaption>
+</figure>
+<p>ちなみに、上の図ではモータードライバーの「B2 B2」にモーターのA相を、「A2 A1」にモーターのB相を割り当てていますが、反対にしても動くと思います。私の場合、中継基板を挟んで同じ線同士を接続しておけば、何らかのトラブル対応でコネクタからケーブルを取り外した時に戻しやすくなると考えてこのように配線しています。</p>
+<h3 id=klipper-の設定 data-numberify>Klipper の設定<a class="anchor ms-1 d-none" href=#klipper-の設定>#</a></h3>
+<p>こちらは簡単で、SKR 3 ez の回路図に記載された XYZ 軸とエクストルーダーの <code>DIR</code> <code>STEP</code> <code>EN</code> <code>UART</code> のピンの指定に合わせて <code>printer.cfg</code> を指定するだけです。</p>
+<figure class="figure bsimage">
+<img src=skr3_ez_motor-driver_scheme.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">SKR 3 ez の回路図</figcaption>
+</figure>
+<pre tabindex=0><code>[extruder]
+step_pin: !PD15
+dir_pin: !PD14
+enable_pin: !PC7
+
+[tmc2130 extruder]
+cs_pin: PC6
+spi_software_miso_pin: PE15
+spi_software_mosi_pin: PE13
+spi_software_sclk_pin: PE14
+run_current: 0.7
+</code></pre></div></div><div class=card-footer>
 <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
 <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
-<a href=https://kankodori-blog.com/posts/2022-08-20/>Mainsail から rotation_distance を確認・変更する方法</a>
-</div><div class="post-nav post-next">
-<a href=https://kankodori-blog.com/posts/2022-09-03/>SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法</a>
-<i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i>
+<a href=https://kankodori-blog.com/posts/2023-03-15/>OpenSCAD で作成されたデータを Fusion360 で編集する方法</a>
 </div></div>
 </div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
 <div class=card-header>
@@ -544,25 +463,21 @@ CC BY 4.0
 </div>
 <div class=card-body>
 <ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2022-08-20/>
-Mainsail から rotation_distance を確認・変更する方法
+<a class=post-title href=https://kankodori-blog.com/posts/2023-03-15/>
+OpenSCAD で作成されたデータを Fusion360 で編集する方法
 </a>
-<span class="post-meta post-date float-end">2022-08-19
+<span class="post-meta post-date float-end">2023-03-13
 </span>
-<div class="post-summary my-3"><p>追記事項（2022年9月30日）# この記事を公開した時に、
-そこで rotation_distance の設定値を引数として渡すと printer.cfg の設定値を変更するシェルスクリプトは作成したのですが、これを Mainsail の CONSOLE から実行する方法が分からないため、この点は現在保留中です。正確に言うと、Mainsail の CONSOLE で複数の引数を渡す方法が分からない（できない？）ため、保留にしています。
-と書いていましたが、このたび、Mainsail の Console から rotation_distance の設定値を変更することに成功しましたので、その方法を末尾にまとめました。
-前置き#...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-08-20/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# 先日、OpenSCAD で作成された3Dモデルを一部改変して3Dプリンタで出力したいことがあり、そのとき OpenSCAD で作成されたデータを .step ファイルに変換して Fusion360 で編集する方法を見つけたのですが、日本語で変換方法を説明しているウェブページが見つからなかったため、備忘録を兼ねて手順をまとめます。
+環境# OS Windows11 Pro 22H2 Fusion360 2.0.15509 x86_64 OpenSCAD version 2021.01 FreeCAD version 0.18 大まかな手順# 変換したい OpenSCAD データを OpenSCAD で開いて .csg ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-03-15/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2022-01-16/>
-RClone を使って Klipper の設定をバックアップする方法
+<a class=post-title href=https://kankodori-blog.com/posts/2023-02-05/>
+Raspberry pi pico と XIAO RP2040 を使って温度や Input Shaper を計測する方法
 </a>
-<span class="post-meta post-date float-end">2022-01-16
+<span class="post-meta post-date float-end">2023-02-05
 </span>
-<div class="post-summary my-3"><p>前置き# Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに定期的にバックアップするようにしまし た。
-そこで、備忘録として実施した手順をメモします。
-手順# 手順の変更などに合わせて記事を修正 (2022/04/22)
-RClone のインストール# ホストPCから Raspberry Pi に SSH 接続する sudo ls を実行して root ユーザのパスワードを入力しておく curl https://rclone.org/install.sh | sudo bash でインス...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-01-16/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>目次 長い前置き Raspberry pi Pico を使った温度測定 BOM 手順 XIAO RP2040 を使った Input Shaper の測定 BOM 手順 参考情報 長い前置き# Prusa MK3S+ で印刷中にベッドの温度が急激に低下し、場合によっては氷点下まで下がってしまいプリンタが止まってしまうという症状が年末から発生していました。
+Discord の Klipper_jp でのアドバイスを基にベッドを手でグイグイ動かすと温度が急低下する瞬間があったため、サーミスタの断線が原因だと判断してサーミスタを交換しました。ところが、今度はノズルとベッドが設定温度に到達してホーミング＆メッシュベッドレ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-02-05/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
 <a class=post-title href=https://kankodori-blog.com/posts/2022-04-04/>
 Mainsail でサイドバーにロゴを表示させる方法
@@ -593,10 +508,10 @@ Actions
 <button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
 </div>
 <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=Klipper%20%e3%81%ae%e3%83%9e%e3%82%af%e3%83%ad%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%20Step%20by%20step%20%e5%8d%b0%e5%88%b7%e3%82%92%e5%ae%9f%e7%8f%be%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-08-31%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=3D%e3%83%97%e3%83%aa%e3%83%b3%e3%82%bf%e3%81%ae%e3%82%b9%e3%83%86%e3%83%83%e3%83%94%e3%83%b3%e3%82%b0%e3%83%a2%e3%83%bc%e3%82%bf%e3%83%bc%e3%81%ae%e9%85%8d%e7%b7%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-04-08%2f">
 <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
 </a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2022-08-31%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-04-08%2f">
 <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
 </a>
 </div>
