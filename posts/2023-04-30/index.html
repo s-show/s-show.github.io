@@ -1,37 +1,40 @@
 <!doctype html><html class=position-relative itemscope itemtype=http://schema.org/WebPage lang=ja data-bs-theme=dark data-palette=indigo>
-<head>
-<meta name=generator content="Hugo 0.91.2"><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
+<head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>閑古鳥ブログ</title>
+<title>特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法 - 閑古鳥ブログ</title>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
 <link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_150x150_resize_box_3.png sizes=150x150 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
 <link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
-<meta name=keywords content="Hugo,Bootstrap,Blog Theme">
-<meta name=description content="An extreme fast, responsive and feature-rich blog theme for Hugo">
+<meta name=keywords content>
+<meta name=description content="前置き# 私は現在3台の3Dプリンター（Prusa MK3S+、Ender 3 Pro、Voron V0.0）を使っており スライサーには SuperSlicer を使っていま">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="閑古鳥ブログ">
-<meta name=twitter:description content="An extreme fast, responsive and feature-rich blog theme for Hugo">
+<meta name=twitter:title content="特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法">
+<meta name=twitter:description content="前置き# 私は現在3台の3Dプリンター（Prusa MK3S+、Ender 3 Pro、Voron V0.0）を使っており スライサーには SuperSlicer を使っていま">
 <meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="閑古鳥ブログ">
-<meta property="og:description" content="An extreme fast, responsive and feature-rich blog theme for Hugo">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://kankodori-blog.com/">
-<meta itemprop=name content="閑古鳥ブログ">
-<meta itemprop=description content="An extreme fast, responsive and feature-rich blog theme for Hugo">
+<meta property="og:title" content="特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法">
+<meta property="og:description" content="前置き# 私は現在3台の3Dプリンター（Prusa MK3S+、Ender 3 Pro、Voron V0.0）を使っており スライサーには SuperSlicer を使っていま">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kankodori-blog.com/posts/2023-04-30/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-04-29T22:13:18+09:00">
+<meta property="article:modified_time" content="2023-04-29T22:13:18+09:00">
+<meta itemprop=name content="特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法">
+<meta itemprop=description content="前置き# 私は現在3台の3Dプリンター（Prusa MK3S+、Ender 3 Pro、Voron V0.0）を使っており スライサーには SuperSlicer を使っていま"><meta itemprop=datePublished content="2023-04-29T22:13:18+09:00">
+<meta itemprop=dateModified content="2023-04-29T22:13:18+09:00">
+<meta itemprop=wordCount content="2249">
+<meta itemprop=keywords content="3Dプリンタ,備忘録,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
-<link rel=alternate type=application/rss+xml href=https://kankodori-blog.com/index.xml title=閑古鳥ブログ>
 <link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.1cf40b4f892e02af140ba04bf2d5fc41fbaac32b68862d822b83281ba2b8afc4.css" integrity="sha256-HPQLT4kuAq8UC6BL8tX8Qfuqwytohi2CK4MoG6K4r8Q=" crossorigin=anonymous>
 <link data-precache rel=stylesheet href=https://kankodori-blog.com/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
 </head>
 <body><header>
 <nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top">
 <div class=container>
-<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2 active" href=https://kankodori-blog.com/>
+<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href=https://kankodori-blog.com/>
 <picture><img class=logo alt=Logo src=https://kankodori-blog.com/images/logo.webp loading=lazy width=1024 height=1024>
 </picture>閑古鳥ブログ
 </a>
@@ -362,184 +365,153 @@ ChatGPT
 </div>
 </aside>
 <div class=col-lg-8>
-<div class=container>
-<div class="posts mb-4"><article class="row card post component">
+<div class=container><nav class="row card component" aria-label=breadcrumb>
+<div class="card-body pb-0">
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法</li></ol>
+</div>
+</nav><div class="post-panel-wrapper position-sticky">
+<div class="d-flex flex-column component rounded post-panel position-absolute border">
+<a class="action action-panel-toggler" role=button title="Panel toggler">
+<i class="fas fa-fw fa-chevron-circle-down"></i>
+</a>
+<a id=sidebarToggler class="action d-none d-lg-block" role=button title="Sidebar toggler">
+<i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i>
+</a>
+<a class=action href=#post-copyright role=button aria-label=Copyright title=Copyright>
+<i class="fas fa-fw fa-copyright"></i>
+</a>
+<a class=action href=#post-comments role=button aria-label=Comments title=Comments>
+<i class="fas fa-fw fa-comments"></i>
+</a>
+</div>
+</div><article class="row card component mb-4 post">
 <div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2023-04-30/>特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法</a>
-</h2>
+<h1 class="card-title post-title my-2">特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
 <span class="post-date me-1 mb-1" title="公開: 2023-04-29 13:13:18 +0000 UTC.">2023-04-29</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
 </div>
-<div class=post-summary><p>前置き# 私は現在3台の3Dプリンター（Prusa MK3S+、Ender 3 Pro、Voron V0.0）を使っており スライサーには SuperSlicer を使っています。
-SuperSlicer には Prusa MK3S+、Ender 3 Pro、Voron V0.0 のプロファイルとプリンタ毎の印刷速度等を登録しています。また、フィラメント送り出し方式が前者2つはダイレクトドライブなのに対し、Voron はボーデンのため、同じフィラメントでも設定を2種類用意しています。
-STL ファイルは SuperSlicer でスライスしますが、プリンタ3台をフル稼働して印刷する時は、SuperSlicer のウィンドウ1つでモデ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-04-30/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<p>私は現在3台の3Dプリンター（Prusa MK3S+、Ender 3 Pro、Voron V0.0）を使っており スライサーには SuperSlicer を使っています。</p>
+<p>SuperSlicer には Prusa MK3S+、Ender 3 Pro、Voron V0.0 のプロファイルとプリンタ毎の印刷速度等を登録しています。また、フィラメント送り出し方式が前者2つはダイレクトドライブなのに対し、Voron はボーデンのため、同じフィラメントでも設定を2種類用意しています。</p>
+<p>STL ファイルは SuperSlicer でスライスしますが、プリンタ3台をフル稼働して印刷する時は、SuperSlicer のウィンドウ1つでモデル毎・フィラメント毎・プリンタ毎のパラメータ調整を行うのは至難の業となります。そのため、SuperSlicer のウィンドウを3つ立ち上げて各ウィンドウを Prusa MK3S+、Ender 3 Pro、Voron V0.0 に割り当てる形にしていました。</p>
+<figure class="figure bsimage">
+<img src=triple_superslicer.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">プリンタ3台をフル稼働している時のイメージ</figcaption>
+</figure>
+<p>これでモデル毎・フィラメント毎・プリンタ毎のパラメータ調整を問題なく実行できるのですが、ウィンドウを立ち上げると前回終了時の設定が読み込まれるため、例えば、前回終了時に Prusa MK3S+ の設定を表示していて、今回は Voron で印刷しようとした場合、SuperSlicer を立ち上げてから設定を Voron 用に変更する必要があります。ちょっとした手間ですが面倒くさい上、プリンタにセットしているフィラメントと異なるフィラメントの設定を呼び出して印刷しそうになったこともあり、何とかして起動した時点で望み通りのプリンタ設定が表示されるようにできないか調べていました。</p>
+<p>しかし、日本語でも英語でもそれらしい方法が見つからなかったため、Reddit で質問したところ解決に必要な情報を教えてもらえましたので、教えてもらった情報と合わせて具体的な手順を備忘録として残します。</p>
+<p>なお、SuperSlicer のバージョンは <code>2.5.59.0</code> です。SuperSlicer のフォーク元である PrusaSlicer のフォーク元である Slic3r の頃から備わっている機能を利用していますので、バージョンが変わっても大丈夫だと思いますが、念のため記載しておきます。</p>
+<h2 id=手順 data-numberify>手順<a class="anchor ms-1 d-none" href=#手順>#</a></h2>
+<p>大まかな手順は次のとおりです。</p>
+<ol>
+<li>現在の印刷設定・フィラメント設定・プリンタ情報をエクスポートする</li>
+<li>プリンタ毎のショートカットを作成する</li>
+<li>プリンタ毎のショートカットから起動してエクスポートした設定をインポートする</li>
+<li>不要な設定を削除する</li>
+</ol>
+<h3 id=現在の設定情報のエクスポート data-numberify>現在の設定情報のエクスポート<a class="anchor ms-1 d-none" href=#現在の設定情報のエクスポート>#</a></h3>
+<p>現在の印刷設定・フィラメント設定・プリンタ情報をエクスポートする方法ですが、「ファイル」→「エクスポート」→「物理プリンター情報を含んだ構成セットのエクスポート」をクリックして設定ファイル（<code>*.ini</code>）をエクスポートします。後でこの設定ファイルをインポートしますので、保存場所を覚えておきます。</p>
+<figure class="figure bsimage">
+<img src=config_file_export.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">設定ファイルのエクスポート</figcaption>
+</figure>
+<figure class="figure bsimage">
+<img src=save_config_file.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">設定ファイルのエクスポート</figcaption>
+</figure>
+<p>設定ファイルをエクスポートしたら SuperSlicer をいったん閉じます。</p>
+<h3 id=プリンタ毎のショートカットの作成 data-numberify>プリンタ毎のショートカットの作成<a class="anchor ms-1 d-none" href=#プリンタ毎のショートカットの作成>#</a></h3>
+<p>まず、普通のアプリのショートカット作成と同じ方法でショートカットを作成します。もし、SuperSlicer インストール時にデスクトップにショートカットを作成しているのであれば、それを必要数だけコピペして名称を変える方法でも OK です。</p>
+<p>ショートカットを作成したら、ショートカットを右クリックして「プロパティ」を開き、リンク先を次のとおり修正します。ちなみに、このショートカットは Prusa MK3S+ 用のショートカットです。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=gd>- D:\ダウンロード\App\SuperSlicer_2.5.59.0_win64_220811\superslicer.exe
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=gd></span><span class=gi>+ D:\ダウンロード\App\SuperSlicer_2.5.59.0_win64_220811\superslicer.exe --datadir D:\3D_Printer\PrusaMK3S+_klipper
+</span></code></pre></div><figure class="figure bsimage">
+<img src=file_property_link_address.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">ファイルのプロパティのリンク先</figcaption>
+</figure>
+<p>ここで指定した <code>--datadir</code> というオプションは、このショートカットから起動したときの設定ファイルの読み込み＆保存場所を指定するもので、引数として渡した <code>D:\3D_Printer\PrusaMK3S+_klipper</code> ディレクトリが、このショートカットから起動したときの設定ファイルの読み込み＆保存場所となります。</p>
+<p>オプション無しで起動するとデフォルトの保存場所にある設定ファイルを読み込みますが、オプションを指定することで特定のディレクトリにある設定ファイルのみ読み込むようになりますので、このディレクトリに必要な情報だけ記述した設定ファイルを保存することで、SuperSlicer 起動時に不要な情報が表示されなくなります。</p>
+<h3 id=設定のインポート data-numberify>設定のインポート<a class="anchor ms-1 d-none" href=#設定のインポート>#</a></h3>
+<p>上で作成したショートカットから SuperSlicer を起動しますとプリンタを登録する初期ウィザードが始まりますが、このウィザードはキャンセルします。</p>
+<p>これだと必要な情報が登録されていない状態となりますので、「ファイル」→「インポート」→「構成バンドルのインポート」の順番でクリックして、最初にエクスポートした設定ファイルをインポートします。</p>
+<figure class="figure bsimage">
+<img src=config_file_import.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">設定ファイルのインポート</figcaption>
+</figure>
+<figure class="figure bsimage">
+<img src=open_config_file.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">設定ファイルのインポート</figcaption>
+</figure>
+<p>これで印刷設定・フィラメント設定・プリンタ情報がインポートされますが、このままでは従来と同じ状態になりますので、不要なプリンタ情報やフィラメント情報等を削除します。</p>
+<figure class="figure bsimage">
+<img src=delete_physical_printer.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">不要な設定ファイルの削除</figcaption>
+</figure>
+<p>以上の作業により、プリンタ毎に特化した設定内容だけが表示される SuperSlicer を作成することができました。こうしておけば、プリンタに適合しない設定を間違って選ぶこともなくなると思います。</p>
+<figure class="figure bsimage">
+<img src=desktop_screenshot.png class="figure-img img-fluid">
+<figcaption class="figure-caption fw-light text-center">プリンタ毎のショートカットを用意した様子</figcaption>
+</figure>
+<h2 id=参考情報 data-numberify>参考情報<a class="anchor ms-1 d-none" href=#参考情報>#</a></h2>
+<ul>
+<li><a href="https://www.reddit.com/r/3Dprinting/comments/12vqyj1/comment/jhcx29x/?context=3" target=_blank rel="noopener noreferrer">How to start SuperSlicer by specifying presets, etc. : 3Dprinting<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href=https://manual.slic3r.org/configuration-organization/configuration-organization target=_blank rel="noopener noreferrer">Slic3r Manual – Configuration Organization<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ul>
+</div></div><div class=card-footer>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+<i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
 <a href=https://kankodori-blog.com/posts/2023-04-11/>ChatGPT と Whisper を使って記事を書いてみました</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2023-04-10 14:05:01 +0000 UTC.">2023-04-10</span><a href=https://kankodori-blog.com/tags/chatgpt/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">ChatGPT</a><a href=https://kankodori-blog.com/tags/whisper/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Whisper</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# 前々から ChatGPT を試してみようと思ってちょくちょく調べていたのですが、2つの実例で実感！GPT-4が導く技術ブログ文化の崩壊(プロンプト付き) という記事を見て、それならブログの執筆に使ってみてどれだけ使えるか試してみることにしました。
-また、ChatGPT に加えて音声認識の Introducing Whisper も使うことで、先の記事で引用されている「喋った内容を文字起こしして ChatGPT に整形してもらって細かいところを修正してアップする」という一連の作業を自分でも実現できるか試してみたいと思いました。
-そこで、今回の記事は ChatGPT と Whisper を使って書いた記事となります。記事の内容...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-04-11/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
+</div></div>
+</div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
 <div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2023-04-08/>3Dプリンタのステッピングモーターの配線について</a>
-</h2>
+<h2 class="card-title fs-4 my-2 text-surface">Copyright</h2>
 </div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2023-04-07 13:13:07 +0000 UTC.">2023-04-07</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
+<div class=card-body><a class="d-flex align-items-center flex-column" target=_blank rel="license noopener noreferrer" href=https://creativecommons.org/licenses/by/4.0/deed.en>
+<span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
+CC BY 4.0
+</a>
 </div>
-<div class=post-summary><p>前置き# Ender 3 Pro で Voron Trident の印刷パーツを印刷していたら突然印刷ができなくなり、原因を調べたらモーターがガタガタと振動して正常に回転していませんでした。
+</div><section class="related-posts row card component">
+<div class=card-header>
+<h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2>
+</div>
+<div class=card-body>
+<ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2023-04-08/>
+3Dプリンタのステッピングモーターの配線について
+</a>
+<span class="post-meta post-date float-end">2023-04-07
+</span>
+<div class="post-summary my-3"><p>前置き# Ender 3 Pro で Voron Trident の印刷パーツを印刷していたら突然印刷ができなくなり、原因を調べたらモーターがガタガタと振動して正常に回転していませんでした。
 そこでモーターを買い替えて交換したのですが、新しいモーターを動かすまでにあれこれ調べる必要に迫られたため、その時調べたことなどを備忘録として残します。
 試行錯誤の経緯# ステッピングモーターの結線# 今回の購入したステッピングモーターは Amazon で購入したものですが、商品ページに結線情報は掲載されていませんでした。ネットで検索したら該当しそうな情報が見つかりましたが、結論から言うとその情報は間違っていました。
-そこでステッピングモーターに...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-04-08/>もっと読む</a></div>
+そこでステッピングモーターに...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-04-08/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2023-03-15/>
+OpenSCAD で作成されたデータを Fusion360 で編集する方法
+</a>
+<span class="post-meta post-date float-end">2023-03-13
+</span>
+<div class="post-summary my-3"><p>前置き# 先日、OpenSCAD で作成された3Dモデルを一部改変して3Dプリンタで出力したいことがあり、そのとき OpenSCAD で作成されたデータを .step ファイルに変換して Fusion360 で編集する方法を見つけたのですが、日本語で変換方法を説明しているウェブページが見つからなかったため、備忘録を兼ねて手順をまとめます。
+環境# OS Windows11 Pro 22H2 Fusion360 2.0.15509 x86_64 OpenSCAD version 2021.01 FreeCAD version 0.18 大まかな手順# 変換したい OpenSCAD データを OpenSCAD で開いて .csg ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-03-15/>もっと読む</a></div></div>
+</li><li class="mb-3 border-bottom">
+<a class=post-title href=https://kankodori-blog.com/posts/2023-02-05/>
+Raspberry pi pico と XIAO RP2040 を使って温度や Input Shaper を計測する方法
+</a>
+<span class="post-meta post-date float-end">2023-02-05
+</span>
+<div class="post-summary my-3"><p>目次 長い前置き Raspberry pi Pico を使った温度測定 BOM 手順 XIAO RP2040 を使った Input Shaper の測定 BOM 手順 参考情報 長い前置き# Prusa MK3S+ で印刷中にベッドの温度が急激に低下し、場合によっては氷点下まで下がってしまいプリンタが止まってしまうという症状が年末から発生していました。
+Discord の Klipper_jp でのアドバイスを基にベッドを手でグイグイ動かすと温度が急低下する瞬間があったため、サーミスタの断線が原因だと判断してサーミスタを交換しました。ところが、今度はノズルとベッドが設定温度に到達してホーミング＆メッシュベッドレ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-02-05/>もっと読む</a></div></div>
+</li></ul>
 </div>
-</div>
-</article>
-<article class="row card post component">
+</section><div class="card component row post-comments" id=post-comments>
 <div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2023-03-15/>OpenSCAD で作成されたデータを Fusion360 で編集する方法</a>
-</h2>
+<h2 class="card-title my-2 fs-4 text-surface">コメント</h2>
 </div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2023-03-13 12:34:03 +0000 UTC.">2023-03-13</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
+<div class=card-body><script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script>
 </div>
-<div class=post-summary><p>前置き# 先日、OpenSCAD で作成された3Dモデルを一部改変して3Dプリンタで出力したいことがあり、そのとき OpenSCAD で作成されたデータを .step ファイルに変換して Fusion360 で編集する方法を見つけたのですが、日本語で変換方法を説明しているウェブページが見つからなかったため、備忘録を兼ねて手順をまとめます。
-環境# OS Windows11 Pro 22H2 Fusion360 2.0.15509 x86_64 OpenSCAD version 2021.01 FreeCAD version 0.18 大まかな手順# 変換したい OpenSCAD データを OpenSCAD で開いて .csg ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-03-15/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2023-03-06/>RP2040 で QMK Firmware を使うメモ</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2023-03-06 13:39:17 +0000 UTC.">2023-03-06</span><a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">自作キーボード</a>
-</div>
-<div class=post-summary><p>前置き# 天下一キーボードわいわい会 Vol.4 - connpass にキーボードを出展するためにケースを新規作成しましたが、それに合わせて、以前から実現したかった USB Type-C 化を実現するため、以前購入して上手く使えなかった sekigon-gonnoc/pico-micro: A Pro Micro compatible board with RP2040 and mid-mount USB-C receptacle を使いました。RP2040 で QMK Firmware を動かすのは初めてで、使えるようになるまで多少の試行錯誤がありましたので、備忘録として必要な作業をまとめました。
-なお、RP2040...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-03-06/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2023-02-05/>Raspberry pi pico と XIAO RP2040 を使って温度や Input Shaper を計測する方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2023-02-04 15:00:00 +0000 UTC.">2023-02-05</span><a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">3Dプリンタ</a><a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Klipper</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>目次 長い前置き Raspberry pi Pico を使った温度測定 BOM 手順 XIAO RP2040 を使った Input Shaper の測定 BOM 手順 参考情報 長い前置き# Prusa MK3S+ で印刷中にベッドの温度が急激に低下し、場合によっては氷点下まで下がってしまいプリンタが止まってしまうという症状が年末から発生していました。
-Discord の Klipper_jp でのアドバイスを基にベッドを手でグイグイ動かすと温度が急低下する瞬間があったため、サーミスタの断線が原因だと判断してサーミスタを交換しました。ところが、今度はノズルとベッドが設定温度に到達してホーミング＆メッシュベッドレ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-02-05/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-12-30/>Neovim の設定集（2022年12月30時点）</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-12-30 07:48:00 +0000 UTC.">2022-12-30</span><a href=https://kankodori-blog.com/tags/neovim/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">Neovim</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>目次 前置き アウトラインバッファの作成 2022年1月10日追記 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイル分割 Re:VIEWのシンタックスハイライト noice.nvim の導入 導入したものの廃止したもの fine-cmdline.nvim 参考にしたサイト・情報 前置き# WSL2 + Neovim + VSCode で使っていく予定だったのですが、Neovim をあれこれカスタマイズしていると Neovim が使いやすくなってきてメインエディタになりそうなので、これまでの設定をまとめてみようと思いま...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-12-30/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-12-12/>WSL2 + Neovim + VSCode でクリップボードを共有する方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-12-12 13:05:21 +0000 UTC.">2022-12-12</span><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# 昨日の WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ に続いて WSL2 + Neovim の設定についてメモしていきます。
-今回は、Neovim でヤンクした内容を OS のクリップボードに共有する方法と、OS のクリップボードの内容を Neovim に貼り付ける方法の模索です。
-ちなみに、先に申し上げておきますと、今回ご紹介する方法は「現時点では動いている」というものです。色々調べて現在の設定に至っていますが、ある人にとって上手くいく方法が別の人では上手くいかなかったりしているようですので、これからご紹介する方法を真似しても上手くいかないかもしれません。
-方法#...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-12-12/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-12-11/>WSL2 + Neovim + VSCode でIME の状態を制御する方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-12-11 12:26:56 +0000 UTC.">2022-12-11</span><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているため、思い切って Neovim を使ってみることにしました。
-ただ、必要に応じて VSCode も使えるようにしたいので、VSCode のプラグインの vscode-neovim/vscode-neovim: Vim-mode for VS Code using embedded Neovim もインストールして、VSCode と Neovim を統合することにしました。
-そのために現在進行形で色々と設定していますので、備忘録として設定内容をメモしていきます。
-今回実現したいこと# イ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-12-11/>もっと読む</a></div>
-</div>
-</div>
-</article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-11-20/>WSL2 で生成した SSH の鍵を Windows11 で使う方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-11-20 03:16:58 +0000 UTC.">2022-11-20</span><a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">プログラミング</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。
-しかし、WSL2 だけではなく Windows11 でも Github にアクセスする必要が出てきたので、WSL2 で生成した鍵のペアを Windows11 でも使えるようにしました。
-Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする方法はいくつか見つかりましたが、その反対の方法を解説したページが見つからなかったため、手順を備忘録として公開します。
-環境# OS: Windows11 Pro...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-11-20/>もっと読む</a></div>
-</div>
-</div>
-</article>
-</div><div class="row table-responsive mb-3">
-<ul class="pagination pagination-default">
-<li class="page-item disabled">
-<a aria-disabled=true aria-label=First class=page-link role=button tabindex=-1><span aria-hidden=true>&#171;&#171;</span></a>
-</li>
-<li class="page-item disabled">
-<a aria-disabled=true aria-label=Previous class=page-link role=button tabindex=-1><span aria-hidden=true>&#171;</span></a>
-</li>
-<li class="page-item active">
-<a aria-current=page aria-label="Page 1" class=page-link role=button>1</a>
-</li>
-<li class=page-item>
-<a href=/page/2/ aria-label="Page 2" class=page-link role=button>2</a>
-</li>
-<li class=page-item>
-<a href=/page/3/ aria-label="Page 3" class=page-link role=button>3</a>
-</li>
-<li class=page-item>
-<a href=/page/4/ aria-label="Page 4" class=page-link role=button>4</a>
-</li>
-<li class=page-item>
-<a href=/page/2/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
-</li>
-<li class=page-item>
-<a href=/page/4/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
-</li>
-</ul></div>
-</div>
+</div></div>
 </div>
 </div>
 </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex=-1 id=offcanvasActionsPanel aria-labelledby=offcanvasActionsPanelLabel>
@@ -551,10 +523,10 @@ Actions
 <button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
 </div>
 <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=%e9%96%91%e5%8f%a4%e9%b3%a5%e3%83%96%e3%83%ad%e3%82%b0&url=https%3a%2f%2fkankodori-blog.com%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=%e7%89%b9%e5%ae%9a%e3%81%ae%e3%83%97%e3%83%aa%e3%83%b3%e3%82%bf%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%a0%e3%81%91%e3%82%92%e6%9c%89%e5%8a%b9%e5%8c%96%e3%81%97%e3%81%9f%20SuperSlicer%20%e3%82%92%e8%b5%b7%e5%8b%95%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-04-30%2f">
 <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
 </a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-04-30%2f">
 <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
 </a>
 </div>
