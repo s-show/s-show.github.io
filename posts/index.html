@@ -189,6 +189,22 @@
 <div class="posts mb-4"><article class="row card post component">
 <div class=card-header>
 <h2 class="card-title post-title my-2 fs-4">
+<a href=https://kankodori-blog.com/posts/2023-05-28/>Whisper を Windows ローカルで使うための作業</a>
+</h2>
+</div>
+<div class=card-body><div class="post-meta mb-3">
+<span class="post-date me-1 mb-1" title="公開: 2023-05-27 15:41:37 +0000 UTC.">2023-05-28</span><a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">プログラミング</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a><a href=https://kankodori-blog.com/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">機械学習</a>
+</div>
+<div class=post-summary><p>前置き# 先月、Google Colab で Whisper を動かして音声をテキストに変換してブログを書いてみるという記事を投稿しました。
+この方法は Google Colab で実行するので、高性能の GPU が使えて環境構築の手間がかからないというメリットがある一方で、毎回ライブラリをインストールする必要があって初期セットアップに時間がかかるというデメリットがありました。そこで、ローカル環境で Whisper を動かせば初期セットアップの時間を節約できると思い、ローカル環境で Whisper を動かせるようにしました。
+Whisper を動かせるようにするまで色々と作業が必要だったため、備忘録として作業内容を記録します。
+環...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-05-28/>もっと読む</a></div>
+</div>
+</div>
+</article>
+<article class="row card post component">
+<div class=card-header>
+<h2 class="card-title post-title my-2 fs-4">
 <a href=https://kankodori-blog.com/posts/2023-04-30/>特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法</a>
 </h2>
 </div>
@@ -319,22 +335,6 @@ Discord の Klipper_jp でのアドバイスを基にベッドを手でグイグ
 </div>
 </div>
 </article>
-<article class="row card post component">
-<div class=card-header>
-<h2 class="card-title post-title my-2 fs-4">
-<a href=https://kankodori-blog.com/posts/2022-11-20/>WSL2 で生成した SSH の鍵を Windows11 で使う方法</a>
-</h2>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2022-11-20 03:16:58 +0000 UTC.">2022-11-20</span><a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">プログラミング</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class=post-summary><p>前置き# Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。
-しかし、WSL2 だけではなく Windows11 でも Github にアクセスする必要が出てきたので、WSL2 で生成した鍵のペアを Windows11 でも使えるようにしました。
-Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする方法はいくつか見つかりましたが、その反対の方法を解説したページが見つからなかったため、手順を備忘録として公開します。
-環境# OS: Windows11 Pro...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-11-20/>もっと読む</a></div>
-</div>
-</div>
-</article>
 </div><div class="row table-responsive mb-3">
 <ul class="pagination pagination-default">
 <li class="page-item disabled">
@@ -417,7 +417,7 @@ Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする�
 <div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0>
 <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>
 備忘録
-<span class="badge badge-sm text-secondary bg-white ms-1">20</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">21</span>
 </a>
 <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>
 3Dプリンタ
@@ -425,7 +425,7 @@ Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする�
 </a>
 <a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=プログラミング>
 プログラミング
-<span class="badge badge-sm text-secondary bg-white ms-1">6</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">7</span>
 </a>
 <a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=自作キーボード>
 自作キーボード
@@ -457,12 +457,12 @@ ChatGPT
 </a>
 <a href=https://kankodori-blog.com/tags class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=全部>
 全部
-<span class="badge badge-sm text-secondary bg-white ms-1">16</span>
+<span class="badge badge-sm text-secondary bg-white ms-1">17</span>
 </a>
 </div>
 <div class=tab-pane id=taxonomyArchive role=tabpanel aria-labelledby=taxonomyArchiveTab tabindex=0>
 <a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2023>
-2023 <span class="badge badge-sm text-secondary bg-white ms-1">6</span>
+2023 <span class="badge badge-sm text-secondary bg-white ms-1">7</span>
 </a>
 <a href=https://kankodori-blog.com/archives/2022/ class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2022>
 2022 <span class="badge badge-sm text-secondary bg-white ms-1">18</span>
@@ -508,6 +508,16 @@ ChatGPT
 <li class=mb-2>
 <div class=d-flex>
 <div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
+<a class=post-title href=https://kankodori-blog.com/posts/2023-05-28/>Whisper を Windows ローカルで使うための作業</a>
+<div class="post-meta mt-2">
+<span class=post-date>2023-05-28</span>
+</div>
+</div>
+</div>
+</li>
+<li class=mb-2>
+<div class=d-flex>
+<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
 <a class=post-title href=https://kankodori-blog.com/posts/2023-04-30/>特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法</a>
 <div class="post-meta mt-2">
 <span class=post-date>2023-04-29</span>
@@ -521,16 +531,6 @@ ChatGPT
 <a class=post-title href=https://kankodori-blog.com/posts/2023-04-11/>ChatGPT と Whisper を使って記事を書いてみました</a>
 <div class="post-meta mt-2">
 <span class=post-date>2023-04-10</span>
-</div>
-</div>
-</div>
-</li>
-<li class=mb-2>
-<div class=d-flex>
-<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
-<a class=post-title href=https://kankodori-blog.com/posts/2023-04-08/>3Dプリンタのステッピングモーターの配線について</a>
-<div class="post-meta mt-2">
-<span class=post-date>2023-04-07</span>
 </div>
 </div>
 </div>
