@@ -2,7 +2,7 @@
 <head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>自作キーボード活動2年目の振り返り - 閑古鳥ブログ</title>
+<title>leaflet 覚書 - 閑古鳥ブログ</title>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
 <link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
@@ -10,22 +10,22 @@
 <link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
 <link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
 <meta name=keywords content>
-<meta name=description content="前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに">
+<meta name=description content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive">
 <meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="自作キーボード活動2年目の振り返り">
-<meta name=twitter:description content="前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに">
+<meta name=twitter:title content="leaflet 覚書">
+<meta name=twitter:description content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive">
 <meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="自作キーボード活動2年目の振り返り">
-<meta property="og:description" content="前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに">
+<meta property="og:title" content="leaflet 覚書">
+<meta property="og:description" content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://kankodori-blog.com/posts/2020-12-03/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2020-12-03T14:21:27+00:00">
-<meta property="article:modified_time" content="2020-12-03T14:21:27+00:00">
-<meta itemprop=name content="自作キーボード活動2年目の振り返り">
-<meta itemprop=description content="前置き# この記事は キーボード #2 Advent Calendar 2020 の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに"><meta itemprop=datePublished content="2020-12-03T14:21:27+00:00">
-<meta itemprop=dateModified content="2020-12-03T14:21:27+00:00">
-<meta itemprop=wordCount content="3220">
-<meta itemprop=keywords content="未分類,自作キーボード,">
+<meta property="og:url" content="https://kankodori-blog.com/posts/2023-10-07/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-10-07T00:41:37+09:00">
+<meta property="article:modified_time" content="2023-10-07T00:41:37+09:00">
+<meta itemprop=name content="leaflet 覚書">
+<meta itemprop=description content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive"><meta itemprop=datePublished content="2023-10-07T00:41:37+09:00">
+<meta itemprop=dateModified content="2023-10-07T00:41:37+09:00">
+<meta itemprop=wordCount content="1166">
+<meta itemprop=keywords content="備忘録,プログラミング,">
 <meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
 <meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
 <link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.1cf40b4f892e02af140ba04bf2d5fc41fbaac32b68862d822b83281ba2b8afc4.css" integrity="sha256-HPQLT4kuAq8UC6BL8tX8Qfuqwytohi2CK4MoG6K4r8Q=" crossorigin=anonymous>
@@ -367,7 +367,7 @@ ChatGPT
 <div class=col-lg-8>
 <div class=container><nav class="row card component" aria-label=breadcrumb>
 <div class="card-body pb-0">
-<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">自作キーボード活動2年目の振り返り</li></ol>
+<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">leaflet 覚書</li></ol>
 </div>
 </nav><div class="post-panel-wrapper position-sticky">
 <div class="d-flex flex-column component rounded post-panel position-absolute border">
@@ -386,51 +386,59 @@ ChatGPT
 </div>
 </div><article class="row card component mb-4 post">
 <div class=card-header>
-<h1 class="card-title post-title my-2">自作キーボード活動2年目の振り返り</h1>
+<h1 class="card-title post-title my-2">leaflet 覚書</h1>
 </div>
 <div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2020-12-03 14:21:27 +0000 UTC.">2020-12-03</span><a href=https://kankodori-blog.com/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">未分類</a><a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">自作キーボード</a>
+<span class="post-date me-1 mb-1" title="公開: 2023-10-06 15:41:37 +0000 UTC.">2023-10-07</span><a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">プログラミング</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
 </div>
-<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h1 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h1>
-<p>この記事は <a href=https://adventar.org/calendars/5307 target=_blank rel="noopener noreferrer">キーボード #2 Advent Calendar 2020<i class="fas fa-external-link-square-alt ms-1"></i></a> の4日目の記事です。何気に Advent Calendar 初参加です。 さて、この記事で何を書くかですが、「キーボードのお店を始めるに至った話」とか「小説家に営業した話」といったディープな話題は書けません。 なので、自作キーボード活動2年目を振り返る記事を書きたいと思いますが、2年目を簡単に振り返ると、オリジナルキーボードの製作が一番比重が大きく、QMK のドキュメント翻訳レビューがそれに続き、Discord の #mon-shin チャンネル用のダイアログページを作ったという1年間でした。なので、これらの活動について書いていきます。</p>
-<h1 id=オリジナルキーボードの設計 data-numberify>オリジナルキーボードの設計<a class="anchor ms-1 d-none" href=#オリジナルキーボードの設計>#</a></h1>
-<p>オリジナルキーボードの設計については、1年目に色々なキーボードを使う中で自分なりに「こういうキーボードが良さそう」という像が見えてきたことから、それを形にするべく挑戦しました。 最初の1台目は、ProMicro を使う方法で3〜4月に作成したのですが、コネクタ類の位置を間違えて、USB ケーブルと TRRS ケーブルが PCB と干渉してしまいました。そのため、TRRS ケーブルのコネクタをナイフで削り、ProMicro と基板の間のスペースを確保するためピンヘッダを基板に取り付ける羽目になりました。とはいえ、キー入力は問題なくできることと、自分が理想と考えていたキー配列の打ちやすさを実地に試すことができたので、失敗も含めて収穫は大きかったと思います。</p>
-<p>そのキーボードを現在まで使っているのですが、ケーブルが PCB と干渉するキーボードを End Game にするのは無理があるのと、キー配列の問題点 (<code>Z</code>の入力が失敗しやすい) が判明したことから、9月頃から2台目の作成に着手しました。 2台目のキーボードの設計コンセプトは</p>
-<ol>
-<li>配列はColumn Staggerd</li>
-<li>形状は左右分離型</li>
-<li>キー数は48</li>
-<li>親指で『Space/BackSpace、Lower/Raise、Win/CMD、Alt』キーが押せる</li>
-<li>プレートとケースは3Dプリントで作る</li>
-<li>ProMicro を使わずに ATMega32U4 直付け</li>
-</ol>
-<p>このうち、1〜4番目は単なる好みに基づくものですが、5番目はへそ曲がりな性格が顔を出したが故のコンセプトです。</p>
-<p>自作キーボードでは、打ち心地の向上などを図るため、ケースをアルミ削り出しで、プレートを真鍮やステンレスの穴あけ加工で作成することがありますが、1年前よりもそういったケースなどを作る人が増えているという印象です。ただ、それらを見ていると「そこまでお金を出すのは躊躇うな〜」と感じていました。そこで、その対極という訳ではないのですが、ケースやプレートの3Dモデルをダウンロードすれば誰でも 3Dプリンタで安価に出力できて、その気になれば自分でカスタマイズできるキーボードがあっても良いのではないかと考えて、このコンセプトを盛り込みました。</p>
-<p>6番目のコンセプトは、ProMicro による出っ張りを上手に活かせる設計がどうにもこうにもできなかったので、レイアウトの自由を求めて ATMega32U4 直付けに切り替えたものです。これにより、USB コネクタを Micro-B から TypeｰC にできるという収穫もありました。</p>
-<p>これらのコンセプトを満たすべく設計に着手したのですが、小学1年生の時から科学図鑑を読むのが大好きだったとはいえ、文系高卒で文系職場に就職した身では電子回路の知識が乏しく、ATMega32U4 の使い方をどうやって勉強するかを勉強するところからのスタートでした。</p>
-<p>そして勉強を始めて痛感したのは、ATMega32U4 を使う人は使い方や前提知識をわざわざ書かない、ということでした。具体的には、ATMega32U4 を使うためのコンデンサやクリスタルや抵抗について、なぜそれらの部品が必要なのか、どういう基準で選べば良いのか、どのように配置していくのか、といった点を説明しているサイトがほとんど見つけられませんでした。そのため、ATMega のデータシートを読み込み、個別の項目に絞って検索して調べ、それを自分なりにまとめていくという方法で理解に努めました。その成果はこちらですが、実際に設計に着手すると色々と改善点が見えてきたので、今後修正する予定です。 <a href=https://gist.github.com/s-show/286ffb1f5d9c886b514ff7a37e6d8d37 target=_blank rel="noopener noreferrer">ATMega32u4を使う場合の設計メモ.md<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
-<p>とまあ、こんな具合に2台目のキーボードを設計しているのですが、基板設計まで進んだところで Discord でレビューをお願いしたら、見事なダメ出しを受けて自分の知識の無さと皆さんの協力のありがたさを痛感している、というのが現時点の状況です。(そのまま PCBA 発注していたら間違いなく動かないキーボードになっていたので、本当に感謝しています。</p>
-<h1 id=qmk-の翻訳レビュー data-numberify>QMK の翻訳レビュー<a class="anchor ms-1 d-none" href=#qmk-の翻訳レビュー>#</a></h1>
-<p>こちらは 2019年11月4日に <a href=https://github.com/umi-umi target=_blank rel="noopener noreferrer">umi-umi (umi)<i class="fas fa-external-link-square-alt ms-1"></i></a> さんが <a href=https://github.com/qmk/qmk_firmware/pull/7248 target=_blank rel="noopener noreferrer">add japanese translation by umi-umi · Pull Request #7248 · qmk/qmk_firmware<i class="fas fa-external-link-square-alt ms-1"></i></a> で47ファイルの日本語への翻訳のプルリクを出したところから始まったもので、私も <code>docs/ja/feature_tap_dance.md (Merge 済)</code> や <code>docs/ja/keycodes.md (レビュー中)</code> 、<code>docs/ja/keycodes_basic.md (レビュー待ち)</code> を翻訳したり、他の方々の翻訳をレビュー(こちらがメイン) したりしています。</p>
-<p>自分の翻訳については、ケアレスミスから翻訳漏れまで多数の指摘をいただくことになり、レビュワーの方々に多大なご迷惑をおかけしています。その穴埋めという訳ではないですが、他の方々の翻訳のレビューにあたっては、指摘の根拠を明示し、レビューされる側の負担を少しでも減らすように努めています。</p>
-<p>進歩の早い分野では、英語に怯まず公式ドキュメントに当たるのが正しい姿勢なので、その公式ドキュメントに日本語訳があることは日本のコミュニティにとってプラスにこそなれマイナスになることはないと思います。そう思って、少しでも日本の自作キーボードコミュニティに貢献すべく、翻訳とレビューに取り組んでいます。</p>
-<p>ちなみに、Windows と Mac の両方を使っているのですが、翻訳はレビューを含めて Mac で行なっています。理由は、ランチャーアプリの Alfred を設定すれば、<code>d hogehoge</code> と打ち込むだけで内蔵辞書を開けるためです。文法を調べる頻度はそんなに多くないので、文法書を手でめくっていても作業効率にたいした影響は無いのですが、単語はしょっちゅう調べるので、手作業では作業効率がガクッと落ちてしまいます。そのため、翻訳は Mac で行なっています。 note: 翻訳の進捗状況は、ファイル数ベースで未翻訳が19%という状況です。</p>
-<h1 id=ダイアログページの作成 data-numberify>ダイアログページの作成<a class="anchor ms-1 d-none" href=#ダイアログページの作成>#</a></h1>
-<p>キーボード制作でトラブルに遭遇した時に Discord で質問する際のチャンネルとして #mon-shin というチャンネルがあり、質問用テンプレートが用意されています。</p>
-<p>ただ、テンプレートの穴埋め状況にばらつきがあると感じていましたので、誰でも必要項目を選んでいけば質問文が容易に作れるようにするため、専用のページを作成しました。</p>
-<p><a href=https://s-show.github.io/mon-shin-dialog-sample/ target=_blank rel="noopener noreferrer">問診票テンプレート<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
-<p>幸い、作成したページが採用され、これまでにこのページを利用した質問がいくつも出されていますが、実際に運用すると足りない機能も出てくるので、これから修正していく予定です。</p>
-<h1 id=まとめ data-numberify>まとめ<a class="anchor ms-1 d-none" href=#まとめ>#</a></h1>
-<p>「自作キーボードについて考えていることなどをつらつら書きます」と Advent Calendar には書いておきながら活動報告になってしまいましたが、自作キーボードを始める前は、自分が同好の士の中に混じってこんな形で活動することになるなんて全く予想していませんでした。 毎日使う道具でありながら、凝ったことをしなければ制作は思うほど難しくないという絶妙な存在なのが自作キーボードだと思っていますが、こういうとっても面白い世界に巡り合えたことには感謝しています。</p>
-<p>また、あれこれ迷惑をかけているのに、いつも親切に対応していただいているコミュニティの皆様にも感謝しています。少しでもコミュニティに貢献できるべく努力したいと思っていますので、引き続きよろしくお願いします。 明日は、Takeshi Nishio さんの『自キ活1年目で出来たものと、総当たりマトリクスのご紹介。』という記事です。</p>
-<p>最後まで読んでいただきありがとうございます。この記事は、自作のオリジナルキーボードで書きました。</p>
-</div></div><div class=card-footer>
+<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
+<p>仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った <a href=https://leafletjs.com/ target=_blank rel="noopener noreferrer">Leaflet - a JavaScript library for interactive maps<i class="fas fa-external-link-square-alt ms-1"></i></a> について、メモしておかないと忘れそうな点がありましたので、備忘録としてまとめます。</p>
+<p>なお、作成したアプリは <a href=https://kankodori-blog.com/interchangeXYandBL/>座標の地図表示と座標・緯度経度の変換</a> というものです。</p>
+<h2 id=地図に追加したマーカーの削除 data-numberify>地図に追加したマーカーの削除<a class="anchor ms-1 d-none" href=#地図に追加したマーカーの削除>#</a></h2>
+<p>leaflet を使って地図にマーカーを追加する方法は検索すればいくつも見つかりますが、追加したマーカーをまとめて削除する方法が見つけられませんでした。</p>
+<p>そこで色々調べて、マーカーをまとめて削除する方法を何とか編み出しました。</p>
+<p>まず、leaflet では、追加したマーカーは layer として <code>map</code> インスタンスに追加されます。<code>map</code> インスタンスにはマーカー以外のレイヤーも存在していますが、どのレイヤーがマーカーのレイヤーなのかを特定できれば、そのレイヤーを削除することでマーカーを削除できます。</p>
+<p>私が調べた限りでは、マーカーのレイヤーのプロパティには <code>_icon</code> というキーが追加され、このキーに対応する値にマーカーとして使っている画像ファイルのパスが格納されるようです。そのため、マーカーをまとめて削除する場合、<code>Map</code> クラスの <code>eachLayer()</code> メソッドを使って <code>map</code> インスタンスに存在するレイヤーを順番に調べて、プロパティに <code>_icon</code> キーが存在していたら削除するという方法が使えるようです。</p>
+<p>具体的なコードは次のとおりです。マーカーを全削除するボタンをクリックするという前提です。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c1>// マップの初期化コード（必要最低限の箇所だけ表示）
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=c1>// 緯度経度の場所は日本緯度経度原点
+</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=c1></span><span class=kd>let</span> <span class=nx>map</span> <span class=o>=</span> <span class=nx>L</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=s1>&#39;map&#39;</span><span class=p>,</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>  <span class=p>{</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>    <span class=nx>renderer</span><span class=o>:</span> <span class=nx>L</span><span class=p>.</span><span class=nx>canvas</span><span class=p>(),</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>    <span class=nx>preferCanvas</span><span class=o>:</span> <span class=kc>true</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>  <span class=p>}).</span><span class=nx>setView</span><span class=p>([</span><span class=mf>35.6580992222</span><span class=p>,</span> <span class=mf>139.7413574722</span><span class=p>],</span> <span class=mi>15</span><span class=p>);</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=c1>// マーカー全削除のコード
+</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;removeMarkerBtn&#39;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>  <span class=nx>map</span><span class=p>.</span><span class=nx>eachLayer</span><span class=p>((</span><span class=nx>layer</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>layer</span><span class=p>.</span><span class=nx>_icon</span> <span class=o>!=</span> <span class=kc>undefined</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>      <span class=nx>map</span><span class=p>.</span><span class=nx>removeLayer</span><span class=p>(</span><span class=nx>layer</span><span class=p>);</span>
+<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>    <span class=p>}</span>
+<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>  <span class=p>})</span>
+<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>  <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=p>})</span>
+</code></pre></div><h3 id=レイヤーを削除せずにマーカーを削除する方法 data-numberify>レイヤーを削除せずにマーカーを削除する方法<a class="anchor ms-1 d-none" href=#レイヤーを削除せずにマーカーを削除する方法>#</a></h3>
+<p>ちなみに、レイヤーを削除せずにマーカーを削除することも可能です。</p>
+<p>地図に追加したマーカーは、後述する線と異なりDOMツリーに追加されますので、マーカーに特徴的なセレクタと <code>querySelectorAll()</code> メソッドでまとめて取得できます。私が調べた限りでは、セレクタに <code>'.leaflet-marker-pane>img'</code> を指定すればOKのようですので、次のコードでマーカーをまとめて削除できます。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=kd>let</span> <span class=nx>markers</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s1>&#39;.leaflet-marker-pane&gt;img&#39;</span><span class=p>);</span>
+<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=nx>markers</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>marker</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>marker</span><span class=p>.</span><span class=nx>remove</span><span class=p>());</span>
+</code></pre></div><h2 id=地図に追加した線の削除 data-numberify>地図に追加した線の削除<a class="anchor ms-1 d-none" href=#地図に追加した線の削除>#</a></h2>
+<p>次は地図に追加した線を削除する方法ですが、DOMツリーで線に該当するDOMを見つけられませんでしたので、線のレイヤーを削除する方法で対処しました。</p>
+<p>方法は前述のマーカーの一括削除と同じで、<code>map</code> インスタンスに存在するレイヤーを順番に調べて、線のレイヤーが見つかれば削除するという方法です。</p>
+<p>私が調べた限りでは、線のレイヤーのプロパティには <code>options.color</code> というキーが追加され、このキーの値に線の色が格納されるようですので、このキーを使って次のコードで処理するようにしました。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=c1>// 線の削除コード
+</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;removeMarkerBtn&#39;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>  <span class=nx>map</span><span class=p>.</span><span class=nx>eachLayer</span><span class=p>((</span><span class=nx>layer</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>layer</span><span class=p>.</span><span class=nx>options</span><span class=p>.</span><span class=nx>color</span> <span class=o>!=</span> <span class=kc>undefined</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>      <span class=nx>map</span><span class=p>.</span><span class=nx>removeLayer</span><span class=p>(</span><span class=nx>layer</span><span class=p>);</span>
+<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>    <span class=p>}</span>
+<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>  <span class=p>})</span>
+<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>8</a></span>  <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9>9</a></span><span class=p>})</span>
+</code></pre></div></div></div><div class=card-footer>
 <div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
 <i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
-<a href=https://kankodori-blog.com/posts/2020-01-01/>自作キーボードから始まったものづくりへの取り組み</a>
-</div><div class="post-nav post-next">
-<a href=https://kankodori-blog.com/posts/2021-12-10/>2021年に実施した3Dプリンターの改造</a>
-<i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i>
+<a href=https://kankodori-blog.com/posts/2023-05-28/>Whisper を Windows ローカルで使うための作業</a>
 </div></div>
 </div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
 <div class=card-header>
@@ -447,28 +455,25 @@ CC BY 4.0
 </div>
 <div class=card-body>
 <ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2020-01-01/>
-自作キーボードから始まったものづくりへの取り組み
+<a class=post-title href=https://kankodori-blog.com/posts/2023-05-28/>
+Whisper を Windows ローカルで使うための作業
 </a>
-<span class="post-meta post-date float-end">2020-01-01
+<span class="post-meta post-date float-end">2023-05-28
 </span>
-<div class="post-summary my-3"><p>明けましておめでとうございます。新年もよろしくお願いします。
-本記事が新年最初の記事になるが、新年最初の記事ということで、昨年1年間を振り返って今年の簡単な抱負を書いてみようと思います。
-昨年1年間の大きな変化# 仕事は変わらなかったので大きな変化はありませんが、私生活では意外な変化がありました。といっても、結婚とかそういう話ではなく、趣味というか、新たな世界が広がったという話です。
-こう書くと大仰な話に聞こえますが、簡単に言えば「物を作る」とことの面白さを知ったということです。
-以下、そういう変化に至った経緯を簡単に書いていきます。
-経緯# 「物を作る」ことの面白さを知ったきっかけは、自作キーボードを作ったことです。では、なぜ自作...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2020-01-01/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# 先月、Google Colab で Whisper を動かして音声をテキストに変換してブログを書いてみるという記事を投稿しました。
+この方法は Google Colab で実行するので、高性能の GPU が使えて環境構築の手間がかからないというメリットがある一方で、毎回ライブラリをインストールする必要があって初期セットアップに時間がかかるというデメリットがありました。そこで、ローカル環境で Whisper を動かせば初期セットアップの時間を節約できると思い、ローカル環境で Whisper を動かせるようにしました。
+Whisper を動かせるようにするまで色々と作業が必要だったため、備忘録として作業内容を記録します。
+環...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-05-28/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2019-10-13/>
-ArduinoとPlaidを使ってマイコンを複製する方法
+<a class=post-title href=https://kankodori-blog.com/posts/2022-11-20/>
+WSL2 で生成した SSH の鍵を Windows11 で使う方法
 </a>
-<span class="post-meta post-date float-end">2019-10-13
+<span class="post-meta post-date float-end">2022-11-20
 </span>
-<div class="post-summary my-3"><p>前置き# 自作キーボードのPlaidはお気に入りのキーボードであるが、このキーボードは、ProMicro の代わりにマイコンの ATMega328P を使っており、キーボードには ISP ポートが用意されている。
-なので、このキーボードを AVR ライターがわりに使えるのではないか、また、秋月とかで購入した ATMega328P にデータをバックアップしておいて、いざというときはマイコンだけ置き換えて対処する、といったこともできるんじゃないかと思って挑戦してみた。
-その挑戦がうまくいったので、その手順を備忘録として残しておく。
-作業の手順# 作業に使うものは次のとおり。
-Plaid Arduino Uno（互換品でOK） ブレッド...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2019-10-13/>もっと読む</a></div></div>
+<div class="post-summary my-3"><p>前置き# Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。
+しかし、WSL2 だけではなく Windows11 でも Github にアクセスする必要が出てきたので、WSL2 で生成した鍵のペアを Windows11 でも使えるようにしました。
+Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする方法はいくつか見つかりましたが、その反対の方法を解説したページが見つからなかったため、手順を備忘録として公開します。
+環境# OS: Windows11 Pro...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-11-20/>もっと読む</a></div></div>
 </li><li class="mb-3 border-bottom">
 <a class=post-title href=https://kankodori-blog.com/posts/2019-07-22/>
 自作キーボードでLEDが点灯しない時のテスト方法と対処方法
@@ -498,10 +503,10 @@ Actions
 <button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
 </div>
 <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=%e8%87%aa%e4%bd%9c%e3%82%ad%e3%83%bc%e3%83%9c%e3%83%bc%e3%83%89%e6%b4%bb%e5%8b%952%e5%b9%b4%e7%9b%ae%e3%81%ae%e6%8c%af%e3%82%8a%e8%bf%94%e3%82%8a&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2020-12-03%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=leaflet%20%e8%a6%9a%e6%9b%b8&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-10-07%2f">
 <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
 </a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2020-12-03%2f">
+<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-10-07%2f">
 <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
 </a>
 </div>
