@@ -13,6 +13,9 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
+      - name: actions-timeline
+        uses: Kesin11/actions-timeline@v1.0.0
+            
       - uses: actions/checkout@v2
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
