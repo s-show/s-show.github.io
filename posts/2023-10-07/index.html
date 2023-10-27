@@ -1,557 +1,246 @@
-<!doctype html><html class=position-relative itemscope itemtype=http://schema.org/WebPage lang=ja data-bs-theme=dark data-palette=indigo>
-<head><script src=https://kankodori-blog.com/assets/init/bundle.min.e8642c679f6e35c2643ff3e0c61010754f6d9d43be0a9bd775ffbf73cfc18cf6.js integrity="sha256-6GQsZ59uNcJkP/PgxhAQdU9tnUO+CpvXdf+/c8/BjPY=" crossorigin=anonymous></script>
+<!doctype html><html lang=ja data-figures class=page>
+<head>
+<title>leaflet 覚書 | 閑古鳥ブログ</title>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<title>leaflet 覚書 - 閑古鳥ブログ</title>
-<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_16x16_resize_box_3.png sizes=16x16 type=image/png>
-<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_32x32_resize_box_3.png sizes=32x32 type=image/png>
-<link rel=apple-touch-icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_180x180_resize_box_3.png sizes=180x180 type=image/png>
-<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_150x150_resize_box_3.png sizes=150x150 type=image/png>
-<link rel=icon href=https://kankodori-blog.com/favicon_hua92e68620dc14ab881fcc925a25f9ebe_100305_192x192_resize_box_3.png sizes=192x192 type=image/png>
-<link rel=mask-icon href=https://kankodori-blog.com/safari-pinned-tab.svg color=#6f42c1><link rel=icon href="https://kankodori-blog.com/images/icons/favicon.ico?version=df8a527f682d3faeeb649c404764f4e8">
-<meta name=keywords content>
-<meta name=description content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive">
-<meta name=robots content="index, follow"><meta name=twitter:card content="summary">
-<meta name=twitter:title content="leaflet 覚書">
-<meta name=twitter:description content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive">
-<meta name=twitter:site content="@s_show_0000">
-<meta property="og:title" content="leaflet 覚書">
-<meta property="og:description" content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-367F1P4JXZ')</script>
+<meta property="og:locale" content="ja">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://kankodori-blog.com/posts/2023-10-07/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2023-10-07T00:41:37+09:00">
-<meta property="article:modified_time" content="2023-10-07T00:41:37+09:00">
-<meta itemprop=name content="leaflet 覚書">
-<meta itemprop=description content="前置き# 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive"><meta itemprop=datePublished content="2023-10-07T00:41:37+09:00">
-<meta itemprop=dateModified content="2023-10-07T00:41:37+09:00">
-<meta itemprop=wordCount content="1166">
-<meta itemprop=keywords content="備忘録,プログラミング,">
-<meta property="og:image" content="https://kankodori-blog.com/images/logo.webp">
-<meta name=twitter:image content="https://kankodori-blog.com/images/logo.webp">
-<link data-precache rel=stylesheet href="https://kankodori-blog.com/assets/main/bundle.min.1cf40b4f892e02af140ba04bf2d5fc41fbaac32b68862d822b83281ba2b8afc4.css" integrity="sha256-HPQLT4kuAq8UC6BL8tX8Qfuqwytohi2CK4MoG6K4r8Q=" crossorigin=anonymous>
-<link data-precache rel=stylesheet href=https://kankodori-blog.com/assets/viewer/bundle.min.6d0fc65b8b058ac563091dc5c36f61afba5dd705058680aa24f1d5a3bcf0064d.css integrity="sha256-bQ/GW4sFisVjCR3Fw29hr7pd1wUFhoCqJPHVo7zwBk0=" crossorigin=anonymous>
+<meta name=description content="前置き 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive maps">
+<meta name=twitter:card content="summary">
+<meta name=twitter:creator content>
+<meta name=twitter:title content="leaflet 覚書">
+<meta name=twitter:image content="https://hbs-skeleton.netlify.app/">
+<meta property="og:url" content="https://hbs-skeleton.netlify.app/posts/2023-10-07/">
+<meta property="og:title" content="leaflet 覚書">
+<meta property="og:description" content="前置き 仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った Leaflet - a JavaScript library for interactive maps">
+<meta property="og:image" content="https://hbs-skeleton.netlify.app/">
+<meta name=keywords content="clarity,hugo theme,閑古鳥ブログ,3Dプリンタ,キーボード">
+<link rel=apple-touch-icon sizes=180x180 href=https://hbs-skeleton.netlify.app/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://hbs-skeleton.netlify.app/icons/favicon-32x32.png>
+<link rel=manifest href=https://hbs-skeleton.netlify.app/icons/site.webmanifest>
+<link rel=canonical href=https://hbs-skeleton.netlify.app/posts/2023-10-07/>
+<link rel=preload href=https://hbs-skeleton.netlify.app/css/styles.02f94745b7e95b596608d321706e5c4fe0d32dca106f3b9c22fa0a2bfe867fe69d6048d93465d37c2ad1d453bc318dab643350bbd980d86b80f064a6c5945f5d.css integrity="sha512-AvlHRbfpW1lmCNMhcG5cT+DTLcoQbzucIvoKK/6Gf+adYEjZNGXTfCrR1FO8MY2rZDNQu9mA2GuA8GSmxZRfXQ==" as=style crossorigin=anonymous>
+<link rel=preload href=https://hbs-skeleton.netlify.app/ja/js/bundle.03b6020468acd5819160251482aad3406d071bd3d554497287388ff89e26c72e8857a7356fed04964942f62d3059f5e41dbc90a19ed9fb467b4938e479c72987.js as=script integrity="sha512-A7YCBGis1YGRYCUUgqrTQG0HG9PVVElyhziP+J4mxy6IV6c1b+0ElklC9i0wWfXkHbyQoZ7Z+0Z7STjkeccphw==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://hbs-skeleton.netlify.app/css/styles.02f94745b7e95b596608d321706e5c4fe0d32dca106f3b9c22fa0a2bfe867fe69d6048d93465d37c2ad1d453bc318dab643350bbd980d86b80f064a6c5945f5d.css integrity="sha512-AvlHRbfpW1lmCNMhcG5cT+DTLcoQbzucIvoKK/6Gf+adYEjZNGXTfCrR1FO8MY2rZDNQu9mA2GuA8GSmxZRfXQ==" crossorigin=anonymous>
 </head>
-<body><header>
-<nav class="top-app-bar shadow navbar navbar-expand-lg fixed-top">
-<div class=container>
-<a class="navbar-brand d-flex align-items-center flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-2" href=https://kankodori-blog.com/>
-<picture><img class=logo alt=Logo src=https://kankodori-blog.com/images/logo.webp loading=lazy width=1024 height=1024>
-</picture>閑古鳥ブログ
-</a>
-<button class="navbar-toggler order-5" type=button data-bs-toggle=offcanvas data-bs-target=#navbarMenus aria-controls=navbarMenus aria-expanded=false aria-label="Toggle navigation">
-<i class="fas fa-ellipsis-h"></i>
-</button>
-<div class="offcanvas-lg offcanvas-end flex-grow-1" data-bs-scroll=true tabindex=-1 id=navbarMenus aria-labelledby=navbarMenusLabel>
-<div class="offcanvas-header px-4 pb-0">
-<h5 class=offcanvas-title id=navbarMenusLabel>閑古鳥ブログ</h5>
-<button type=button class="btn-close btn-close-white" data-bs-dismiss=offcanvas data-bs-target=#navbarMenus aria-label=Close></button>
+<body data-code=100 data-lines=false id=documentTop data-lang=ja>
+<header class=nav_header>
+<nav class=nav><a href=https://hbs-skeleton.netlify.app/ class="nav_brand nav_item" title=閑古鳥ブログ>閑古鳥ブログ
+<div class=nav_close>
+<div><svg class="icon"><title>open-menu</title><use xlink:href="#open-menu"/></svg><svg class="icon"><title>closeme</title><use xlink:href="#closeme"/></svg>
 </div>
-<div class="offcanvas-body p-4 pt-0 p-lg-0">
-<hr class=d-lg-none>
-<ul class="navbar-nav flex-row flex-wrap align-items-center me-auto">
-</ul>
-<hr class=d-lg-none>
-<form class="search-bar ms-auto my-1" action=https://kankodori-blog.com/search/ novalidate>
-<div class="input-group input-group-sm align-items-center">
-<span class="btn btn-search disabled position-absolute left-0 border-0">
-<i class="fas fa-fw fa-search fa-lg"></i>
-</span>
-<input class="py-2 form-control rounded search-input" name=q type=search aria-label=Search required>
 </div>
-</form><hr class=d-lg-none>
-<ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto">
-<li class="nav-item dropdown col-6 col-lg-auto">
-<a class="nav-link px-0 py-2 px-lg-1" href=# id=fontSizeDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
-<i class="fas fa-fw fa-font"></i>
-<span class=d-lg-none>フォントサイズ</span>
 </a>
-<ul class="dropdown-menu dropdown-menu-end" aria-labelledby=fontSizeDropdown>
-<li>
-<button class="font-size-item dropdown-item" data-size=xs>
-極小
-</button>
-</li>
-<li>
-<button class="font-size-item dropdown-item" data-size=sm>
-小
-</button>
-</li>
-<li>
-<button class="font-size-item dropdown-item active" data-size=md>
-標準
-</button>
-</li>
-<li>
-<button class="font-size-item dropdown-item" data-size=lg>
-大
-</button>
-</li>
-<li>
-<button class="font-size-item dropdown-item" data-size=xl>
-特大
-</button>
-</li>
-</ul>
-</li>
-<li class="nav-item dropdown col-6 col-lg-auto">
-<a class="nav-link px-0 py-2 px-lg-1" href=# id=paletteDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
-<i class="fas fa-fw fa-palette"></i>
-<span class=d-lg-none>パレット</span>
-</a>
-<ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby=paletteDropdown>
-<div class=row>
-<li class="col-4 my-1">
-<a role=button id=palette-blue aria-label=Blue class="btn btn-sm w-100 palette text-bg-blue" data-palette=blue>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-blue-gray aria-label="Blue Gray" class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette=blue-gray>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-brown aria-label=Brown class="btn btn-sm w-100 palette text-bg-brown" data-palette=brown>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-cyan aria-label=Cyan class="btn btn-sm w-100 palette text-bg-cyan" data-palette=cyan>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-green aria-label=Green class="btn btn-sm w-100 palette text-bg-green" data-palette=green>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-indigo aria-label=Indigo class="btn btn-sm w-100 palette text-bg-indigo" data-palette=indigo>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-orange aria-label=Orange class="btn btn-sm w-100 palette text-bg-orange" data-palette=orange>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-pink aria-label=Pink class="btn btn-sm w-100 palette text-bg-pink" data-palette=pink>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-purple aria-label=Purple class="btn btn-sm w-100 palette text-bg-purple" data-palette=purple>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-red aria-label=Red class="btn btn-sm w-100 palette text-bg-red" data-palette=red>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-teal aria-label=Teal class="btn btn-sm w-100 palette text-bg-teal" data-palette=teal>
-</a>
-</li>
-<li class="col-4 my-1">
-<a role=button id=palette-yellow aria-label=Yellow class="btn btn-sm w-100 palette text-bg-yellow" data-palette=yellow>
-</a>
-</li>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://hbs-skeleton.netlify.app/about/ class=nav_item title=自己紹介>自己紹介 </a>
 </div>
-</ul>
-</li>
-<li class="nav-item dropdown col-6 col-lg-auto">
-<a class="nav-link px-0 py-2 px-lg-1" href=# id=modeDropdown role=button data-bs-toggle=dropdown aria-expanded=false>
-<i class="mode-icon fas fa-fw fa-moon" id=modeIcon></i>
-<span class=d-lg-none>表示モード</span>
-</a>
-<ul class="dropdown-menu dropdown-menu-end" aria-labelledby=modeDropdown>
-<li class=mode-item data-color-mode=light data-icon=sun>
-<button class=dropdown-item>
-<i class="mode-icon fas fa-fw fa-sun"></i> Light
-</button>
-</li>
-<li class="mode-item active" data-color-mode=dark data-icon=moon>
-<button class=dropdown-item>
-<i class="mode-icon fas fa-fw fa-moon"></i> Dark
-</button>
-</li>
-<li class=mode-item data-color-mode=auto data-icon=adjust>
-<button class=dropdown-item>
-<i class="mode-icon fas fa-fw fa-adjust"></i> Auto
-</button>
-</li>
-</ul>
-</li>
-</ul>
+<div class=nav_parent>
+<a href=https://hbs-skeleton.netlify.app/ class=nav_item title=blog>blog <img src=https://hbs-skeleton.netlify.app/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://hbs-skeleton.netlify.app/tags/ class="nav_child nav_item" title=Tags>Tags</a>
+</div>
+</div>
+<div class=follow>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
 </div>
 </div>
 </div>
 </nav>
 </header>
-<main class=container>
-<div class="row content"><noscript>
-<div class="alert alert-danger" role=alert>あなたのブラウザはJavascriptをサポートしていません。</div>
-</noscript>
-<aside class="col-lg-4 sidebar d-flex order-lg-5">
-<div class="container d-flex flex-column">
-<div class="accordion profile">
-<div class="accordion-item card row text-center component">
-<div class="accordion-header card-header border-0" id=profile-header>
-<a class="accordion-button d-lg-none mb-2 collapsed shadow-none p-0 bg-transparent text-surface" type=button data-bs-toggle=collapse data-bs-target=#profile aria-expanded=false aria-controls=profile>
-プロフィール
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>leaflet 覚書</h1>
+<div class=post_meta>
+<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
+</span>
+<span class=post_date>
+2023-10-07</span><span>&nbsp;· <a href=https://hbs-skeleton.netlify.app/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ title=備忘録 class="post_tag button button_translucent">備忘録
+</a><a href=https://hbs-skeleton.netlify.app/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ title=プログラミング class="post_tag button button_translucent">プログラミング
 </a>
+</span>
 </div>
-<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=profile aria-labelledby=profile-header>
-<div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt=s-show src=https://kankodori-blog.com/img/profileIcon.png loading=lazy data-viewer-invisible width=500 height=500>
-</picture></div>
-<div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">s-show</div><div class=profile-bio>プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員</div><div class=profile-location><i class="fas fa-fw fa-map-marker-alt"></i>Japan</div><div class="profile-about text-primary"><i class="fas fa-fw fa-user"></i><a href=https://kankodori-blog.com/about/>About</a></div><div class="profile-contact text-primary"><i class="fas fa-fw fa-question-circle"></i><a href=https://kankodori-blog.com/contact/>Contact Us</a></div></div>
-<nav class="social-links nav justify-content-center mt-1 justify-content-around">
-<a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
-<i class="fas fa-fw fa-2x fa-envelope"></i>
-</a>
-<a class="nav-link social-link" target=_blank href=https://github.com/s-show title=GitHub rel="noopener noreferrer">
-<i class="fa-fw fa-2x fab fa-github"></i>
-</a>
-<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer">
-<i class="fa-fw fa-2x fab fa-twitter"></i>
-</a>
-<a class="nav-link social-link" target=_blank href=https://kankodori-blog.com/index.xml title=RSS rel="noopener noreferrer">
-<i class="fas fa-fw fa-2x fa-rss"></i>
-</a>
-</nav>
-</div>
-</div>
-</div>
-<div class="accordion taxonomies-toggle">
-<section class="row card component accordion-item">
-<div class="accordion-header card-header border-0">
-<a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#taxonomies-toggle aria-expanded=false aria-controls=taxonomies-toggle>
-分類
-</a>
-</div>
-<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=taxonomies-toggle>
-<ul class="nav nav-pills nav-fill" id=myTab role=tablist>
-<li class=nav-item role=presentation>
-<button class="nav-link active" id=taxonomyTagsTab data-bs-toggle=tab data-bs-target=#taxonomyTags type=button role=tab aria-controls=タグ aria-selected=true>
-タグ
-</button>
-</li>
-<li class=nav-item role=presentation>
-<button class=nav-link id=taxonomyArchivesTab data-bs-toggle=tab data-bs-target=#taxonomyArchive type=button role=tab aria-controls=taxonomyArchives aria-selected=true>
-アーカイブ
-</button>
-</li>
-</ul>
-<div class="tab-content mt-3">
-<div class="tab-pane active" id=taxonomyTags role=tabpanel aria-labelledby=taxonomyTagsTab tabindex=0>
-<a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=備忘録>
-備忘録
-<span class="badge badge-sm text-secondary bg-white ms-1">23</span>
-</a>
-<a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=3Dプリンタ>
-3Dプリンタ
-<span class="badge badge-sm text-secondary bg-white ms-1">16</span>
-</a>
-<a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=プログラミング>
-プログラミング
-<span class="badge badge-sm text-secondary bg-white ms-1">8</span>
-</a>
-<a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=自作キーボード>
-自作キーボード
-<span class="badge badge-sm text-secondary bg-white ms-1">6</span>
-</a>
-<a href=https://kankodori-blog.com/tags/klipper/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Klipper>
-Klipper
-<span class="badge badge-sm text-secondary bg-white ms-1">4</span>
-</a>
-<a href=https://kankodori-blog.com/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=読書記録>
-読書記録
-<span class="badge badge-sm text-secondary bg-white ms-1">3</span>
-</a>
-<a href=https://kankodori-blog.com/tags/mac/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mac>
-Mac
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
-</a>
-<a href=https://kankodori-blog.com/tags/mainsail/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=Mainsail>
-Mainsail
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
-</a>
-<a href=https://kankodori-blog.com/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=未分類>
-未分類
-<span class="badge badge-sm text-secondary bg-white ms-1">2</span>
-</a>
-<a href=https://kankodori-blog.com/tags/chatgpt/ class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=ChatGPT>
-ChatGPT
-<span class="badge badge-sm text-secondary bg-white ms-1">1</span>
-</a>
-<a href=https://kankodori-blog.com/tags class="btn btn-sm btn-secondary post-taxonomy ps-3 post-tag me-2 mb-2" title=全部>
-全部
-<span class="badge badge-sm text-secondary bg-white ms-1">17</span>
-</a>
-</div>
-<div class=tab-pane id=taxonomyArchive role=tabpanel aria-labelledby=taxonomyArchiveTab tabindex=0>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2023>
-2023 <span class="badge badge-sm text-secondary bg-white ms-1">9</span>
-</a>
-<a href=https://kankodori-blog.com/archives/2022/ class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2022>
-2022 <span class="badge badge-sm text-secondary bg-white ms-1">18</span>
-</a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2021>
-2021 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
-</a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2020>
-2020 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
-</a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2019>
-2019 <span class="badge badge-sm text-secondary bg-white ms-1">4</span>
-</a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2018>
-2018 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
-</a>
-<a href class="btn btn-sm btn-secondary post-taxonomy ps-3 me-2 mb-2" title=2017>
-2017 <span class="badge badge-sm text-secondary bg-white ms-1">3</span>
-</a>
-</div>
-</div>
-</div>
-</section>
-</div>
-<div class="accordion posts-toggle">
-<section class="row card component accordion-item">
-<div class="accordion-header card-header border-0">
-<a class="accordion-button d-lg-none mb-1 collapsed shadow-none p-0 bg-transparent" type=button data-bs-toggle=collapse data-bs-target=#posts-toggle aria-expanded=false aria-controls=posts-toggle>
-投稿
-</a>
-</div>
-<div class="card-body collapse accordion-collapse accordion-body d-lg-block" id=posts-toggle>
-<ul class="nav nav-pills nav-fill" id=myTab role=tablist>
-<li class=nav-item role=presentation>
-<button class="nav-link active" id=recent-posts-tab data-bs-toggle=tab data-bs-target=#recent-posts type=button role=tab aria-controls=recent-posts aria-selected=true>
-最近の投稿
-</button>
-</li>
-</ul>
-<div class="tab-content mt-3">
-<div class="tab-pane active" id=recent-posts role=tabpanel aria-labelledby=recent-posts-tab tabindex=0>
-<ul class="post-list list-unstyled ms-1">
-<li class=mb-2>
-<div class=d-flex>
-<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
-<a class=post-title href=https://kankodori-blog.com/posts/2023-10-08/>Klipper の Skew correction でプリンタの歪みによる問題を解消する</a>
-<div class="post-meta mt-2">
-<span class=post-date>2023-10-17</span>
-</div>
-</div>
-</div>
-</li>
-<li class=mb-2>
-<div class=d-flex>
-<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
-<a class=post-title href=https://kankodori-blog.com/posts/2023-10-07/>leaflet 覚書</a>
-<div class="post-meta mt-2">
-<span class=post-date>2023-10-07</span>
-</div>
-</div>
-</div>
-</li>
-<li class=mb-2>
-<div class=d-flex>
-<div class="flex-grow-1 d-flex flex-column h-auto justify-content-center">
-<a class=post-title href=https://kankodori-blog.com/posts/2023-05-28/>Whisper を Windows ローカルで使うための作業</a>
-<div class="post-meta mt-2">
-<span class=post-date>2023-05-28</span>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</aside>
-<div class=col-lg-8>
-<div class=container><nav class="row card component" aria-label=breadcrumb>
-<div class="card-body pb-0">
-<ol class=breadcrumb><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/>ホーム</a></li><li class="breadcrumb-item text-surface"><a href=https://kankodori-blog.com/posts/>Posts</a></li><li class="breadcrumb-item active">leaflet 覚書</li></ol>
-</div>
-</nav><div class="post-panel-wrapper position-sticky">
-<div class="d-flex flex-column component rounded post-panel position-absolute border">
-<a class="action action-panel-toggler" role=button title="Panel toggler">
-<i class="fas fa-fw fa-chevron-circle-down"></i>
-</a>
-<a id=sidebarToggler class="action d-none d-lg-block" role=button title="Sidebar toggler">
-<i class="fas fa-fw fa-expand-alt" data-fa-transform=rotate-45></i>
-</a>
-<a class=action href=#post-copyright role=button aria-label=Copyright title=Copyright>
-<i class="fas fa-fw fa-copyright"></i>
-</a>
-<a class=action href=#post-comments role=button aria-label=Comments title=Comments>
-<i class="fas fa-fw fa-comments"></i>
-</a>
-</div>
-</div><article class="row card component mb-4 post">
-<div class=card-header>
-<h1 class="card-title post-title my-2">leaflet 覚書</h1>
-</div>
-<div class=card-body><div class="post-meta mb-3">
-<span class="post-date me-1 mb-1" title="公開: 2023-10-06 15:41:37 +0000 UTC.">2023-10-07</span><a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">プログラミング</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-tag">備忘録</a>
-</div>
-<div class="post-content mb-3" data-bs-spy=scroll data-bs-target=#TableOfContents tabindex=0><h2 id=前置き data-numberify>前置き<a class="anchor ms-1 d-none" href=#前置き>#</a></h2>
-<p>仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った <a href=https://leafletjs.com/ target=_blank rel="noopener noreferrer">Leaflet - a JavaScript library for interactive maps<i class="fas fa-external-link-square-alt ms-1"></i></a> について、メモしておかないと忘れそうな点がありましたので、備忘録としてまとめます。</p>
+<div class=post_body><h2 id=前置き>前置き</h2>
+<p>仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った <a href=https://leafletjs.com/>Leaflet - a JavaScript library for interactive maps</a> について、メモしておかないと忘れそうな点がありましたので、備忘録としてまとめます。</p>
 <p>なお、作成したアプリは <a href=https://kankodori-blog.com/interchangeXYandBL/>座標の地図表示と座標・緯度経度の変換</a> というものです。</p>
-<h2 id=地図に追加したマーカーの削除 data-numberify>地図に追加したマーカーの削除<a class="anchor ms-1 d-none" href=#地図に追加したマーカーの削除>#</a></h2>
+<h2 id=地図に追加したマーカーの削除>地図に追加したマーカーの削除</h2>
 <p>leaflet を使って地図にマーカーを追加する方法は検索すればいくつも見つかりますが、追加したマーカーをまとめて削除する方法が見つけられませんでした。</p>
 <p>そこで色々調べて、マーカーをまとめて削除する方法を何とか編み出しました。</p>
 <p>まず、leaflet では、追加したマーカーは layer として <code>map</code> インスタンスに追加されます。<code>map</code> インスタンスにはマーカー以外のレイヤーも存在していますが、どのレイヤーがマーカーのレイヤーなのかを特定できれば、そのレイヤーを削除することでマーカーを削除できます。</p>
 <p>私が調べた限りでは、マーカーのレイヤーのプロパティには <code>_icon</code> というキーが追加され、このキーに対応する値にマーカーとして使っている画像ファイルのパスが格納されるようです。そのため、マーカーをまとめて削除する場合、<code>Map</code> クラスの <code>eachLayer()</code> メソッドを使って <code>map</code> インスタンスに存在するレイヤーを順番に調べて、プロパティに <code>_icon</code> キーが存在していたら削除するという方法が使えるようです。</p>
 <p>具体的なコードは次のとおりです。マーカーを全削除するボタンをクリックするという前提です。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1> 1</a></span><span class=c1>// マップの初期化コード（必要最低限の箇所だけ表示）
-</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2> 2</a></span><span class=c1>// 緯度経度の場所は日本緯度経度原点
-</span><span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3> 3</a></span><span class=c1></span><span class=kd>let</span> <span class=nx>map</span> <span class=o>=</span> <span class=nx>L</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=s1>&#39;map&#39;</span><span class=p>,</span>
-<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4> 4</a></span>  <span class=p>{</span>
-<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5> 5</a></span>    <span class=nx>renderer</span><span class=o>:</span> <span class=nx>L</span><span class=p>.</span><span class=nx>canvas</span><span class=p>(),</span>
-<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6> 6</a></span>    <span class=nx>preferCanvas</span><span class=o>:</span> <span class=kc>true</span>
-<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7> 7</a></span>  <span class=p>}).</span><span class=nx>setView</span><span class=p>([</span><span class=mf>35.6580992222</span><span class=p>,</span> <span class=mf>139.7413574722</span><span class=p>],</span> <span class=mi>15</span><span class=p>);</span>
-<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8> 8</a></span>
-<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9> 9</a></span><span class=c1>// マーカー全削除のコード
-</span><span class=ln id=10><a style=outline:none;text-decoration:none;color:inherit href=#10>10</a></span><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;removeMarkerBtn&#39;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
-<span class=ln id=11><a style=outline:none;text-decoration:none;color:inherit href=#11>11</a></span>  <span class=nx>map</span><span class=p>.</span><span class=nx>eachLayer</span><span class=p>((</span><span class=nx>layer</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
-<span class=ln id=12><a style=outline:none;text-decoration:none;color:inherit href=#12>12</a></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>layer</span><span class=p>.</span><span class=nx>_icon</span> <span class=o>!=</span> <span class=kc>undefined</span><span class=p>)</span> <span class=p>{</span>
-<span class=ln id=13><a style=outline:none;text-decoration:none;color:inherit href=#13>13</a></span>      <span class=nx>map</span><span class=p>.</span><span class=nx>removeLayer</span><span class=p>(</span><span class=nx>layer</span><span class=p>);</span>
-<span class=ln id=14><a style=outline:none;text-decoration:none;color:inherit href=#14>14</a></span>    <span class=p>}</span>
-<span class=ln id=15><a style=outline:none;text-decoration:none;color:inherit href=#15>15</a></span>  <span class=p>})</span>
-<span class=ln id=16><a style=outline:none;text-decoration:none;color:inherit href=#16>16</a></span>  <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
-<span class=ln id=17><a style=outline:none;text-decoration:none;color:inherit href=#17>17</a></span><span class=p>})</span>
-</code></pre></div><h3 id=レイヤーを削除せずにマーカーを削除する方法 data-numberify>レイヤーを削除せずにマーカーを削除する方法<a class="anchor ms-1 d-none" href=#レイヤーを削除せずにマーカーを削除する方法>#</a></h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>// マップの初期化コード（必要最低限の箇所だけ表示）
+</span><span class=ln> 2</span><span class=c1>// 緯度経度の場所は日本緯度経度原点
+</span><span class=ln> 3</span><span class=c1></span><span class=kd>let</span> <span class=nx>map</span> <span class=o>=</span> <span class=nx>L</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=s1>&#39;map&#39;</span><span class=p>,</span>
+<span class=ln> 4</span>  <span class=p>{</span>
+<span class=ln> 5</span>    <span class=nx>renderer</span><span class=o>:</span> <span class=nx>L</span><span class=p>.</span><span class=nx>canvas</span><span class=p>(),</span>
+<span class=ln> 6</span>    <span class=nx>preferCanvas</span><span class=o>:</span> <span class=kc>true</span>
+<span class=ln> 7</span>  <span class=p>}).</span><span class=nx>setView</span><span class=p>([</span><span class=mf>35.6580992222</span><span class=p>,</span> <span class=mf>139.7413574722</span><span class=p>],</span> <span class=mi>15</span><span class=p>);</span>
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=c1>// マーカー全削除のコード
+</span><span class=ln>10</span><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;removeMarkerBtn&#39;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln>11</span>  <span class=nx>map</span><span class=p>.</span><span class=nx>eachLayer</span><span class=p>((</span><span class=nx>layer</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln>12</span>    <span class=k>if</span> <span class=p>(</span><span class=nx>layer</span><span class=p>.</span><span class=nx>_icon</span> <span class=o>!=</span> <span class=kc>undefined</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>13</span>      <span class=nx>map</span><span class=p>.</span><span class=nx>removeLayer</span><span class=p>(</span><span class=nx>layer</span><span class=p>);</span>
+<span class=ln>14</span>    <span class=p>}</span>
+<span class=ln>15</span>  <span class=p>})</span>
+<span class=ln>16</span>  <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+<span class=ln>17</span><span class=p>})</span>
+</code></pre></div><h3 id=レイヤーを削除せずにマーカーを削除する方法>レイヤーを削除せずにマーカーを削除する方法</h3>
 <p>ちなみに、レイヤーを削除せずにマーカーを削除することも可能です。</p>
 <p>地図に追加したマーカーは、後述する線と異なりDOMツリーに追加されますので、マーカーに特徴的なセレクタと <code>querySelectorAll()</code> メソッドでまとめて取得できます。私が調べた限りでは、セレクタに <code>'.leaflet-marker-pane>img'</code> を指定すればOKのようですので、次のコードでマーカーをまとめて削除できます。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=kd>let</span> <span class=nx>markers</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s1>&#39;.leaflet-marker-pane&gt;img&#39;</span><span class=p>);</span>
-<span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=nx>markers</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>marker</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>marker</span><span class=p>.</span><span class=nx>remove</span><span class=p>());</span>
-</code></pre></div><h2 id=地図に追加した線の削除 data-numberify>地図に追加した線の削除<a class="anchor ms-1 d-none" href=#地図に追加した線の削除>#</a></h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln>1</span><span class=kd>let</span> <span class=nx>markers</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s1>&#39;.leaflet-marker-pane&gt;img&#39;</span><span class=p>);</span>
+<span class=ln>2</span><span class=nx>markers</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>marker</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>marker</span><span class=p>.</span><span class=nx>remove</span><span class=p>());</span>
+</code></pre></div><h2 id=地図に追加した線の削除>地図に追加した線の削除</h2>
 <p>次は地図に追加した線を削除する方法ですが、DOMツリーで線に該当するDOMを見つけられませんでしたので、線のレイヤーを削除する方法で対処しました。</p>
 <p>方法は前述のマーカーの一括削除と同じで、<code>map</code> インスタンスに存在するレイヤーを順番に調べて、線のレイヤーが見つかれば削除するという方法です。</p>
 <p>私が調べた限りでは、線のレイヤーのプロパティには <code>options.color</code> というキーが追加され、このキーの値に線の色が格納されるようですので、このキーを使って次のコードで処理するようにしました。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln id=1><a style=outline:none;text-decoration:none;color:inherit href=#1>1</a></span><span class=c1>// 線の削除コード
-</span><span class=ln id=2><a style=outline:none;text-decoration:none;color:inherit href=#2>2</a></span><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;removeMarkerBtn&#39;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
-<span class=ln id=3><a style=outline:none;text-decoration:none;color:inherit href=#3>3</a></span>  <span class=nx>map</span><span class=p>.</span><span class=nx>eachLayer</span><span class=p>((</span><span class=nx>layer</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
-<span class=ln id=4><a style=outline:none;text-decoration:none;color:inherit href=#4>4</a></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>layer</span><span class=p>.</span><span class=nx>options</span><span class=p>.</span><span class=nx>color</span> <span class=o>!=</span> <span class=kc>undefined</span><span class=p>)</span> <span class=p>{</span>
-<span class=ln id=5><a style=outline:none;text-decoration:none;color:inherit href=#5>5</a></span>      <span class=nx>map</span><span class=p>.</span><span class=nx>removeLayer</span><span class=p>(</span><span class=nx>layer</span><span class=p>);</span>
-<span class=ln id=6><a style=outline:none;text-decoration:none;color:inherit href=#6>6</a></span>    <span class=p>}</span>
-<span class=ln id=7><a style=outline:none;text-decoration:none;color:inherit href=#7>7</a></span>  <span class=p>})</span>
-<span class=ln id=8><a style=outline:none;text-decoration:none;color:inherit href=#8>8</a></span>  <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
-<span class=ln id=9><a style=outline:none;text-decoration:none;color:inherit href=#9>9</a></span><span class=p>})</span>
-</code></pre></div></div></div><div class=card-footer>
-<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
-<i class="fas fa-fw fa-chevron-down post-prev-icon me-1" data-fa-transform=rotate-90></i>
-<a href=https://kankodori-blog.com/posts/2023-05-28/>Whisper を Windows ローカルで使うための作業</a>
-</div><div class="post-nav post-next">
-<a href=https://kankodori-blog.com/posts/2023-10-08/>Klipper の Skew correction でプリンタの歪みによる問題を解消する</a>
-<i class="fas fa-fw fa-chevron-down post-next-icon ms-1" data-fa-transform=rotate-270></i>
-</div></div>
-</div></article><div class="post-copyright mb-3 row card component" id=post-copyright>
-<div class=card-header>
-<h2 class="card-title fs-4 my-2 text-surface">Copyright</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln>1</span><span class=c1>// 線の削除コード
+</span><span class=ln>2</span><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;removeMarkerBtn&#39;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln>3</span>  <span class=nx>map</span><span class=p>.</span><span class=nx>eachLayer</span><span class=p>((</span><span class=nx>layer</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln>4</span>    <span class=k>if</span> <span class=p>(</span><span class=nx>layer</span><span class=p>.</span><span class=nx>options</span><span class=p>.</span><span class=nx>color</span> <span class=o>!=</span> <span class=kc>undefined</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>5</span>      <span class=nx>map</span><span class=p>.</span><span class=nx>removeLayer</span><span class=p>(</span><span class=nx>layer</span><span class=p>);</span>
+<span class=ln>6</span>    <span class=p>}</span>
+<span class=ln>7</span>  <span class=p>})</span>
+<span class=ln>8</span>  <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+<span class=ln>9</span><span class=p>})</span>
+</code></pre></div>
 </div>
-<div class=card-body><a class="d-flex align-items-center flex-column" target=_blank rel="license noopener noreferrer" href=https://creativecommons.org/licenses/by/4.0/deed.en>
-<span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i></span>
-CC BY 4.0
-</a>
+<div class=post_comments>
+<script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title theme=github-dark label=comment crossorigin=anonymous async></script>
 </div>
-</div><section class="related-posts row card component">
-<div class=card-header>
-<h2 class="card-title fs-4 my-2 text-surface">関連する投稿</h2>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<br>
+<div class=search>
+<input type=search class="search_field form_field" placeholder=検索... id=find autocomplete=off data-scope=posts>
+<label for=find class=search_label><svg class="icon"><title>search</title><use xlink:href="#search"/></svg>
+</label>
+<div class="search_results results"></div>
 </div>
-<div class=card-body>
-<ul class="post-list list-unstyled"><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2023-05-28/>
-Whisper を Windows ローカルで使うための作業
-</a>
-<span class="post-meta post-date float-end">2023-05-28
-</span>
-<div class="post-summary my-3"><p>前置き# 先月、Google Colab で Whisper を動かして音声をテキストに変換してブログを書いてみるという記事を投稿しました。
-この方法は Google Colab で実行するので、高性能の GPU が使えて環境構築の手間がかからないというメリットがある一方で、毎回ライブラリをインストールする必要があって初期セットアップに時間がかかるというデメリットがありました。そこで、ローカル環境で Whisper を動かせば初期セットアップの時間を節約できると思い、ローカル環境で Whisper を動かせるようにしました。
-Whisper を動かせるようにするまで色々と作業が必要だったため、備忘録として作業内容を記録します。
-環...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2023-05-28/>もっと読む</a></div></div>
-</li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2022-11-20/>
-WSL2 で生成した SSH の鍵を Windows11 で使う方法
-</a>
-<span class="post-meta post-date float-end">2022-11-20
-</span>
-<div class="post-summary my-3"><p>前置き# Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。
-しかし、WSL2 だけではなく Windows11 でも Github にアクセスする必要が出てきたので、WSL2 で生成した鍵のペアを Windows11 でも使えるようにしました。
-Windows11 or 10 で生成した鍵のペアを WSL2 で使えるようにする方法はいくつか見つかりましたが、その反対の方法を解説したページが見つからなかったため、手順を備忘録として公開します。
-環境# OS: Windows11 Pro...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2022-11-20/>もっと読む</a></div></div>
-</li><li class="mb-3 border-bottom">
-<a class=post-title href=https://kankodori-blog.com/posts/2019-07-22/>
-自作キーボードでLEDが点灯しない時のテスト方法と対処方法
-</a>
-<span class="post-meta post-date float-end">2019-07-22
-</span>
-<div class="post-summary my-3"><p>salicylic-acid3 さんが作成・販売されている自作キーボードのNaked48LED - 自キ温泉街販売所 - BOOTHとSetta21 - 自キ温泉街販売所 - BOOTHを組み立てた際、LED の取り付けで四苦八苦したので、その時にネットで集めた情報や Discord の Self-Made Keyboards in Japan で教えていただいた情報をまとめてみたいと思う。
-LED チップの向きの確認# LED チップが点灯しない時、まず最初に確認するのは取り付けた LED チップの向きである。LED の向きが違えば当然点灯しないし、テスターを使う必要もない簡単な作業なので、まずはここから開始する。
-もし向きが違っ...</p><div><a class="btn btn-sm btn-outline-primary btn-read-more" href=https://kankodori-blog.com/posts/2019-07-22/>もっと読む</a></div></div>
-</li></ul>
+<div class=author_header>
+<img src=https://hbs-skeleton.netlify.app/img/profileIcon.png alt="s-show photo">
+<h2>s-show</h2>
 </div>
-</section><div class="card component row post-comments" id=post-comments>
-<div class=card-header>
-<h2 class="card-title my-2 fs-4 text-surface">コメント</h2>
+<div class=author_bio>
+プログラミングや3Dプリンタやキーボードなどが好きな平凡な公務員
 </div>
-<div class=card-body><script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title label=comment theme=github-light crossorigin=anonymous async></script>
-</div>
-</div></div>
-</div>
-</div>
-</main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex=-1 id=offcanvasActionsPanel aria-labelledby=offcanvasActionsPanelLabel>
-<div class=offcanvas-header>
-<h5 class="offcanvas-title fs-4" id=offcanvasActionsPanelLabel>
-<i class="fas fa-fw fa-th-large me-1"></i>
-Actions
-</h5>
-<button type=button class="btn-close ms-auto" data-bs-dismiss=offcanvas data-bs-target=offcanvasActionsPanel aria-label=Close></button>
-</div>
-<div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button" target=_blank href="https://twitter.com/intent/tweet?title=leaflet%20%e8%a6%9a%e6%9b%b8&url=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-10-07%2f">
-<i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+<a href=https://hbs-skeleton.netlify.app/about/ class="button mt-1" role=button title=続きを読む>続きを読む</a>
+<h2 class=mt-4>最近の投稿</h2>
+<ul class=flex-column>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-10-08/ class=nav-link title="Klipper の Skew correction でプリンタの歪みによる問題を解消する">Klipper の Skew correction でプリンタの歪みによる問題を解消する</a>
+</li>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-10-07/ class=nav-link title="leaflet 覚書">leaflet 覚書</a>
+</li>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-05-28/ class=nav-link title="Whisper を Windows ローカルで使うための作業">Whisper を Windows ローカルで使うための作業</a>
+</li>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-04-30/ class=nav-link title="特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法">特定のプリンタの設定だけを有効化した SuperSlicer を起動する方法</a>
+</li>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-04-11/ class=nav-link title="ChatGPT と Whisper を使って記事を書いてみました">ChatGPT と Whisper を使って記事を書いてみました</a>
+</li>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-04-08/ class=nav-link title=3Dプリンタのステッピングモーターの配線について>3Dプリンタのステッピングモーターの配線について</a>
+</li>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-03-16/ class=nav-link title=PDFファイルの切り出しと圧縮方法>PDFファイルの切り出しと圧縮方法</a>
+</li>
+<li>
+<a href=https://hbs-skeleton.netlify.app/posts/2023-03-15/ class=nav-link title="OpenSCAD で作成されたデータを Fusion360 で編集する方法">OpenSCAD で作成されたデータを Fusion360 で編集する方法</a>
+</li>
+</ul>
+<div>
+<h2 class="mt-4 taxonomy" id=tags-section>タグ</h2>
+<nav class=tags_nav>
+<a href=https://hbs-skeleton.netlify.app/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ class="post_tag button button_translucent" title=備忘録>
+備忘録
+<span class=button_tally>24</span>
 </a>
-<a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button" target=_blank href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fkankodori-blog.com%2fposts%2f2023-10-07%2f">
-<i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+<a href=https://hbs-skeleton.netlify.app/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ class="post_tag button button_translucent" title=3dプリンタ>
+3Dプリンタ
+<span class=button_tally>16</span>
 </a>
-</div>
-<hr class=mb-4><div class="actions d-flex overflow-auto align-items-center">
-<a role=button class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
-<span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform=rotate-90></i></span> 戻る
+<a href=https://hbs-skeleton.netlify.app/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ class="post_tag button button_translucent" title=プログラミング>
+プログラミング
+<span class=button_tally>8</span>
 </a>
-<a role=button class="action action-reload-page d-flex flex-column align-items-center me-3">
-<span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 再表示
+<a href=https://hbs-skeleton.netlify.app/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ class="post_tag button button_translucent" title=自作キーボード>
+自作キーボード
+<span class=button_tally>6</span>
 </a>
-<a role=button class="action action-copy-url d-flex flex-column align-items-center me-3">
-<span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> URLをコピー
+<a href=https://hbs-skeleton.netlify.app/tags/klipper/ class="post_tag button button_translucent" title=klipper>
+KLIPPER
+<span class=button_tally>4</span>
 </a>
-</div>
-</div>
-</div>
-<nav class="social-links nav justify-content-center mb-2">
-<a class="nav-link social-link" href=mailto:kankodori.blog@gmail.com title=Email>
-<i class="fas fa-fw fa-2x fa-envelope"></i>
+<a href=https://hbs-skeleton.netlify.app/tags/%E8%AA%AD%E6%9B%B8%E8%A8%98%E9%8C%B2/ class="post_tag button button_translucent" title=読書記録>
+読書記録
+<span class=button_tally>3</span>
 </a>
-<a class="nav-link social-link" target=_blank href=https://github.com/s-show/s-show.github.io title=GitHub rel="noopener noreferrer">
-<i class="fa-fw fa-2x fab fa-github"></i>
+<a href=https://hbs-skeleton.netlify.app/tags/mac/ class="post_tag button button_translucent" title=mac>
+MAC
+<span class=button_tally>2</span>
 </a>
-<a class="nav-link social-link" target=_blank href=https://www.reddit.com/user/s-show title=Reddit rel="noopener noreferrer">
-<i class="fa-fw fa-2x fab fa-reddit"></i>
+<a href=https://hbs-skeleton.netlify.app/tags/mainsail/ class="post_tag button button_translucent" title=mainsail>
+MAINSAIL
+<span class=button_tally>2</span>
 </a>
-<a class="nav-link social-link" target=_blank href=https://twitter.com/s_show_0000 title=Twitter rel="noopener noreferrer">
-<i class="fa-fw fa-2x fab fa-twitter"></i>
+<a href=https://hbs-skeleton.netlify.app/tags/%E6%9C%AA%E5%88%86%E9%A1%9E/ class="post_tag button button_translucent" title=未分類>
+未分類
+<span class=button_tally>2</span>
 </a>
-<a class="nav-link social-link" target=_blank href=https://kankodori-blog.com/index.xml title=RSS rel="noopener noreferrer">
-<i class="fas fa-fw fa-2x fa-rss"></i>
+<a href=https://hbs-skeleton.netlify.app/tags/chatgpt/ class="post_tag button button_translucent" title=chatgpt>
+CHATGPT
+<span class=button_tally>1</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/karabiner-elements/ class="post_tag button button_translucent" title=karabiner-elements>
+KARABINER-ELEMENTS
+<span class=button_tally>1</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/neovim/ class="post_tag button button_translucent" title=neovim>
+NEOVIM
+<span class=button_tally>1</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/whisper/ class="post_tag button button_translucent" title=whisper>
+WHISPER
+<span class=button_tally>1</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/%E5%A4%AA%E5%B9%B3%E6%B4%8B%E6%88%A6%E4%BA%89/ class="post_tag button button_translucent" title=太平洋戦争>
+太平洋戦争
+<span class=button_tally>1</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92/ class="post_tag button button_translucent" title=機械学習>
+機械学習
+<span class=button_tally>1</span>
+</a>
+<a href=https://hbs-skeleton.netlify.app/tags/%E8%AA%AD%E6%9B%B8/ class="post_tag button button_translucent" title=読書>
+読書
+<span class=button_tally>1</span>
 </a>
 </nav>
-<div class="copyright mb-2">
-Copyright © 2021-2023 s-show. All Rights Reserved.
 </div>
-<div class="powered-by mb-2">
-Powered by <a class=text-primary href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> and the <a class=text-primary href=https://github.com/razonyang/hugo-theme-bootstrap target=_blank rel="noopener noreferrer">HBS</a> theme.
-</div></footer>
-<script data-precache src=https://kankodori-blog.com/assets/main/bundle.min.d9138c59d3736746bbc5d2f02394cffd6d498fa2e3cf23d86e1dd41451aa0865.js integrity="sha256-2ROMWdNzZ0a7xdLwI5TP/W1Jj6LjzyPYbh3UFFGqCGU=" crossorigin=anonymous defer></script><script data-precache src=https://kankodori-blog.com/assets/icons/bundle.min.e463af86313483a41647b10fe3f6b7f5155673c4ee5feecfb9927075dbcc99f7.js integrity="sha256-5GOvhjE0g6QWR7EP4/a39RVWc8TuX+7PuZJwddvMmfc=" crossorigin=anonymous defer></script>
-<script data-precache src=https://kankodori-blog.com/assets/viewer/bundle.min.656553c767bb7b8c29a3d0bf77142fe671344d24fe46bc9df13b218f0ebb2f6f.js integrity="sha256-ZWVTx2e7e4wpo9C/dxQv5nE0TST+Rryd8Tshjw67L28=" crossorigin=anonymous defer></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-367F1P4JXZ"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-367F1P4JXZ',{anonymize_ip:!1})}</script>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="to-top"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="xing"><path d="M18.188.0c-.517.0-.741.325-.927.66.0.0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211.0.375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016.0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894.0 21.686.0h-3.498zM3.648 4.74c-.211.0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016.0.021L1.86 16.051c-.099.188-.093.381.0.529.085.142.239.234.45.234h3.461c.518.0.766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 55" id="discord"><path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527.41542 45.5603.39851 45.468.440769 45.4204.525289 44.7963 1.6353 44.105 3.0834 43.6209 4.2216c-5.4572-.817-10.8864-.817-16.2317.0C26.905 3.0581 26.1886 1.6353 25.5617.525289 25.5141.443589 25.4218.40133 25.3294.41542c-5.071.87338-9.9237 2.40318-14.4518 4.48238C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795 1.57795 18.7309-.943561 32.1443.293408 45.3914.299005 45.4562.335386 45.5182.385761 45.5576 6.45866 50.0174 12.3413 52.7249 18.1147 54.5195 18.2071 54.5477 18.305 54.5139 18.3638 54.4378 19.7295 52.5728 20.9469 50.6063 21.9907 48.5383 22.0523 48.4172 21.9935 48.2735 21.8676 48.2256 19.9366 47.4931 18.0979 46.6 16.3292 45.5858 16.1893 45.5041 16.1781 45.304 16.3068 45.2082 16.679 44.9293 17.0513 44.6391 17.4067 44.3461 17.471 44.2926 17.5606 44.2813 17.6362 44.3151c11.6196 5.3051 24.1992 5.3051 35.6817.0C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433 53.9057 44.6363 54.2779 44.9293 54.6529 45.2082 54.7816 45.304 54.7732 45.5041 54.6333 45.5858c-1.7687 1.0339-3.6074 1.9073-5.5412 2.637C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383c1.0662 2.0651 2.2836 4.0316 3.6241 5.8967C52.6519 54.5139 52.7526 54.5477 52.845 54.5195c5.8014-1.7946 11.684-4.5021 17.7569-8.9619C70.6551 45.5182 70.6887 45.459 70.6943 45.3942 72.1747 30.0791 68.2147 16.7757 60.1968 4.9823 60.1772 4.9429 60.1437 4.9147 60.1045 4.8978zM23.7259 37.3253c-3.4983.0-6.3808-3.2117-6.3808-7.156s2.8266-7.156 6.3808-7.156c3.5821.0 6.4367 3.2399 6.3807 7.156.0 3.9443-2.8266 7.156-6.3807 7.156zm23.5919.0c-3.4982.0-6.3807-3.2117-6.3807-7.156s2.8265-7.156 6.3807-7.156c3.5822.0 6.4367 3.2399 6.3808 7.156.0 3.9443-2.7986 7.156-6.3808 7.156z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 18" id="mastodon"><path fill="#fff" d="m15.054695 9.8859583c-.22611 1.1632697-2.02517 2.4363497-4.09138 2.6830797-1.0774504.12856-2.1382704.24673-3.2694704.19484-1.84996-.0848-3.30971-.44157-3.30971-.44157.0.1801.0111.35157.0333.51194.24051 1.82571 1.81034 1.93508 3.29737 1.98607 1.50088.0514 2.8373104-.37004 2.8373104-.37004l.0617 1.35686s-1.0498104.56374-2.9199404.66742c-1.03124.0567-2.3117-.0259-3.80308-.42069-3.23454998-.85613-3.79081998-4.304-3.87592998-7.8024197-.026-1.03871-.01-2.01815-.01-2.83732.0-3.57732 2.34385998-4.62587996 2.34385998-4.62587996 1.18184-.54277 3.20976-.77101 5.318-.7882499985409h.0518C9.8267646.01719834 11.856025.24547834 13.037775.78824834c0 0 2.34377 1.04855996 2.34377 4.62587996.0.0.0294 2.63937-.32687 4.47183"/><path fill="#000" d="m12.616925 5.6916583v4.3315297h-1.71607V5.8189683c0-.88624-.37289-1.33607-1.1187604-1.33607-.82467.0-1.23799.53361-1.23799 1.58875v2.30122h-1.70594v-2.30122c0-1.05514-.4134-1.58875-1.23808-1.58875-.74587.0-1.11876.44983-1.11876 1.33607v4.2042197h-1.71607V5.6916583c0-.88527.22541-1.58876.67817-2.10922.46689-.52047 1.07833-.78727 1.83735-.78727.87816.0 1.54317.33752 1.98288 1.01267l.42744.71655.42753-.71655c.43961-.67515 1.10463-1.01267 1.9828704-1.01267.75893.0 1.37037.2668 1.83735.78727.45268.52046.67808 1.22395.67808 2.10922"/></symbol></svg>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://hbs-skeleton.netlify.app/img/favicon.png class="icon icon_2 transparent" alt="s-show 閑古鳥ブログ">
+<p>Copyright&nbsp;2016-&nbsp;<span class=year></span>&nbsp;S-SHOW 閑古鳥ブログ. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><title>to-top</title><use xlink:href="#to-top"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://hbs-skeleton.netlify.app/ja/js/bundle.03b6020468acd5819160251482aad3406d071bd3d554497287388ff89e26c72e8857a7356fed04964942f62d3059f5e41dbc90a19ed9fb467b4938e479c72987.js integrity="sha512-A7YCBGis1YGRYCUUgqrTQG0HG9PVVElyhziP+J4mxy6IV6c1b+0ElklC9i0wWfXkHbyQoZ7Z+0Z7STjkeccphw==" crossorigin=anonymous></script>
+<script src=https://hbs-skeleton.netlify.app/js/search.min.1b1254eb041cd756fc95f3091f63cf5363e45e881aa13c3da952b68cc085c07a9b960212f522e01621a0ed9538eac9b94e346edf62f0585f8aef843f42343a9e.js></script>
 </body>
 </html>
