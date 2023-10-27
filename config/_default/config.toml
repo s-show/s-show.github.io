@@ -5,8 +5,8 @@ baseurl = "https://kankodori-blog.com/"  # Include trailing slash
 copyright = "s-show 閑古鳥ブログ"
 # canonifyurls = true
 paginate = 10
-# theme = "github.com/chipzoller/hugo-clarity"
-theme = "hugo-clarity"
+theme = "github.com/chipzoller/hugo-clarity"
+# theme = "hugo-clarity"
 #disqusShortname = ""
 enableRobotsTXT = true
 
