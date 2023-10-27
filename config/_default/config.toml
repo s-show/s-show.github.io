@@ -40,18 +40,18 @@ home = ["HTML", "RSS", "JSON"]
       strikethrough = true
       table = true
       taskList = true
-      [markup.goldmark.extensions.typographer]
-        apostrophe = '&rsquo;'
-        disable = false
-        ellipsis = '&hellip;'
-        emDash = '&mdash;'
-        enDash = '&ndash;'
-        leftAngleQuote = '&laquo;'
-        leftDoubleQuote = '&ldquo;'
-        leftSingleQuote = '&lsquo;'
-        rightAngleQuote = '&raquo;'
-        rightDoubleQuote = '&rdquo;'
-        rightSingleQuote = '&rsquo;'
+      # [markup.goldmark.extensions.typographer]
+      #   apostrophe = '&rsquo;'
+      #   disable = false
+      #   ellipsis = '&hellip;'
+      #   emDash = '&mdash;'
+      #   enDash = '&ndash;'
+      #   leftAngleQuote = '&laquo;'
+      #   leftDoubleQuote = '&ldquo;'
+      #   leftSingleQuote = '&lsquo;'
+      #   rightAngleQuote = '&raquo;'
+      #   rightDoubleQuote = '&rdquo;'
+      #   rightSingleQuote = '&rsquo;'
     [markup.goldmark.parser]
       autoHeadingID = true
       autoHeadingIDType = 'github'
