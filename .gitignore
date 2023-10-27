@@ -131,3 +131,7 @@ nohup.out
 
 # Hugo build file
 .docs/
+.public/
+
+# ファイルシステム自動生成ファイル
+*.Identifier

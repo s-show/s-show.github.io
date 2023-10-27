@@ -17,9 +17,9 @@ Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定
 
 ## 手順
 
-{{% alert info %}}
+{{< alert info >}}
 手順の変更などに合わせて記事を修正 (2022/04/22)
-{{% /alert %}}
+{{< /alert >}}
 
 ### RClone のインストール
 
