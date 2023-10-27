@@ -10,7 +10,7 @@ const imageAltClass = 'img_alt';
 
 
 const defaultSiteLanguage = 'ja';
-const baseURL = 'https://kankodori-blog.com/';
+const baseURL = 'https://s-show.github.io';
 const searchFieldClass = '.search_field';
 const searchClass = '.search';
 const goBackClass = 'button_back';
