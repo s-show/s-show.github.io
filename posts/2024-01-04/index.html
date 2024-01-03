@@ -1,6 +1,6 @@
-<!doctype html><html lang=ja data-figures>
+<!doctype html><html lang=ja data-figures class=page>
 <head>
-<title>Posts | 閑古鳥ブログ</title>
+<title>QMK Firmware で Alt-tab を実現する方法 | 閑古鳥ブログ</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv=x-ua-compatible content="IE=edge">
@@ -8,21 +8,20 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-367F1P4JXZ')</script>
 <meta property="og:locale" content="ja">
 <meta property="og:type" content="article">
-<meta name=description content>
+<meta name=description content="前置き 1キーで Alt-Tab の動作を実現したいと以前から思っていましたが、上手い実装方法が見つからず断念していました。ところが、先日あらためて実装方法を">
 <meta name=twitter:card content="summary">
 <meta name=twitter:creator content>
-<meta name=twitter:title content="Posts">
+<meta name=twitter:title content="QMK Firmware で Alt-tab を実現する方法">
 <meta name=twitter:image content="https://kankodori-blog.com/">
-<meta property="og:url" content="https://kankodori-blog.com/posts/">
-<meta property="og:title" content="Posts">
-<meta property="og:description" content>
+<meta property="og:url" content="https://kankodori-blog.com/posts/2024-01-04/">
+<meta property="og:title" content="QMK Firmware で Alt-tab を実現する方法">
+<meta property="og:description" content="前置き 1キーで Alt-Tab の動作を実現したいと以前から思っていましたが、上手い実装方法が見つからず断念していました。ところが、先日あらためて実装方法を">
 <meta property="og:image" content="https://kankodori-blog.com/">
 <meta name=keywords content="clarity,hugo theme,閑古鳥ブログ,3Dプリンタ,キーボード">
 <link rel=apple-touch-icon sizes=180x180 href=https://kankodori-blog.com/icons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://kankodori-blog.com/icons/favicon-32x32.png>
 <link rel=manifest href=https://kankodori-blog.com/icons/site.webmanifest>
-<link rel=canonical href=https://kankodori-blog.com/posts/>
-<link rel=alternate type=application/rss+xml href=https://kankodori-blog.com/posts/index.xml title=閑古鳥ブログ>
+<link rel=canonical href=https://kankodori-blog.com/posts/2024-01-04/>
 <link rel=preload href=https://kankodori-blog.com/css/styles.02f94745b7e95b596608d321706e5c4fe0d32dca106f3b9c22fa0a2bfe867fe69d6048d93465d37c2ad1d453bc318dab643350bbd980d86b80f064a6c5945f5d.css integrity="sha512-AvlHRbfpW1lmCNMhcG5cT+DTLcoQbzucIvoKK/6Gf+adYEjZNGXTfCrR1FO8MY2rZDNQu9mA2GuA8GSmxZRfXQ==" as=style crossorigin=anonymous>
 <link rel=preload href=https://kankodori-blog.com/ja/js/bundle.51e3797e3413af67784834a4612e6389a7a35a4e2e15ffddccc89687e70e57d81574c09267d4c8d8074e587351559f8b7e56aa5716a373480d95053b2a647dea.js as=script integrity="sha512-UeN5fjQTr2d4SDSkYS5jiaejWk4uFf/dzMiWh+cOV9gVdMCSZ9TI2AdOWHNRVZ+LflaqVxajc0gNlQU7KmR96g==" crossorigin=anonymous>
 <link rel=stylesheet type=text/css href=https://kankodori-blog.com/css/styles.02f94745b7e95b596608d321706e5c4fe0d32dca106f3b9c22fa0a2bfe867fe69d6048d93465d37c2ad1d453bc318dab643350bbd980d86b80f064a6c5945f5d.css integrity="sha512-AvlHRbfpW1lmCNMhcG5cT+DTLcoQbzucIvoKK/6Gf+adYEjZNGXTfCrR1FO8MY2rZDNQu9mA2GuA8GSmxZRfXQ==" crossorigin=anonymous>
@@ -56,285 +55,107 @@
 </header>
 <main>
 <div class="grid-inverse wrap content">
-<div>
-<ul class=posts id=posts>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2023-02-05/ title="Raspberry pi pico と XIAO RP2040 を使って温度や Input Shaper を計測する方法">Raspberry pi pico と XIAO RP2040 を使って温度や Input Shaper を計測する方法</a>
-</h3>
+<article class=post_content>
+<h1 class=post_title>QMK Firmware で Alt-tab を実現する方法</h1>
 <div class=post_meta>
 <span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
 </span>
 <span class=post_date>
-2023-02-05</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ title=3Dプリンタ class="post_tag button button_translucent">3Dプリンタ
-</a><a href=https://kankodori-blog.com/tags/klipper/ title=Klipper class="post_tag button button_translucent">Klipper
-</a><a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ title=備忘録 class="post_tag button button_translucent">備忘録
+2024-01-04</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ title=備忘録 class="post_tag button button_translucent">備忘録
+</a><a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ title=自作キーボード class="post_tag button button_translucent">自作キーボード
 </a>
 </span>
 </div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>目次 長い前置き Raspberry pi Pico を使った温度測定 BOM 手順 XIAO RP2040 を使った Input Shaper の測定 BOM 手順 参考情報 長い前置き Prusa MK3S+ で印刷中にベッドの温度が急激に低下し、場合によっ</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2023-02-05/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2023-01-02/ title="2023 01 02">2023 01 02</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-12-31</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>前置き 2022年12月25日の記事で Neovim の設定を色々紹介しましたが、そこで設定コードだけ紹介した 新世代の UI 作成プラグイン ddu.vim について、もう少し詳</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2023-01-02/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-12-30/ title="Neovim の設定集（2022年12月30時点）">Neovim の設定集（2022年12月30時点）</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-12-30</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ title=備忘録 class="post_tag button button_translucent">備忘録
-</a><a href=https://kankodori-blog.com/tags/neovim/ title=Neovim class="post_tag button button_translucent">Neovim
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>目次 前置き アウトラインバッファの作成 2022年1月10日追記 日本語テキストでの移動の効率化 ddu.vim の導入 ddc.vim の導入 lualine.nvim の導入 キーバインド変更 設定ファイ</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-12-30/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-12-12/ title="WSL2 + Neovim + VSCode でクリップボードを共有する方法">WSL2 + Neovim + VSCode でクリップボードを共有する方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-12-12</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ title=備忘録 class="post_tag button button_translucent">備忘録
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>前置き 昨日の WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ に続いて WSL2 + Neovim の設定についてメモしていきます。 今回は、Neovim でヤンクし</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-12-12/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-12-11/ title="WSL2 + Neovim + VSCode でIME の状態を制御する方法">WSL2 + Neovim + VSCode でIME の状態を制御する方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-12-11</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ title=備忘録 class="post_tag button button_translucent">備忘録
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>前置き これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているため</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-12-11/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-11-20/ title="WSL2 で生成した SSH の鍵を Windows11 で使う方法">WSL2 で生成した SSH の鍵を Windows11 で使う方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-11-20</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/ title=備忘録 class="post_tag button button_translucent">備忘録
-</a><a href=https://kankodori-blog.com/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/ title=プログラミング class="post_tag button button_translucent">プログラミング
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>前置き Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-11-20/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-09-19/ title="スライサーの設定で Pressure_advance の設定値を変更する方法">スライサーの設定で Pressure_advance の設定値を変更する方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-09-19</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ title=3Dプリンタ class="post_tag button button_translucent">3Dプリンタ
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>前置き プリントヘッドの移動に合わせてフィラメントの押出量を調整する Pressure advance 機能を使う場合、必要な設定値を printer.cfg に pressure_advance: 0.045 の形式で設定する必要があります。</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-09-19/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-09-05/ title="QMK Firmware で1つのキーに Hold/Double Tap を割り当てる方法">QMK Firmware で1つのキーに Hold/Double Tap を割り当てる方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-09-18</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/ title=自作キーボード class="post_tag button button_translucent">自作キーボード
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>長い前置き 私はキー数が右手側・左手側 24 キーずつの合計 48 キーの自作キーボードを使っているのですが、IME の切り替えは、Windows の標準的な</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-09-05/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-09-03/ title="SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法">SuperSlicer で 一定の高さ毎に温度やリトラクト長を変える方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-08-31</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ title=3Dプリンタ class="post_tag button button_translucent">3Dプリンタ
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>以前PrusaSlicer/SuperSlicer で 一定のレイヤー毎に設定を変更する方法 という記事を書いたのですが、執筆後に色々調べたところ</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-09-03/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://kankodori-blog.com/posts/2022-08-31/ title="Klipper のマクロを使って Step by step 印刷を実現する方法">Klipper のマクロを使って Step by step 印刷を実現する方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><title>calendar</title><use xlink:href="#calendar"/></svg>
-</span>
-<span class=post_date>
-2022-08-30</span><span>&nbsp;· <a href=https://kankodori-blog.com/tags/3d%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF/ title=3Dプリンタ class="post_tag button button_translucent">3Dプリンタ
-</a><a href=https://kankodori-blog.com/tags/klipper/ title=Klipper class="post_tag button button_translucent">Klipper
-</a><a href=https://kankodori-blog.com/tags/mainsail/ title=Mainsail class="post_tag button button_translucent">Mainsail
-</a>
-</span>
-</div>
-</div>
-<div class=excerpt_footer>
-<div class=pale>
-<p>前置き 2022年8月18日に3Dプリンタユーザーが集まっている Discord のサーバーの klipper_jp で「GCode をスタートボタンを押して1行ずつ実行する方法はな</p>
-<br>
-<a href=https://kankodori-blog.com/posts/2022-08-31/ title=続きを読む class="excerpt_more button">続きを読む</a>
-</div>
-</div>
-</div>
-</li>
-<li>
-<ul class="pagination pagination-default">
-<li class=page-item>
-<a href=/posts/ aria-label=First class=page-link role=button><span aria-hidden=true>&#171;&#171;</span></a>
-</li>
-<li class=page-item>
-<a href=/posts/ aria-label=Previous class=page-link role=button><span aria-hidden=true>&#171;</span></a>
-</li>
-<li class=page-item>
-<a href=/posts/ aria-label="Page 1" class=page-link role=button>1</a>
-</li>
-<li class="page-item active">
-<a aria-current=page aria-label="Page 2" class=page-link role=button>2</a>
-</li>
-<li class=page-item>
-<a href=/posts/page/3/ aria-label="Page 3" class=page-link role=button>3</a>
-</li>
-<li class=page-item>
-<a href=/posts/page/4/ aria-label="Page 4" class=page-link role=button>4</a>
-</li>
-<li class=page-item>
-<a href=/posts/page/5/ aria-label="Page 5" class=page-link role=button>5</a>
-</li>
-<li class=page-item>
-<a href=/posts/page/3/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
-</li>
-<li class=page-item>
-<a href=/posts/page/5/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
-</li>
+<div class=post_toc>
+<h2>概要</h2>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#前置き>前置き</a></li>
+<li><a href=#必要なコード>必要なコード</a></li>
+<li><a href=#動作の流れ>動作の流れ</a></li>
+<li><a href=#補足>補足</a></li>
+<li><a href=#参考資料>参考資料</a></li>
 </ul>
-</li>
-</ul>
+</nav>
 </div>
+<div class=post_body><h2 id=前置き>前置き</h2>
+<p>1キーで Alt-Tab の動作を実現したいと以前から思っていましたが、上手い実装方法が見つからず断念していました。ところが、先日あらためて実装方法を探してみるとあっさり実装方法が見つかりましたので、早速導入してみました。</p>
+<p>この方法は癖が強いものの慣れれば結構快適な動作なので、その方法を備忘録代わりにまとめます。</p>
+<h2 id=必要なコード>必要なコード</h2>
+<p>まずはこの処理の実装コードを掲載します。処理の流れなどはコードの後に説明します。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=ln> 1</span><span class=kt>bool</span> <span class=n>is_alt_tab_active</span> <span class=o>=</span> <span class=nb>false</span><span class=p>;</span>    <span class=c1>// ADD this near the begining of keymap.c
+</span><span class=ln> 2</span><span class=c1></span><span class=kt>uint16_t</span> <span class=n>alt_tab_timer</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>        <span class=c1>// we will be using them soon.
+</span><span class=ln> 3</span><span class=c1></span>
+<span class=ln> 4</span><span class=k>enum</span> <span class=n>custom_keycodes</span> <span class=p>{</span>
+<span class=ln> 5</span>  <span class=n>QWERTY</span> <span class=o>=</span> <span class=n>SAFE_RANGE</span><span class=p>,</span>
+<span class=ln> 6</span>  <span class=n>ALT_TAB</span>
+<span class=ln> 7</span><span class=p>};</span>
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=c1>// ALT_TAB キーのキーマップへの割り当てコードは省略
+</span><span class=ln>10</span><span class=c1></span>
+<span class=ln>11</span><span class=kt>bool</span> <span class=nf>process_record_user</span><span class=p>(</span><span class=kt>uint16_t</span> <span class=n>keycode</span><span class=p>,</span> <span class=n>keyrecord_t</span> <span class=o>*</span><span class=n>record</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>12</span>  <span class=k>switch</span> <span class=p>(</span><span class=n>keycode</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>13</span>    <span class=k>case</span> <span class=nl>ALT_TAB</span><span class=p>:</span>
+<span class=ln>14</span>      <span class=k>if</span> <span class=p>(</span><span class=n>record</span><span class=o>-&gt;</span><span class=n>event</span><span class=p>.</span><span class=n>pressed</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>15</span>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>is_alt_tab_active</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>16</span>          <span class=n>is_alt_tab_active</span> <span class=o>=</span> <span class=nb>true</span><span class=p>;</span>
+<span class=ln>17</span>          <span class=n>register_code</span><span class=p>(</span><span class=n>KC_LALT</span><span class=p>);</span>
+<span class=ln>18</span>        <span class=p>}</span>
+<span class=ln>19</span>        <span class=n>alt_tab_timer</span> <span class=o>=</span> <span class=n>timer_read</span><span class=p>();</span>
+<span class=ln>20</span>        <span class=n>register_code</span><span class=p>(</span><span class=n>KC_TAB</span><span class=p>);</span>
+<span class=ln>21</span>      <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+<span class=ln>22</span>        <span class=n>unregister_code</span><span class=p>(</span><span class=n>KC_TAB</span><span class=p>);</span>
+<span class=ln>23</span>      <span class=p>}</span>
+<span class=ln>24</span>      <span class=k>break</span><span class=p>;</span>
+<span class=ln>25</span>    <span class=k>case</span> <span class=nl>KC_RIGHT</span><span class=p>:</span> <span class=k>case</span> <span class=nl>KC_LEFT</span><span class=p>:</span> <span class=k>case</span> <span class=nl>KC_DOWN</span><span class=p>:</span> <span class=k>case</span> <span class=nl>KC_UP</span><span class=p>:</span> <span class=k>case</span> <span class=nl>KC_TAB</span><span class=p>:</span>
+<span class=ln>26</span>      <span class=k>if</span> <span class=p>(</span><span class=n>is_alt_tab_active</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>27</span>        <span class=n>alt_tab_timer</span> <span class=o>=</span> <span class=n>timer_read</span><span class=p>();</span>
+<span class=ln>28</span>      <span class=p>}</span>
+<span class=ln>29</span>      <span class=k>break</span><span class=p>;</span>
+<span class=ln>30</span>    <span class=k>default</span><span class=o>:</span>
+<span class=ln>31</span>      <span class=k>if</span> <span class=p>(</span><span class=n>is_alt_tab_active</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>32</span>        <span class=n>unregister_code</span><span class=p>(</span><span class=n>KC_LALT</span><span class=p>);</span>
+<span class=ln>33</span>        <span class=n>is_alt_tab_active</span> <span class=o>=</span> <span class=nb>false</span><span class=p>;</span>
+<span class=ln>34</span>      <span class=p>}</span>
+<span class=ln>35</span>      <span class=k>break</span><span class=p>;</span>
+<span class=ln>36</span>  <span class=p>}</span>
+<span class=ln>37</span>  <span class=k>return</span> <span class=nb>true</span><span class=p>;</span>
+<span class=ln>38</span><span class=p>}</span>
+<span class=ln>39</span>
+<span class=ln>40</span><span class=kt>void</span> <span class=nf>matrix_scan_user</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>41</span>  <span class=k>if</span> <span class=p>(</span><span class=n>is_alt_tab_active</span> <span class=o>&amp;&amp;</span> <span class=n>timer_elapsed</span><span class=p>(</span><span class=n>alt_tab_timer</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>1000</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>42</span>    <span class=n>unregister_code</span><span class=p>(</span><span class=n>KC_LALT</span><span class=p>);</span>
+<span class=ln>43</span>    <span class=n>is_alt_tab_active</span> <span class=o>=</span> <span class=nb>false</span><span class=p>;</span>
+<span class=ln>44</span>  <span class=p>}</span>
+<span class=ln>45</span><span class=p>}</span>
+<span class=ln>46</span>
+</code></pre></div><h2 id=動作の流れ>動作の流れ</h2>
+<p>動作の流れは次のとおりです。コードを見れば分かる方は無視してください。</p>
+<ol>
+<li><code>keymap.c</code> に <code>bool is_alt_tab_active = false</code> 変数を定義して、Alt-tab 処理を実現している最中か判別するためのフラグを用意する</li>
+<li><code>keymap.c</code> に <code>uint16_t alt_tab_timer = 0</code> 変数を定義して、Alt-tab 処理を開始した時間を記録できるようにする</li>
+<li>キーマップに専用のキー（ここでは <code>ALT-TAB</code> ）を割り当てる</li>
+<li><code>process_record_user</code> 内の <code>switch</code> 文に <code>ALT-TAB</code> に対応する <code>case</code> 文を追加する</li>
+<li><code>ALT-TAB</code> が押されて、かつ <code>is_alt_tab_active</code> 変数が <code>false</code> であれば、<code>is_alt_tab_active</code> 変数を <code>true</code> にする</li>
+<li><code>register_code(KC_LALT)</code> で Alt キーを押した状態を実現する</li>
+<li><code>alt_tab_timer = timer_read()</code> で <code>ALT-TAB</code> キーを押した時間を記録する</li>
+<li><code>register_code(KC_TAB)</code> で Tab キーを押した状態を実現する</li>
+<li><code>ALT-TAB</code> キーが離されたら、<code>unregister_code(KC_TAB)</code> で Tab キーを離した状態にする</li>
+<li><code>matrix_scan_user</code> で <code>is_alt_tab_active</code> 変数が <code>true</code> かつ <code>ALT-TAB</code> キーを押してから 1000ミリ秒が経過（<code>timer_elapsed(alt_tab_timer) > 1000</code> を満たす場合）していた場合、<code>unregister_code(KC_LALT)</code> で Alt キーを離した状態にするとともに、<code>is_alt_tab_active = false</code> でフラグを下ろす。</li>
+<li>もし、<code>is_alt_tab_active</code> 変数が <code>true</code> のときに上下左右の矢印キーが押された場合、<code>alt_tab_timer</code> をその時点の時間に置き換えてウィンドウ選択の時間を確保できるようにする。</li>
+<li>もし、<code>is_alt_tab_active</code> 変数が <code>true</code> のときに上下左右の矢印キー<strong>以外</strong>が押された場合、<code>unregister_code(KC_LALT)</code> で Alt キーを離した状態にするとともに、<code>is_alt_tab_active = false</code> でフラグを下ろす（Enterキーでウィンドウを選択した場合を想定した設定）。</li>
+</ol>
+<h2 id=補足>補足</h2>
+<p>1キーで Alt-Tab を実現している以上、Alt キーを押しながらのんびり Tab キーを押してウィンドウを選択するという処理はできません。そのため、一回該当するキーを押したら、速やかにカーソルキーで移動先のウィンドウを選択する必要があります。</p>
+<p>私の場合、ホームポジションから手を動かさずにレイヤー移動でカーソルキーにアクセスできるので上記の制限は問題にならないのですが、手を動かさないとカーソルキーにアクセスできない場合はちょっと問題になるかもしれません。</p>
+<h2 id=参考資料>参考資料</h2>
+<p>上記のコードの元ネタのファイルは <a href=https://github.com/qmk/qmk_firmware/pull/22695>https://github.com/qmk/qmk_firmware/pull/22695</a> のプルリクで削除されているので、削除前のファイルへのリンクを掲載
+<a href=https://github.com/qmk/qmk_firmware/blob/d235352504f82eae5dedc399bae36c65f1348fa8/keyboards/dz60/keymaps/_bonfire/not-in-use/super-alt-tab.c>https://github.com/qmk/qmk_firmware/blob/d235352504f82eae5dedc399bae36c65f1348fa8/keyboards/dz60/keymaps/_bonfire/not-in-use/super-alt-tab.c</a></p>
+</div>
+<div class=post_comments>
+<script src=https://utteranc.es/client.js repo=s-show/s-show.github.io issue-term=title theme=github-dark label=comment crossorigin=anonymous async></script>
+</div>
+</article>
 <aside class=sidebar>
 <section class=sidebar_inner>
 <br>
