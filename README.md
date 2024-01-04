@@ -1,1 +1,1 @@
-Blog -> [閑古鳥ブログ](https://s-show.github.io/)
+Blog -> [閑古鳥ブログ](https://kankodori-blog.com)
