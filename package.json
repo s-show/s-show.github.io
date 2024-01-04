@@ -1,0 +1,39 @@
+{
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/s-show/s-show.github.io/issues"
+  },
+  "comments": {
+    "dependencies": {
+      "express": "project",
+      "open-graph-scraper": "project",
+      "wait-on": "project"
+    },
+    "devDependencies": {}
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "open-graph-scraper": "^4.11.0",
+    "wait-on": "^6.0.1"
+  },
+  "description": "",
+  "devDependencies": {},
+  "directories": {
+    "doc": "docs"
+  },
+  "homepage": "https://github.com/s-show/s-show.github.io#readme",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "kankodori-blog",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s-show/s-show.github.io.git"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "version": "1.0.0"
+}

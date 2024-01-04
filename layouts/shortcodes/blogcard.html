@@ -1,0 +1,17 @@
+{{ $url := ( .Get 0) }}
+{{ $getURL := printf "http://localhost:6060/ogp?%s" (querify "url" $url ) }}
+{{ $ogpjson := getJSON $getURL }}
+
+<div class="card col-9 mt-3 mb-3">
+	<div class="row g-1">
+		<div class="col-3">
+			<img class="blog-card-image" src="{{ $ogpjson.ogImage.url }}" alt="{{ $ogpjson.ogTitle }}"/>
+		</div>
+		<div class="col-9">
+			<h5 class="m-1">
+				<a href="{{ $ogpjson.ogUrl }}" class="">{{ $ogpjson.ogTitle }}</a>
+			</h5>
+			<p class="card-text m-1">{{ $ogpjson.ogDescription | truncate 100 }}</p>
+		</div>
+	</div>
+</div>

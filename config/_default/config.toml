@@ -1,0 +1,76 @@
+# set `baseurl` to your root domain
+# if you set it to "/" share icons won't work properly on production
+baseurl = "https://kankodori-blog.com/"  # Include trailing slash
+#title = "閑古鳥ブログ"  # Edit directly from config/_default/languages.toml # alternatively, uncomment this and remove `title` entry from the aforemention file.
+copyright = "s-show 閑古鳥ブログ"
+# canonifyurls = true
+paginate = 10
+theme = "github.com/chipzoller/hugo-clarity"
+# theme = "hugo-clarity"
+#disqusShortname = ""
+enableRobotsTXT = true
+
+defaultContentLanguage = "ja"
+hasCJKLanguage = true
+[languages]
+  [languages.ja]
+    languageCode = "ja"
+    title = "閑古鳥ブログ"
+    LanguageName = "日本語"
+    weight = 1
+
+# [menus]
+# config/_default/menus/menu.xx.toml
+
+[taxonomies]
+#category = "categories"
+tag = "tags"
+#series = "series"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      linkifyProtocol = 'https'
+      strikethrough = true
+      table = true
+      taskList = true
+      # [markup.goldmark.extensions.typographer]
+      #   apostrophe = '&rsquo;'
+      #   disable = false
+      #   ellipsis = '&hellip;'
+      #   emDash = '&mdash;'
+      #   enDash = '&ndash;'
+      #   leftAngleQuote = '&laquo;'
+      #   leftDoubleQuote = '&ldquo;'
+      #   leftSingleQuote = '&lsquo;'
+      #   rightAngleQuote = '&raquo;'
+      #   rightDoubleQuote = '&rdquo;'
+      #   rightSingleQuote = '&rsquo;'
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      autoHeadingIDType = 'github'
+      wrapStandAloneImageWithinParagraph = true
+      [markup.goldmark.parser.attribute]
+        block = false
+        title = true
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.tableOfContents]
+      endLevel = 3
+      ordered = false
+      startLevel = 2
+    [markup.highlight]
+      codeFences = true
+      guessSyntax = true
+      #hl_Lines = "--"
+      #lineNoStart = 1
+      lineNos = true # always set to true # else line numbers won't show at all! even when you toggle them on in the UI
+      lineNumbersInTable = false # toggling this on (i.e to true) or deleting this line will break the code blocks functionality. Will
+      noClasses = false
+      #tabWidth = 2
