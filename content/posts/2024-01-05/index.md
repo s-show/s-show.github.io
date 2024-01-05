@@ -1,7 +1,7 @@
 ---
 # type: docs 
 title: 3Dプリンタの造形物を顕微鏡で観察した結果
-date: 2024-5T01:51:48+09:00
+date: 2024-01-05T01:51:48+09:00
 featured: false
 draft: false
 comment: true
