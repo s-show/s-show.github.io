@@ -50,5 +50,5 @@ curl https://api.qmk.fm/v1/keyboards | jq
 ---
 
 参考情報
-{{< blogcard "https://github.com/qmk/qmk_api/blob/master/docs/keyboard_api.md" >}}
-{{< blogcard "https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch" >}}
+[qmk_api/docs/keyboard_api.md at master · qmk/qmk_api](https://github.com/qmk/qmk_api/blob/master/docs/keyboard_api.md)
+[フェッチ API の使用 - Web API | MDN](https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch)

@@ -64,7 +64,7 @@ jobs:
 `jobs.container: docker://kauplan/review2.5`
 : Re:view Starter のビルドは Docker のコンテナを利用しているので、Github Actions でも Docker のコンテナを利用するための設定。コンテナには Re:view Starter の作者が作成したコンテナを指定します。
 
-{{< blogcard "https://hub.docker.com/r/kauplan/review2.5/" >}}
+[kauplan/review2.5 - Docker Image | Docker Hub](https://hub.docker.com/r/kauplan/review2.5/)
 
 `jobs.steps.name: Checkout`
 : ジョブの命名。このジョブは、勉強会資料のリポジトリを Github Actions で使うためにチェックアウトするものなので「Checkout」としています。
@@ -72,7 +72,7 @@ jobs:
 `jobs.steps.name.uses: actions/checkout@v2`
 : Github Actions の環境はリポジトリがチェックアウトされていない状態なので、そのままではリポジトリのデータにアクセスできません。そこで、公開アクションの `actions/checkout@v2` を使ってリポジトリをチェックアウトして `$GITHUB_WORKSPACE` の下に置くようにします。
 
-{{< blogcard "https://github.com/actions/checkout" >}}
+[actions/checkout: Action for checking out a repo](https://github.com/actions/checkout)
 
 `jobs.steps.name.with.repository: s-show/workshop_document`
 : 勉強会資料のリポジトリをチェックアウトの対象に指定してます。
@@ -82,7 +82,7 @@ jobs:
 
 プライベートリポジトリを使う場合のコードは以下に掲載されています。
 
-{{< blogcard "https://github.com/actions/checkout#Checkout-multiple-repos-private" >}}
+[actions/checkout: Action for checking out a repo](https://github.com/actions/checkout#Checkout-multiple-repos-private)
 
 認証情報の生成は後で説明します。
 
@@ -125,4 +125,4 @@ Personal access token の生成画面はユーザー設定画面にあります�
 
 `ACTIONS_RUNNER_DEBUG` → `true`
 
-{{< blogcard "https://docs.github.com/ja/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging" >}}
+[デバッグ ログを有効にする - GitHub Docs](https://docs.github.com/ja/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging)

@@ -129,7 +129,7 @@ Fliddpi をインストールした RaspberryPi の `~/klipper/config/` ディ�
 
 Marlin では「プリンタを 1mm 動かすのにステッピングモーターを何ステップ動かすか」を設定する `steps_per_mm` でプリントヘッドやベッドの移動距離を調整していましたが、Klipper では「ステッピングモーターが完全に1回転したときに軸方向に動く距離」を設定する `rotation_distance` で調整します。
 
-{{< blogcard "https://github.com/Klipper3d/klipper/blob/master/docs/Rotation_Distance.md" >}}
+[klipper/docs/Rotation_Distance.md at master · Klipper3d/klipper](https://github.com/Klipper3d/klipper/blob/master/docs/Rotation_Distance.md)
 
 <div class="alert alert-info" role="alert">
   &#x2139; 以前は `step_distance` という項目で調整されていましたが、2021年11月2日の変更でこの項目は使えなくなっています。
