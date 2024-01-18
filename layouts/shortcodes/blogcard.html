@@ -1,17 +1,34 @@
 {{ $url := ( .Get 0) }}
-{{ $getURL := printf "http://localhost:6060/ogp?%s" (querify "url" $url ) }}
+{{ $getURL := printf "http://localhost:6060/getogp?%s" (querify "url" $url ) }}
 {{ $ogpjson := getJSON $getURL }}
+{{ $getSizeURL := printf "http://localhost:6060/size?%s" (querify "url" $ogpjson.image ) }}
+{{ $imgjson := getJSON $getSizeURL }}
 
-<div class="card col-9 mt-3 mb-3">
-	<div class="row g-1">
-		<div class="col-3">
-			<img class="blog-card-image" src="{{ $ogpjson.ogImage.url }}" alt="{{ $ogpjson.ogTitle }}"/>
-		</div>
-		<div class="col-9">
-			<h5 class="m-1">
-				<a href="{{ $ogpjson.ogUrl }}" class="">{{ $ogpjson.ogTitle }}</a>
-			</h5>
-			<p class="card-text m-1">{{ $ogpjson.ogDescription | truncate 100 }}</p>
-		</div>
-	</div>
+<p></p><!-- Avoid overriding list -->
+<div class="embed">
+    <div class="rf">
+        <div class="rr">
+            <div class="rcx9 rcm9 rpls">
+                <div class="rf">
+                    <div class="rr">
+                        <div class="rcx12 body">
+                            <a class="utdn"
+                                href="{{ $ogpjson.url }}"><strong>{{ $ogpjson.title }}</strong></a>
+                        </div>
+                        <div class="rcm12" style="font-size: .8rem;">
+                            {{ $ogpjson.description | truncate 50 }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rcx3 rcm3 rtxc rpxs rpls">
+                <a href="{{ $ogpjson.url }}">
+                    <div>
+                        <amp-img class="" src="{{ $ogpjson.image }}"
+                            alt="{{ $ogpjson.title }}" width="75" height="75" layout="fixed"></amp-img>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
