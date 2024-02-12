@@ -4,3 +4,4 @@
 *.sh        text eol=lf
 package.json text eol=lf
 *.jpg       -text
+content/posts/2024-02-12/image/exclude_object.mp4 filter=lfs diff=lfs merge=lfs -text
