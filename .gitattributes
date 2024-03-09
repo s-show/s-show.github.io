@@ -5,4 +5,5 @@
 package.json text eol=lf
 *.jpg       -text
 content/posts/2024-02-12/image/exclude_object.mp4 filter=lfs diff=lfs merge=lfs -text
+content/posts/2024-03-10/klipper_adaptive_mesh_leveling.mp4 filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
