@@ -4,3 +4,6 @@
 [submodule "themes/hugo-clarity"]
 	path = themes/hugo-clarity
 	url = https://github.com/chipzoller/hugo-clarity
+[submodule "themes/themes/hugo-clarity"]
+	path = themes/themes/hugo-clarity
+	url = https://github.com/chipzoller/hugo-clarity
