@@ -34,7 +34,7 @@ enthumbleを入れても変換/無変換キーをIMEのオン/オフキーとし
 
 調査では、まず、[Change Key](https://forest.watch.impress.co.jp/library/software/changekey/)というキーボードカスタマイズソフトのキーコード調査機能を使ったのだが、以下のスクリーンショットのとおり、ちゃんと変換/無変換キーが送信されているという結果が出てきた。
 
-![](https://kankodori-blog.com/wp-content/uploads/2019/07/764c5c650717871cf7b41f223001333a.png)
+[](https://kankodori-blog.com/wp-content/uploads/2019/07/764c5c650717871cf7b41f223001333a.png)
 
 変換/無変換キーが送信されているのは確認できたので、Raise/Lowerキーを「単独で押せば変換/無変換、他のキーと組み合わせたらRaise/Lower」という設定がきちんとできていることは確認できたのだが、それでもenthumbleが動作しない理由が分からなかった。とりあえず、enthumbleを再インストールしたりWindowsを再起動したりといった定番の作業は行ったが、一向に問題が解決しない。
 
