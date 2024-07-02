@@ -6,7 +6,7 @@ featured: false
 draft: false
 comment: true
 toc: true
-tags: [vim]
+tags: [vim,neovim]
 ---
 
 ## 前置き
