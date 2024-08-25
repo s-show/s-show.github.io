@@ -138,6 +138,26 @@ vim.fn['skkeleton#register_keymap']('input', '/', 'abbrev')
 - `vim.fn['skkeleton#register_keymap']('input', '/', 'abbrev')`
   - `/` で abbrev モードに入る
 
+{{% alert info %}}
+
+追記1
+
+上記の `registerConvertResult = 2` は、正しくは `registerConvertResult = true` です。
+
+また、上記で設定した `vim.fn['skkeleton#register_keymap']('input', '/', 'abbrev')` については、あまり使い道がなかったので、2024年7月時点では設定を削除しています。
+
+さらに、辞書の保存場所を `C:\Users\(username)\AppData\Local\nvim\skk_dict\` に変えましたが、`globalDictionaries` に辞書のパスをハードコードするのはイマイチだと感じましたので、Vim の `expand()` 関数を使ってパスを展開することにしました。
+
+```lua
+    vim.fn["expand"]('~/AppData/Local/nvim/skk_dict/SKK-JISYO.L'),
+    vim.fn["expand"]('~/AppData/Local/nvim/skk_dict/SKK-JISYO.geo'),
+    vim.fn["expand"]('~/AppData/Local/nvim/skk_dict/SKK-JISYO.jinmei'),
+    vim.fn["expand"]('~/AppData/Local/nvim/skk_dict/SKK-JISYO.law'),
+```
+
+{{% /alert %}}
+
+
 
 ## 補足
 
@@ -166,6 +186,14 @@ skkeleton の導入の説明は以上のとおりですが、動かせるよう�
 ```
 
 そこで `call denops#cache#update(#{reload: v:true})` を実行して Neovim を再起動したところ、見事にエラーが発生しなくなりました。エラーの原因は Deno のキャッシュだったようですが、Slack の Vim-jp のチャットルームでも Deno のキャッシュ周りで色々トラブルが起きているという発言がありましたので、同じトラブルに巻き込まれてしまったようです。
+
+{{% alert info %}}
+
+追記2
+
+このトラブルですが、WindowsTerminal + NuShell ではトラブルが続いているのに対し、WindowsTerminal + PowerShell では全く発生しません。原因は不明です。
+
+{{% /alert %}}
 
 ## SKK を使う理由
 
