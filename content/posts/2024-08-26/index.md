@@ -84,7 +84,7 @@ end)
 
 実際の動作は次のとおりです。
 
-{{< video src="./image/preview.mp4" type="video/webm" preload="auto" >}}
+{{< video src="./image/preview.mp4" type="video/mp4" preload="auto" >}}
 
 
 ## 補足
