@@ -84,7 +84,10 @@ end)
 
 実際の動作は次のとおりです。
 
-{{< video src="/image/preview.mp4" type="video/mp4" preload="auto" >}}
+<!-- {{< video src="/image/preview.mp4" type="video/mp4" preload="auto" >}} -->
+<video class="video-shortcode" preload="{{ .Get "preload" }}" controls>
+  <source src="https://kankodori-blog.com/posts/2024-08-26/image/preview.mp4" type="video/mp4" />
+</video>
 
 
 ## 補足
