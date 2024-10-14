@@ -328,7 +328,7 @@ LCD に表示する画像を変数に格納する関数です。引数は、`.qg
 
 実際の動作は次の動画のとおりです。
 
-<video class="video-shortcode" preload="auto">
+<video class="video-shortcode" preload="auto" controls>
   <source src="https://github.com/s-show/s-show.github.io/raw/refs/heads/master/content/posts/2024-10-14/image/change_image.MP4">
 </video>
 
