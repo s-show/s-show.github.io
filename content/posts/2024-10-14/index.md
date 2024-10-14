@@ -222,7 +222,7 @@ SRC += images/icon.qgf.c
 
 これでようやく事前準備ができましたので、実際に LCD に画像を表示する処理を書いていきます。
 
-LCD に画像を表示する処理は `keymap.c` に書けますが、`keymap.c` には本来のキーマップの処理だけを書いておきたいので、`test_color_lcd.c` ファイルを作成してそこに書くことにしました。なお、`test_color_lcd.c` というファイル名は、このカラー LCD のテストをするためのキーボード名を便宜的に "test_color_lcd" にしているためです。
+LCD に画像を表示する処理は `keymap.c` に書けますが、`keymap.c` には本来のキーマップの処理だけを書きたいので、`test_color_lcd.c` ファイルを作成してそこに書くことにしました。なお、`test_color_lcd.c` というファイル名は、このカラー LCD のテストをするためのキーボード名を便宜的に "test_color_lcd" にしているためです。
 
 画像を表示するコードは以下のとおりです。簡単な説明はコメントに書いていますが、この後で細かい説明を追記します。なお、このコードは、9つの画像をキー操作に応じて切り替えるという動作を実現するためのものです。
 
@@ -329,6 +329,10 @@ LCD に表示する画像を変数に格納する関数です。引数は、`.qg
 実際の動作は次の動画のとおりです。
 
 {{< video src="image/change_image.mp4" type="video/mp4" preload="auto" >}}
+
+<video class="video-shortcode" preload="auto">
+  <source src="image/change_image.mp4">
+</video>
 
 ```c
 /* keymap.c */
