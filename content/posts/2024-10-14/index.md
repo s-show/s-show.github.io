@@ -331,7 +331,7 @@ LCD に表示する画像を変数に格納する関数です。引数は、`.qg
 {{< video src="image/change_image.mp4" type="video/mp4" preload="auto" >}}
 
 <video class="video-shortcode" preload="auto">
-  <source src="image/change_image.mp4">
+  <source src="https://github.com/s-show/s-show.github.io/raw/refs/heads/master/content/posts/2024-10-14/image/change_image.MP4">
 </video>
 
 ```c
