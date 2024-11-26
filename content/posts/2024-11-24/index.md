@@ -53,6 +53,8 @@ ddu-ui-ff: commit c1a8644
 結論から言いますと、以下の設定で上記の処理を実現できます。なお、私は Lua で設定していますので、Lua のコードを示します。
 
 ```lua
+-- バグがあったため修正（2024/11/26）
+
 -- オートコマンドを削除する時の目印となるグループを設定
 -- グループ名は任意の値に設定できる
 local ddu_vim_autocmd_group = vim.api.nvim_create_augroup('ddu_vim', {})
@@ -89,24 +91,29 @@ vim.api.nvim_create_autocmd({'User'},
     pattern = 'Ddu:ui:ff:closeFilterWindow',
     callback = function()
       -- `Ddu_start_with_filter_window()` 関数で設定したオートコマンドの ID を取得
-      local autocmd_id_openfilterwindow = Get_autocmd_id(ddu_vim_autocmd_group, 'Ddu:uiDone')
-
-      if autocmd_id_openfilterwindow ~= 0 then
+      -- 引数を Table で渡すと名前付き引数のように扱える
+      local autocmd_id = Get_autocmd_id({group = ddu_vim_autocmd_group, pattern = 'Ddu:uiDone'})
+      
+      if autocmd_id ~= 0 then
         -- `Ddu_start_with_filter_window()` 関数で設定したオートコマンドを削除
         -- これを忘れるとリストを表示するたびに絞り込みが始まってしまう
-        vim.api.nvim_del_autocmd(autocmd_id_openfilterwindow)
+        vim.api.nvim_del_autocmd(autocmd_id)
       end
     end
   }
 )
 
 -- 引数に対応するオートコマンドの ID を返す関数
-function Get_autocmd_id(group, pattern)
-  return vim.api.nvim_get_autocmds({
-    group = group,
-    pattern = { pattern }
-  })[1].id
-  -- ↑ lua の配列の添字は 1 から始まる
+-- 引数は Table で渡されているので `args.xx` の形で取り出す
+function Get_autocmd_id(args)
+  local pcall_result, function_return = pcall(
+    vim.api.nvim_get_autocmds, { group = args.group, pattern = { args.pattern } }
+  )
+  if pcall_result then
+    return function_return[1].id -- lua の配列の添字は 1 から始まる
+  else
+    return 0
+  end
 end
 ```
 
