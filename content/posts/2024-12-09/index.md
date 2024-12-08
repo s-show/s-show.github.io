@@ -1,9 +1,9 @@
 ---
 # type: docs 
 title: Neovim でコマンドの実行結果をバッファに出力する方法
-date: 2024-11-24T23:14:23+09:00
+date: 2024-12-09T00:00:00+09:00
 featured: false
-draft: true
+draft: false
 comment: true
 toc: true
 tags: [Neovim]
