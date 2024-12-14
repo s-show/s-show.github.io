@@ -9,6 +9,10 @@ toc: false
 tags: [Neovim,Lua]
 ---
 
+{{% alert info %}}
+2024年12月15日追記あり
+{{% /alert %}}
+
 ## 前置き
 
 [tinysegmenter.nvim](https://zenn.dev/sirasagi62/articles/d654fbbf5039d6) という Lua で日本語の分かち書きを実現するソフトウェアが登場しましたので、これを利用して、Neovim の Word Motion をオーバーライドしようと思ったのですが、その処理で日本語を含む文字列の長さを取得する必要が生じました。
@@ -100,6 +104,15 @@ vim.fn.len(vim.fn.split('ああ', '\\zs'))
 ```
 
 これで日本語の文字列の長さを正しく取得することができるようになりましたので、[tinysegmenter.nvim](https://zenn.dev/sirasagi62/articles/d654fbbf5039d6) を使って Neovim の Word motion をオーバーライドする方法を次の記事で紹介します。
+
+### 追記（2024年12月15日）
+
+本記事を公開した後、vim-jp で `strcharlen()` を使う方法を提案されましたので、以下のコードでテストしたら簡単に日本語の文字列の長さを取得できました。そのため、上記の `vim.fn.len(vim.fn.split('ああ', '\\zs'))` のようなコードを書かなくても、`vim.fn.strcharlen('ああ')` と書けば正しい文字列の長さを取得できます。
+
+```vim
+:echo strcharlen('ああ')
+-> 2
+```
 
 ## 補足
 
