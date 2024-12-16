@@ -22,7 +22,7 @@ Vim/Neovim には単語単位で移動する Word Motion という機能があ�
 ## 実際の動作
 
 <video class="video-shortcode" preload="auto" controls>
-  <source src="https://github.com/s-show/s-show.github.io/raw/refs/heads/master/content/posts/2024-12-16/img/upgrade_word_motion_720p.MP4">
+  <source src="https://github.com/s-show/s-show.github.io/raw/refs/heads/master/content/posts/2024-12-16/img/upgrade_word_motion_720p.mp4">
 </video>
 
 ## 前提条件
