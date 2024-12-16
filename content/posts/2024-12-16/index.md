@@ -6,20 +6,23 @@ featured: false
 draft: false
 comment: true
 toc: true
-tags: []
+tags: [neovim,lua]
 ---
 
 ## 前置き
 
+この記事はVim Advent Calendar 2024 の 16日目の記事です。本記事執筆時点で15日目の記事は登録されていないので、本記事の前の記事は、[nil2](https://zenn.dev/nil2) さんの [Vimの:{range}!を通して任意の言語でテキストを処理する](https://zenn.dev/nil2/articles/22a8960b84d46e) です。AWK でテキストを整形したりワンライナーのスクリプトのデバッグをするのに便利そうな手法ですね。
+
 Vim/Neovim には単語単位で移動する Word Motion という機能があり、`w`, `b`, `e`, `ge` で単語単位の移動ができますが、スペースを単語の区切りとしていますので、日本語では使いにくい機能でした。
 
-そんな中、[tinysegmenter.nvim](https://github.com/sirasagi62/tinysegmenter.nvim) という日本語の分かち書きを実現する Neovim プラグインが登場し、日本語の文章を単語単位で簡単に区切れるようになりましたので、これを使って Word Motion を改造してみようと思いました。
+そんな中、Vim Advent Calendar 2024 の [2日目の記事](https://zenn.dev/sirasagi62/articles/d654fbbf5039d6)で [tinysegmenter.nvim](https://github.com/sirasagi62/tinysegmenter.nvim) という日本語の分かち書きを実現する Neovim プラグインが紹介されていましたが、こちらを利用すると日本語の文章を単語単位で簡単に区切れますので、これを使って Word Motion を改造してみようと思いました。
 
 いざやってみると結構苦労しましたが、何とか形になりましたので、その成果を公表します。
+
 ## 実際の動作
 
 <video class="video-shortcode" preload="auto" controls>
-  <source src="">
+  <source src="https://github.com/s-show/s-show.github.io/raw/refs/heads/master/content/posts/2024-12-16/img/upgrade_word_motion_720p.MP4">
 </video>
 
 ## 前提条件
