@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ChatGPT on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/tags/chatgpt/</link>
+    <description>Recent content in ChatGPT on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Mon, 10 Apr 2023 23:05:01 +0900</lastBuildDate><atom:link href="http://localhost:1313/tags/chatgpt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ChatGPT と Whisper を使って記事を書いてみました</title>
+      <link>http://localhost:1313/post/2023-04-11/</link>
+      <pubDate>Mon, 10 Apr 2023 23:05:01 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2023-04-11/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;前々から &lt;a href=&#34;https://chat.openai.com/chat&#34;&gt;ChatGPT&lt;/a&gt; を試してみようと思ってちょくちょく調べていたのですが、&lt;a href=&#34;https://zenn.dev/mossan_hoshi/articles/20230401_gpt4_tech_blog&#34;&gt;2つの実例で実感！GPT-4が導く技術ブログ文化の崩壊(プロンプト付き)&lt;/a&gt; という記事を見て、それならブログの執筆に使ってみてどれだけ使えるか試してみることにしました。&lt;/p&gt;
+&lt;p&gt;また、ChatGPT に加えて音声認識の &lt;a href=&#34;https://openai.com/research/whisper&#34;&gt;Introducing Whisper&lt;/a&gt; も使うことで、先の記事で引用されている「喋った内容を文字起こしして ChatGPT に整形してもらって細かいところを修正してアップする」という一連の作業を自分でも実現できるか試してみたいと思いました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

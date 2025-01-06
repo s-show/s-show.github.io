@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2022/06 on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/archives/2022/06/</link>
+    <description>Recent content in 2022/06 on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Sat, 11 Jun 2022 16:09:50 +0900</lastBuildDate><atom:link href="http://localhost:1313/archives/2022/06/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>html-include の使い方</title>
+      <link>http://localhost:1313/post/2022-06-11/</link>
+      <pubDate>Sat, 11 Jun 2022 16:09:50 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-06-11/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;自作キーボードのコミュニティで使用している質問用フォームを管理していますが、1つのページに全ての質問を載せる形から、問題の内容に応じて質問を分けるようにしました。&lt;/p&gt;
+&lt;p&gt;この改修により、管理するページ数が1から6に増え、そのうち5つのページでヘッダー等が共通していましたので、共通部分を切り出す方法を探したところ、&lt;a href=&#34;https://www.npmjs.com/package/html-includes&#34;&gt;html-includes - npm&lt;/a&gt; というプラグインがちょうど良かったため、早速使うことにしました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

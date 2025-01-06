@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2022/12 on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/archives/2022/12/</link>
+    <description>Recent content in 2022/12 on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Fri, 30 Dec 2022 16:48:00 +0900</lastBuildDate><atom:link href="http://localhost:1313/archives/2022/12/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Neovim の設定集（2022年12月30時点）</title>
+      <link>http://localhost:1313/post/2022-12-30/</link>
+      <pubDate>Fri, 30 Dec 2022 16:48:00 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-12-30/</guid>
+      <description>
+        
+          
+            &lt;div class=&#34;page-toc&#34;&gt;
+  &lt;details class=&#34;&#34;&gt;
+    &lt;summary&gt;目次&lt;/summary&gt;
+    &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#前置き&#34;&gt;前置き&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#アウトラインバッファの作成&#34;&gt;アウトラインバッファの作成&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#2022年1月10日追記&#34;&gt;2022年1月10日追記&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#日本語テキストでの移動の効率化&#34;&gt;日本語テキストでの移動の効率化&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#dduvim-の導入&#34;&gt;ddu.vim の導入&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#ddcvim-の導入&#34;&gt;ddc.vim の導入&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#lualinenvim-の導入&#34;&gt;lualine.nvim の導入&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#キーバインド変更&#34;&gt;キーバインド変更&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#設定ファイル分割&#34;&gt;設定ファイル分割&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#reviewのシンタックスハイライト&#34;&gt;Re:VIEWのシンタックスハイライト&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#noicenvim-の導入&#34;&gt;noice.nvim の導入&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#導入したものの廃止したもの&#34;&gt;導入したものの廃止したもの&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#fine-cmdlinenvim&#34;&gt;fine-cmdline.nvim&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#参考にしたサイト情報&#34;&gt;参考にしたサイト・情報&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+  &lt;/details&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;WSL2 + Neovim + VSCode で使っていく予定だったのですが、Neovim をあれこれカスタマイズしていると Neovim が使いやすくなってきてメインエディタになりそうなので、これまでの設定をまとめてみようと思います。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>WSL2 &#43; Neovim &#43; VSCode でクリップボードを共有する方法</title>
+      <link>http://localhost:1313/post/2022-12-12/</link>
+      <pubDate>Mon, 12 Dec 2022 22:05:21 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-12-12/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;昨日の &lt;a href=&#34;https://kankodori-blog.com/posts/2022-12-11/&#34;&gt;WSL2 + Neovim + VSCode でIME の状態を制御する方法 - 閑古鳥ブログ&lt;/a&gt; に続いて WSL2 + Neovim の設定についてメモしていきます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>WSL2 &#43; Neovim &#43; VSCode でIME の状態を制御する方法</title>
+      <link>http://localhost:1313/post/2022-12-11/</link>
+      <pubDate>Sun, 11 Dec 2022 21:26:56 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-12-11/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;これまでいくつかのエディタを使ってきましたが、Vim のキーバインドが使えると何かと楽、というよりも Vim のキーバインドに手が慣れているため、思い切って Neovim を使ってみることにしました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

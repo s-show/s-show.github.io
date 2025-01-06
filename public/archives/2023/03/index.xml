@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2023/03 on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/archives/2023/03/</link>
+    <description>Recent content in 2023/03 on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Wed, 15 Mar 2023 23:08:57 +0900</lastBuildDate><atom:link href="http://localhost:1313/archives/2023/03/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PDFファイルの切り出しと圧縮方法</title>
+      <link>http://localhost:1313/post/2023-03-16/</link>
+      <pubDate>Wed, 15 Mar 2023 23:08:57 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2023-03-16/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;職場内研修の資料を &lt;a href=&#34;https://reviewml.org/ja/&#34;&gt;Re:VIEW - Digital Publishing System for Books and eBooks&lt;/a&gt; を使って作成していますが、ページが増えて出力した PDF の容量が職場のメールの容量制限に引っかかるようになりました。そこで PDF の切り出しツールと圧縮ツールを探したら以下のツールが見つかりましたので、備忘録を兼ねてツールの紹介と簡単な使い方をまとめます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>OpenSCAD で作成されたデータを Fusion360 で編集する方法</title>
+      <link>http://localhost:1313/post/2023-03-15/</link>
+      <pubDate>Mon, 13 Mar 2023 21:34:03 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2023-03-15/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;先日、OpenSCAD で作成された3Dモデルを一部改変して3Dプリンタで出力したいことがあり、そのとき OpenSCAD で作成されたデータを &lt;code&gt;.step&lt;/code&gt; ファイルに変換して Fusion360 で編集する方法を見つけたのですが、日本語で変換方法を説明しているウェブページが見つからなかったため、備忘録を兼ねて手順をまとめます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>RP2040 で QMK Firmware を使うメモ</title>
+      <link>http://localhost:1313/post/2023-03-06/</link>
+      <pubDate>Mon, 06 Mar 2023 22:39:17 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2023-03-06/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://tenkey.connpass.com/event/273910/&#34;&gt;天下一キーボードわいわい会 Vol.4 - connpass&lt;/a&gt; にキーボードを出展するためにケースを新規作成しましたが、それに合わせて、以前から実現したかった USB Type-C 化を実現するため、以前購入して上手く使えなかった &lt;a href=&#34;https://github.com/sekigon-gonnoc/pico-micro&#34;&gt;sekigon-gonnoc/pico-micro: A Pro Micro compatible board with RP2040 and mid-mount USB-C receptacle&lt;/a&gt; を使いました。RP2040 で QMK Firmware を動かすのは初めてで、使えるようになるまで多少の試行錯誤がありましたので、備忘録として必要な作業をまとめました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

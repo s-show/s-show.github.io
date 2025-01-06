@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2022/01 on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/archives/2022/01/</link>
+    <description>Recent content in 2022/01 on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Sat, 29 Jan 2022 00:50:00 +0900</lastBuildDate><atom:link href="http://localhost:1313/archives/2022/01/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Klipper &amp; Moonraker &amp; FluiddPi でタイムラプス動画を撮影する方法</title>
+      <link>http://localhost:1313/post/2022-01-29/</link>
+      <pubDate>Sat, 29 Jan 2022 00:50:00 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-01-29/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;Klipper &amp;amp; Moonraker &amp;amp; FluiddPi の組み合わせで 3Dプリンタの印刷の様子をタイムラプス動画にすることに成功しましたので、その方法をまとめます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>RClone を使って Klipper の設定をバックアップする方法</title>
+      <link>http://localhost:1313/post/2022-01-16/</link>
+      <pubDate>Sun, 16 Jan 2022 01:31:30 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-01-16/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;Raspberry Pi に Klipper と FluiddPi をインストールして色々と設定を行っていますが、万が一の事態に備えて、RClone を使って設定ファイルをクラウドストレージに定期的にバックアップするようにしまし
+た。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>PrusaSlicer/SuperSlicer で 一定のレイヤー毎に温度を変化させる方法</title>
+      <link>http://localhost:1313/post/2022-01-07/</link>
+      <pubDate>Fri, 07 Jan 2022 21:41:06 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-01-07/</guid>
+      <description>
+        
+          
+            &lt;p&gt;3D プリンタで新しいフィラメントを使う場合、最適な温度やリトラクト長を探し出す必要がありますが、「プリント→結果を確認→設定変更→プリント」という順番で調査すると時間がいくらあっても足りません。そのため、1回のプリントで様々な設定を試せると便利ということになります。&lt;/p&gt;
+&lt;p&gt;幸い、スライサー側の機能を使うことで、レイヤー高に応じて設定を変更することが可能となりますので、その方法を紹介します。&lt;/p&gt;
+&lt;p&gt;なお、スライサーによって設定方法だけでなくできることも違いますので、スライサー毎に説明します。ただし、結論を先取りしますと、PrusaSlicer/SuperSlicer よりも Cura の方が設定が簡単な上に出来ることも多いので、こういう処理を行う場合は Cura を使うか、G-Code を生成してくれるサービスを利用することをお勧めします。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Klipper と FluiddPi の設定について</title>
+      <link>http://localhost:1313/post/2022-01-02/</link>
+      <pubDate>Sun, 02 Jan 2022 13:21:51 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-01-02/</guid>
+      <description>
+        
+          
+            &lt;div class=&#34;page-toc&#34;&gt;
+  &lt;details class=&#34;&#34;&gt;
+    &lt;summary&gt;目次&lt;/summary&gt;
+    &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#前置き&#34;&gt;前置き&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#作業の順番&#34;&gt;作業の順番&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#fluiddpi-のインストール&#34;&gt;FluiddPi のインストール&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#kiuah-のインストール&#34;&gt;Kiuah のインストール&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#klipper-ファームウェアのビルド--インストール&#34;&gt;Klipper ファームウェアのビルド &amp;amp; インストール&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#klipper-の設定&#34;&gt;Klipper の設定&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#移動距離の調整&#34;&gt;移動距離の調整&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#pid-チューニング&#34;&gt;PID チューニング&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#pressure-advance-の調整&#34;&gt;Pressure advance の調整&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#コマンドでファームウェアを再起動&#34;&gt;コマンドでファームウェアを再起動&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#input-shaper&#34;&gt;Input Shaper&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#スライサーと-fluiddpi-を繋ぐ方法&#34;&gt;スライサーと FluiddPi を繋ぐ方法&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#g-code-の問題&#34;&gt;G-Code の問題&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#position_min-の設定&#34;&gt;position_min の設定&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#bltouch-の使い方&#34;&gt;BLTouch の使い方&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#プローブの-z-offset-の調整&#34;&gt;プローブの Z-Offset の調整&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#mesh-bed-leveling-のトラブル&#34;&gt;Mesh Bed Leveling のトラブル&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#その他のエラー対策&#34;&gt;その他のエラー対策&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#printercfg-等の設定ファイルの保存場所&#34;&gt;&lt;code&gt;printer.cfg&lt;/code&gt; 等の設定ファイルの保存場所&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+  &lt;/details&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;我が家の3Dプリンタのファームウェアを Marlin から Klipper に変更し、あわせてプリンタ操作ツールを OctoPrint から FluiddPi に変更しましたので、インストール方法などをメモしておきます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

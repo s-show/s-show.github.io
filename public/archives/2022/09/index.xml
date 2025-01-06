@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2022/09 on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/archives/2022/09/</link>
+    <description>Recent content in 2022/09 on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Mon, 19 Sep 2022 10:28:27 +0900</lastBuildDate><atom:link href="http://localhost:1313/archives/2022/09/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>スライサーの設定で Pressure_advance の設定値を変更する方法</title>
+      <link>http://localhost:1313/post/2022-09-19/</link>
+      <pubDate>Mon, 19 Sep 2022 10:28:27 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-09-19/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;プリントヘッドの移動に合わせてフィラメントの押出量を調整する &lt;a href=&#34;https://www.klipper3d.org/Kinematics.html#pressure-advance&#34;&gt;Pressure advance&lt;/a&gt; 機能を使う場合、必要な設定値を &lt;code&gt;printer.cfg&lt;/code&gt; に &lt;code&gt;pressure_advance: 0.045&lt;/code&gt; の形式で設定する必要があります。しかし、この設定値は、フィラメント毎、印刷温度毎に変化しますので、最低でもフィラメントを切り替える都度 &lt;code&gt;printer.cfg&lt;/code&gt; を編集する必要が生じます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>QMK Firmware で1つのキーに Hold/Double Tap を割り当てる方法</title>
+      <link>http://localhost:1313/post/2022-09-05/</link>
+      <pubDate>Sun, 18 Sep 2022 15:00:00 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-09-05/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;長い前置き&#34;&gt;長い前置き&lt;/h2&gt;
+&lt;p&gt;私はキー数が右手側・左手側 24 キーずつの合計 48 キーの自作キーボードを使っているのですが、IME の切り替えは、Windows の標準的なトグル式ではなく、Mac のように IME をオンにするキーとオフにするキーを別々に用意する形にしています。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

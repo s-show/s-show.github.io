@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2022/02 on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/archives/2022/02/</link>
+    <description>Recent content in 2022/02 on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Thu, 24 Feb 2022 03:00:00 +0900</lastBuildDate><atom:link href="http://localhost:1313/archives/2022/02/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Raspberry Pi 1台で3Dプリンタ2台を動かしつつタイムラプス動画を撮影する方法</title>
+      <link>http://localhost:1313/post/2022-02-24/</link>
+      <pubDate>Thu, 24 Feb 2022 03:00:00 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-02-24/</guid>
+      <description>
+        
+          
+            &lt;div class=&#34;page-toc&#34;&gt;
+  &lt;details class=&#34;&#34;&gt;
+    &lt;summary&gt;目次&lt;/summary&gt;
+    &lt;nav id=&#34;TableOfContents&#34;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;#前置き&#34;&gt;前置き&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#tldl&#34;&gt;TL;DL&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;#具体的な作業&#34;&gt;具体的な作業&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&#34;#klipper-と-moonraker-の削除&#34;&gt;Klipper と Moonraker の削除&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#klipper-のインストール&#34;&gt;Klipper のインストール&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#moonraker-のインストール&#34;&gt;Moonraker のインストール&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#printercfg-の編集&#34;&gt;&lt;code&gt;printer.cfg&lt;/code&gt; の編集&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#moonrakerconf-の編集&#34;&gt;&lt;code&gt;moonraker.conf&lt;/code&gt; の編集&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#タイムラプス動画撮影のスクリプトをインストール&#34;&gt;タイムラプス動画撮影のスクリプトをインストール&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#webカメラの設定&#34;&gt;Webカメラの設定&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#fluiddpi-の設定&#34;&gt;FluiddPi の設定&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+  &lt;/details&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;日本の3Dプリンタユーザーが集まっている Discord の 3D Printing Japan Comunity のメンバーの虎鉄悦夫さんが&lt;a href=&#34;https://note.com/etsuo_note/n/n85e4243bf10c&#34;&gt;Raspberry pi1台で複数台のKlipper搭載３Dプリンタを制御する方法（KIAUH活用版）｜虎鉄悦夫｜note&lt;/a&gt;という記事を執筆されたので、自分もやってみようと思ってみたら結構大変だったので、自分用の備忘録として作業記録を残します。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

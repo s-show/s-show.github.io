@@ -1,0 +1,30 @@
+{{ define "main" }}
+<h2>{{ .Title }}</h2>
+  <p>月別記事</p> 
+  <!-- 新しい月別にループする -->
+  <div>
+    <!-- 新しい月別にループする -->
+    {{ $pages := .Data.Pages.ByTitle }}
+    <!-- terms.htlm は他の taxonomies と共通なので、archives の場合だけ新しい月別順にする -->
+    {{ if eq .Type "archives" }}
+      {{ $pages = $pages.Reverse }}
+    {{ end }}
+    {{ range $pages }}
+    <div class="月別のタイトル (例)2022/01">
+      {{ $anchor := anchorize .Title }}
+      <a name="{{ $anchor }}" href="#{{ $anchor }}">#アンカーリンク</a>
+      <a href="{{ .Permalink | absURL }}">
+        <strong>{{ .Title }}</strong>
+      </a>
+    </div>
+    <ul>
+      <!-- 月別内の記事一覧ループ -->
+      {{ range .Data.Pages.ByTitle }}
+      <li>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </div>
+{{ end }}

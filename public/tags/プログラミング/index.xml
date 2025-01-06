@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>プログラミング on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/</link>
+    <description>Recent content in プログラミング on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Sun, 03 Mar 2024 17:36:56 +0900</lastBuildDate><atom:link href="http://localhost:1313/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jspreadsheet のメモ</title>
+      <link>http://localhost:1313/post/2024-03-03/</link>
+      <pubDate>Sun, 03 Mar 2024 17:36:56 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2024-03-03/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;自作のWebアプリで使っている &lt;a href=&#34;https://bossanova.uk/jspreadsheet/v4/&#34;&gt;The javascript spreadsheet&lt;/a&gt; について、備忘録としｔ&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>leaflet 覚書</title>
+      <link>http://localhost:1313/post/2023-10-07/</link>
+      <pubDate>Sat, 07 Oct 2023 00:41:37 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2023-10-07/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;仕事で「XY座標を使ってオンライン地図に土地の境界点を示すアプリが欲しい」と思って自作したのですが、アプリ制作で使った &lt;a href=&#34;https://leafletjs.com/&#34;&gt;Leaflet - a JavaScript library for interactive maps&lt;/a&gt; について、メモしておかないと忘れそうな点がありましたので、備忘録としてまとめます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Whisper を Windows ローカルで使うための作業</title>
+      <link>http://localhost:1313/post/2023-05-28/</link>
+      <pubDate>Sun, 28 May 2023 00:41:37 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2023-05-28/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;先月、Google Colab で Whisper を動かして音声をテキストに変換してブログを書いてみるという&lt;a href=&#34;../2023-04-11/&#34;&gt;記事&lt;/a&gt;を投稿しました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>WSL2 で生成した SSH の鍵を Windows11 で使う方法</title>
+      <link>http://localhost:1313/post/2022-11-20/</link>
+      <pubDate>Sun, 20 Nov 2022 12:16:58 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2022-11-20/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;Github でパスワードを用いた HTTPS 接続が 2021年8月13日に廃止されたことに伴い、WSL2 で SSH 接続のための秘密鍵と公開鍵のペアを作成して各種操作に利用していました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>QMK API を使ってキーボードのリストを取得する方法</title>
+      <link>http://localhost:1313/post/2021-12-12/</link>
+      <pubDate>Sun, 12 Dec 2021 09:00:00 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2021-12-12/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;自作キーボードのトラブルシューティングのための&lt;a href=&#34;https://s-show.github.io/mon-shin-dialog-sample/&#34;&gt;問診票テンプレート&lt;/a&gt;を作る時に、QMK Firmware リポジトリの &lt;code&gt;keyboards&lt;/code&gt; ディレクトリにあるキーボードのリストを取得する方法を発見していました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>ArduinoとPlaidを使ってマイコンを複製する方法</title>
+      <link>http://localhost:1313/post/2019-10-13/</link>
+      <pubDate>Sun, 13 Oct 2019 16:02:31 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2019-10-13/</guid>
+      <description>
+        
+          
+            &lt;h1 id=&#34;前置き&#34;&gt;前置き&lt;/h1&gt;
+&lt;p&gt;自作キーボードのPlaidはお気に入りのキーボードであるが、このキーボードは、ProMicro の代わりにマイコンの ATMega328P を使っており、キーボードには ISP ポートが用意されている。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>自作キーボードでLEDが点灯しない時のテスト方法と対処方法</title>
+      <link>http://localhost:1313/post/2019-07-22/</link>
+      <pubDate>Mon, 22 Jul 2019 14:19:11 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2019-07-22/</guid>
+      <description>
+        
+          
+            &lt;p&gt;&lt;a href=&#34;https://salicylic-acid3.hatenablog.com/&#34;&gt;salicylic-acid3&lt;/a&gt; さんが作成・販売されている自作キーボードの&lt;a href=&#34;https://salicylic-acid3.booth.pm/items/1271568&#34;&gt;Naked48LED - 自キ温泉街販売所 - BOOTH&lt;/a&gt;と&lt;a href=&#34;https://salicylic-acid3.booth.pm/items/1271667&#34;&gt;Setta21 - 自キ温泉街販売所 - BOOTH&lt;/a&gt;を組み立てた際、LED の取り付けで四苦八苦したので、その時にネットで集めた情報や Discord の Self-Made Keyboards in Japan で教えていただいた情報をまとめてみたいと思う。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AutoHotKeyの解説と自分の設定について</title>
+      <link>http://localhost:1313/post/2019-06-18/</link>
+      <pubDate>Tue, 18 Jun 2019 11:35:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2019-06-18/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;自作キーボードキットのErgoDashを組み立てて日々使っているが、以下のページで紹介されている方法を使って、Raise/Lowerキーを「単独で押せば変換/無変換 or かな/英数、他のキーと組み合わせて押せばRaise/Lower」となるように設定して使っている。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://okapies.hateblo.jp/entry/2019/02/02/133953&#34;&gt;QMK Firmware で Raise/Lower と変換/無変換を同じキーに割り当てる&lt;/a&gt;&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法</title>
+      <link>http://localhost:1313/post/2017-11-25/</link>
+      <pubDate>Sat, 25 Nov 2017 12:35:30 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2017-11-25/</guid>
+      <description>
+        
+          
+            &lt;h1 id=&#34;karabiner-elementsとは&#34;&gt;Karabiner-Elementsとは&lt;/h1&gt;
+&lt;p&gt;Karabiner-Elementsは、Macのキーボードカスタマイズアプリで、設定ファイルを自分で記述することで以下のような機能を実現できます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;quot;control-H&amp;quot;のようなキー入力を&amp;quot;Command-A&amp;quot;の入力に変換&lt;/li&gt;
+&lt;li&gt;&amp;quot;Escape&amp;quot;を１回入力したら&amp;quot;Escape, 英数, Escape&amp;quot;のようなキー入力を実現する&lt;/li&gt;
+&lt;li&gt;&amp;quot;control-2&amp;quot;のようなキー入力に&lt;code&gt;&amp;quot;open -a &#39;safari&#39;&amp;quot;&lt;/code&gt;のようなシェルコマンドの実行を割り当てる&lt;/li&gt;
+&lt;li&gt;&amp;quot;スペースバー&amp;quot;を押している間だけ、&amp;quot;H, J, K, L&amp;quot;をカーソルキーに変換する&lt;/li&gt;
+&lt;li&gt;&amp;quot;control-x control-c&amp;quot;のようなキー入力を&amp;quot;command-Q&amp;quot;の入力に変換したり、シェルコマンドの実行を割り当てる。&lt;/li&gt;
+&lt;li&gt;左右のコマンドキーを押すとIMEをオン・オフできるようにする&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;同じキーボードカスタマイズアプリで、同じ開発者が開発していたKarabinerがmacOS Sierraで使用できなくなったため、後継アプリとして開発されています。ちなみに、KarabinerはKeyRemap4MacBookと呼ばれていたアプリです。 アプリの配布場所：&lt;a href=&#34;https://karabiner-elements.pqrs.org/&#34;&gt;Karabiner-Elements&lt;/a&gt;&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

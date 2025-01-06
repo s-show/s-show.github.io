@@ -1,0 +1,8 @@
+<p><a href="/archives/">アーカイブ</a></p>
+<ul>
+  {{ range .Site.Taxonomies.archives.Alphabetical.Reverse }}
+  <li>
+    <a href="{{ $.Permalink }}">{{ .Name }} ({{ .Count }})</a>
+  </li>
+  {{ end }}
+</ul>

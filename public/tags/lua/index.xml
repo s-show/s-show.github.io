@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lua on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/tags/lua/</link>
+    <description>Recent content in Lua on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Mon, 16 Dec 2024 15:03:26 +0900</lastBuildDate><atom:link href="http://localhost:1313/tags/lua/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>日本語を分かち書きして Word Motion で移動できるようにしました</title>
+      <link>http://localhost:1313/post/2024-12-16/</link>
+      <pubDate>Mon, 16 Dec 2024 15:03:26 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2024-12-16/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;この記事はVim Advent Calendar 2024 の 16日目の記事です。本記事執筆時点で15日目の記事は登録されていないので、本記事の前の記事は、&lt;a href=&#34;https://zenn.dev/nil2&#34;&gt;nil2&lt;/a&gt; さんの &lt;a href=&#34;https://zenn.dev/nil2/articles/22a8960b84d46e&#34;&gt;Vimの:{range}!を通して任意の言語でテキストを処理する&lt;/a&gt; です。AWK でテキストを整形したりワンライナーのスクリプトのデバッグをするのに便利そうな手法ですね。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Neovim の Lua で文字列の長さを取得しようとしたら苦労した話</title>
+      <link>http://localhost:1313/post/2024-12-14/</link>
+      <pubDate>Sat, 14 Dec 2024 00:36:47 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2024-12-14/</guid>
+      <description>
+        
+          
+            &lt;div class=&#34;alert alert_info&#34;&gt;
+2024年12月15日追記あり
+&lt;/div&gt;
+&lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://zenn.dev/sirasagi62/articles/d654fbbf5039d6&#34;&gt;tinysegmenter.nvim&lt;/a&gt; という Lua で日本語の分かち書きを実現するソフトウェアが登場しましたので、これを利用して、Neovim の Word Motion をオーバーライドしようと思ったのですが、その処理で日本語を含む文字列の長さを取得する必要が生じました。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

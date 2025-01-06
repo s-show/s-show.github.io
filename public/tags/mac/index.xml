@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on 閑古鳥ブログ</title>
+    <link>http://localhost:1313/tags/mac/</link>
+    <description>Recent content in Mac on 閑古鳥ブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>s-show 閑古鳥ブログ</copyright>
+    <lastBuildDate>Tue, 22 May 2018 14:34:04 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Macbook proでメモリ交換して電源が入らなくなってから復活するまでの経緯</title>
+      <link>http://localhost:1313/post/2018-03-22/</link>
+      <pubDate>Tue, 22 May 2018 14:34:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2018-03-22/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;メルカリで売りに出ていた「Macbook pro, 2011Early, 15インチ」を購入して、さらにメモリを16GBに増強して快適な環境を構築しようとしたら、メモリ交換後に電源ボタンを押しても反応がないというまさかの事態に陥ってしまった。何とか蘇らせることができてこの記事を書けるまでになったので、同じ症状に遭遇した人のために、顛末を書いてみたいと思う。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Karabiner-Elementsを使ってMacのキーボード操作を快適にする方法</title>
+      <link>http://localhost:1313/post/2017-11-25/</link>
+      <pubDate>Sat, 25 Nov 2017 12:35:30 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2017-11-25/</guid>
+      <description>
+        
+          
+            &lt;h1 id=&#34;karabiner-elementsとは&#34;&gt;Karabiner-Elementsとは&lt;/h1&gt;
+&lt;p&gt;Karabiner-Elementsは、Macのキーボードカスタマイズアプリで、設定ファイルを自分で記述することで以下のような機能を実現できます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;quot;control-H&amp;quot;のようなキー入力を&amp;quot;Command-A&amp;quot;の入力に変換&lt;/li&gt;
+&lt;li&gt;&amp;quot;Escape&amp;quot;を１回入力したら&amp;quot;Escape, 英数, Escape&amp;quot;のようなキー入力を実現する&lt;/li&gt;
+&lt;li&gt;&amp;quot;control-2&amp;quot;のようなキー入力に&lt;code&gt;&amp;quot;open -a &#39;safari&#39;&amp;quot;&lt;/code&gt;のようなシェルコマンドの実行を割り当てる&lt;/li&gt;
+&lt;li&gt;&amp;quot;スペースバー&amp;quot;を押している間だけ、&amp;quot;H, J, K, L&amp;quot;をカーソルキーに変換する&lt;/li&gt;
+&lt;li&gt;&amp;quot;control-x control-c&amp;quot;のようなキー入力を&amp;quot;command-Q&amp;quot;の入力に変換したり、シェルコマンドの実行を割り当てる。&lt;/li&gt;
+&lt;li&gt;左右のコマンドキーを押すとIMEをオン・オフできるようにする&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;同じキーボードカスタマイズアプリで、同じ開発者が開発していたKarabinerがmacOS Sierraで使用できなくなったため、後継アプリとして開発されています。ちなみに、KarabinerはKeyRemap4MacBookと呼ばれていたアプリです。 アプリの配布場所：&lt;a href=&#34;https://karabiner-elements.pqrs.org/&#34;&gt;Karabiner-Elements&lt;/a&gt;&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
