@@ -2,16 +2,13 @@
 # type: docs 
 title: Neovim の設定集（2022年12月30時点）
 date: 2022-12-30T16:48:00+09:00
-featured: false
+featured: true
 draft: false
-toc: false
+toc: true
 comment: true
 tags: [備忘録, Neovim]
-images: []
 archives: 2022/12
 ---
-
-{{<toc>}}
 
 ## 前置き
 
