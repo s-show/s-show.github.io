@@ -142,3 +142,9 @@ nixosConfigurations = {
 この記事を書くため、WSL2 に追加で NixOS をインストール（`wsl --install --name nixos2 --from-file .\Downloads\nixos.wsl`）して上記と同じ手順で作業したところ、問題なく NixOS を設定できましたし、所要時間も30分程度でした。
 
 引き続き NixOS で遊んでみようと思います。
+
+追伸
+
+記事執筆時点の設定ファイルは以下のリンクから確認できます。
+
+[s-show/dotfiles_nixos](https://github.com/s-show/dotfiles_nixos/tree/78ed772866197e53f5a28f0e05d4753a9f4b4597)
