@@ -7,7 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>s-show 閑古鳥ブログ</copyright>
-    <lastBuildDate>Fri, 27 Dec 2024 16:49:10 +0900</lastBuildDate><atom:link href="http://localhost:1313/tags/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Apr 2025 14:51:17 +0900</lastBuildDate><atom:link href="http://localhost:1313/tags/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows on Arm の WSL2 に NixOS を導入する - Snapdragon X Elite 環境での挑戦と設定の一元化</title>
+      <link>http://localhost:1313/post/2025-04-20/</link>
+      <pubDate>Sun, 20 Apr 2025 14:51:17 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2025-04-20/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;自宅のデスクトップPC (Intel CPU) 上のWSL2でNixOSを使っていましたが、最近新たに購入したSnapdragon X Elite搭載のWindows on ARM (WoA) ノートPCにも同じ環境を構築したいと考えました。しかし、Intel環境とは異なるアーキテクチャであるため、単純な手順ではインストールできませんでした。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Lazy.nvim でローカルにあるプラグインを読み込む方法</title>
       <link>http://localhost:1313/post/2024-12-27/</link>
@@ -214,36 +231,7 @@
       <description>
         
           
-            &lt;div class=&#34;page-toc&#34;&gt;
-  &lt;details class=&#34;&#34;&gt;
-    &lt;summary&gt;目次&lt;/summary&gt;
-    &lt;nav id=&#34;TableOfContents&#34;&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;a href=&#34;#前置き&#34;&gt;前置き&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#アウトラインバッファの作成&#34;&gt;アウトラインバッファの作成&lt;/a&gt;
-      &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&#34;#2022年1月10日追記&#34;&gt;2022年1月10日追記&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#日本語テキストでの移動の効率化&#34;&gt;日本語テキストでの移動の効率化&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#dduvim-の導入&#34;&gt;ddu.vim の導入&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#ddcvim-の導入&#34;&gt;ddc.vim の導入&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#lualinenvim-の導入&#34;&gt;lualine.nvim の導入&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#キーバインド変更&#34;&gt;キーバインド変更&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#設定ファイル分割&#34;&gt;設定ファイル分割&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#reviewのシンタックスハイライト&#34;&gt;Re:VIEWのシンタックスハイライト&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#noicenvim-の導入&#34;&gt;noice.nvim の導入&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#導入したものの廃止したもの&#34;&gt;導入したものの廃止したもの&lt;/a&gt;
-      &lt;ul&gt;
-        &lt;li&gt;&lt;a href=&#34;#fine-cmdlinenvim&#34;&gt;fine-cmdline.nvim&lt;/a&gt;&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;#参考にしたサイト情報&#34;&gt;参考にしたサイト・情報&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/nav&gt;
-  &lt;/details&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
 &lt;p&gt;WSL2 + Neovim + VSCode で使っていく予定だったのですが、Neovim をあれこれカスタマイズしていると Neovim が使いやすくなってきてメインエディタになりそうなので、これまでの設定をまとめてみようと思います。&lt;/p&gt;
           
           

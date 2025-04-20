@@ -102,5 +102,22 @@
       </description>
     </item>
     
+    <item>
+      <title>Neovim でコマンドの実行結果をバッファに出力する方法</title>
+      <link>http://localhost:1313/post/2024-12-09/</link>
+      <pubDate>Mon, 09 Dec 2024 00:00:00 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/2024-12-09/</guid>
+      <description>
+        
+          
+            &lt;h2 id=&#34;前置き&#34;&gt;前置き&lt;/h2&gt;
+&lt;p&gt;Neovim でコマンドを実行したとき、実行結果が1行の文字列ならコマンドラインに結果が表示されるのですが、結果が Table 型だと &lt;code&gt;table 0x...&lt;/code&gt; と表示されて中身を確認できません。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
   </channel>
 </rss>

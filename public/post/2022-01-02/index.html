@@ -428,8 +428,7 @@
 <blockquote>
 <p>The pressure advance value is dependent on the extruder, the nozzle, and the filament. It is common for filament from different manufactures or with different pigments to require significantly different pressure advance values. Therefore, one should calibrate pressure advance on each printer and with each spool of filament.</p>
 <p>PRESSURE_ADVANCE の値は、エクストルーダー、ノズルまたはフィラメントに依存します。メーカーや顔料が異なるフィラメントでは、PRESSURE_ADVANCE の値が大きく異なるのが一般的です。そのため、フィラメントスプール毎またはプリンター毎に PRESSURE_ADVANCE の値を調整するべきです。（拙訳）</p>
-<p><a href="https://www.klipper3d.org/Pressure_Advance.html#important-notes">Pressure advance - Klipper documentation</a> より引用</p>
-</blockquote>
+<p><a href="https://www.klipper3d.org/Pressure_Advance.html#important-notes">Pressure advance - Klipper documentation</a> より引用</p></blockquote>
 <h3 id="コマンドでファームウェアを再起動">コマンドでファームウェアを再起動</h3>
 <p>次のコマンドでファームウェアを再起動できます。これで再起動できない場合、本体の電源を切ることになります。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">curl -X POST fluiddpi.local/printer/firmware_restart
@@ -438,8 +437,7 @@
 <p>Input Shaper とは、プリンタ自身の振動をキャンセルして印刷物の品質を向上させる機能で、Klipper オリジナルの機能です。大量の計算を必要とするため、現時点では RapberryPi をプリンタの MCU として使用する Klipper しか実現できない機能ではないかと思います。</p>
 <blockquote>
 <p>Input shaping is an open-loop control technique which creates a commanding signal that cancels its own vibrations.</p>
-<p>Input Shaping は、プリンタ自身の振動をキャンセルする制御信号を作成するオープンループの技術です。（拙訳）</p>
-</blockquote>
+<p>Input Shaping は、プリンタ自身の振動をキャンセルする制御信号を作成するオープンループの技術です。（拙訳）</p></blockquote>
 <p>この機能を使うにはプリンタ特有の振動を調べる必要があり、調査方法は、手動＆目視で行う方法と加速度センサーを使う方法の2つがあります。最初は手動＆目視で調査を試みましたが、確認が難しかったため加速度センサーを使うことにしました。</p>
 <h4 id="事前準備">事前準備</h4>
 <p>Input Shaper の測定はハードとソフトの両方で事前準備が必要ですので、それぞれ説明します。</p>
@@ -598,8 +596,7 @@
 <blockquote>
 <p>If the BL-Touch will be used to home the Z axis then set <code>endstop_pin: probe:z_virtual_endstop</code> and remove <code>position_endstop</code> in the <code>[stepper_z]</code> config section, then add a <code>[safe_z_home]</code> config section to raise the z axis, home the xy axes, move to the center of the bed, and home the z axis</p>
 <p>BLTouch を Z 軸のホーミングで使うなら、<code>endstop_pin: probe:z_virtual_endstop</code> を設定するとともに、<code>position_endstop</code> を <code>[stepper_z]</code> セクションから削除します。それから、XY 軸のホーミングの時に Z 軸を持ち上げて、Z 軸のホーミングでベッドの中心に移動するために <code>[safe_z_home]</code> セクションを追加します。（拙訳）</p>
-<p><a href="https://www.klipper3d.org/BLTouch.html">BL-Touch - Klipper documentation</a> より</p>
-</blockquote>
+<p><a href="https://www.klipper3d.org/BLTouch.html">BL-Touch - Klipper documentation</a> より</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">[stepper_z]
 </span></span><span class="line"><span class="ln">2</span><span class="cl">endstop_pin: probe:z_virtual_endstop
 </span></span><span class="line"><span class="ln">3</span><span class="cl">#position_endstop: 0.0
@@ -886,8 +883,17 @@
 
     
     
+    <h2 class="mt-4">おすすめの投稿</h2>
+    <ul>
+      <li>
+        <a href="http://localhost:1313/post/2022-12-30/" class="nav-link" title="Neovim の設定集（2022年12月30時点）">Neovim の設定集（2022年12月30時点）</a>
+      </li>
+    </ul>
     <h2 class="mt-4">最近の投稿</h2>
     <ul class="flex-column">
+      <li>
+        <a href="http://localhost:1313/post/2025-04-20/" class="nav-link" title="Windows on Arm の WSL2 に NixOS を導入する - Snapdragon X Elite 環境での挑戦と設定の一元化">Windows on Arm の WSL2 に NixOS を導入する - Snapdragon X Elite 環境での挑戦と設定の一元化</a>
+      </li>
       <li>
         <a href="http://localhost:1313/post/2024-12-27/" class="nav-link" title="Lazy.nvim でローカルにあるプラグインを読み込む方法">Lazy.nvim でローカルにあるプラグインを読み込む方法</a>
       </li>
@@ -909,20 +915,19 @@
       <li>
         <a href="http://localhost:1313/post/2024-11-07/" class="nav-link" title="Windows Terminal &#43; WSL2 &#43; Neovim で Autolist.nvim を使う場合のメモ">Windows Terminal + WSL2 + Neovim で Autolist.nvim を使う場合のメモ</a>
       </li>
-      <li>
-        <a href="http://localhost:1313/post/2024-11-05/" class="nav-link" title="QMK Firmware でオリジナルロゴを表示する方法">QMK Firmware でオリジナルロゴを表示する方法</a>
-      </li>
     </ul>
     <div>
-      <h2 class="mt-4 taxonomy" id="archives-section"></h2>
+    
+      
+      <h2 class="mt-4 taxonomy" id="archives-section">archives</h2>
       <nav class="tags_nav">
-        <a href='http://localhost:1313/archives/2022/01/' class="post_tag button button_translucent" title="2022/01">
-          2022/01
-          <span class="button_tally">4</span>
-        </a>
-        
         <a href='http://localhost:1313/archives/2024/12/' class="post_tag button button_translucent" title="2024/12">
           2024/12
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='http://localhost:1313/archives/2022/01/' class="post_tag button button_translucent" title="2022/01">
+          2022/01
           <span class="button_tally">4</span>
         </a>
         
@@ -1076,7 +1081,11 @@
             </a>
             
             
-            <a href='http://localhost:1313/archives/2024/12/' class=" post_tag button button_translucent" data-position=4 title="2024/12">2024/12<span class="button_tally">4</span>
+            <a href='http://localhost:1313/archives/2024/12/' class=" post_tag button button_translucent" data-position=5 title="2024/12">2024/12<span class="button_tally">5</span>
+            </a>
+            
+            
+            <a href='http://localhost:1313/archives/2025/04/' class=" post_tag button button_translucent" data-position=1 title="2025/04">2025/04<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
@@ -1089,7 +1098,9 @@
       </nav>
     </div>
     <div>
-      <h2 class="mt-4 taxonomy" id="tags-section">タグ</h2>
+    
+      
+      <h2 class="mt-4 taxonomy" id="tags-section">tags</h2>
       <nav class="tags_nav">
         <a href='http://localhost:1313/tags/%E5%82%99%E5%BF%98%E9%8C%B2/' class="post_tag button button_translucent" title="備忘録">
           備忘録
@@ -1103,7 +1114,7 @@
         
         <a href='http://localhost:1313/tags/neovim/' class="post_tag button button_translucent" title="neovim">
           NEOVIM
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
         </a>
         
         <a href='http://localhost:1313/tags/%E8%87%AA%E4%BD%9C%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/' class="post_tag button button_translucent" title="自作キーボード">
@@ -1195,7 +1206,7 @@
             </a>
             
             
-            <a href='http://localhost:1313/tags/neovim/' class=" post_tag button button_translucent" data-position=11 title="neovim">NEOVIM<span class="button_tally">11</span>
+            <a href='http://localhost:1313/tags/neovim/' class=" post_tag button button_translucent" data-position=12 title="neovim">NEOVIM<span class="button_tally">12</span>
             </a>
             
             
@@ -1355,7 +1366,7 @@
 
 <script type="text/javascript" src="http://localhost:1313/ja/js/bundle.74607dab278abe6851e215fd1d64bf933a1216370c29e6e47064a43bf2f6fda009fde4b152d3903f71b7f834dd5a8fc7d03416999edcd13a64f6b335e79482f4.js" integrity="sha512-dGB9qyeKvmhR4hX9HWS/kzoSFjcMKebkcGSkO/L2/aAJ/eSxUtOQP3G3&#43;DTdWo/H0DQWmZ7c0Tpk9rM155SC9A==" crossorigin="anonymous"></script>
 
-  <script src="http://localhost:1313/js/search.min.73cb82d8f274395dd220d6594053cd3d3d8ac8c97d874b5142a60b9744f3704d765551e0ade104d5803c66b731f5a7a00ac2cff33c8c9090ff8100169a3e2574.js"></script>
+  <script src="http://localhost:1313/js/search.min.9d5e38dcb73906849f3712f1758a587e9829a568aa586eae69d7684f6829a46c0084632567291f21ea3ee4a6b14ff0d9e1e6b2a4df73f2e419f4b5e0c30a4f04.js"></script>
 
   </body>
 </html>
