@@ -1,6 +1,6 @@
 ---
 # type: docs 
-date: '2025-04-20T14:51:17+09:00'
+date: '2025-04-26T14:51:17+09:00'
 draft: false
 title: ZSH の設定でつまずいたこと
 featured: false
