@@ -6,7 +6,7 @@ title: Windows on Arm の WSL2 で NixOS をインストールする方法
 featured: false
 comment: true
 toc: true
-tags: [neovim]
+tags: [WSL, NixOS]
 archives: 2025/04
 ---
 
