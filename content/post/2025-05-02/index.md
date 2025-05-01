@@ -1,6 +1,6 @@
 ---
 # type: docs 
-title: NixOS で特定のアプリだけ unstable 版や nightly 版を使う方法
+title: NixOS で Neovim の unstable 版や nightly 版を使う方法
 date: '2025-05-02T00:00:00+09:00'
 draft: false
 featured: false
