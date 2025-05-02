@@ -12,6 +12,8 @@ archives: 2025/05
 
 ## 前置き
 
+[Vim駅伝](https://vim-jp.org/ekiden/)2025-05-02の記事です。前回の記事は atusy さんの [Vimでステータスラインプラグインを遅延読み込みする | Atusy's blog](https://blog.atusy.net/2025/04/30/vim-ekiden-lazy-load-statusline-plugins/) でした。
+
 私は NixOS で使うアプリを「システム全体で使うもの」と「特定のユーザーだけが使うもの」に分けて管理しており、「システム全体で使うもの」は `configuration.nix` で管理して `nixos-rebuild` コマンドでインストールできるようにしています。
 
 システム全体で使えるようにしているアプリは「Git、ZSH、Neovim」で、私が使っている [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) の nixpkgs のバージョンは 24.11[^1] なので、`nixos-rebuild` でインストールできる Neovim は v0.10 になります[^2]。
