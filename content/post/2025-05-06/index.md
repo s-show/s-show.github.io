@@ -29,7 +29,7 @@ NixOS on WSL2 (Windows on ARM)
 
 ### Nix
 
-```zsh  {maxShownLines=-1}
+```zsh
 > nix-shell -p nix-info --run "nix-info -m"
  - system: `"aarch64-linux"`
  - host os: `Linux 5.15.167.4-microsoft-standard-WSL2, NixOS, 25.05 (Warbler), 25.05.20250503.f21e454`
@@ -60,6 +60,10 @@ zsh 5.9 (aarch64-unknown-linux-gnu)
 
 大まかな作業の流れは、暗号化したい API key を書き込んだファイルを sops 経由で作成し、ファイルを作成したら即座に age で暗号化し、暗号化したファイルを sops-nix による復号化を経由して NixOS で読み取るというものになります。
 
+なお、この作業では秘密鍵や API key などの機密情報を扱いますので、設定ファイルを Git で管理している場合、機密情報をどう管理するかが問題となります。この点は最後に説明しますが、重要な点を申し上げておくと、この作業で API key や秘密鍵を格納したファイルは Git の管理下におく必要がある、言い換えると `git add` でステージングできるようにしておく必要があります。
+
+理由は、この作業では Flakes で設定ファイルを取り扱いますが、Flakes は Git で管理していないファイルを取り扱えないため、機密情報を格納したファイルであっても Git で管理できる必要があるためです。言い換えると、機密情報を格納したファイルを `.gitignore` に列挙してはダメということです。私はこの点になかなか気付かず時間を溶かしてしまいました
+
 ## 必要なアプリなどのインストール
 
 必要なアプリなどは以下の3つです。
@@ -71,6 +75,8 @@ zsh 5.9 (aarch64-unknown-linux-gnu)
   - [sops-nix](https://github.com/Mic92/sops-nix)
 
 アプリの sops が前置きで紹介した Mozilla 財団開発の暗号化ファイルエディタで、モジュールの sops-nix は sops を NixOS に組込むためのモジュールです。また、age は、Go 言語で書かれたシンプルかつモダンな暗号化ツールです。
+
+なお、SSH キーから必要な鍵を生成する `ssh-to-pgp` というアプリもありますが、パスフレーズを設定した SSH キーから鍵を生成できないため、今回は使っていません。
 
 ### インストール
 
@@ -151,15 +157,6 @@ home.packages = with pkgs; [
 ```
 
 `flake.nix` を編集したら、`cd .dotfiles && sudo nixos-rebuild switch --flake .#zenbook --impure --show-trace` を実行して設定を反映させます。反映後は、念のために NixOS を再起動します。
-
-## .gitignore の設定
-
-設定ファイルを Git で管理している場合、秘密鍵や暗号化した API key を GitHub にプッシュしてしまう事態を避けるため、`.gitignore` を以下のとおり編集します。なお、Git 管理から除外するファイル名は、以下の説明のものに合わせています。
-
-```diff
-+ secrets.yaml
-+ sops/age/keys.txt
-```
 
 ## API key の暗号化
 
@@ -273,9 +270,38 @@ imports = [
 + };
 ```
 
-編集後は `home-manager switch .` を実行して設定を反映させます。エラーが出なければ Neovim を起動して `:!echo $OPENROUTER_API_KEY` を実行して環境変数が設定されているか確認します。上手く設定できていれば API key が表示されると思います。
+編集後は `home-manager switch .` を実行して設定を反映させます。エラーが出なければ NixOS を再起動します。再起動後にシェルで `echo $OPENROUTER_API_KEY` を実行して環境変数が設定されているか確認します。上手く設定できていれば API key が表示されると思います。
 
 なお、上記の説明では `home.nix` の設定を分割して適用していますが、最初は全部まとめて設定していました。しかし、何度試してもエラーになってしまうので、上記のとおり設定を分割して適用したところ上手くいきました。そのため、本記事では上記のとおり説明しています。
+
+## Git の設定
+
+設定ファイルを Git で管理している場合、暗号化した API key が格納されている `secrets.yaml` や、秘密鍵が格納されている `sops/age/keys.txt` を GitHub にプッシュしてしまう事態を避ける必要があります。
+
+しかし、これらのファイルを `.gitignore` に列挙することはできないのでどうしたものか悩んだのですが、とりあえず「プッシュするためにはコミットする必要があるので、コミットできないようにしてしまえば何とかなるだろう」と考えました。
+
+そこで、Git の pre-hook 機能を使って「指定した名前のファイルをコミットしようとしたらブロックする」という機能を追加しました。具体的には、`.git/hooks/pre-commit` に以下のスクリプトを書きました。
+
+```bash
+#!/usr/bin/env bash
+
+# コミットをブロックするファイルのリスト
+blocked_files="secrets.yaml keys.txt"
+
+# コミット対象のファイルを取得
+staged_files=$(git diff --cached --name-only)
+
+for file in $staged_files; do
+  for blocked_file in $blocked_files; do
+    if [ "$(basename $file)" = "$blocked_file" ]; then
+      echo "機密保持のため $blocked_file のコミットは禁止！"
+      exit 1
+    fi
+  done
+done
+```
+
+これで `secrets.yaml` や `keys.txt` をコミットしようとするとブロックできるようになりました。洗練された方法とは言い難いですが、機密情報をプッシュする事態は避けられるのでとりあえずヨシとしています。
 
 ## 参考情報
 
