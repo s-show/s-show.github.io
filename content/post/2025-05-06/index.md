@@ -11,6 +11,8 @@ archives: 2025/05
 codeMaxLines: 10
 ---
 
+{{< bsimage src="./eyecatch.png">}}
+
 ## 前置き
 
 Neovim に AI 機能を追加できるプラグインが複数登場していますので、その1つである [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) を使ってみようと思いました。
