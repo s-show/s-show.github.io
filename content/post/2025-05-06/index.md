@@ -48,21 +48,47 @@ NixOS on WSL2 (Windows on ARM)
 ```
 
 home-manager は、Flakes を利用してスタンドアロン型で導入しています。
-
 ### シェル
 
 ```zsh
 > zsh --version
 zsh 5.9 (aarch64-unknown-linux-gnu)
-``````
+```
+
+### その他
+
+[GitHub アカウントへの新しい SSH キーの追加](https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) で説明されている SSH キーの生成から GitHub アカウントへの SSH キーの追加までの作業を行っておく必要があるようです。と言いますのも、新しい環境でセットアップするために以下の手順を実施しても上手くいかなかったのですが、SSH キーの生成と追加を実施したらあっさりセットアップできましたので、理由不明ですが SSH キーの生成と追加は必要なようです。
+
+### ファイル構成
+
+```zsh
+# 本論と関係しないファイルは適宜省略しています
+.dotfiles
+├── .git
+│   ├── ...
+│   ├── hooks
+│   └── ...
+├── .gitignore
+├── .sops.yaml
+├── configuration.nix
+├── flake.lock
+├── flake.nix
+├── home
+│   ├── git-pre-commit
+│   └── zsh.nix
+├── home.nix
+├── secrets.yaml
+└── sops
+    └── age
+```
+
+
 
 ## 大まかな作業の流れ
 
 大まかな作業の流れは、暗号化したい API key を書き込んだファイルを sops 経由で作成し、ファイルを作成したら即座に age で暗号化し、暗号化したファイルを sops-nix による復号化を経由して NixOS で読み取るというものになります。
 
-なお、この作業では秘密鍵や API key などの機密情報を扱いますので、設定ファイルを Git で管理している場合、機密情報をどう管理するかが問題となります。この点は最後に説明しますが、重要な点を申し上げておくと、この作業で API key や秘密鍵を格納したファイルは Git の管理下におく必要がある、言い換えると `git add` でステージングできるようにしておく必要があります。
-
-理由は、この作業では Flakes で設定ファイルを取り扱いますが、Flakes は Git で管理していないファイルを取り扱えないため、機密情報を格納したファイルであっても Git で管理できる必要があるためです。言い換えると、機密情報を格納したファイルを `.gitignore` に列挙してはダメということです。私はこの点になかなか気付かず時間を溶かしてしまいました
+なお、この作業では秘密鍵や API key などの機密情報を扱いますので、設定をGit 管理する場合は機密情報の取り扱いが問題となります。この点は最後に説明しますが、注意点を申し上げておくと、この作業で API key や秘密鍵を格納したファイルは `git add` でステージングできるようにする必要がある、言い換えると、`.gitignore` に追加してはダメということです。理由は、この作業では Flakes で設定ファイルを取り扱いますが、Flakes は Git で管理していないファイルを取り扱えないため、機密情報を格納したファイルであっても Git で管理できる必要があるためです。言い換えると、機密情報を格納したファイルを `.gitignore` に列挙してはダメということです。私はこの点になかなか気付かず時間を溶かしてしまいました
 
 ## 必要なアプリなどのインストール
 
@@ -80,7 +106,7 @@ zsh 5.9 (aarch64-unknown-linux-gnu)
 
 ### インストール
 
-まずアプリからインストールします。アプリは home-manager でインストールしますので、`home.nix` を以下のとおり編集してから `home-manager switch .` コマンドでインストールします。
+まずアプリからインストールします。アプリは home-manager でインストールしますので、`home.nix` を以下のとおり編集したら `git add .` してから `home-manager switch .` コマンドでインストールします。
 
 ```diff
 home.packages = with pkgs; [
@@ -156,7 +182,8 @@ home.packages = with pkgs; [
 }
 ```
 
-`flake.nix` を編集したら、`cd .dotfiles && sudo nixos-rebuild switch --flake .#zenbook --impure --show-trace` を実行して設定を反映させます。反映後は、念のために NixOS を再起動します。
+`flake.nix` を編集したら `git add .` してから `sudo nixos-rebuild switch --flake .#zenbook --impure --show-trace` で設定を反映させます。なお、[Windows on Arm の WSL2 で NixOS をインストールする方法 | 閑古鳥ブログ](./2025-04-20/index.html) で買いたとおり、私は1つの設定ファイルでデスクトップPCとノートPCを設定できるようにしているので、コマンド中にホスト名（`.#zenbook`）を指定していますが、そういうことをしていなければ `.#zenbook` は `.` になると思います。
+
 
 ## API key の暗号化
 
@@ -178,7 +205,6 @@ mkdir -p ~/.dotfiles/sops/age
 
 ```bash
 age-keygen -o ~/.dotfiles/sops/age/keys.txt
-# ここに公開鍵が表示される
 ```
 
 コマンド実行後に公開鍵が表示されますので、どこかにコピーしておきます。コピーし忘れたときは、`age-keygen -y ~/.dotfiles/sops/age/keys.txt` で確認できます。
@@ -210,9 +236,8 @@ nix-shell -p sops --run "sops secrets.yaml"
 ファイルが開いたら、環境変数の名前と API key を入力します。
 
 ```yaml
-# この段階では API key をそのまま入力して保存する 
-# 保存して閉じたら自動的に暗号化される
-OPENROUTER_API_KEY: '***'
+# API key を直接入力してから保存して閉じると自動的に暗号化される
+OPENROUTER_API_KEY: ***
 ```
 
 これで暗号化された API key が保存されました。
@@ -238,7 +263,7 @@ home.packages = with pkgs; [
 + ];
 ```
 
-編集したら `home-manager switch .` を実行して設定を反映させます。エラーが出なければ次の編集に移ります。
+編集したら `git add .` してから `home-manager switch .` を実行して設定を反映させます。エラーが出なければ次の編集に移ります。
 
 ```diff
 sops = {
@@ -256,37 +281,33 @@ imports = [
 ];
 ```
 
-編集したら再び `home-manager switch .` を実行して設定を反映させます。エラーが出なければ次の編集に移ります。なお、私のシェルは ZSH なので、ZSH に合わせた設定になっています。
+編集したら再び `git add .` してから `home-manager switch .` を実行して設定を反映させます。エラーが出なければ `./home/zsh.nix` を編集します（ZSH の設定は `home.nix` から読み込む形にしています）。
 
 ```diff
-imports = [
-  inputs.sops-nix.homeManagerModules.sops
-];
-
 + programs.zsh = {
-+   initExtra = ''
++   initContent = ''
 +     export OPENROUTER_API_KEY=$(cat ${config.sops.secrets.OPENROUTER_API_KEY.path})
 +   '';
 + };
 ```
 
-編集後は `home-manager switch .` を実行して設定を反映させます。エラーが出なければ NixOS を再起動します。再起動後にシェルで `echo $OPENROUTER_API_KEY` を実行して環境変数が設定されているか確認します。上手く設定できていれば API key が表示されると思います。
+編集後は `git add .` してから `home-manager switch .` を実行して設定を反映させます。エラーが出なければ NixOS を再起動します。再起動後にシェルで `echo $OPENROUTER_API_KEY` を実行して環境変数が設定されているか確認します。上手く設定できていれば API key が表示されると思います。
 
-なお、上記の説明では `home.nix` の設定を分割して適用していますが、最初は全部まとめて設定していました。しかし、何度試してもエラーになってしまうので、上記のとおり設定を分割して適用したところ上手くいきました。そのため、本記事では上記のとおり説明しています。
+なお、上記の説明では `home.nix` の設定を細切れにして適用していますが、最初は全部まとめて設定していました。しかし、何度試してもエラーになってしまうので、上記のとおり分割して適用したところ上手くいきました。そのため、本記事では上記のとおり説明しています。
 
 ## Git の設定
 
 設定ファイルを Git で管理している場合、暗号化した API key が格納されている `secrets.yaml` や、秘密鍵が格納されている `sops/age/keys.txt` を GitHub にプッシュしてしまう事態を避ける必要があります。
 
-しかし、これらのファイルを `.gitignore` に列挙することはできないのでどうしたものか悩んだのですが、とりあえず「プッシュするためにはコミットする必要があるので、コミットできないようにしてしまえば何とかなるだろう」と考えました。
+しかし、これらのファイルを `.gitignore` に列挙して Git の追跡対象外にすると Flakes が認識しなくなって設定できなくるってしまいます。そこで色々悩んだのですが、とりあえず「プッシュするにはコミットする必要があるので、コミットできないようにすれば何とかなるだろう」と考えました。
 
-そこで、Git の pre-hook 機能を使って「指定した名前のファイルをコミットしようとしたらブロックする」という機能を追加しました。具体的には、`.git/hooks/pre-commit` に以下のスクリプトを書きました。
+そこで、Git の pre-hook 機能を使って「指定した名前のファイルをコミットしようとしたらブロックする」という機能を追加しました。その方法ですが、まず `./home/git-pre-commit` ファイルを作成して以下のスクリプトを書きました。
 
 ```bash
 #!/usr/bin/env bash
 
 # コミットをブロックするファイルのリスト
-blocked_files="secrets.yaml keys.txt"
+blocked_files="secrets.yaml keys.txt .sops.yaml"
 
 # コミット対象のファイルを取得
 staged_files=$(git diff --cached --name-only)
@@ -301,7 +322,18 @@ for file in $staged_files; do
 done
 ```
 
-これで `secrets.yaml` や `keys.txt` をコミットしようとするとブロックできるようになりました。洗練された方法とは言い難いですが、機密情報をプッシュする事態は避けられるのでとりあえずヨシとしています。
+それから、`chmod +x .dotfiles/home/git-pre-commit` でスクリプトに実行権限を付与してから、`./home/zsh.nix` に以下の設定を追加しました。
+
+```diff
+ programs.zsh = {
+   initContent = ''
+     export OPENROUTER_API_KEY=$(cat ${config.sops.secrets.OPENROUTER_API_KEY.path})
++    cp "${builtins.toString config.home.homeDirectory}/.dotfiles/home/git-pre-commit" "${builtins.toString config.home.homeDirectory}/.dotfiles/.git/hooks/pre-commit"
+   '';
+ };
+```
+
+これで ZSH 起動時にこのスクリプトが `./.git/hooks` ディレクトリに `pre-commit` というファイル名でコピーされ、`secrets.yaml` や `keys.txt` をコミットしようとするとブロックできるようになりました。洗練された方法とは言い難いですが、機密情報をプッシュする事態は避けられるのでとりあえずヨシとしています。
 
 ## 参考情報
 
