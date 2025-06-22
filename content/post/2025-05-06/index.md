@@ -3,15 +3,13 @@
 title: NixOS で API key を暗号化しつつ自動的に環境変数に設定する方法
 date: '2025-05-06T00:00:00+09:00'
 draft: false
-featured: false
+featureImage: '/images/2025-05-06/eyecatch.png' # Sets featured image on blog post.
 comment: true
 toc: true
 tags: [NixOS, home-manager]
 archives: 2025/05
 codeMaxLines: 10
 ---
-
-{{< bsimage src="./eyecatch.png">}}
 
 ## 前置き
 
