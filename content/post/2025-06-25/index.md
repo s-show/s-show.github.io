@@ -6,7 +6,7 @@ draft: false # Sets whether to render this page. Draft of true will not be rende
 toc: true
 usePageBundles: false # Set to true to group assets like images in the same folder as this post.
 featureImage: '/images/2025-06-25/eyecatch.png' # Sets featured image on blog post.
-featureImageAlt: 'eyecatch image' # Alternative text for featured image.
+featureImageAlt: 'バージョン違いのイメージ図' # Alternative text for featured image.
 figurePositionShow: true # Override global value for showing the figure label.
 tags: [NixOS, Flakes, home-manager, neovim]
 archives: 2025/06
@@ -21,7 +21,7 @@ Neovim のプラグインで古い Neovim での挙動を確認したいもの�
 
 ## 環境
 
-本記事を執筆した 2025年6月23日時点のものです。
+本記事を執筆した 2025年6月24日時点のものです。
 
 ### OS
 
@@ -36,18 +36,19 @@ Linux desktop 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2
 
 ```zsh
 > nix-shell -p nix-info --run "nix-info -m"
- - host os: `Linux 5.15.167.4-microsoft-standard-WSL2, NixOS, 25.11 (Xantusia), 25.11.20250529.3866ad9`
+ - system: `"x86_64-linux"`
+ - host os: `Linux 5.15.167.4-microsoft-standard-WSL2, NixOS, 25.11 (Xantusia), 25.11.20250620.076e8c6`
  - multi-user?: `yes`
  - sandbox: `yes`
  - version: `nix-env (Nix) 2.28.3`
  - channels(root): `"nixos-24.11, nixos-wsl"`
- - nixpkgs: `/nix/store/s7ga48spdagfm0j1rd740q52ih159g51-source``
+ - nixpkgs: `/nix/store/6nlilasx4qlnmxlcg0ydbpaz51xcm4s9-source`
+```
 
 ### home-manager
 
-```zsh
-> home-manager --version
-25.05-pre
+```
+home-manager -> stateVersion = "25.05"
 ```
 
 home-manager は NixOS のモジュールとして導入しています。
@@ -56,15 +57,15 @@ home-manager は NixOS のモジュールとして導入しています。
 
 ```zsh
 > zsh --version
-zsh 5.9 (aarch64-unknown-linux-gnu)
+zsh 5.9 (x86_64-pc-linux-gnu)
 ```
 
 ## 実際のコード
 
-今回インストールした Neovim は以下の3つで、`nvim` で Nightly 版を、`nvim-stable` で 0.11.1を、`nvim-0104` で 0.10.4を起動するように設定しています。
+今回インストールした Neovim は以下の3つで、`nvim` で Nightly 版を、`nvim-stable` で 0.11.2 を、`nvim-0104` で 0.10.4を起動するように設定しています。
 
 - version 0.10.4 (テストのためのバージョン)
-- version 0.11.1 (Nix の 25.05・Unstable 版のバージョン。以下「安定版」とする。)
+- version 0.11.2 (nixpkgs-unstable チャンネルにおける最新リリース版。以下「安定版」とする。)
 - version 0.12.0-nightly+b28bbee (Nightly 版)
 
 アプリは home-manager で管理していますので、`home.nix` に必要な設定を書いたら `git add home.nix` して `sudo nixos-rebuild switch --flake . --impure` を実行してインストールするのですが、Nightly 版を使うために `flake.nix` にも設定を書いています。 
@@ -110,6 +111,7 @@ zsh 5.9 (aarch64-unknown-linux-gnu)
 # home.nix
 { config, pkgs, lib, inputs, ... }:
 let
+  nixpkgs-stable = inputs.nixpkgs.legacyPackages.${pkgs.system};
   oldNixpkgs = import (builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/c5dd43934613ae0f8ff37c59f61c507c2e8f980d.tar.gz";
   }) {};
@@ -126,12 +128,12 @@ let
 
   neovim-sources = {
     v0104 = oldNixpkgs.neovim-unwrapped;
-    stable = inputs.nixpkgs.legacyPackages.${pkgs.system}.neovim-unwrapped;
+    stable = nixpkgs-stable.neovim-unwrapped;
     nightly = pkgs.neovim-unwrapped;
   };
  
-  neovim_0104 = pkgs.wrapNeovimUnstable neovim-sources.v0104 commonWrapperArgs;
-  neovim-stable = pkgs.wrapNeovimUnstable neovim-sources.stable commonWrapperArgs;
+  neovim_0104 = oldNixpkgs.wrapNeovimUnstable neovim-sources.v0104 commonWrapperArgs;
+  neovim-stable = nixpkgs-stable.wrapNeovimUnstable neovim-sources.stable commonWrapperArgs;
   neovim-nightly = pkgs.wrapNeovimUnstable neovim-sources.nightly commonWrapperArgs;
 
   nvim-stable-wrapper = pkgs.writeShellScriptBin "nvim-stable" ''
@@ -142,6 +144,7 @@ let
   '';
 in
 {
+  # Home Manager configuration
   home = {
     packages = with pkgs; [
       neovim-nightly
@@ -150,6 +153,7 @@ in
     ];
   };
 
+  # Neovim plugins
   programs.neovim.plugins = [
     pkgs.vimPlugins.nvim-treesitter.withAllGrammars
   ];
@@ -162,13 +166,22 @@ in
 
 ```Nix
 # home.nix
+nixpkgs-stable = inputs.nixpkgs.legacyPackages.${pkgs.system};
+```
+
+このコードは、`flake.nix` の `inputs` で指定した `nixpkgs-unstable` を参照するための変数です。毎回 inputs.nixpkgs.legacyPackages... と長く書くのを避けるために変数にしています。
+
+なお、`flake.nix` 内で `neovim-nightly-overlay` を適用していますが、この `nixpkgs-stable` は overlay が適用される前の素の `nixpkgs` を指します。`pkgs` が overlay 後のパッケージセットを指すのに対し、こちらは元の `inputs.nixpkgs` を指す、という使い分けです。
+
+```Nix
+# home.nix
 oldNixpkgs = import (builtins.fetchTarball {
   url = "https://github.com/NixOS/nixpkgs/archive/c5dd43934613ae0f8ff37c59f61c507c2e8f980d.tar.gz";
 }) {};
 ```
 このコードは、バージョン 0.10.4 の Neovim が含まれている Nixpkgs を取得するためのコードです。
 
-`flake.nix` で指定している Nixpkgs は "unstable" で、現在の "unstable" の Neovim は 0.11.2 なので、0.10.4 をインストールするには古い Nixpkgs が必要となります。そのため、`builtins.fetchTarball` 関数で 0.10.4 が含まれている古い Nixpkgs を取得しています。なお、URL にコミットハッシュを含めていますが、このハッシュは [Nix Package Versions](https://lazamar.co.uk/nix-versions/) で調べたものを指定しています。
+`flake.nix` で指定している Nixpkgs は "unstable" で、現在の "unstable" の Neovim は 0.11.2 なので、0.10.4 をインストールするには古い Nixpkgs が必要となります。そのため、`builtins.fetchTarball` 関数で 0.10.4 が含まれている古い Nixpkgs を取得しています。なお、URL にコミットハッシュを含めていますが、このハッシュは [Nix Package Versions](https://lazamar.co.uk/nix-versions/) で調べたものを指定しており、コードも同サイトで紹介されているものを元にしています。
 
 ```nix
 # home.nix
@@ -183,38 +196,44 @@ commonWrapperArgs = {
 };
 ```
 
-このコードは、Neovim をカスタマイズしてインストールする際のオプションを変数として指定しているものです。今回は3つのバージョンの Neovim をインストールしますが、3つとも同じオプションでセットアップしますので、同じコードを複数回書くのを防ぐために変数にしています。
+このコードは、Neovim をカスタマイズしてインストールする際のオプションを変数として指定しているものです。今回は3つのバージョンの Neovim をインストールしますが、3つとも同じオプションでカスタマイズしますので、同じコードを複数回書くのを防ぐために変数にしています。
 
 ```nix
 # home.nix
 neovim-sources = {
   v0104 = oldNixpkgs.neovim-unwrapped;
-  stable = inputs.nixpkgs.legacyPackages.${pkgs.system}.neovim-unwrapped;
+  stable = nixpkgs-stable.neovim-unwrapped;
   nightly = pkgs.neovim-unwrapped;
 };
 ```
 
 このコードは、今回インストールする3つのバージョンをどのパッケージから取得するのかを指定するものです。
 
-バージョン0.10.4は、1つ前のコードで取得した古いパッケージから取得しています。
-
-安定版は、`flake.nix` で指定している unstable 版のものを使うため、`inputs.nixpkgs.legacyPackages.${pkgs.system}.neovim-unwrapped` としています。`flake.nix` で `home-manager.extraSpecialArgs = { inherit inputs; };` としていますので、`home.nix` で `inputs.nixpkgs` とすれば `flake.nix` で指定しているものが使えます。
-
-なお、現在の unstable 版の Nixpkgs の Neovim は 0.11.2 ですが、私の unstable 版はそこまで追い付いていないので、ちょっとだけバージョンが違います。[^1]
-
-Nightly 版は、`flake.nix` の `nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlays.default ];` により `pkgs` が overlay されたものになっていますので、`pkgs.neovim-unwrapped;` とすれば OK です。
-
+<dl>
+  <dt>バージョン0.10.4</dt>
+  <dd>2つ前のコードで取得した古いパッケージ (<code>oldNixpkgs</code>) から取得しています。</dd>
+  <dt>安定版</dt>
+  <dd>
+    <code>flake.nix</code> の <code>inputs</code> で指定している unstable 版のものを使うため、<code>nixpkgs-stable.neovim-unwrapped</code> としています。<code>flake.nix</code> で <code>home-manager.extraSpecialArgs = { inherit inputs; };</code> としており、また、少し前の <code>nixpkgs-stable = inputs.nixpkgs.legacyPackages.${pkgs.system};</code> という設定により、<code>nixpkgs-stable</code> とすれば <code>flake.nix</code> で指定している Nixpkgs が使えます。
+  </dd>
+  <dt>Nightly 版</dt>
+  <dd>
+     <code>flake.nix</code> の <code>nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlays.default ];</code> により <code>pkgs</code> が overlay されたものになっていますので、<code>pkgs.neovim-unwrapped;</code> とすれば OK です。
+  </dd>
+</dl>
 
 ```nix
 # home.nix
-neovim_0104 = pkgs.wrapNeovimUnstable neovim-sources.v0104 commonWrapperArgs;
-neovim-stable = pkgs.wrapNeovimUnstable neovim-sources.stable commonWrapperArgs;
+neovim_0104 = oldNixpkgs.wrapNeovimUnstable neovim-sources.v0104 commonWrapperArgs;
+neovim-stable = nixpkgs-stable.wrapNeovimUnstable neovim-sources.stable commonWrapperArgs;
 neovim-nightly = pkgs.wrapNeovimUnstable neovim-sources.nightly commonWrapperArgs;
 ```
 
-このコードは、3つのバージョンそれぞれについて、`pkgs.wrapNeovimUnstable` 関数を使ってカスタマイズしているものです。
+このコードは、3つのバージョンそれぞれについて `wrapNeovimUnstable` 関数を使ってカスタマイズしているものです。私の場合、`LD_LIBRARY_PATH` を指定しないと動かないプラグインがありますので、`commonWrapperArgs` 変数を引数に渡して設定しています。
 
-私の場合、`LD_LIBRARY_PATH` を指定しないと動かないプラグインがありますので、`commonWrapperArgs` 変数を引数に渡して設定しています。
+ただ、3つのバージョンを同じ `pkgs` パッケージの `wrapNeovimUnstable` 関数でカスタマイズしようとすると `error: attribute 'teams' missing` というエラーになります。これは、`pkgs` の `wrapNeovimUnstable` は `teams` という属性があることを前提にしているのに、v0.10.4 の neovim-unwrapped には `teams` 属性が無いためです。
+
+そのため、__3つのバージョンそれぞれの取得元の Nixpkgs に含まれている wrapNeovimUnstable 関数を使用することで、バージョン間の互換性に起因するこのエラーを回避しています。__ これは、異なる世代のパッケージを混在させる際に重要なポイントかと思います。
 
 ```nix
 # home.nix
@@ -243,7 +262,7 @@ home = {
 
 このコードは、home-manager でインストールするアプリとして、これまで設定してきた3つのバージョンの Neovim を指定するものです。
 
-アプリの名前として指定している値のうち、Nightly 版は2つ上のコードブロックの `neovim-nightly = pkgs.wrapNeovimUnstable` を使っています。Stable 版は、1つ上のコードブロックの `nvim-stable-wrapper = pkgs.writeShellScriptBin` を、v0.10.4 は同じコードブロックの `nvim-0104-wrapper = writeShellScriptBin` を使います。
+アプリの名前として指定している値のうち、Nightly 版は2つ上のコードブロックの `neovim-nightly = pkgs.wrapNeovimUnstable` を使っています。安定版は、1つ上のコードブロックの `nvim-stable-wrapper = pkgs.writeShellScriptBin` を、v0.10.4 は同じコードブロックの `nvim-0104-wrapper = writeShellScriptBin` を使います。
 
 これで設定は完了ですので、`git add .` で `flake.nix` と `home.nix` をステージングしたら `sudo nixos-rebuild switch --flake . --impure --show-trace` を実行します。上手くいけば3つのバージョンの Neovim がインストールされるはずです。
 
@@ -317,4 +336,14 @@ home = {
 
 ややこしいですが、`inputs.nixpkgs` は "github:NixOS/nixpkgs/nixpkgs-unstable" で指定された Nixpkgs を使うもので、`pkgs` は overlay された後の Nixpkgs を使うものになります。
 
-[^1]: `nix flake update` で `flake.lock` をアップデートしてバージョンアップしようとしたところ、`error: attribute 'teams' missing` というエラーが出てアップデートできていません。
+### `teams` 属性について
+
+本文の
+
+> これは、`pkgs` の `wrapNeovimUnstable` は `teams` という属性があることを前提にしているのに、v0.10.4 の neovim-unwrapped には `teams` 属性が無いためです。
+
+に登場した `teams` 属性は、Nixpkgs の Issues の [Support for meta.teams #907](https://github.com/NixOS/nixos-search/issues/907) で `meta.maintainers` に代わるものとして導入したと紹介されています。
+
+導入された時期ですが、[check-meta: add a teams attribute](https://github.com/NixOS/nixpkgs/pull/394797) プルリクエストで追加されたようです。プルリクエストの時期（2025年4月21日）と Nixpkgs の Release タグの日付（2025年5月24日）を比較する限りでは、このプルリクエストが反映されたパッケージは 25.05 だと思います。
+
+`pkgs` は `nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";` をオーバーレイしたものですので、`teams` 属性が導入されており、`wrapNeovimUnstable` 関数もその前提で実装されているはずです。そのため、`teams` 属性導入前の Nixpkgs である v0.10.4 の neovim-unwrapped を `pkgs.wrapNeovimUnstable` でカスタマイズしようとしたらエラーになったものと思います。
