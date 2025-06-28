@@ -24,7 +24,7 @@ comment: true # Disable comment if false.
 なお、文字で読むだけでは実際の動作が想像しにくいかと思いますので、こちらに実際の動作の様子も掲載します。
 
 <video class="video-shortcode" preload="auto" controls>
-  <source src="https://github.com/s-show/s-show.github.io/raw/refs/heads/master/content/posts/2024-10-14/image/change_image.MP4">
+  <source src="https://github.com/s-show/s-show.github.io/raw/refs/heads/main/content/post/2025-06-29/images/demonstoration.mp4">
 </video>
 
 ## 実装の概要
