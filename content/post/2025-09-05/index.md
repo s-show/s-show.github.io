@@ -13,7 +13,9 @@ archives: 2025/09
 comment: true # Disable comment if false.
 ---
 
-本記事では、私が開発している [ft-mapper.nvim](https://github.com/s-show/ft-mapper.nvim) の改修中に発見したテクニックや、vim-jp コミュニティで共有された情報を備忘録としてまとめます。
+この記事は、[Vim 駅伝](https://vim-jp.org/ekiden/) の 2025-09-05 の記事です。前回の記事は Atusy さんの [モノリポだっていけちゃうdenols/ts_ls共存術（Neovim >= 0.11） | Atusy's blog](https://blog.atusy.net/2025/09/03/node-deno-decision-with-monorepo-support/) です。
+
+さて、本記事では、私が開発している [ft-mapper.nvim](https://github.com/s-show/ft-mapper.nvim) の改修中に発見したテクニックや、vim-jp コミュニティで共有された情報を備忘録としてまとめます。
 
 ## 現在のモードを取得する方法
 
