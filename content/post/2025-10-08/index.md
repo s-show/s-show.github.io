@@ -1,6 +1,6 @@
 ---
 title: Quickfix を Fuzzy Finder やバッファ管理などの UI として使う方法 # Title of the blog post.
-date: 2025-10-08T21:02:06+09:00 # Date of post creation.
+date: 2025-10-08T00:00:00+09:00 # Date of post creation.
 featured: false
 draft: false # Sets whether to render this page. Draft of true will not be rendered.
 toc: true
