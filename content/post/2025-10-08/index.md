@@ -13,6 +13,9 @@ archives: 2025/09
 comment: true # Disable comment if false.
 ---
 
+この記事は Vim 駅伝 の 2025/10/08 の記事です。
+前回の記事は mityu さんの[「Vim/Neovim で grep 前にディレクトリの確認を入れると便利」](https://zenn.dev/vim_jp/articles/vim-check-path-before-grep) でした。
+
 ## きっかけ
 
 Reddit から日に数回飛んでくる注目ポストのメールを見ていたところ、Vim の Quickfix と [fd](https://github.com/sharkdp/fd) と [fzf](https://github.com/junegunn/fzf) を組み合わせてプラグインなしで Fuzzy Finder の機能を実装するという取り組みが紹介されていました。
