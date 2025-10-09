@@ -9,11 +9,11 @@ featureImage: '' # Sets featured image on blog post.
 featureImageAlt: '' # Alternative text for featured image.
 figurePositionShow: true # Override global value for showing the figure label.
 tags: [Neovim]
-archives: 2025/09
+archives: 2025/10
 comment: true # Disable comment if false.
 ---
 
-この記事は Vim 駅伝 の 2025/10/08 の記事です。
+この記事は [Vim 駅伝](https://vim-jp.org/ekiden/) の 2025/10/08 の記事です。
 前回の記事は mityu さんの[「Vim/Neovim で grep 前にディレクトリの確認を入れると便利」](https://zenn.dev/vim_jp/articles/vim-check-path-before-grep) でした。
 
 ## きっかけ
