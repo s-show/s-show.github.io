@@ -14,7 +14,7 @@ comment: true # Disable comment if false.
 ---
 
 この記事は [Vim 駅伝](https://vim-jp.org/ekiden/) の 2025/10/10 の記事です。
-前回の記事は私の [Quickfix を Fuzzy Finder やバッファ管理などの UI として使う方法 | 閑古鳥ブログ](https://kankodori-blog.com/post/2025-10-08/) でした。
+前回の記事は、私の [Quickfix を Fuzzy Finder やバッファ管理などの UI として使う方法 | 閑古鳥ブログ](https://kankodori-blog.com/post/2025-10-08/) でした。
 
 ## 前置き
 
