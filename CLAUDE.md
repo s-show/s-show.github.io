@@ -102,7 +102,3 @@ Key fields in blog post frontmatter:
 - Date format: 2006-01-02 (YYYY-MM-DD)
 - Site has been running since 2016
 
-## Points to Note When Writing Articles
-
-When writing articles, please be sure to refer to @WRITING.md.
-Also, please select a few recent articles at random and do your best to imitate their writing style when creating your own.
