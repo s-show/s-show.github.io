@@ -16,6 +16,7 @@ archives: 2025/12
 > Zellij currently only supports the Sixel graphics format, so you will need a terminal that also supports Sixel.
 > Note that, Zellij's Sixel implementation is quite buggy and has serious performance issues at the moment, causing noticeable lagginess when quickly switching between images, and sometimes even image tearing or not working at all.
 > This situation won't improve until Zellij enhances its Sixel implementation or provides a passthrough mode. If the image is a stronger need to you, consider running Yazi outside of Zellij or using Überzug++:
+
 > (DeepL 翻訳)
 > Zellijは現在Sixelグラフィック形式のみをサポートしているため、Sixelをサポートする端末が必要です。 なお、ZellijのSixel実装は現時点でバグが多く、深刻なパフォーマンス問題を抱えています。画像の切り替えが速い場合に顕著な遅延が発生し、画像のティアリングや動作不能になることもあります。 この状況は、ZellijがSixel実装を強化するかパススルーモードを提供するまで改善されません。画像表示がより重要な要件である場合は、Zellij外でYaziを実行するか、Überzug++の使用をご検討ください：
 
