@@ -182,6 +182,8 @@ import { defineConfig } from "jsr:@yuki-yano/zeno";
 
 ### 補完設定の例
 
+2026/02/14 編集（`nb edit` の設定を変更）
+
 ```typescript
 import { defineConfig } from "jsr:@yuki-yano/zeno";
 
@@ -221,13 +223,13 @@ export default defineConfig(({ projectRoot, currentDirectory }) => ({
         "^nb e( .*)? $",
         "^nb edit( .*)? $",
       ],
-      sourceCommand: "nb ls --no-color | rg '^\\[[0-9]+\\]'",
+      sourceCommand: "nb env | grep NB_NOTEBOOK_PATH= | sed -e 's/NB_NOTEBOOK_PATH=//' | xargs -I {} fd -0 '.md' --base-directory {}",
       options: {
+        "--read0": true,
         "--ansi": true,
         "--prompt": "'nb edit > '",
-        "--preview": "echo {} | sed -E 's/^\\[([0-9]+)\\].*/\\1/' | xargs nb show"
+        "--preview": "echo {} | xargs -0 nb show"
       },
-      callback: "sed -E 's/^\\[([0-9]+)\\].*/\\1/'"
     },
     {
       name: "npm scripts",
