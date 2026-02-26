@@ -1,6 +1,6 @@
 ---
 title: "ddu.vim を再び活用するために実行したこと" # Title of the blog post.
-date: 2026-02-05T22:15:38+09:00 # Date of post creation.
+date: 2026-02-25T22:15:38+09:00 # Date of post creation.
 featured: false
 draft: false
 comment: true
@@ -8,6 +8,10 @@ toc: false
 tags: [neovim]
 archives: 2026/2
 ---
+
+--2026-02-26 追記--
+
+コメントで [ddu.vim](https://github.com/Shougo/ddu.vim) の作者の Shougo 氏から指摘を頂きましたので、それを踏まえて記事を修正しています。修正箇所にはその旨を記載しています。
 
 ## 前置き
 
@@ -121,34 +125,42 @@ vim.fn["ddu#custom#patch_local"]("smart", {
 
 ファイルリスト・バッファリスト・最近使ったファイルをまとめて表示すると、同じファイルが違うソースからのアイテムとして重複表示されることがあります。
 
-Lazy.nvim では重複表示されないので同様にフィタリングしようとしたものの、まず、既存のマッチャーに重複したアイテムを削除するものはありませんでした。また、重複を取り除くには複数のソースのアイテムを合体してから処理する必要があるものの、`matchers` で指定したマッチャーはソース毎に適用されるので、別の方法を探すことにしました。
+-- 2026-02-26編集 --
 
-最初は「ファイルリスト・バッファリスト・最近使ったファイル」を重複を削除しつつまとめて取得できるソースを作りましたが、このソースを作ったことを Slack の vim-jp で報告したら、ddu.vim の作者の Shougo 氏から「`postFilters` を使えば複数のソースのアイテムを合体した後にマッチャーを適用できる」と教えてもらったので、作成したソースは早々にお蔵入りにした上で、重複するパスを除外するマッチャーを作成することにしました。
-
-完成したマッチャーは [s-show/ddu-filter-deduplicate\_path](https://github.com/s-show/ddu-filter-deduplicate_path) で、これを `postFilters` に設定すれば、3つのソースから取得したフィルタリング済みアイテムに追加のフィルタリングをかけて重複を削除できます。
+アイテムの重複を削除するには `ddu-option-unique` に `true` を設定します。
 
 ```lua
 vim.fn["ddu#custom#patch_local"]("smart", {
-  postFilters = {
-    'deduplicate_path',
-  }
+  unique = true,
 })
 ```
 
-なお、私はファイルリスト・バッファリスト・最近使ったファイルを編集日時の順番で並べたいので、[kuuote/ddu-filter-sorter\_mtime](https://github.com/kuuote/ddu-filter-sorter_mtime) を `postFilters` に追加しています。
+~~Lazy.nvim では重複表示されないので同様にフィタリングしようとしたものの、まず、既存のマッチャーに重複したアイテムを削除するものはありませんでした。また、重複を取り除くには複数のソースのアイテムを合体してから処理する必要があるものの、`matchers` で指定したマッチャーはソース毎に適用されるので、別の方法を探すことにしました。~~
 
-`postFilters` に指定したマッチャーは順番に適用されるので、こう設定すれば、`sorter_mtime` の処理が行われたアイテムリストが `deduplicate_path` に渡されて処理されることとなります。
+~~最初は「ファイルリスト・バッファリスト・最近使ったファイル」を重複を削除しつつまとめて取得できるソースを作りましたが、このソースを作ったことを Slack の vim-jp で報告したら、ddu.vim の作者の Shougo 氏から「`postFilters` を使えば複数のソースのアイテムを合体した後にマッチャーを適用できる」と教えてもらったので、作成したソースは早々にお蔵入りにした上で、重複するパスを除外するマッチャーを作成することにしました。~~
+
+~~完成したマッチャーは [s-show/ddu-filter-deduplicate\_path](https://github.com/s-show/ddu-filter-deduplicate_path) で、これを `postFilters` に設定すれば、3つのソースから取得したフィルタリング済みアイテムに追加のフィルタリングをかけて重複を削除できます。~~
+
+~~なお、私はファイルリスト・バッファリスト・最近使ったファイルを編集日時の順番で並べたいので、[kuuote/ddu-filter-sorter\_mtime](https://github.com/kuuote/ddu-filter-sorter_mtime) を `postFilters` に追加しています。~~
+
+なお、私はファイルリスト・バッファリスト・最近使ったファイルをひとまとめにしてから編集日時の順番で並べたいので、複数のソースのアイテムをひとまとめにした後に適用するマッチャーを指定するオプションの `postFilters` に [kuuote/ddu-filter-sorter\_mtime](https://github.com/kuuote/ddu-filter-sorter_mtime) を追加しています。
+
+~~`postFilters` に指定したマッチャーは順番に適用されるので、こう設定すれば、`sorter_mtime` の処理が行われたアイテムリストが `deduplicate_path` に渡されて処理されることとなります。~~
+
 
 ```lua
 vim.fn["ddu#custom#patch_local"]("smart", {
   postFilters = {
     'sorter_mtime',
-    'deduplicate_path',
   }
 })
 ```
 
-これでアイテムのリストを編集日時の順番で並べ替えてから重複を取り除く処理が可能になる。
+これでアイテムのリストから重複を排除しつつ編集日時の順番で並べ替えることができます。
+
+-- 編集終わり --
+
+~~これでアイテムのリストを編集日時の順番で並べ替えてから重複を取り除く処理が可能になる。~~
 
 ### キーバインド
 
@@ -330,23 +342,15 @@ end
 
 特定のソースを開いたときだけ有効にしたいキーバインドがあり、具体的には、コマンド履歴のソースである [matsui54/ddu-source-command\_history](https://github.com/matsui54/ddu-source-command_history) を開いたときだけ `dd` に履歴の削除を割り当てて、かつ、`e` に履歴を編集して実行する機能を割り当てるというものです。
 
-最初、この機能を実現するため、ddu.vim 本体や [Shougo/ddu-ui-ff](https://github.com/Shougo/ddu-ui-ff) で「今開いているソースを取得する方法」があるか調べたものの、見つからなかったのでグローバル変数を使って処理することにしました。
+~~最初、この機能を実現するため、ddu.vim 本体や [Shougo/ddu-ui-ff](https://github.com/Shougo/ddu-ui-ff) で「今開いているソースを取得する方法」があるか調べたものの、見つからなかったのでグローバル変数を使って処理することにしました。~~
+
+-- 2026-02-26編集 --
+
+「今開いているソース」は、`vim.fn["ddu#custom#get_current"]().name` で取得できますので、以下の設定で ddu-source-command_history を開いたときだけ有効になるキーバインドを設定できます。
+
+-- 編集終わり --
 
 ```lua
-Caller_source = ""
-vim.keymap.set('n', '<leader>gc', function()
-  vim.fn['ddu#start']({ name = 'cmdline-history' })
-  Caller_source = "cmdline-history"
-end)
-vim.keymap.set('n', '<leader>gf', function()
-  vim.fn['ddu#start']({ name = 'file_rec' })
-  Caller_source = "file_recursive"
-end)
-vim.keymap.set('n', '<leader>gm', function()
-  vim.fn['ddu#start']({ name = 'mr' })
-  Caller_source = "mr"
-end)
-
 vim.api.nvim_create_autocmd("FileType",
   {
     pattern = "ddu-ff",
@@ -355,7 +359,7 @@ vim.api.nvim_create_autocmd("FileType",
       vim.keymap.set("n", "<CR>", [[<Cmd>call ddu#ui#do_action("itemAction")<CR>]], { buffer = true })
       vim.keymap.set("n", "a", [[<Cmd>call ddu#ui#do_action('chooseAction')<CR>]], { buffer = true })
       vim.keymap.set("n", "i", [[<Cmd>call ddu#ui#do_action("openFilterWindow")<CR>]], { buffer = true })
-      if Caller_source == "cmdline-history" then
+      if vim.fn["ddu#custom#get_current"]().name == "command_history" then
         vim.keymap.set("n", "e", [[<Cmd>call ddu#ui#do_action("itemAction", {'name': 'edit'})<CR>]], { buffer = true })
         vim.keymap.set("n", "dd", [[<Cmd>call ddu#ui#do_action("itemAction", {'name': 'delete'})<CR>]], { buffer = true })
       end
@@ -364,35 +368,63 @@ vim.api.nvim_create_autocmd("FileType",
 )
 ```
 
+## ソース毎にデフォルトアクションを変える方法
+
+デフォルトアクションは `open` に設定しており、これでファイル関係などのソースには対応できるのですが、以下のソースは異なるデフォルトアクションを設定する必要があります。
+
+- command\_history: execute
+- source-source: execute
+- colorscheme: set
+
+ソース毎にデフォルトアクションを設定する場合、`ddu-source-option-defaultAction` に設定します。
+
+```lua
+vim.fn["ddu#custom#patch_local"]("colorscheme", {
+  sources = {
+    {
+      name = { "colorscheme" },
+    },
+  },
+  sourceOptions = {
+    colorscheme = {
+      defaultAction = "set"
+    }
+  }
+})
+```
+
+
 ## KindOptions の設定場所
 
-これはテクニックではなく気付いたことですが、ソースに応じた `kindOptions` を設定するため以下のとおり設定しても設定が反映されない場合があります。
+-- 2026-02-26全部削除 --
+
+~~これはテクニックではなく気付いたことですが、ソースに応じた `kindOptions` を設定するため以下のとおり設定しても設定が反映されない場合があります。~~
 
 ```lua
-vim.fn["ddu#custom#patch_local"]("source_name", {
-  kindOptions = {
-    source_name = {
-      defaultAction = "execute"
-    }
-  }
-})
+--vim.fn["ddu#custom#patch_local"]("source_name", {
+--  kindOptions = {
+--    source_name = {
+--      defaultAction = "execute"
+--    }
+--  }
+--})
 ```
 
-こうなる原因は不明ですが、対応策としては、`patch_local` に設定するのではなく `patch_global` に設定すればOKです。ソース名を指定することでソース特有の設定になるはずなので、`patch_global` に書いていても実質的には `patch_local` に書いているのと同じになるはずです。
+~~こうなる原因は不明ですが、対応策としては、`patch_local` に設定するのではなく `patch_global` に設定すればOKです。ソース名を指定することでソース特有の設定になるはずなので、`patch_global` に書いていても実質的には `patch_local` に書いているのと同じになるはずです。~~
 
 ```lua
-vim.fn["ddu#custom#patch_global"]({
-  kindOptions = {
-    source_name = {
-      defaultAction = "execute"
-    }
-  }
-})
+--vim.fn["ddu#custom#patch_global"]({
+--  kindOptions = {
+--    source_name = {
+--      defaultAction = "execute"
+--    }
+--  }
+--})
 ```
 
-この方法を採用しないと設定が反映されなかった source は以下のとおりです。他にもあるかもしれませんが、`patch_global` に設定している `defaultAction` をデフォルトアクションにしている source については調べていないので不明です。
+~~この方法を採用しないと設定が反映されなかった source は以下のとおりです。他にもあるかもしれませんが、`patch_global` に設定している `defaultAction` をデフォルトアクションにしている source については調べていないので不明です。~~
 
-- [4513ECHO/ddu-source-source: 📜 ddu source source for ddu.vim](https://github.com/4513ECHO/ddu-source-source)
-- [Shougo/ddu-source-action: Action source for ddu.vim](https://github.com/Shougo/ddu-source-action)
-- [4513ECHO/ddu-source-colorscheme: 🎨 Colorscheme source for ddu.vim](https://github.com/4513ECHO/ddu-source-colorscheme)
+- ~~[4513ECHO/ddu-source-source: 📜 ddu source source for ddu.vim](https://github.com/4513ECHO/ddu-source-source)~~
+- ~~[Shougo/ddu-source-action: Action source for ddu.vim](https://github.com/Shougo/ddu-source-action)~~
+- ~~[4513ECHO/ddu-source-colorscheme: 🎨 Colorscheme source for ddu.vim](https://github.com/4513ECHO/ddu-source-colorscheme)~~
 
