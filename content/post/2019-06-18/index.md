@@ -415,7 +415,82 @@ Return
 
 クリップボードを活用することで、選択した文字列を"("や"\["や"#"で囲むということも可能になる。なお、このコードだけ Gist から引っ張っている理由は、コードの「`Send,{{}`」の `{{}` が Hugo のビルド時に文法エラー扱いされてビルドが中断されるのを避けるため。
 
-{{< gist s-show 3077002eee1c266bc3cf7d835f5682bd >}}
+```
+/*
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Title: 選択した文字列を'('等で囲む
+Usage: 文字列を選択→ctrl-,を押す→続けて入力した文字で囲む
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+*/
+^,::
+  backup = ClipboardAll
+  Clipboard =
+  Send, ^c    
+  ClipWait, 1
+  imeStatus := IME_GET()
+
+  if ErrorLevel = 0
+
+  {
+    Input, inputText, I L1 T1,{Esc}, (,[,`{,',",``,-,_,=,`%,`#,`*, ,|
+    If ErrorLevel = Match
+    {
+      IME_SET(0)
+      If inputText = [
+      {
+        Send,{[}
+
+        Send,^v
+        Send,{]}
+        Sleep 200
+      } 
+      Else if inputText = (
+      {
+        Send,{(}
+        Send,^v
+        Send,{)}
+        Sleep 200
+      }
+      Else if inputText = {
+      {
+        Send,{{}
+        Send,^v
+
+        Send,{}}
+        Sleep 200
+      }
+      ;スペースは`=`による条件判定ができないため、変数の型で判定している。
+      Else if inputText is space
+      {
+        Send,{Space}
+        Send,^v
+        Send,{Space}
+        Sleep 200
+      }
+      ;`#`は個別に条件指定しないと動かない
+      Else if inputText = `#
+      {
+        Send,{`#}
+        Send,^v
+        Send,{`#}
+        Sleep 200
+      }
+      Else
+      {
+        Send,%inputText%
+        Send,^v
+        Send,%inputText%
+        Sleep 200
+      }
+
+    }
+  }
+
+  Clipboard = %backup%
+  IME_SET(imeStatus)
+  Return
+```
 
 8行目の`backup = ClipboardAll`は、その時点でクリップボードに格納されているデータを`backup`変数に退避させる処理である。`ClipboardAll`変数は組み込み変数で、クリップボードのデータを読み取る際に使用する。
 
