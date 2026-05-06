@@ -2,6 +2,7 @@
 title: "OS のキーボード配列が JIS キーボードの時の QMK Firmware の設定について"
 date: 2022-08-07T00:00:00+09:00
 draft: false
+tags: [キーボード, QMK]
 archives: 2022/08
 ---
 
