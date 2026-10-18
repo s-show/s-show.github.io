@@ -1,16 +1,15 @@
 ---
 title: "日本語入力を Skkeleton から Skkelua に変えてみました" # Title of the blog post.
 date: 2026-10-18T00:00:00+09:00 # Date of post creation.
-description: "Article description." # Description used for search engine.
 featured: true # Sets if post is a featured post, making appear on the home page side bar.
-draft: true # Sets whether to render this page. Draft of true will not be rendered.
+draft: false # Sets whether to render this page. Draft of true will not be rendered.
 toc: true # Controls if a table of contents should be generated for first-level links automatically.
 # menu: main
-usePageBundles: false # Set to true to group assets like images in the same folder as this post.
 tags:
   - neovim
   - skk
-# comment: false # Disable comment if false.
+comment: true # Disable comment if false.
+archives: 2026/10
 ---
 
 ## Skkelua とは？
