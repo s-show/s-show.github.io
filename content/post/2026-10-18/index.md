@@ -1,6 +1,6 @@
 ---
 title: "日本語入力を Skkeleton から Skkelua に変えてみました" # Title of the blog post.
-date: 2026-10-17T23:42:41+09:00 # Date of post creation.
+date: 2026-10-18T00:00:00+09:00 # Date of post creation.
 description: "Article description." # Description used for search engine.
 featured: true # Sets if post is a featured post, making appear on the home page side bar.
 draft: true # Sets whether to render this page. Draft of true will not be rendered.
