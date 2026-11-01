@@ -6,5 +6,6 @@ in
     packages = [
       pkgs.hugo
       pkgs.just
+      pkgs.dart-sass
     ];
   }
