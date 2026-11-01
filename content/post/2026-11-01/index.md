@@ -12,6 +12,9 @@ comment: true # Disable comment if false.
 archives: 2026/11
 ---
 
+この記事は[Vim 駅伝](https://vim-jp.org/ekiden/)の 2026-11-02 の記事です。
+Vim 駅伝は常に参加者を募集しています。詳しくは[こちらのページ](https://vim-jp.org/ekiden/about/)をご覧ください。
+
 ## 前置き
 
 Neovim の v0.13 で導入された dir という組込みプラグインをカスタマイズしようとしたところ、既存の組込みプラグインの Netrw と衝突するという事態に遭遇しました。
