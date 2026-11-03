@@ -46,7 +46,7 @@ dir プラグインは、Netrw から「ローカルのディレクトリを一�
 
 ## 実際の動作の様子
 
-{{< video src="https://github.com/s-show/s-show.github.io/blob/main/content/post/2026-11-03/images/dir_plugin_demo_video.mp4" type="video/webm" preload="auto" >}}
+{{< video src="images/dir_plugin_demo_video.mp4" type="video/mp4" preload="metadata" >}}
 
 ## カスタマイズの際にひっかかった問題
 
