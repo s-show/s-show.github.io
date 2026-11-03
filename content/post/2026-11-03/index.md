@@ -11,6 +11,9 @@ comment: true # Disable comment if false.
 archives: 2026/11
 ---
 
+この記事は[Vim駅伝](https://vim-jp.org/ekiden/)の 2026-11-04 の記事です。
+Vim駅伝は常に参加者を募集しています。詳しくは[こちらのページ](https://vim-jp.org/ekiden/about/)をご覧ください。
+
 ## 前置き
 
 Neovim のファイラーには [FylerOrg/fyler.nvim: A neovim file manager which can edit file system like a buffer with tree view](https://github.com/FylerOrg/fyler.nvim) を使ってきましたが、[Do we still need a File Explorer Plugin in Neovim 0.13? : r/neovim](https://www.reddit.com/r/neovim/comments/1wxmb3u/do_we_still_need_a_file_explorer_plugin_in_neovim/) で Neovim の v0.13 から組み込みのディレクトリビューワーが導入されたことを知りましたので、導入してみることにしました。
